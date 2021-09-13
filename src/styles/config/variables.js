@@ -5,6 +5,7 @@ export const Variables = () => {
       --txt-color: #374151;
       --white-color: #fff;
       --bg-1: #EDF2F7;
+      --eee-color: #eee;
     }
   `;
 };
