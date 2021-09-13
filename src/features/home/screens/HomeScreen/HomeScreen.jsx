@@ -16,6 +16,7 @@ import {
 const HomeScreen = () => {
   return (
     <div>
+      {/* slider  */}
       <Slider />
       <div className="container">
         <Majors />

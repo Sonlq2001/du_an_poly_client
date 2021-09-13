@@ -8,7 +8,6 @@ import ImageTravel from './../../../../assets/images/undraw_Travelers_re_y25a.pn
 
 import { ContentIntro, ContentWrap, ContentBox } from './majors.styles';
 import { TitleMain } from './../../../../styles/common/index';
-
 const Majors = () => {
   return (
     <ContentIntro>
