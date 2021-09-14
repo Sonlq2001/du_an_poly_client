@@ -2,6 +2,14 @@ import styled, { keyframes } from 'styled-components';
 
 export const WrapHeader = styled.header`
   height: 7rem;
+  box-shadow: 0 0 6rem rgb(0 0 0 / 12%);
+  border-bottom: 1px solid hsl(0deg 0% 93%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: var(--white-color);
 `;
 
 export const HeaderInner = styled.div`

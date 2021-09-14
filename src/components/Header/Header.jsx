@@ -4,6 +4,7 @@ import { BiLogIn } from 'react-icons/bi';
 import { FcSearch } from 'react-icons/fc';
 
 import {
+  WrapHeader,
   HeaderInner,
   HeaderLeft,
   HeaderMenu,
@@ -16,7 +17,7 @@ import LogoFpt from './../../assets/images/logo.png';
 
 const Header = () => {
   return (
-    <header>
+    <WrapHeader>
       <div className="container ">
         <HeaderInner>
           <HeaderLeft>
@@ -62,7 +63,7 @@ const Header = () => {
           </HeaderRight>
         </HeaderInner>
       </div>
-    </header>
+    </WrapHeader>
   );
 };
 

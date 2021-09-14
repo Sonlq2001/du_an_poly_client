@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Login = () => {
-  return <div>layout login</div>
-}
+  return <div>404 not found</div>;
+};
 
-export default Login
+export default Login;
