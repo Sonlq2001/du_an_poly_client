@@ -6,6 +6,8 @@ export const Variables = () => {
       --white-color: #fff;
       --bg-1: #EDF2F7;
       --eee-color: #eee;
+      --ddd-color: #ddd;
+      --aaa-color: #aaa;
     }
   `;
 };

@@ -7,3 +7,7 @@ export const TitleMain = styled.h3`
   text-transform: uppercase;
   color: var(--txt-color);
 `;
+
+export const WrapPage = styled.div`
+  margin-top: 7rem;
+`;
