@@ -8,6 +8,7 @@ import ImageTravel from './../../../../assets/images/undraw_Travelers_re_y25a.pn
 
 import { ContentIntro, ContentWrap, ContentBox } from './majors.styles';
 import { TitleMain } from './../../../../styles/common/index';
+import { Link } from 'react-router-dom';
 const Majors = () => {
   return (
     <ContentIntro>
@@ -15,22 +16,30 @@ const Majors = () => {
       <ContentWrap>
         <ContentBox>
           <img src={ImageDev} alt="" className="box-img" />
-          <div className="box-title">Công nghệ thông tin</div>
+          <div className="box-title">
+            <Link to="/category/1"> Công nghệ thông tin</Link>
+          </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageDesign} alt="" className="box-img" />
-          <div className="box-title">Thiết kế đồ họa</div>
+          <div className="box-title">
+            <Link to=""> Thiết kế đồ họa</Link>
+          </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageMarketing} alt="" className="box-img" />
-          <div className="box-title">Kinh tế kinh doanh</div>
+          <div className="box-title">
+            <Link to=""> Kinh tế kinh doanh</Link>
+          </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageBeauty} alt="" className="box-img" />
-          <div className="box-title">Thẩm mĩ làm đẹp</div>
+          <div className="box-title">
+            <Link to=""> Thẩm mĩ làm đẹp</Link>
+          </div>
         </ContentBox>
 
         <ContentBox>
