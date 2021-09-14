@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const AboutScreen = () => {
-  return <div>about page</div>
-}
+  return <div className="container">le quang son</div>;
+};
 
-export default AboutScreen
+export default AboutScreen;
