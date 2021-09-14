@@ -20,13 +20,15 @@ export const ContentBox = styled.div`
   .box-img {
     height: 150px;
   }
-
   .box-title {
     font-size: 1.7rem;
     line-height: 2.3rem;
   }
-
   .box-title:hover {
     color: var(--first-color);
+  }
+  & a {
+    text-decoration: none;
+    color: var(--second-color);
   }
 `;

@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import Login from '../layouts/Login/Login';
 
 const HomeScreen = lazy(() => import('./../screens/HomeScreen/HomeScreen'));
 
