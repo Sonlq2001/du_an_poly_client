@@ -8,7 +8,6 @@ const RouterWrap = ({ component: Component, layout, path }) => {
   const RouteLayout = layout || DefaultLayout;
   return (
     <Route
-      exact
       path={path}
       render={(props) => {
         const Content = () => {
@@ -26,11 +25,13 @@ const RouterWrap = ({ component: Component, layout, path }) => {
 
 const Routes = () => {
   return (
-    <Suspense loading={null} fallback={<Loading />}>
+    <Suspense fallback={<Loading />}>
       <Switch>
         {ROUTE_LIST.map((router) => {
-          return <RouterWrap key={router.id} {...router} />;
+          return <RouterWrap exact key={router.id} {...router} />;
         })}
+
+        {/* <Route path="*">page 404</Route> */}
       </Switch>
     </Suspense>
   );

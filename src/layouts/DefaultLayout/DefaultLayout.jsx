@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from './../../components/Header/Header';
 import Footer from './../../components/Footer/Footer';
+import { WrapPage } from './../../styles/common/index';
 
 const DefaultLayout = ({ children }) => {
   return (
     <div>
       <Header />
-      {children}
+      <WrapPage>{children}</WrapPage>
       <Footer />
     </div>
   );

@@ -54,7 +54,7 @@ const Header = () => {
                 <FcSearch />
               </span>
             </FormSearch>
-            <Link to="/" className="link-menu">
+            <Link to="/sign-in" className="link-menu">
               Login
               <span className="icon-login">
                 <BiLogIn />

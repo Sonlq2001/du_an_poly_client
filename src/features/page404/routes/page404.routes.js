@@ -1,8 +1,13 @@
 import { lazy } from 'react';
-const Page404 = lazy(() => import('../layout/Page404'));
-const PAGE40_SCEEN = {
-  id: 'id_page404',
+
+const Page404Screen = lazy(() => import('./../screens/Page404Screens'));
+const Layout404 = lazy(() => import('./../layouts/Layout404'));
+
+const PAGE404_SCREEN = {
+  id: 'id_page4040',
   path: '*',
-  layout: Page404,
+  component: Page404Screen,
+  layout: Layout404,
 };
-export const PAGE404_ROUTERS = [PAGE40_SCEEN];
+
+export const PAGE404_ROUTES = [PAGE404_SCREEN];
