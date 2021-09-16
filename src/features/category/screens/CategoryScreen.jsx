@@ -13,7 +13,6 @@ import {
 } from './CategoryScreen.styles';
 
 import CategoryControl from './../components/CategoryControl/CategoryControl';
-import { WrapPage } from './../../../styles/common/index';
 
 const CategoryScreen = () => {
   const array = [
@@ -73,7 +72,7 @@ const CategoryScreen = () => {
     },
   ];
   return (
-    <WrapPage>
+    <>
       <CategoryControl />
       <div className="container">
         <MasonryLayout>
@@ -112,7 +111,7 @@ const CategoryScreen = () => {
           })}
         </MasonryLayout>
       </div>
-    </WrapPage>
+    </>
   );
 };
 

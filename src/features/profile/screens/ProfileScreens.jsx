@@ -1,7 +1,6 @@
 import React from 'react';
-
 const ProfileScreens = () => {
-  return <div className="container">le quang son</div>;
+  return <div className="container">page profile</div>;
 };
 
 export default ProfileScreens;
