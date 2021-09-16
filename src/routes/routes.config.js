@@ -12,4 +12,5 @@ export const ROUTE_LIST = [
   ...PROFILE_ROUTES,
   ...ABOUT_ROUTES,
   ...PAGE404_ROUTES,
+  ...HOME_ROUTES,
 ];

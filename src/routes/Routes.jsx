@@ -4,10 +4,8 @@ import Loading from './../components/Loading/Loading';
 
 import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
-
 const RouterWrap = ({ component: Component, layout, path }) => {
   const RouteLayout = layout || DefaultLayout;
-
   return (
     <Route
       path={path}
