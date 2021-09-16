@@ -62,6 +62,15 @@ const CategoryScreen = () => {
     {
       path: 'https://cdn.pixabay.com/photo/2021/04/29/05/03/desert-6215514__480.jpg',
     },
+    {
+      path: 'https://cdn.pixabay.com/photo/2021/04/23/19/57/yorkshire-terrier-6202621__480.jpg',
+    },
+    {
+      path: 'https://cdn.pixabay.com/photo/2021/09/07/09/23/building-6603394__480.jpg',
+    },
+    {
+      path: 'https://cdn.pixabay.com/photo/2021/04/26/20/53/beachy-head-6209982__480.jpg',
+    },
   ];
   return (
     <WrapPage>
@@ -69,7 +78,6 @@ const CategoryScreen = () => {
       <div className="container">
         <MasonryLayout>
           {array.map((item, index) => {
-            console.log(item);
             return (
               <MasonryBox className="item" key={index}>
                 <MasonryHeader>

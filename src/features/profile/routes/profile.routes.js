@@ -1,8 +1,8 @@
 import { lazy } from 'react';
-const ProflieScreens = lazy(() => import('../screens/ProflieScreens'));
+const ProfileScreens = lazy(() => import('../screens/ProfileScreens'));
 const PROFILE_SCREEN = {
-  id: 'id_proflie',
-  path: '/proflie',
-  component: ProflieScreens,
+  id: 'id_profile',
+  path: '/profile',
+  component: ProfileScreens,
 };
 export const PROFILE_ROUTES = [PROFILE_SCREEN];
