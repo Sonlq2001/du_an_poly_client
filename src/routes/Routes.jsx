@@ -30,8 +30,6 @@ const Routes = () => {
         {ROUTE_LIST.map((router) => {
           return <RouterWrap exact key={router.id} {...router} />;
         })}
-
-        {/* <Route path="*">page 404</Route> */}
       </Switch>
     </Suspense>
   );
