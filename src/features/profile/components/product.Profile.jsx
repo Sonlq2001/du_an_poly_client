@@ -9,6 +9,8 @@ const Eye = styled(AiOutlineEye)`
   margin-right: 8px;
 `;
 const ProductProfile = () => {
+  const str = 'Website xây dựng bán hàng toàn quốc';
+  // cắt chuỗi khi chuỗi quá dài
   return (
     <ProductFile>
       <Title>Project</Title>
@@ -21,7 +23,7 @@ const ProductProfile = () => {
             />
           </div>
           <div className="contenPro">
-            <p className="title">Dự Án 1 </p>
+            <p className="title">{str.slice(0, 19) + '...'}</p>
             <p className="view">
               <span>
                 <Eye />
@@ -38,7 +40,7 @@ const ProductProfile = () => {
             />
           </div>
           <div className="contenPro">
-            <p className="title">Dự Án 1 </p>
+            <p className="title">{str.slice(0, 19) + '...'}</p>
             <p className="view">
               <span>
                 <Eye />
