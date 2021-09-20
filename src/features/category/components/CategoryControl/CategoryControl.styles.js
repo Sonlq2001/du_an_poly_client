@@ -72,8 +72,7 @@ export const GroupLinkFilter = styled.div`
 
 export const ButtonControlFilter = styled.button`
   &.active {
-    border-color: var(--first-color);
-    box-shadow: 0 0 0 4px rgba(242 111 33 / 10%);
+    background-color: var(--bg-2);
   }
 
   font-size: 1.4rem;
@@ -90,9 +89,8 @@ export const ButtonControlFilter = styled.button`
     margin-right: 3px;
   }
 
-  &:hover {
-    border-color: var(--first-color);
-    box-shadow: 0 0 0 4px rgba(242 111 33 / 10%);
+  &:active {
+    background-color: var(--bg-2);
   }
 `;
 
