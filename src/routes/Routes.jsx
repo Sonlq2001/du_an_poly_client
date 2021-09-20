@@ -4,10 +4,12 @@ import Loading from './../components/Loading/Loading';
 
 import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
-const RouterWrap = ({ component: Component, layout, path }) => {
+const RouterWrap = ({ component: Component, layout, path, exact }) => {
   const RouteLayout = layout || DefaultLayout;
+  const isExact = exact ? true : false;
   return (
     <Route
+      exact={isExact}
       path={path}
       render={(props) => {
         const Content = () => {
@@ -28,7 +30,7 @@ const Routes = () => {
     <Suspense fallback={<Loading />}>
       <Switch>
         {ROUTE_LIST.map((router) => {
-          return <RouterWrap exact key={router.id} {...router} />;
+          return <RouterWrap key={router.id} {...router} />;
         })}
       </Switch>
     </Suspense>

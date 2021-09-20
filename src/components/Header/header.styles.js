@@ -46,16 +46,38 @@ export const HeaderMenu = styled.ul`
   }
 `;
 
+export const SubMenu = styled.div`
+  position: absolute;
+  background-color: var(--white-color);
+  padding: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem 1rem;
+  width: 25rem;
+  opacity: 0;
+  visibility: hidden;
+  margin-top: 2rem;
+  transition: linear 0.3s;
+`;
+
 export const ItemMenuNew = styled.li`
   position: relative;
+
+  .link-disabled {
+    cursor: pointer;
+  }
+
+  &:hover ${SubMenu} {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0;
+  }
 `;
 
 const EffectBox = keyframes`
-  from {
-    opacity: 0.5,
-    color: blue;
+  from{
+    opacity: 1;
   }to{
-    opacity: 1,
+    opacity: 0.8;
   }
 `;
 
@@ -65,10 +87,38 @@ export const BoxNew = styled.span`
   color: var(--white-color);
   border-radius: 1rem;
   padding: 0 5px;
-  top: -8px;
+  right: -24px;
+  top: -13px;
 
   .text-new {
-    animation: ${EffectBox} 1s ease-in-out infinite;
+    animation: ${EffectBox} 0.5s ease-in-out infinite;
+    font-size: 9px;
+    font-weight: 500;
+  }
+`;
+
+export const SubMeuItem = styled.div`
+  .link-sub {
+    display: flex;
+    color: var(--txt-color);
+    font-size: 1.4rem;
+    padding: 1rem;
+    line-height: 2rem;
+    border-radius: 1rem;
+  }
+
+  .link-sub:hover {
+    background-color: var(--bg-1);
+  }
+
+  span:first-child {
+    font-size: 1.5rem;
+    transform: translateY(1px);
+  }
+
+  span:last-child {
+    display: inline-block;
+    margin-left: 1rem;
   }
 `;
 
