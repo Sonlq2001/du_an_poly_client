@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
-
+import { Link } from 'react-router-dom';
 import Slider from './../../../../components/Slider/Slider';
 import Majors from './../../components/Majors/Majors';
 import { TitleMain } from './../../../../styles/common/index';
@@ -49,7 +49,9 @@ const HomeScreen = () => {
                 alt=""
               />
               <GridContentItem>
-                <div className="item-title">Web phim cực phẩm</div>
+                <div className="item-title">
+                  <Link to="/product/1"> Web phim cực phẩm</Link>
+                </div>
                 <div className="item-view">
                   <span className="item-icon">
                     <AiOutlineEye />
