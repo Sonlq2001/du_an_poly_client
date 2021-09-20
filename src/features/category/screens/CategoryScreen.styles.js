@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const MasonryLayout = styled.div`
-  margin-top: 4rem;
   column-count: 4;
   column-gap: 1.5rem;
 `;
@@ -62,6 +61,11 @@ export const MasonryContent = styled.div`
   .content-title::first-letter {
     text-transform: uppercase;
   }
+
+  .content-object {
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
 `;
 
 export const MasonryAction = styled.div`
@@ -83,7 +87,7 @@ export const MasonryActionItem = styled.div`
 
   .icon-masonry {
     margin-right: 5px;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .icon-bookmark {

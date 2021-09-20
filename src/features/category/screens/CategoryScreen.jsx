@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { FiBookmark } from 'react-icons/fi';
 import { FaRegComment } from 'react-icons/fa';
-import { GiFallingStar } from 'react-icons/gi';
+import { AiOutlineStar } from 'react-icons/ai';
 import {
   MasonryLayout,
   MasonryBox,
@@ -15,6 +15,8 @@ import {
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 
 const CategoryScreen = () => {
+  const { path } = useRouteMatch();
+
   const array = [
     {
       path: 'https://cdn.pixabay.com/photo/2016/02/16/21/07/books-1204029__480.jpg',
@@ -75,41 +77,54 @@ const CategoryScreen = () => {
     <>
       <CategoryControl />
       <div className="container">
-        <MasonryLayout>
-          {array.map((item, index) => {
-            return (
-              <MasonryBox className="item" key={index}>
-                <MasonryHeader>
-                  <img src={item.path} alt="" />
-                </MasonryHeader>
-                <MasonryContent>
-                  <Link to="/" className="content-title">
-                    name project
-                  </Link>
-                  <MasonryAction>
-                    <MasonryActionItem>
-                      <span className="icon-masonry">
-                        <GiFallingStar />
-                      </span>
-                      <span>12</span>
-                    </MasonryActionItem>
-                    <MasonryActionItem>
-                      <span className="icon-masonry">
-                        <FaRegComment />
-                      </span>
-                      <span>15</span>
-                    </MasonryActionItem>
-                    <MasonryActionItem>
-                      <span className="icon-bookmark">
-                        <FiBookmark />
-                      </span>
-                    </MasonryActionItem>
-                  </MasonryAction>
-                </MasonryContent>
-              </MasonryBox>
-            );
-          })}
-        </MasonryLayout>
+        <Switch>
+          <Route exact path={path}>
+            <MasonryLayout>
+              {array.map((item, index) => {
+                return (
+                  <MasonryBox className="item" key={index}>
+                    <MasonryHeader>
+                      <img src={item.path} alt="" />
+                    </MasonryHeader>
+                    <MasonryContent>
+                      <Link to="/" className="content-title">
+                        name project
+                      </Link>
+                      <p className="content-object">
+                        Môn học: Thiết kế website
+                      </p>
+                      <MasonryAction>
+                        <MasonryActionItem>
+                          <span className="icon-masonry">
+                            <AiOutlineStar />
+                          </span>
+                          <span className="icon-masonry">
+                            <AiOutlineStar />
+                          </span>
+                          <span>12</span>
+                        </MasonryActionItem>
+                        <MasonryActionItem>
+                          <span className="icon-masonry">
+                            <FaRegComment />
+                          </span>
+                          <span>15</span>
+                        </MasonryActionItem>
+                        <MasonryActionItem>
+                          <span className="icon-bookmark">
+                            <FiBookmark />
+                          </span>
+                        </MasonryActionItem>
+                      </MasonryAction>
+                    </MasonryContent>
+                  </MasonryBox>
+                );
+              })}
+            </MasonryLayout>
+          </Route>
+          <Route path={`${path}/:id`}>
+            <MasonryBox>Hiển thị sản phẩm theo chuyên ngành</MasonryBox>
+          </Route>
+        </Switch>
       </div>
     </>
   );

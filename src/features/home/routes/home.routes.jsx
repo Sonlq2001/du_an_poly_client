@@ -6,6 +6,7 @@ const HOME_SCREEN = {
   id: 'id_home',
   path: '/',
   component: HomeScreen,
+  exact: true,
 };
 
 export const HOME_ROUTES = [HOME_SCREEN];
