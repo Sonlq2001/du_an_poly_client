@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineDoubleLeft } from 'react-icons/ai';
 export const HeaderProfile = styled.div`
   &.profile {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 2rem;
-    height: 160px;
+    /* height: 160px; */
     box-sizing: border-box;
   }
 `;
@@ -99,5 +99,31 @@ export const Product = styled.div`
     font-weight: 450;
     color: #374151;
     display: flex;
+  }
+`;
+export const Next = styled(AiOutlineDoubleLeft)`
+  transform: rotate(180deg);
+  color: #8a8383;
+`;
+export const Pew = styled(AiOutlineDoubleLeft)`
+  color: #8a8383;
+`;
+export const WaperPagi = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    padding: 5px 10px;
+    margin: 0px 5px;
+    border-radius: 5px;
+    color: #f1923e;
+    border: none;
+    box-shadow: 0px 0px 0px -4px;
+    font-size: 1.7rem;
+    font-weight: 550;
+  }
+  .activePaginamation {
+    background-color: #d8d4d4;
+    color: #7c7a7a;
   }
 `;
