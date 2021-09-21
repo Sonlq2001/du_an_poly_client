@@ -4,7 +4,7 @@ export const HeaderProfile = styled.div`
   &.profile {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 15px;
+    padding: 2rem;
     height: 160px;
     box-sizing: border-box;
   }
@@ -12,7 +12,7 @@ export const HeaderProfile = styled.div`
 export const Eye = styled(AiOutlineEye)`
   color: #ed8936;
   align-items: center;
-  font-size: 14px;
+  font-size: 1.4rem;
   margin-right: 8px;
 `;
 export const Avatar = styled.div`
