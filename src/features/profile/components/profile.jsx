@@ -1,6 +1,5 @@
 import React from 'react';
 import { HeaderProfile, Avatar, Information } from './style';
-import { Link } from 'react-router-dom';
 const Profile = () => {
   return (
     <HeaderProfile className="profile">
