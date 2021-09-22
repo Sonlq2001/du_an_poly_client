@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Select from 'react-select';
 import { MdDeleteForever } from 'react-icons/md';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { TiDelete } from 'react-icons/ti';
 export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;
@@ -11,6 +12,17 @@ export const Title = styled.h2`
   padding: ${(props) => props.padding || '0px'};
   font-size: 1.7rem;
   font-weight: ${(props) => props.fontWeight || '0'};
+`;
+export const TiDeletes = styled(TiDelete)`
+  position: absolute;
+  border: none;
+  background: #ffff;
+  color: red;
+  font-size: 2.2rem;
+  flex: right;
+  right: 0;
+  opacity: 0;
+  transition: 0.3s;
 `;
 export const HeaderFrom = styled.div`
   padding: 15px 0px;
@@ -54,6 +66,13 @@ export const HeaderFrom = styled.div`
     font-size: 1.5rem;
     padding: 8px 0px 0px 120px;
     font-weight: 550;
+    position: relative;
+    width: 500px;
+    cursor: pointer;
+  }
+
+  .fromGrup li:hover .tidelete {
+    opacity: 1;
   }
   .rigthForm {
     overflow: hidden;
