@@ -65,8 +65,13 @@ export const Product = styled.div`
   padding: 10px 0px;
   & .productItem {
     padding: 10px;
-    overflow: hidden;
     box-sizing: border-box;
+    border-radius: 5px;
+  }
+  .productImage {
+    height: 90%;
+    overflow: hidden;
+    border-radius: 5px;
   }
   & .productItem img {
     width: 100%;

@@ -17,6 +17,7 @@ const Profile = () => {
           <li>Chuyên ngành </li>
           <li>Link git </li>
           <li>Cv cá nhân </li>
+          <li>Facebook </li>
         </div>
         <div className="rigth">
           <li>Nguyễn Hữu Sơn </li>
@@ -31,6 +32,11 @@ const Profile = () => {
           <li>
             <a href="https://www.topcv.vn/cv-la-gi" target="_blank">
               https://www.topcv.vn/cv-la-gi
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/" target="_blank">
+              https://www.facebook.com/
             </a>
           </li>
         </div>
