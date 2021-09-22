@@ -7,6 +7,7 @@ import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
 const RouterWrap = ({ component: Component, layout, path, exact }) => {
   const RouteLayout = layout || DefaultLayout;
   const isExact = exact ? true : false;
+
   return (
     <Route
       exact={isExact}

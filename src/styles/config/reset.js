@@ -10,6 +10,7 @@ export const ResetCss = () => {
       font-size: 62.5%;
       font-family: 'Inter', sans-serif;
       line-height: 1.6rem;
+      color: var(--txt-color);
     }
 
     a{

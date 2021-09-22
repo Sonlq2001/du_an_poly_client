@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductFile, Title, Product } from './style';
 import styled from 'styled-components';
-import { AiFillEye, AiOutlineEye } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
 const Eye = styled(AiOutlineEye)`
   color: #ed8936;
   align-items: center;
