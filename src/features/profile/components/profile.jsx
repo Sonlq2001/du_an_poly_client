@@ -12,7 +12,10 @@ const Profile = () => {
       <Information className="information">
         <ul>
           <li>
-            <h3>Nguyễn Hữu Sơn</h3>{' '}
+            <h3>Nguyễn Hữu Sơn</h3>
+          </li>
+          <li>
+            <h3 className="Adress"> Lập trình website</h3>
           </li>
         </ul>
       </Information>

@@ -13,6 +13,8 @@ import {
   FaLinkedin,
 } from 'react-icons/fa';
 
+import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
+
 import {
   WrapDetail,
   ListCurrentImg,
@@ -274,6 +276,8 @@ const DetailScreen = () => {
                     </ItemComment>
                   </GroupComment>
                 </GroupFeedback>
+
+                <CarouselProduct />
               </div>
             </div>
             <div className="xl-4">

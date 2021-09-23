@@ -55,7 +55,7 @@ export const GroupMember = styled.div`
 `;
 
 export const LabelProject = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   white-space: nowrap;
   margin-right: 1rem;
   color: var(--first-color);

@@ -1,12 +1,15 @@
 export const LIST_SLIDE = [
   {
-    img: 'https://cdn.pixabay.com/photo/2021/04/28/08/16/flowers-6213351__480.jpg',
+    img: 'https://cdn.pixabay.com/photo/2019/11/19/22/24/watch-4638673__480.jpg',
   },
   {
-    img: 'https://cdn.pixabay.com/photo/2021/06/21/19/46/beach-6354498__480.jpg',
+    img: 'https://cdn.pixabay.com/photo/2016/01/19/01/42/library-1147815__480.jpg',
   },
   {
-    img: 'https://cdn.pixabay.com/photo/2021/07/24/01/42/zebra-dove-6488440__480.jpg',
+    img: 'https://cdn.pixabay.com/photo/2016/03/09/15/29/books-1246674__480.jpg',
+  },
+  {
+    img: 'https://cdn.pixabay.com/photo/2017/09/21/13/32/girl-2771936__480.jpg',
   },
 ];
 
@@ -33,5 +36,23 @@ export const LIST_TOOLS = [
   },
   {
     img: 'https://cuongteam.com/wp-content/uploads/2020/08/cuongteam-laravel.png',
+  },
+];
+
+export const LIST_CAROUSEL = [
+  {
+    img: 'https://cdn.pixabay.com/photo/2019/10/26/20/21/woman-4580283__480.jpg',
+  },
+  {
+    img: 'https://cdn.pixabay.com/photo/2018/01/23/10/38/book-3101151__480.jpg',
+  },
+  {
+    img: 'https://cdn.pixabay.com/photo/2016/10/30/05/43/school-1782427__480.jpg',
+  },
+  {
+    img: 'https://cdn.pixabay.com/photo/2018/09/04/10/27/learn-3653430__480.jpg',
+  },
+  {
+    img: 'https://cdn.pixabay.com/photo/2017/08/11/01/37/back-to-school-2629361__480.jpg',
   },
 ];
