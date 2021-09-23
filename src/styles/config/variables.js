@@ -12,6 +12,7 @@ export const Variables = () => {
       --bbb-color: #bbb;
       --ccc-color: #ccc;
       --gray1-color: #6e6d7a;
+      --pink-color: #fd397a;
     }
   `;
 };
