@@ -61,6 +61,7 @@ export const ProductFile = styled.div`
   }
 `;
 export const Title = styled.div`
+  font-size: 1.7rem;
   & button {
     font-size: 1.7rem;
     font-weight: 500;
