@@ -3,7 +3,7 @@ import { ProductFile, Title, Product, Eye } from './style';
 import { Link } from 'react-router-dom';
 
 const ProductProfile = () => {
-  const [toggle, isToggle] = useState(true);
+  // const [toggle, isToggle] = useState(true);
   const str = 'Website xây dựng bán hàng toàn quốc';
   // cắt chuỗi khi chuỗi quá dài
   return (
