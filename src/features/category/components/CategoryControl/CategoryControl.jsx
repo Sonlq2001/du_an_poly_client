@@ -107,7 +107,6 @@ const CategoryControl = () => {
               <input type="text" placeholder="" className="input-filter" />
             </div>
           </SearchAdvance>
-
           <SearchAdvance>
             <label htmlFor="" className="label-search">
               Kỳ học

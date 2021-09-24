@@ -5,19 +5,41 @@ const Profile = () => {
     <HeaderProfile className="profile">
       <Avatar className="avatar">
         <img
-          src="https://i.pinimg.com/474x/b8/d0/ca/b8d0ca1517e1159556efac1a89a7739d.jpg"
+          src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
           alt=""
         />
       </Avatar>
       <Information className="information">
-        <ul>
+        <div className="left">
+          <li>Họ và Tên </li>
+          <li>Email </li>
+          <li> Mssv </li>
+          <li>Chuyên ngành </li>
+          <li>Link git </li>
+          <li>Cv cá nhân </li>
+          <li>Facebook </li>
+        </div>
+        <div className="rigth">
+          <li>Nguyễn Hữu Sơn </li>
+          <li>Sonnhph12562@fpt.edu.vn </li>
+          <li> Ph12562 </li>
+          <li> Lập trình website </li>
           <li>
-            <h3>Nguyễn Hữu Sơn</h3>
+            <a href="https://github.com/" target="_blank">
+              https://github.com/
+            </a>
           </li>
           <li>
-            <h3 className="Adress"> Lập trình website</h3>
+            <a href="https://www.topcv.vn/cv-la-gi" target="_blank">
+              https://www.topcv.vn/cv-la-gi
+            </a>
           </li>
-        </ul>
+          <li>
+            <a href="https://www.facebook.com/" target="_blank">
+              https://www.facebook.com/
+            </a>
+          </li>
+        </div>
       </Information>
     </HeaderProfile>
   );
