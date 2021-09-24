@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderProfile, Avatar, Information } from './style';
+
 const Profile = () => {
   return (
     <HeaderProfile className="profile">
@@ -25,17 +26,29 @@ const Profile = () => {
           <li> Ph12562 </li>
           <li> Lập trình website </li>
           <li>
-            <a href="https://github.com/" target="_blank">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               https://github.com/
             </a>
           </li>
           <li>
-            <a href="https://www.topcv.vn/cv-la-gi" target="_blank">
+            <a
+              href="https://www.topcv.vn/cv-la-gi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               https://www.topcv.vn/cv-la-gi
             </a>
           </li>
           <li>
-            <a href="https://www.facebook.com/" target="_blank">
+            <a
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               https://www.facebook.com/
             </a>
           </li>

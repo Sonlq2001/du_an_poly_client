@@ -10,7 +10,7 @@ import {
   CKEditors,
   Button,
   TiDeletes,
-} from './style';
+} from './ProductAddScreen.styles';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { TiDelete } from 'react-icons/ti';
@@ -97,22 +97,18 @@ const AddProduct = () => {
               <div className="fromGrup">
                 <ul>
                   <li>
-                    {' '}
                     1 Nguyễn Hữu Sơn - Ph12562{' '}
                     <TiDeletes className="tidelete" onClick={tidelete} />
                   </li>
                   <li>
-                    {' '}
                     2 Nguyễn Hữu Sơn - Ph12562{' '}
                     <TiDeletes className="tidelete" />
                   </li>
                   <li>
-                    {' '}
                     3 Nguyễn Phương Thảo - Ph12562{' '}
                     <TiDeletes className="tidelete" />
                   </li>
                   <li>
-                    {' '}
                     4 Nguyễn Hữu Sơn - Ph12562{' '}
                     <TiDeletes className="tidelete" />
                   </li>
