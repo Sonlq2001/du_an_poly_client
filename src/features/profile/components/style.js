@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { AiOutlineEye, AiOutlineDoubleLeft } from 'react-icons/ai';
+import { BsChevronLeft } from 'react-icons/bs';
 export const HeaderProfile = styled.div`
   &.profile {
     display: grid;
@@ -83,30 +84,39 @@ export const Title = styled.div`
 `;
 export const Product = styled.div`
   box-sizing: border-box;
-
   padding: 10px 0px;
   & .productItem {
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
     border-radius: 5px;
+    margin-bottom: 1.2rem;
   }
   .productImage {
     height: 90%;
     overflow: hidden;
     border-radius: 5px;
+    position: relative;
+  }
+  & .productImage .overlay {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: #41343457;
+    width: 100%;
+    height: 100%;
+  }
+  & .productImage:hover .overlay {
+    opacity: 0;
+    transition: 0.5s;
   }
   & .productItem img {
-    overflow: hidden;
-    transform: scale(0.98);
     width: 100%;
     height: 230px;
-    overflow: hidden;
     border-radius: 5px;
-    transform: scale(0.98);
     transition: 1s;
-  }
-  & .productItem img:hover {
-    transform: scale(1.03);
+    overflow: hidden;
+    image-rendering: pixelated;
   }
   .productItem a {
     color: #374151;
@@ -114,7 +124,7 @@ export const Product = styled.div`
     cursor: pointer;
   }
   & .productItem:hover img {
-    transform: scale(1.02);
+    transform: scale(1.06);
     transition: 1.4s;
   }
   & .contenPro {
@@ -137,29 +147,46 @@ export const Product = styled.div`
     display: block;
   }
 `;
-export const Next = styled(AiOutlineDoubleLeft)`
+export const Next = styled(BsChevronLeft)`
   transform: rotate(180deg);
-  color: #8a8383;
+  font-size: 18px;
 `;
-export const Pew = styled(AiOutlineDoubleLeft)`
-  color: #8a8383;
+export const Pew = styled(BsChevronLeft)`
+  font-size: 18px;
 `;
 export const WaperPagi = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  button {
-    padding: 5px 10px;
-    margin: 0px 5px;
-    border-radius: 5px;
-    color: #f1923e;
-    border: none;
-    box-shadow: 0px 0px 0px -4px;
-    font-size: 1.7rem;
-    font-weight: 550;
+  margin-bottom: 4rem;
+  & ul {
+    display: flex;
+    justify-content: right;
+    align-items: right;
   }
-  .activePaginamation {
-    background-color: #d8d4d4;
-    color: #7c7a7a;
+  & ul li.icon {
+    padding: 6px 5px 0px 5px;
+    line-height: 20px;
+  }
+  & ul li :hover .icon {
+    background-color: #ffae3e;
+    color: var(--white-color) !important;
+  }
+  & ul li {
+    padding: 0px 11px;
+    margin: 0px 2.5px;
+    border-radius: 4px;
+    line-height: 28px;
+    cursor: pointer;
+    font-size: 1.4rem;
+  }
+  & ul li:hover {
+    background-color: ${(props) => (props.hidenHover ? '' : '#ffae3e')};
+    color: var(--white-color);
+  }
+  & ul li:hover.hidenHover {
+    background-color: var(--white-color);
+    color: black;
+  }
+  & ul li.activePaginamation {
+    background-color: #ffae3e;
+    color: var(--white-color);
   }
 `;

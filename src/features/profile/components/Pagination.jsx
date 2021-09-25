@@ -6,18 +6,21 @@ const Pagination = () => {
   return (
     <div className="container">
       <WaperPagi className="pagination">
-        <button>
-          <Pew />
-        </button>
-        <button className="activePaginamation">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>
-          <Next />
-        </button>
+        <ul>
+          <li className="icon">
+            <Pew />
+          </li>
+          <li className="activePaginamation">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li className="hidenHover">...</li>
+          <li>22</li>
+          <li className="icon">
+            <Next />
+          </li>
+        </ul>
       </WaperPagi>
     </div>
   );

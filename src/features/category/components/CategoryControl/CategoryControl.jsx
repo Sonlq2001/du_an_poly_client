@@ -3,7 +3,7 @@ import { NavLink, useRouteMatch } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
-import { IoIosArrowDown } from 'react-icons/io';
+import Select from 'react-select';
 
 import {
   WrapControl,
@@ -13,20 +13,18 @@ import {
   SearchAdvance,
   GroupLinkFilter,
   GroupFilterAdvance,
-  ButtonSelect,
-  GroupSelect,
-  GroupItemSelect,
+  CustomerSelect,
 } from './CategoryControl.styles';
 import {
-  LIST_SEMESTER,
+  LIST_OBJECT,
   LIST_CATEGORY,
+  LIST_TEACHER,
+  LIST_SORT,
 } from './../../constants/category.constants';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
   const [isToggle, setIsToggle] = useState(false);
-  const [isSelect, setIsSelect] = useState(false);
-  const [valueSelect, setValueSelect] = useState('Chọn theo kì học');
 
   const WrapCate = useRef(null);
   const handlePrev = () => {
@@ -43,6 +41,20 @@ const CategoryControl = () => {
     if (cateSlide.scrollLeft >= 0) {
       cateSlide.scrollLeft = cateSlide.offsetWidth;
     }
+  };
+
+  const customTheme = (theme) => {
+    console.log(theme);
+    return {
+      ...theme,
+      colors: {
+        ...theme.colors,
+        primary: '#f58f53',
+        primary25: '#DEEBFF',
+        primary50: '#B2D4FF',
+        primary75: '#4C9AFF',
+      },
+    };
   };
 
   return (
@@ -84,7 +96,6 @@ const CategoryControl = () => {
           <ButtonControlFilter
             onClick={() => {
               setIsToggle(!isToggle);
-              setIsSelect(false);
             }}
             className={`${isToggle ? 'active' : ''}`}
           >
@@ -98,7 +109,7 @@ const CategoryControl = () => {
         >
           <SearchAdvance>
             <label htmlFor="" className="label-search">
-              Sản phẩm
+              Tìm kiếm
             </label>
             <div className="input-group">
               <span className="input-group__icon">
@@ -109,37 +120,42 @@ const CategoryControl = () => {
           </SearchAdvance>
           <SearchAdvance>
             <label htmlFor="" className="label-search">
-              Kỳ học
+              Môn học
             </label>
-            <div></div>
-            <GroupSelect>
-              <ButtonSelect onClick={() => setIsSelect(!isSelect)}>
-                {valueSelect}
-                <span>
-                  <IoIosArrowDown
-                    className={`icon-select ${isSelect ? 'active' : ''}`}
-                  />
-                </span>
-              </ButtonSelect>
-              {isSelect && (
-                <GroupItemSelect>
-                  {LIST_SEMESTER.map((item) => (
-                    <div
-                      className={`item-select ${
-                        item.name === valueSelect ? 'active' : ''
-                      }`}
-                      key={item.name}
-                      onClick={() => {
-                        setValueSelect(item.name);
-                        setIsSelect(!isSelect);
-                      }}
-                    >
-                      {item.name}
-                    </div>
-                  ))}
-                </GroupItemSelect>
-              )}
-            </GroupSelect>
+            <CustomerSelect>
+              <Select
+                options={LIST_OBJECT}
+                placeholder="Tìm theo môn học"
+                theme={customTheme}
+              />
+            </CustomerSelect>
+          </SearchAdvance>
+
+          <SearchAdvance>
+            <label htmlFor="" className="label-search">
+              Giáo viên
+            </label>
+            <CustomerSelect>
+              <Select
+                options={LIST_TEACHER}
+                placeholder="Tìm theo giáo viên"
+                theme={customTheme}
+                noOptionsMessage="le quang son"
+              />
+            </CustomerSelect>
+          </SearchAdvance>
+
+          <SearchAdvance>
+            <label htmlFor="" className="label-search">
+              Xắp xếp
+            </label>
+            <CustomerSelect>
+              <Select
+                options={LIST_SORT}
+                placeholder="Xắp xếp theo"
+                theme={customTheme}
+              />
+            </CustomerSelect>
           </SearchAdvance>
         </GroupFilterAdvance>
       </div>

@@ -11,8 +11,8 @@ const ProductProfile = () => {
       <Product className="row">
         <div className="productItem col-3">
           <div className="productImage">
+            <div className="overlay"> </div>
             <Link to="/product/1">
-              {' '}
               <img
                 src="https://i.pinimg.com/originals/de/91/27/de91277cf048a4954346d2ab353291a9.png"
                 alt=""
@@ -33,6 +33,7 @@ const ProductProfile = () => {
         </div>
         <div className="productItem col-3">
           <div className="productImage">
+            <div className="overlay"> </div>
             <img
               src="https://i.pinimg.com/564x/25/99/9a/25999ad05b6a91e4a905a532b965c93c.jpg"
               alt=""
@@ -50,6 +51,7 @@ const ProductProfile = () => {
         </div>
         <div className="productItem col-3">
           <div className="productImage">
+            <div className="overlay"> </div>
             <img
               src="https://wiki.matbao.net/wp-content/uploads/2019/09/iframe-la-gi.png"
               alt=""
@@ -67,6 +69,7 @@ const ProductProfile = () => {
         </div>
         <div className="productItem col-3">
           <div className="productImage">
+            <div className="overlay"> </div>
             <img
               src="https://dsgc.edu.vn/wp-content/uploads/2019/08/123.jpg"
               alt=""
@@ -84,6 +87,7 @@ const ProductProfile = () => {
         </div>
         <div className="productItem col-3">
           <div className="productImage">
+            <div className="overlay"> </div>
             <img
               src="https://dsgc.edu.vn/wp-content/uploads/2019/08/123.jpg"
               alt=""
