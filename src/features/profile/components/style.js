@@ -83,30 +83,39 @@ export const Title = styled.div`
 `;
 export const Product = styled.div`
   box-sizing: border-box;
-
   padding: 10px 0px;
   & .productItem {
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
     border-radius: 5px;
+    margin-bottom: 1.2rem;
   }
   .productImage {
     height: 90%;
     overflow: hidden;
     border-radius: 5px;
+    position: relative;
+  }
+  & .productImage .overlay {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #41343457;
+    width: 100%;
+    height: 100%;
+  }
+  & .productImage:hover .overlay {
+    opacity: 0;
+    transition: 0.5s;
   }
   & .productItem img {
-    overflow: hidden;
-    transform: scale(0.98);
     width: 100%;
     height: 230px;
-    overflow: hidden;
     border-radius: 5px;
-    transform: scale(0.98);
     transition: 1s;
-  }
-  & .productItem img:hover {
-    transform: scale(1.03);
+    overflow: hidden;
+    image-rendering: pixelated;
   }
   .productItem a {
     color: #374151;
@@ -114,7 +123,7 @@ export const Product = styled.div`
     cursor: pointer;
   }
   & .productItem:hover img {
-    transform: scale(1.02);
+    transform: scale(1.06);
     transition: 1.4s;
   }
   & .contenPro {

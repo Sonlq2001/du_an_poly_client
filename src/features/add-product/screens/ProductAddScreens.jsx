@@ -7,11 +7,12 @@ import {
   DeleteIcon,
   Input,
   Editor,
-  CKEditors,
   Button,
   TiDeletes,
+  WrapCkeditor,
 } from './ProductAddScreen.styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 
 const AddProduct = () => {
   const test = [
@@ -152,7 +153,9 @@ const AddProduct = () => {
             <Title mota="left" padding="0px 0px 20px 0px" fontWeight="450">
               Mô tả
             </Title>
-            <CKEditors editor={ClassicEditor} />
+            <WrapCkeditor>
+              <CKEditor editor={ClassicEditor} />
+            </WrapCkeditor>
           </Editor>
           <Button className="button">
             <button type="submit" className="btn btn-primary">

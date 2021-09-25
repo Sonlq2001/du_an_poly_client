@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Select from 'react-select';
 import { MdDeleteForever } from 'react-icons/md';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 import { TiDelete } from 'react-icons/ti';
 export const WrapPage = styled.div`
   margin: auto;
@@ -171,19 +171,29 @@ export const Editor = styled.div`
   padding: 10px 0px;
   position: relative;
 `;
-export const CKEditors = styled(CKEditor)``;
+
 export const Button = styled.div`
   text-align: center;
   font-size: 1.8rem;
-  margin-top: 5px;
-  button {
+  margin: 2.5rem 0rem;
+  & button {
     padding: 10px;
     border-radius: 5px;
-    background-color: var(--green-color);
-    color: #ffff;
+    background-color: #2b649b;
+    color: var(--white-color);
     outline: none;
     font-size: 1.7rem;
     border: none;
     line-height: 2.4rem;
+  }
+  & button:hover {
+    transition: 1s;
+    background-color: #3f99ee;
+  }
+`;
+
+export const WrapCkeditor = styled.div`
+  & .ck-editor__editable {
+    height: 30rem;
   }
 `;
