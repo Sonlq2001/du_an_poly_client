@@ -11,9 +11,8 @@ import {
   Button,
   TiDeletes,
 } from './ProductAddScreen.styles';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { TiDelete } from 'react-icons/ti';
+
 const AddProduct = () => {
   const test = [
     { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
@@ -157,7 +156,6 @@ const AddProduct = () => {
           </Editor>
           <Button className="button">
             <button type="submit" className="btn btn-primary">
-              {' '}
               Thêm Sản Phẩm{' '}
             </button>
           </Button>

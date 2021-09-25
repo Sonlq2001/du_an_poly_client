@@ -8,6 +8,7 @@ export const WrapPage = styled.div`
   padding: 12px 0px 15px 0px;
 `;
 export const Title = styled.h2`
+  margin-top: 2.4rem;
   text-align: ${(props) => props.mota || 'center'};
   padding: ${(props) => props.padding || '0px'};
   font-size: 1.7rem;
@@ -174,13 +175,15 @@ export const CKEditors = styled(CKEditor)``;
 export const Button = styled.div`
   text-align: center;
   font-size: 1.8rem;
+  margin-top: 5px;
   button {
     padding: 10px;
     border-radius: 5px;
-    background-color: blue;
+    background-color: var(--green-color);
     color: #ffff;
     outline: none;
     font-size: 1.7rem;
     border: none;
+    line-height: 2.4rem;
   }
 `;
