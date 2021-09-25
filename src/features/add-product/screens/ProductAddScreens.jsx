@@ -7,13 +7,13 @@ import {
   DeleteIcon,
   Input,
   Editor,
-  CKEditors,
   Button,
   TiDeletes,
+  WrapCkeditor,
 } from './ProductAddScreen.styles';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { TiDelete } from 'react-icons/ti';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+
 const AddProduct = () => {
   const test = [
     { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
@@ -153,11 +153,12 @@ const AddProduct = () => {
             <Title mota="left" padding="0px 0px 20px 0px" fontWeight="450">
               Mô tả
             </Title>
-            <CKEditors editor={ClassicEditor} />
+            <WrapCkeditor>
+              <CKEditor editor={ClassicEditor} />
+            </WrapCkeditor>
           </Editor>
           <Button className="button">
             <button type="submit" className="btn btn-primary">
-              {' '}
               Thêm Sản Phẩm{' '}
             </button>
           </Button>
