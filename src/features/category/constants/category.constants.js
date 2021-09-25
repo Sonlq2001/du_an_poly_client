@@ -1,13 +1,3 @@
-export const LIST_SEMESTER = [
-  { name: 'Kỳ 1' },
-  { name: 'Kỳ 2' },
-  { name: 'Kỳ 3' },
-  { name: 'Kỳ 4' },
-  { name: 'Kỳ 5' },
-  { name: 'Kỳ 6' },
-  { name: 'Kỳ 7' },
-];
-
 export const LIST_CATEGORY = [
   { name: 'Công nghệ thông tin', param: 'cong-nghe-thong-tin' },
   { name: 'Kinh tế kinh doanh', param: 'kinh-te-kinh-doanh' },
@@ -18,4 +8,27 @@ export const LIST_CATEGORY = [
     name: 'Du lịch - khách sạn - nhà hàng',
     param: 'du-lich-khach-san-nha-hang',
   },
+];
+
+export const LIST_OBJECT = [
+  { value: '1', label: 'Lập trình JS nâng cao' },
+  { value: '2', label: 'Dự án 1' },
+  { value: '3', label: 'Đồ án tốt nghiệp' },
+  { value: '4', label: 'Lập trình PHP 3' },
+  { value: '5', label: 'Lập trình Java 1' },
+  { value: '6', label: 'HTML5 & CSS3' },
+];
+
+export const LIST_TEACHER = [
+  { value: '1', label: 'Trần Hữu Thiện' },
+  { value: '2', label: 'Lê Trọng Đạt' },
+  { value: '3', label: 'Đặng Thái Sơn' },
+  { value: '4', label: 'Tân Văn Sơn' },
+  { value: '5', label: 'Bùi Tuyết Mai' },
+];
+
+export const LIST_SORT = [
+  { value: '1', label: 'Mới nhất' },
+  { value: '2', label: 'Cũ nhất' },
+  { value: '3', label: 'Nhiều lượt xem nhất' },
 ];

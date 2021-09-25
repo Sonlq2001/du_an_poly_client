@@ -110,29 +110,6 @@ export const GroupFilterAdvance = styled.div`
   }
 `;
 
-export const ButtonSelect = styled.div`
-  padding: 1rem 1.8rem 1rem 2rem;
-  display: block;
-  background-color: var(--white-color);
-  border-radius: 5px;
-  font-size: 1.4rem;
-  cursor: pointer;
-  border: 1px solid var(--eee-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .icon-select {
-    font-size: 1.2rem;
-    color: var(--aaa-color);
-    transition: ease-in-out 0.2s;
-  }
-
-  .icon-select.active {
-    transform: rotate(180deg);
-  }
-`;
-
 export const SearchAdvance = styled.div`
   margin-bottom: 5px;
   width: 20rem;
@@ -156,8 +133,7 @@ export const SearchAdvance = styled.div`
     border: 1px solid var(--eee-color);
     padding: 1rem 1.5rem 1rem 4rem;
   }
-  .input-filter:hover,
-  ${ButtonSelect}:hover {
+  .input-filter:hover {
     border-color: var(--eee-color);
     box-shadow: 0 0 0 3px rgba(240 147 43 / 20%);
     background-color: transparent;
@@ -180,34 +156,10 @@ export const SearchAdvance = styled.div`
   }
 `;
 
-export const GroupSelect = styled.div`
-  position: relative;
-`;
-
-export const GroupItemSelect = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  background-color: var(--white-color);
-  border: 1px solid var(--eee-color);
-  z-index: 5;
-  border-radius: 5px;
-  margin-top: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-
-  .item-select {
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    font-size: 1.4rem;
-    color: var(--gray1-color);
-  }
-
-  .item-select.active {
-    color: var(--first-color);
-    font-weight: 500;
-  }
-
-  .item-select:hover {
-    background-color: var(--eee-color);
+export const CustomerSelect = styled.div`
+  .css-1uccc91-singleValue,
+  .css-26l3qy-menu,
+  .css-1wa3eu0-placeholder {
+    font-size: 1.3rem;
   }
 `;
