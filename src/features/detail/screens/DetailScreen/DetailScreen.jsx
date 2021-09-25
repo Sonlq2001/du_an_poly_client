@@ -50,6 +50,7 @@ import {
   LIST_TOOLS,
 } from './../../constants/detail.constants';
 import AvatarEmpty from './../../../../assets/images/user-empty.png';
+import RatingStar from './../../components/RatingStar/RatingStar';
 
 const DetailScreen = () => {
   const settings = {
@@ -86,6 +87,7 @@ const DetailScreen = () => {
               <TitleProject>
                 Đồ án tốt nghiệp website bán hàng mông công nghệ thông tin
               </TitleProject>
+              <RatingStar />
               <GroupMember>
                 <LabelProject>Thành viên nhóm: </LabelProject>
                 <div className="list-member">
