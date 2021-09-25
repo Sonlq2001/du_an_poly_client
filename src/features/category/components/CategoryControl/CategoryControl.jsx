@@ -44,7 +44,6 @@ const CategoryControl = () => {
   };
 
   const customTheme = (theme) => {
-    console.log(theme);
     return {
       ...theme,
       colors: {

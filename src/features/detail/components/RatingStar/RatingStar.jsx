@@ -12,11 +12,6 @@ const RatingStar = () => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = (value) => {
-    setHoverValue(value);
-    setCurrentValue(value);
-  };
-
   return (
     <BoxRating>
       <span className="title-rating">Đánh giá:</span>
@@ -27,7 +22,7 @@ const RatingStar = () => {
             (currentValue || hoverValue) > index ? 'active' : ''
           }`}
           onClick={() => handleClickStar(index + 1)}
-          onMouseOver={() => handleMouseOver(index + 1)}
+          onMouseOver={() => setHoverValue(index + 1)}
           onMouseLeave={() => setHoverValue(null)}
         >
           <AiTwotoneStar />
