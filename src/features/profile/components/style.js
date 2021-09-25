@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AiOutlineEye, AiOutlineDoubleLeft } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 export const HeaderProfile = styled.div`
   &.profile {
