@@ -159,7 +159,8 @@ export const SearchAdvance = styled.div`
 export const CustomerSelect = styled.div`
   .css-1uccc91-singleValue,
   .css-26l3qy-menu,
-  .css-1wa3eu0-placeholder {
+  .css-1wa3eu0-placeholder,
+  .css-b8ldur-Input {
     font-size: 1.3rem;
   }
 `;
