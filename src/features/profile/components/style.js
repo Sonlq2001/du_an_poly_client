@@ -155,7 +155,7 @@ export const Pew = styled(BsChevronLeft)`
   font-size: 18px;
 `;
 export const WaperPagi = styled.div`
-  padding-bottom: 2rem;
+  margin-bottom: 4rem;
   & ul {
     display: flex;
     justify-content: right;
@@ -170,7 +170,7 @@ export const WaperPagi = styled.div`
     color: var(--white-color) !important;
   }
   & ul li {
-    padding: 0px 10px;
+    padding: 0px 11px;
     margin: 0px 2.5px;
     border-radius: 4px;
     line-height: 28px;
