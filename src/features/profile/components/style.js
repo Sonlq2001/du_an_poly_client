@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AiOutlineEye, AiOutlineDoubleLeft } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 export const HeaderProfile = styled.div`
   &.profile {
@@ -69,16 +69,18 @@ export const Title = styled.div`
     background-color: #ffffff;
     padding: 2px 4px;
     border: none;
+    margin-right: 0.8rem;
+    border-radius: 3px;
   }
   & button:hover {
     color: orange;
   }
-  & .activeProfile {
+  & .active-tabs {
     border-bottom: 2px solid orange;
     color: orange;
   }
   & button:nth-child(2) {
-    padding-left: 10px;
+    padding-left: 4px;
     margin-left: 5px;
   }
 `;
@@ -102,13 +104,13 @@ export const Product = styled.div`
     z-index: 2;
     top: 0;
     left: 0;
-    background-color: #41343457;
+    background-color: #58555536;
     width: 100%;
     height: 100%;
   }
   & .productImage:hover .overlay {
     opacity: 0;
-    transition: 0.5s;
+    transition: 0.4s;
   }
   & .productItem img {
     width: 100%;
@@ -143,9 +145,6 @@ export const Product = styled.div`
     color: #374151;
     display: flex;
   }
-  &.abc {
-    display: block;
-  }
 `;
 export const Next = styled(BsChevronLeft)`
   transform: rotate(180deg);
@@ -155,7 +154,7 @@ export const Pew = styled(BsChevronLeft)`
   font-size: 18px;
 `;
 export const WaperPagi = styled.div`
-  margin-bottom: 4rem;
+  margin: 3rem 0rem;
   & ul {
     display: flex;
     justify-content: right;

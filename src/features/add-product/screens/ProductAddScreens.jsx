@@ -2,18 +2,23 @@ import React from 'react';
 import {
   WrapPage,
   Title,
-  HeaderFrom,
-  Selects,
-  DeleteIcon,
-  Input,
-  Editor,
-  Button,
-  TiDeletes,
-  WrapCkeditor,
+  Warform,
+  FromGroup,
+  BoxFile,
+  LisGroup,
+  GroupImage,
+  GroupHeaderImage,
+  ListImage,
+  BoxImage,
 } from './ProductAddScreen.styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-
+import { ValidatorProduct } from './Validator';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import Select from 'react-select';
+import { BsImageFill } from 'react-icons/bs';
+import { AiFillDelete } from 'react-icons/ai';
 const AddProduct = () => {
   const test = [
     { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
@@ -29,141 +34,141 @@ const AddProduct = () => {
     { id: 11, value: 'xin chào 11', label: 'xin chào 11' },
     { id: 12, value: 'xin chào 12', label: 'xin chào 12' },
   ];
-  const Xoa = () => {
-    console.log('xóa ok ');
-  };
-  const tidelete = () => {
-    console.log('xóa ở đây');
-  };
+
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
-      <div className="from">
+      <Warform>
+        <div>bên trái</div>
         <form action="">
-          <HeaderFrom>
-            <div className="from1">
-              <div className="fromGrup">
-                <label htmlFor=""> Tên Sản Phẩm </label>
-                <Input type="text" video="11px" placeholder="Tên Sản phẩm" />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="techear"> Giảng Viên </label>
-                <Selects
-                  className="select"
-                  //   loadOptions={test}
-                  options={test}
-                  placeholder="Giảng viên"
+          <FromGroup className="fromGroup">
+            <label htmlFor="name" className="label-title">
+              {' '}
+              Tên Sản phẩm{' '}
+            </label>
+            <input
+              type="text"
+              placeholder="Tên đề tài "
+              id="name"
+              className="filed-input"
+            />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="class" className="label-title">
+              {' '}
+              Lớp Học
+            </label>
+            <input
+              type="text"
+              placeholder="Lớp Học "
+              id="class"
+              className="filed-input"
+            />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="name" className="label-title">
+              {' '}
+              Link video
+            </label>
+            <input
+              type="text"
+              placeholder="Video  "
+              id="name"
+              className="filed-input"
+            />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
+              {' '}
+              Giảng viên{' '}
+            </label>
+            <Select options={test} placeholder="Giảng viên " id="teacher" />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
+              Kỳ Học
+            </label>
+            <Select options={test} placeholder="Giảng viên " id="teacher" />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
+              Subject id
+            </label>
+            <Select options={test} placeholder="Giảng viên " id="teacher" />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
+              Product id
+            </label>
+            <Select options={test} placeholder="Giảng viên " id="teacher" />
+          </FromGroup>
+
+          <FromGroup className="fromGroup">
+            <label htmlFor="document" className="label-title">
+              Tài Liệu
+            </label>
+            <BoxFile>
+              <label htmlFor="document" className="document">
+                Tài Liệu
+              </label>
+              <input
+                hidden
+                type="file"
+                placeholder="Video  "
+                id="document"
+                className="filed-input"
+              />
+            </BoxFile>
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
+              Thành viên
+            </label>
+            <Select options={test} placeholder="Giảng viên " id="teacher" />
+          </FromGroup>
+          <LisGroup className="listGrup" hidden>
+            <h4> Danh sách thành viên</h4>
+            <ul>
+              <li>Lê Quang Sơn - ph1205 </li>
+              <li>Nguyễn Hữu Sơn - ph1205 </li>
+              <li>Lê Phương Thảo - ph1205 </li>
+              <li>Lê Quang Sơn - ph1205 </li>
+            </ul>
+          </LisGroup>
+          <GroupImage>
+            <h4>Hình ảnh </h4>
+            <GroupHeaderImage>
+              <label htmlFor="image">
+                <span className="icon">
+                  <BsImageFill />
+                </span>{' '}
+                <span className="">
+                  <b> Upload a file</b> Không có tệp nào được chọn or drag and
+                  drop <br /> PNG, JPG, GIF up to 10MB
+                </span>
+              </label>
+              <input type="file" multiple id="image" hidden />
+            </GroupHeaderImage>
+            <ListImage>
+              <BoxImage>
+                <img
+                  src="https://cdn.pixabay.com/photo/2016/02/13/13/11/oldtimer-1197800_1280.jpg"
+                  alt=""
                 />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="techear"> Kỳ học </label>
-                <Selects
-                  className="select"
-                  //   loadOptions={test}
-                  options={test}
-                  placeholder="kỳ học"
-                />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="techear"> Subject id </label>
-                <Selects
-                  className="select"
-                  //   loadOptions={test}
-                  options={test}
-                  placeholder="Subject id"
-                />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="techear"> Product type id </label>
-                <Selects
-                  className="select"
-                  //   loadOptions={test}
-                  options={test}
-                  placeholder="Product type id"
-                />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="">Link video </label>
-                <Input type="text" video="42px" placeholder="Video" />
-              </div>
-              <div className="fromGrup">
-                <label htmlFor="techear"> Thành Viên </label>
-                <Selects
-                  className="select"
-                  options={test}
-                  placeholder=" Thành viên"
-                />
-              </div>
-              <div className="fromGrup">
-                <ul>
-                  <li>
-                    1 Nguyễn Hữu Sơn - Ph12562{' '}
-                    <TiDeletes className="tidelete" onClick={tidelete} />
-                  </li>
-                  <li>
-                    2 Nguyễn Hữu Sơn - Ph12562{' '}
-                    <TiDeletes className="tidelete" />
-                  </li>
-                  <li>
-                    3 Nguyễn Phương Thảo - Ph12562{' '}
-                    <TiDeletes className="tidelete" />
-                  </li>
-                  <li>
-                    4 Nguyễn Hữu Sơn - Ph12562{' '}
-                    <TiDeletes className="tidelete" />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="rigthForm">
-              <div className="fromGrup">
-                <div className="imageLable">
-                  <label htmlFor="fileImge">Chọn ảnh</label>
+                <div className="delete">
+                  <AiFillDelete />
                 </div>
-                <input
-                  type="file"
-                  hidden
-                  multiple
-                  id="fileImge"
-                  name="fileImge"
-                />
-              </div>
-              <div className="listImage">
-                <div className="box-item">
-                  <img
-                    src="https://images.pexels.com/photos/6253/city-street-typography-design.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt=""
-                  />
-                  <DeleteIcon className="deleteIcon" onClick={Xoa} />
-                </div>
-                <div className="box-item">2</div>
-                <div className="box-item">
-                  <img
-                    src="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                    alt=""
-                  />
-                  <DeleteIcon className="deleteIcon" onClick={Xoa} />
-                </div>
-                <div className="box-item">4</div>
-                <div className="box-item">5</div>
-              </div>
-            </div>
-          </HeaderFrom>
-          <Editor className="editor">
-            <Title mota="left" padding="0px 0px 20px 0px" fontWeight="450">
-              Mô tả
-            </Title>
-            <WrapCkeditor>
-              <CKEditor editor={ClassicEditor} />
-            </WrapCkeditor>
-          </Editor>
-          <Button className="button">
-            <button type="submit" className="btn btn-primary">
-              Thêm Sản Phẩm{' '}
-            </button>
-          </Button>
+              </BoxImage>
+              <BoxImage> 2</BoxImage>
+              <BoxImage> 3</BoxImage>
+              <BoxImage> 4</BoxImage>
+              <BoxImage> 5</BoxImage>
+              <BoxImage> 6</BoxImage>
+              <BoxImage> 7</BoxImage>
+            </ListImage>
+          </GroupImage>
         </form>
-      </div>
+      </Warform>
     </WrapPage>
   );
 };
