@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Pagination from '../components/Pagination';
 import ProductProfile from '../components/product.Profile';
 import Profile from '../components/profile';
 const WaperPage = styled.div`
@@ -12,7 +11,6 @@ const ProfileScreens = () => {
       <WaperPage className="profle">
         <Profile />
         <ProductProfile />
-        <Pagination />
       </WaperPage>
     </div>
   );

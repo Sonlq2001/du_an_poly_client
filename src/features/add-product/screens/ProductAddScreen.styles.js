@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Select from 'react-select';
-import { MdDeleteForever } from 'react-icons/md';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 import { TiDelete } from 'react-icons/ti';
 export const WrapPage = styled.div`
@@ -14,154 +14,150 @@ export const Title = styled.h2`
   font-size: 1.7rem;
   font-weight: ${(props) => props.fontWeight || '0'};
 `;
-export const TiDeletes = styled(TiDelete)`
-  position: absolute;
-  border: none;
-  background: #ffff;
-  color: red;
-  font-size: 2.2rem;
-  flex: right;
-  right: 0;
-  opacity: 0;
-  transition: 0.3s;
-`;
-export const HeaderFrom = styled.div`
-  padding: 15px 0px;
+export const Warform = styled.div`
+  padding-top: 4rem;
+  padding-bottom: 2.1rem;
+  max-width: 100%;
   display: grid;
-  grid-template-columns: 45% 54%;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1.5rem;
-  overflow: hidden;
+`;
+export const FromGroup = styled.div`
+  display: grid;
+  grid-template-columns: 20% 77%;
+  grid-gap: 1em;
+  margin-bottom: 1.3rem;
+  & input {
+    font-size: 15px;
+    font-weight: 350;
+    width: 100%;
+  }
+  & .label-title {
+    line-height: 3.6rem;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  & .filed-input {
+    padding: 10px 0px;
+    padding-left: 9px;
+    border-radius: 5px;
+    border: 1px solid #7d787878;
+    outline: none;
+  }
+  & .filed-input:focus {
+    border: 2px solid #0e7fe1;
+  }
+  & .css-1wa3eu0-placeholder,
+  .css-1uccc91-singleValue {
+    font-size: 14px;
+    font-weight: 550;
+  }
+  & .css-1okebmr-indicatorSeparator {
+    display: none;
+  }
+`;
+export const LisGroup = styled.div`
+  padding-left: 22%;
+  & h4 {
+    font-size: 13px;
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+  & li {
+    list-style-type: none;
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 12px;
+  }
+`;
+export const BoxFile = styled.div`
+  width: 100%;
+  height: 4rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #7d787878;
+  & .document {
+    width: 100%;
+    background-color: red;
+    display: inline-block;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--bg-2);
+    padding-top: 10px;
+    padding-left: 8px;
+    font-size: 14px;
+  }
+`;
+export const GroupImage = styled.div`
+  & h4 {
+    font-weight: 400;
+    font-size: 15px;
+    margin: 2px 0px 1.5rem 0px;
+  }
+`;
+export const GroupHeaderImage = styled.div`
+  width: 100%;
+  border: 2px dashed #7d787878;
+  border-radius: 5px;
+  padding: 2px;
 
-  .fromGrup {
+  & label {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
     padding: 10px 0px;
   }
-  .fromGrup input {
-    width: 74%;
-    padding: 5px;
-    font-size: 1.5rem;
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    box-shadow: 0px 0px 4px -1px #353535;
+  & .icon {
+    font-size: 30px;
+    display: block;
   }
-  .fromGrup input:focus {
-    border: 2px solid blue;
-  }
-  .fromGrup label {
-    margin-right: 10px;
-    font-size: 1.6rem;
-    line-height: 35px;
-  }
-  .fromGrup select {
-    box-shadow: 0px 0px 5px -1px #353535;
-    width: 60%;
-    padding: 3px;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-    overflow: hidden;
-  }
-  .fromGrup li {
-    list-style-type: none;
-    font-size: 1.5rem;
-    padding: 8px 0px 0px 120px;
-    font-weight: 550;
-    position: relative;
-    width: 500px;
-    cursor: pointer;
-  }
-
-  .fromGrup li:hover .tidelete {
-    opacity: 1;
-  }
-  .rigthForm {
-    overflow: hidden;
-    padding-left: 20px;
-    padding-right: 20px;
-    box-sizing: border-box;
-  }
-  .rigthForm .imageLable {
-    background-color: #fcf0f0;
-    width: 100%;
-    height: 45px;
-    box-shadow: 0px 0px 3.6px -1px #353535;
-    border-radius: 8px;
-    line-height: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-  .rigthForm .imageLable label {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #faf6f6;
-    text-align: center;
-    line-height: 45px;
-    font-weight: 600;
-  }
-  .rigthForm .listImage {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
-    box-sizing: border-box;
-  }
-  .rigthForm .listImage .box-item {
-    border: 1px dashed black;
-    width: 100%;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    overflow: hidden;
-    padding: 3px;
-    position: relative;
-  }
-  .rigthForm .listImage .box-item img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    image-rendering: pixelated;
-  }
-  .rigthForm .listImage .box-item:hover .deleteIcon {
-    opacity: 1;
-    transition: 1s;
+  & span {
+    font-weight: 400;
+    font-size: 13px;
   }
 `;
-export const Input = styled.input`
-  margin-left: ${(props) => props.video || '0px'};
-  height: 40px;
+export const ListImage = styled.div`
+  padding: 15px 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  box-sizing: border-box;
 `;
-export const DeleteIcon = styled(MdDeleteForever)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 30px;
-  color: var(--first-color);
-  z-index: 100;
-  opacity: 0;
-`;
-// compojnment select
-export const Selects = styled(Select)`
-  float: right;
-  font-size: 1.5rem;
-  width: 74%;
-  border: ${(props) => (props.erors ? '2px solid red' : 'none')};
-  outline: none !important;
+export const BoxImage = styled.div`
+  width: 100%;
   border-radius: 5px;
-  padding: 0px;
-  .css-yk16xz-control {
-    min-height: 28px;
+  border: 1px dotted black;
+  height: 115px;
+  overflow: hidden;
+  padding: 2px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+  & img {
+    width: 100%;
+    border-radius: 5px;
+    image-rendering: pixelated;
+    height: 100%;
   }
-  .css-yk16xz-control {
-    box-shadow: 0px 0px 2.8px -1px #353535;
+  & .delete {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 1px;
+    font-size: 27px;
+    color: red;
+    /* display: none; */
+    opacity: 0;
+    transition: ease-in 0.2s;
+    visibility: hidden;
   }
-  .css-g1d714-ValueContainer {
-    padding: 0px 8px;
-  }
-  .css-1okebmr-indicatorSeparator {
-    margin: 0px !important;
+  &:hover .delete {
+    opacity: 1;
+    visibility: visible;
   }
 `;
 // editor
