@@ -10,15 +10,13 @@ import {
   GroupHeaderImage,
   ListImage,
   BoxImage,
+  Button,
 } from './ProductAddScreen.styles';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ValidatorProduct } from './Validator';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+
 import Select from 'react-select';
 import { BsImageFill } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';
+import Editor from './../components/editor/Editor';
 const AddProduct = () => {
   const test = [
     { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
@@ -39,7 +37,6 @@ const AddProduct = () => {
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <Warform>
-        <div>bên trái</div>
         <form action="">
           <FromGroup className="fromGroup">
             <label htmlFor="name" className="label-title">
@@ -129,10 +126,30 @@ const AddProduct = () => {
           <LisGroup className="listGrup" hidden>
             <h4> Danh sách thành viên</h4>
             <ul>
-              <li>Lê Quang Sơn - ph1205 </li>
-              <li>Nguyễn Hữu Sơn - ph1205 </li>
-              <li>Lê Phương Thảo - ph1205 </li>
-              <li>Lê Quang Sơn - ph1205 </li>
+              <li>
+                Lê Quang Sơn - ph1205{' '}
+                <span>
+                  <AiFillDelete />
+                </span>
+              </li>
+              <li>
+                Nguyễn Hữu Sơn - ph1205{' '}
+                <span>
+                  <AiFillDelete />
+                </span>{' '}
+              </li>
+              <li>
+                Lê Phương Thảo - ph1205{' '}
+                <span>
+                  <AiFillDelete />
+                </span>{' '}
+              </li>
+              <li>
+                Lê Quang Sơn - ph1205{' '}
+                <span>
+                  <AiFillDelete />
+                </span>{' '}
+              </li>
             </ul>
           </LisGroup>
           <GroupImage>
@@ -168,7 +185,13 @@ const AddProduct = () => {
             </ListImage>
           </GroupImage>
         </form>
+        <div>
+          <Editor />
+        </div>
       </Warform>
+      <Button>
+        <button> Thêm Sản phẩm </button>
+      </Button>
     </WrapPage>
   );
 };

@@ -1,8 +1,4 @@
 import styled from 'styled-components';
-import Select from 'react-select';
-import { RiDeleteBin6Line } from 'react-icons/ri';
-
-import { TiDelete } from 'react-icons/ti';
 export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;
@@ -68,6 +64,22 @@ export const LisGroup = styled.div`
     padding-left: 10px;
     font-weight: 500;
     font-size: 12px;
+    max-width: 250px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    overflow: hidden;
+  }
+  & li span {
+    color: red;
+    font-size: 17px;
+    opacity: 0;
+    transition: all 0.3;
+    cursor: pointer;
+  }
+  & li:hover span {
+    /* display: block; */
+    opacity: 1;
   }
 `;
 export const BoxFile = styled.div`
