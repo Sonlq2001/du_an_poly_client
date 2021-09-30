@@ -32,3 +32,9 @@ export const LIST_SORT = [
   { value: '2', label: 'Cũ nhất' },
   { value: '3', label: 'Nhiều lượt xem nhất' },
 ];
+
+export const LIST_STATUS = [
+  { value: '1', label: 'All' },
+  { value: '2', label: 'Active' },
+  { value: '3', label: 'Inactive' },
+];

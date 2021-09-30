@@ -115,7 +115,7 @@ export const SearchAdvance = styled.div`
   width: 20rem;
 
   & + & {
-    margin-left: 5rem;
+    margin-left: 4rem;
   }
 
   .label-search {
