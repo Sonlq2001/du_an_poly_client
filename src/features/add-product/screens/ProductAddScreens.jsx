@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   WrapPage,
   Title,
@@ -17,6 +17,7 @@ import Select from 'react-select';
 import { BsImageFill } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';
 import Editor from './../components/editor/Editor';
+import ReviewProduct from '../components/Review/Review';
 const AddProduct = () => {
   const test = [
     { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
@@ -32,7 +33,7 @@ const AddProduct = () => {
     { id: 11, value: 'xin chào 11', label: 'xin chào 11' },
     { id: 12, value: 'xin chào 12', label: 'xin chào 12' },
   ];
-
+  const [show, setShow] = useState(false);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -76,9 +77,41 @@ const AddProduct = () => {
           </FromGroup>
           <FromGroup className="fromGroup">
             <label htmlFor="teacher" className="label-title">
+              Giảng Viên
+            </label>
+            <input
+              type="text"
+              id="class"
+              className="filed-input"
+              value="Trần Hữu Thiện "
+              disabled
+            />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="teacher" className="label-title">
               Subject id
             </label>
-            <Select options={test} placeholder="Giảng viên " id="teacher" />
+            <input
+              type="text"
+              placeholder="Lớp Học "
+              id="class"
+              className="filed-input"
+              value="Thiết kế website "
+              disabled
+            />
+          </FromGroup>
+          <FromGroup className="fromGroup">
+            <label htmlFor="kyhoc" className="label-title">
+              Kỳ Học
+            </label>
+            <input
+              type="text"
+              placeholder="Lớp Học "
+              id="kyhoc"
+              className="filed-input"
+              value="Fall 2021"
+              disabled
+            />
           </FromGroup>
           <FromGroup className="fromGroup">
             <label htmlFor="teacher" className="label-title">
@@ -108,7 +141,7 @@ const AddProduct = () => {
             <label htmlFor="teacher" className="label-title">
               Thành viên
             </label>
-            <Select options={test} placeholder="Giảng viên " id="teacher" />
+            <Select options={test} placeholder="Thành Viên " id="teacher" />
           </FromGroup>
           <LisGroup className="listGrup">
             <h4> Danh sách thành viên</h4>
@@ -177,8 +210,12 @@ const AddProduct = () => {
         </div>
       </Warform>
       <Button>
+        <button onClick={() => setShow(!show)} className="review">
+          Xem trước
+        </button>
         <button> Thêm Sản phẩm </button>
       </Button>
+      <ReviewProduct show={show} setShow={setShow}  />
     </WrapPage>
   );
 };

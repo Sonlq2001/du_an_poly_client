@@ -194,6 +194,9 @@ export const Button = styled.div`
     border: none;
     line-height: 2.4rem;
   }
+  & .review {
+    margin-right: 1.5rem;
+  }
   & button:hover {
     transition: 1s;
     background-color: #3f99ee;
