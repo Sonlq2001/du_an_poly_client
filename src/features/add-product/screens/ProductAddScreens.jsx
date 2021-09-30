@@ -76,19 +76,6 @@ const AddProduct = () => {
           </FromGroup>
           <FromGroup className="fromGroup">
             <label htmlFor="teacher" className="label-title">
-              {' '}
-              Giảng viên{' '}
-            </label>
-            <Select options={test} placeholder="Giảng viên " id="teacher" />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
-              Kỳ Học
-            </label>
-            <Select options={test} placeholder="Giảng viên " id="teacher" />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
               Subject id
             </label>
             <Select options={test} placeholder="Giảng viên " id="teacher" />
@@ -123,7 +110,7 @@ const AddProduct = () => {
             </label>
             <Select options={test} placeholder="Giảng viên " id="teacher" />
           </FromGroup>
-          <LisGroup className="listGrup" hidden>
+          <LisGroup className="listGrup">
             <h4> Danh sách thành viên</h4>
             <ul>
               <li>
