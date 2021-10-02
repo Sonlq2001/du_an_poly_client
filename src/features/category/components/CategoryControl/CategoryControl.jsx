@@ -20,6 +20,7 @@ import {
   LIST_CATEGORY,
   LIST_TEACHER,
   LIST_SORT,
+  LIST_STATUS,
 } from './../../constants/category.constants';
 
 const CategoryControl = () => {
@@ -114,7 +115,12 @@ const CategoryControl = () => {
               <span className="input-group__icon">
                 <CgSearch />
               </span>
-              <input type="text" placeholder="" className="input-filter" />
+              <input
+                type="text"
+                placeholder=""
+                className="input-filter"
+                placeholder="Tên sản phẩm, mã sinh viên..."
+              />
             </div>
           </SearchAdvance>
           <SearchAdvance>
@@ -140,6 +146,19 @@ const CategoryControl = () => {
                 placeholder="Tìm theo giáo viên"
                 theme={customTheme}
                 noOptionsMessage="le quang son"
+              />
+            </CustomerSelect>
+          </SearchAdvance>
+
+          <SearchAdvance>
+            <label htmlFor="" className="label-search">
+              Trạng Thái
+            </label>
+            <CustomerSelect>
+              <Select
+                options={LIST_STATUS}
+                placeholder="Trạng thái"
+                theme={customTheme}
               />
             </CustomerSelect>
           </SearchAdvance>
