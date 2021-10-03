@@ -7,23 +7,35 @@ export const SliderMain = styled.div`
 
 export const SliderItem = styled.div`
   width: 100%;
-  max-height: 505px;
+  height: 505px;
   position: relative;
 
   &::after {
     content: '';
     display: block;
-    width: 100%;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
     top: 0;
     left: 0;
+    bottom: 0;
+    right: 0;
   }
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .slick-slider {
+    line-height: 0;
+  }
+`;
+
+export const SearchMain = styled.div`
+  .container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 

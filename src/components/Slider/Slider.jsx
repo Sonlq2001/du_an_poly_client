@@ -1,6 +1,4 @@
 import React from 'react';
-// import '~slick-carousel/slick/slick.css';
-// import '~slick-carousel/slick/slick-theme.css';
 import { default as WrapSlider } from 'react-slick';
 import { HiOutlineSearch } from 'react-icons/hi';
 
@@ -9,6 +7,7 @@ import {
   SliderItem,
   GroupSearch,
   BoxTrending,
+  SearchMain,
 } from './Slider.styles';
 import ImageSlide1 from './../../assets/images/notebook-1.jpg';
 import ImageSlide2 from './../../assets/images/slide-2.jpg';
@@ -35,29 +34,33 @@ const Slider = () => {
         </SliderItem>
       </WrapSlider>
 
-      <GroupSearch>
-        <h2 className="title-search">
-          Tham khảo tài liệu sinh viên poly miễn phí
-        </h2>
-        <div className="box-search">
-          <input
-            type="text"
-            placeholder="Tìm kiếm tài liệu"
-            name=""
-            className="input-search"
-            id=""
-          />
-          <span className="icon-search">
-            <HiOutlineSearch />
-          </span>
+      <SearchMain>
+        <div className="container">
+          <GroupSearch>
+            <h2 className="title-search">
+              Tham khảo tài liệu sinh viên poly miễn phí
+            </h2>
+            <div className="box-search">
+              <input
+                type="text"
+                placeholder="Tìm kiếm tài liệu"
+                name=""
+                className="input-search"
+                id=""
+              />
+              <span className="icon-search">
+                <HiOutlineSearch />
+              </span>
+            </div>
+            <BoxTrending>
+              <span className="txt-popular">Tìm kiếm phổ biến:</span>
+              <span>
+                Đồ án tốt nghiệp công nghệ thông tin, tài liệu marketing...
+              </span>
+            </BoxTrending>
+          </GroupSearch>
         </div>
-        <BoxTrending>
-          <span className="txt-popular">Tìm kiếm phổ biến:</span>
-          <span>
-            Đồ án tốt nghiệp công nghệ thông tin, tài liệu marketing...
-          </span>
-        </BoxTrending>
-      </GroupSearch>
+      </SearchMain>
     </SliderMain>
   );
 };
