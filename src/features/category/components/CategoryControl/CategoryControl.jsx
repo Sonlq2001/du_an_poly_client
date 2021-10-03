@@ -117,7 +117,6 @@ const CategoryControl = () => {
               </span>
               <input
                 type="text"
-                placeholder=""
                 className="input-filter"
                 placeholder="Tên sản phẩm, mã sinh viên..."
               />

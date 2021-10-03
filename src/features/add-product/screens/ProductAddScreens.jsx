@@ -11,11 +11,6 @@ import {
   ListImage,
   BoxImage,
 } from './ProductAddScreen.styles';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ValidatorProduct } from './Validator';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { BsImageFill } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';

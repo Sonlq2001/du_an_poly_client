@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import Select from 'react-select';
-import { RiDeleteBin6Line } from 'react-icons/ri';
 
-import { TiDelete } from 'react-icons/ti';
 export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;
