@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { shape } from './Validator';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   WrapPage,
   Title,
@@ -10,7 +13,8 @@ import {
   GroupHeaderImage,
   ListImage,
   BoxImage,
-  Button,
+  From,
+  WapItem,
 } from './ProductAddScreen.styles';
 
 import Select from 'react-select';
@@ -34,188 +38,245 @@ const AddProduct = () => {
     { id: 12, value: 'xin chào 12', label: 'xin chào 12' },
   ];
   const [show, setShow] = useState(false);
+  const [FileName, SetFileName] = useState('');
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(shape) });
+  const AddProduct = (data) => {
+    console.log('ở đây', data);
+  };
+  useEffect(() => {
+    setValue('teacher', 'Trần hữu thiện', {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  }, []);
+  const ChangeDocument = (e) => {
+    SetFileName(e.target.files[0].name);
+    let test = e.target.files[0].name.split('.');
+    console.log('file đây ', test[1]);
+  };
+  const ChangImage = (e) => {
+    console.log(e.target.files);
+  };
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <Warform>
-        <form action="">
-          <FromGroup className="fromGroup">
-            <label htmlFor="name" className="label-title">
-              {' '}
-              Tên Sản phẩm{' '}
-            </label>
-            <input
-              type="text"
-              placeholder="Tên đề tài "
-              id="name"
-              className="filed-input"
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="class" className="label-title">
-              {' '}
-              Lớp Học
-            </label>
-            <input
-              type="text"
-              placeholder="Lớp Học "
-              id="class"
-              className="filed-input"
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="name" className="label-title">
-              {' '}
-              Link video
-            </label>
-            <input
-              type="text"
-              placeholder="Video  "
-              id="name"
-              className="filed-input"
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
-              Giảng Viên
-            </label>
-            <input
-              type="text"
-              id="class"
-              className="filed-input"
-              value="Trần Hữu Thiện "
-              disabled
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
-              Subject id
-            </label>
-            <input
-              type="text"
-              placeholder="Lớp Học "
-              id="class"
-              className="filed-input"
-              value="Thiết kế website "
-              disabled
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="kyhoc" className="label-title">
-              Kỳ Học
-            </label>
-            <input
-              type="text"
-              placeholder="Lớp Học "
-              id="kyhoc"
-              className="filed-input"
-              value="Fall 2021"
-              disabled
-            />
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
-              Product id
-            </label>
-            <Select options={test} placeholder="Giảng viên " id="teacher" />
-          </FromGroup>
-
-          <FromGroup className="fromGroup">
-            <label htmlFor="document" className="label-title">
-              Tài Liệu
-            </label>
-            <BoxFile>
-              <label htmlFor="document" className="document">
-                Tài Liệu
+        <From onSubmit={handleSubmit(AddProduct)}>
+          <WapItem>
+            <FromGroup className="fromGroup">
+              <label htmlFor="name" className="label-title ">
+                {' '}
+                Tên Sản phẩm{' '}
               </label>
               <input
-                hidden
-                type="file"
-                placeholder="Video  "
-                id="document"
-                className="filed-input"
+                type="text"
+                placeholder="Tên đề tài "
+                id="name"
+                className={errors.name ? 'filed-input error' : 'filed-input'}
+                {...register('name')}
               />
-            </BoxFile>
-          </FromGroup>
-          <FromGroup className="fromGroup">
-            <label htmlFor="teacher" className="label-title">
-              Thành viên
-            </label>
-            <Select options={test} placeholder="Thành Viên " id="teacher" />
-          </FromGroup>
-          <LisGroup className="listGrup">
-            <h4> Danh sách thành viên</h4>
-            <ul>
-              <li>
-                Lê Quang Sơn - ph1205{' '}
-                <span>
-                  <AiFillDelete />
-                </span>
-              </li>
-              <li>
-                Nguyễn Hữu Sơn - ph1205{' '}
-                <span>
-                  <AiFillDelete />
-                </span>{' '}
-              </li>
-              <li>
-                Lê Phương Thảo - ph1205{' '}
-                <span>
-                  <AiFillDelete />
-                </span>{' '}
-              </li>
-              <li>
-                Lê Quang Sơn - ph1205{' '}
-                <span>
-                  <AiFillDelete />
-                </span>{' '}
-              </li>
-            </ul>
-          </LisGroup>
-          <GroupImage>
-            <h4>Hình ảnh </h4>
-            <GroupHeaderImage>
-              <label htmlFor="image">
-                <span className="icon">
-                  <BsImageFill />
-                </span>{' '}
-                <span className="">
-                  <b> Upload a file</b> Không có tệp nào được chọn or drag and
-                  drop <br /> PNG, JPG, GIF up to 10MB
-                </span>
+              <span> {errors.name?.message}</span>
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="class" className="label-title">
+                Lớp Học
               </label>
-              <input type="file" multiple id="image" hidden />
-            </GroupHeaderImage>
-            <ListImage>
-              <BoxImage>
-                <img
-                  src="https://cdn.pixabay.com/photo/2016/02/13/13/11/oldtimer-1197800_1280.jpg"
-                  alt=""
+              <input
+                type="text"
+                placeholder="Lớp Học "
+                id="class"
+                className={errors.class ? 'filed-input error' : 'filed-input'}
+                {...register('class')}
+              />
+              <span> {errors.class?.message}</span>
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="video" className="label-title">
+                Video
+              </label>
+              <input
+                type="text"
+                placeholder="Link video  "
+                id="video"
+                className={errors.video ? 'filed-input error' : 'filed-input'}
+                {...register('video')}
+              />
+              <span> {errors.video?.message}</span>
+            </FromGroup>
+
+            <FromGroup className="fromGroup">
+              <label htmlFor="teacher" className="label-title">
+                Giảng Viên
+              </label>
+              <input
+                type="text"
+                id="class"
+                className="filed-input"
+                value="Trần Hữu Thiện "
+                setValue={setValue}
+                disabled
+                // {...register('teacher')}
+              />
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="sub" className="label-title">
+                Subject id
+              </label>
+              <input
+                type="text"
+                placeholder="Lớp Học "
+                id="class"
+                className="filed-input"
+                value="Thiết kế website "
+                disabled
+                className="filed-input"
+                {...register('subject_id')}
+              />
+              <span> {errors.subject_id?.message}</span>
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="kyhoc" className="label-title">
+                Kỳ Học
+              </label>
+              <input
+                type="text"
+                placeholder="Lớp Học "
+                id="kyhoc"
+                className="filed-input"
+                value="Fall 2021"
+                disabled
+              />
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="teacher" className="label-title">
+                Product id
+              </label>
+              <Select options={test} placeholder="Giảng viên " id="teacher" />
+            </FromGroup>
+
+            <FromGroup className="fromGroup">
+              <label htmlFor="document" className="label-title">
+                Tài Liệu
+              </label>
+              <BoxFile color={FileName ? 'orange' : ''}>
+                <label
+                  htmlFor="document"
+                  className={errors.document ? 'document error' : 'document'}
+                >
+                  {FileName ? FileName : 'Tài Liệu '}
+                </label>
+                <input
+                  hidden
+                  type="file"
+                  placeholder="Video  "
+                  id="document"
+                  className="filed-input"
+                  onChange={ChangeDocument}
+                  className={
+                    errors.document ? 'filed-input error' : 'filed-input'
+                  }
+                  // {...register('document')}
                 />
-                <div className="delete">
-                  <AiFillDelete />
-                </div>
-              </BoxImage>
-              <BoxImage> 2</BoxImage>
-              <BoxImage> 3</BoxImage>
-              <BoxImage> 4</BoxImage>
-              <BoxImage> 5</BoxImage>
-              <BoxImage> 6</BoxImage>
-              <BoxImage> 7</BoxImage>
-            </ListImage>
-          </GroupImage>
-        </form>
-        <div>
-          <Editor />
-        </div>
+              </BoxFile>
+              <span className={FileName ? 'hidden' : 'show'}>
+                {' '}
+                {errors.document?.message}
+              </span>
+            </FromGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="teacher" className="label-title">
+                Thành viên
+              </label>
+              <Select options={test} placeholder="Thành Viên " id="teacher" />
+            </FromGroup>
+            <LisGroup className="listGrup" hidden>
+              <h4> Danh sách thành viên</h4>
+              <ul>
+                <li>
+                  Lê Quang Sơn - ph1205{' '}
+                  <span>
+                    <AiFillDelete />
+                  </span>
+                </li>
+                <li>
+                  Nguyễn Hữu Sơn - ph1205{' '}
+                  <span>
+                    <AiFillDelete />
+                  </span>{' '}
+                </li>
+                <li>
+                  Lê Phương Thảo - ph1205{' '}
+                  <span>
+                    <AiFillDelete />
+                  </span>{' '}
+                </li>
+                <li>
+                  Lê Quang Sơn - ph1205{' '}
+                  <span>
+                    <AiFillDelete />
+                  </span>{' '}
+                </li>
+              </ul>
+            </LisGroup>
+            <GroupImage>
+              <h4>Hình ảnh </h4>
+              <GroupHeaderImage>
+                <label htmlFor="image">
+                  <span className="icon">
+                    <BsImageFill />
+                  </span>{' '}
+                  <span className="">
+                    <b> Upload a file</b> Không có tệp nào được chọn or drag and
+                    drop <br /> PNG, JPG, GIF up to 10MB
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  id="image"
+                  hidden
+                  onChange={ChangImage}
+                />
+              </GroupHeaderImage>
+              <ListImage>
+                <BoxImage>
+                  <img
+                    src="https://cdn.pixabay.com/photo/2016/02/13/13/11/oldtimer-1197800_1280.jpg"
+                    alt=""
+                  />
+                  <div className="delete">
+                    <AiFillDelete />
+                  </div>
+                </BoxImage>
+                <BoxImage> 2</BoxImage>
+                <BoxImage> 3</BoxImage>
+                <BoxImage> 4</BoxImage>
+                <BoxImage> 5</BoxImage>
+                <BoxImage> 6</BoxImage>
+                <BoxImage> 7</BoxImage>
+              </ListImage>
+            </GroupImage>
+          </WapItem>
+          <WapItem>
+            <Editor />
+          </WapItem>
+          <WapItem>
+            <button onClick={() => setShow(!show)} className="review">
+              Xem trước
+            </button>
+            <button type="submit" onSubmit={AddProduct}>
+              Thêm Sản phẩm{' '}
+            </button>
+          </WapItem>
+        </From>
       </Warform>
-      <Button>
-        <button onClick={() => setShow(!show)} className="review">
-          Xem trước
-        </button>
-        <button> Thêm Sản phẩm </button>
-      </Button>
-      <ReviewProduct show={show} setShow={setShow}  />
+
+      <ReviewProduct show={show} setShow={setShow} />
     </WrapPage>
   );
 };

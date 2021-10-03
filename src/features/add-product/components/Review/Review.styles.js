@@ -8,30 +8,38 @@ export const OverLay = styled.div`
   height: 100vh;
   background-color: #6e6c6c36;
   z-index: 10;
-  display: none;
+  opacity: 0;
+  visibility: hidden;
   &.active {
-    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 `;
 export const Content = styled.div`
   background-color: var(--white-color);
   padding: 2rem 1rem 1rem 1rem;
   position: absolute;
+  /* text-align: center; */
+  width: 70%;
   z-index: 11;
   left: 15%;
   height: 90%;
+  top: 5%;
   visibility: hidden;
   overflow: hidden;
-  transform: translateY(-150%);
+  transform: translateY(-20%);
   transition: ease-in-out 0.4s;
   opacity: 0;
   &.activeContent {
-    transform: translateY(0);
     visibility: visible;
+    transform: translateY(0);
     opacity: 1;
-    transition: ease-in-out 0.4s;
   }
   &:hover {
     overflow-y: scroll;
+  }
+  & img {
+    image-rendering: pixelated;
+    /* width: 100%; */
   }
 `;

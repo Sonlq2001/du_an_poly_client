@@ -14,19 +14,26 @@ export const Warform = styled.div`
   padding-top: 4rem;
   padding-bottom: 2.1rem;
   max-width: 100%;
+`;
+export const From = styled.form`
   display: grid;
+
   grid-template-columns: 1fr 1fr;
   grid-gap: 1.5rem;
+  width: 100%;
 `;
 export const FromGroup = styled.div`
   display: grid;
   grid-template-columns: 20% 77%;
-  grid-gap: 1em;
+  grid-column-gap: 1em;
   margin-bottom: 1.3rem;
   & input {
     font-size: 15px;
     font-weight: 350;
     width: 100%;
+  }
+  & input > .error {
+    border: 1px solid red;
   }
   & .label-title {
     line-height: 3.6rem;
@@ -40,8 +47,22 @@ export const FromGroup = styled.div`
     border: 1px solid #7d787878;
     outline: none;
   }
+  & span {
+    font-size: 10px;
+    width: 100%;
+    color: red;
+    grid-column: 1/3;
+    text-align: center;
+    padding-top: 5px;
+  }
+  & span.hidden {
+    display: none;
+  }
   & .filed-input:focus {
     border: 2px solid #0e7fe1;
+  }
+  & .error:focus {
+    border: 1px solid red;
   }
   & .css-1wa3eu0-placeholder,
   .css-1uccc91-singleValue {
@@ -89,7 +110,8 @@ export const BoxFile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #7d787878;
+  color: ${(props) => props.color || ''};
+  border: 1px solid ${(props) => props.color || ''} !important;
   & .document {
     width: 100%;
     background-color: red;
@@ -100,6 +122,10 @@ export const BoxFile = styled.div`
     padding-top: 10px;
     padding-left: 8px;
     font-size: 14px;
+    border: none;
+  }
+  & .error {
+    border: 1px solid red;
   }
 `;
 export const GroupImage = styled.div`
@@ -142,7 +168,7 @@ export const BoxImage = styled.div`
   width: 100%;
   border-radius: 5px;
   border: 1px dotted black;
-  height: 115px;
+  height: 105px;
   overflow: hidden;
   padding: 2px;
   position: relative;
@@ -175,15 +201,15 @@ export const BoxImage = styled.div`
 // editor
 export const Editor = styled.div`
   width: 100%;
-  /* background-color: red; */
   padding: 10px 0px;
   position: relative;
 `;
 
-export const Button = styled.div`
-  text-align: center;
+export const WapItem = styled.div`
+  /* text-align: center; */
   font-size: 1.8rem;
   margin: 2.5rem 0rem;
+  float: left;
   & button {
     padding: 10px;
     border-radius: 5px;
@@ -200,6 +226,10 @@ export const Button = styled.div`
   & button:hover {
     transition: 1s;
     background-color: #3f99ee;
+  }
+  &:nth-child(3) {
+    grid-column: 1/3;
+    text-align: center;
   }
 `;
 
