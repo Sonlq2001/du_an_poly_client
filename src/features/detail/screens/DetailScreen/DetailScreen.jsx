@@ -1,17 +1,7 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import Slider from 'react-slick';
 import { MdContentPaste } from 'react-icons/md';
-import { GrAttachment } from 'react-icons/gr';
 import { GoCommentDiscussion } from 'react-icons/go';
-import { AiFillStar } from 'react-icons/ai';
-import { CgToolbox } from 'react-icons/cg';
-import { BiShareAlt } from 'react-icons/bi';
-import {
-  FaFacebookSquare,
-  FaTwitterSquare,
-  FaInstagram,
-  FaLinkedin,
-} from 'react-icons/fa';
 
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
@@ -26,31 +16,15 @@ import {
   GroupBox,
   TitleMain,
   ContentPost,
-  GroupAttach,
-  ItemAttach,
-  // BoxYoutube,
   GroupFeedback,
-  GroupRating,
-  RatingTotal,
-  FilterRating,
-  GroupComment,
-  ItemComment,
-  GroupTools,
-  GroupShare,
-  GroupRepComment,
-  ItemRepComment,
-  ItemSendComment,
-  SubInputComment,
-  ActionComment,
-  EditorCommentMain,
 } from './DetailScreen.styles';
-import {
-  LIST_SLIDE,
-  LIST_RATING,
-  LIST_TOOLS,
-} from './../../constants/detail.constants';
-import AvatarEmpty from './../../../../assets/images/user-empty.png';
+import { LIST_SLIDE } from './../../constants/detail.constants';
 import RatingStar from './../../components/RatingStar/RatingStar';
+import ShareSocial from './../../components/ShareSocial/ShareSocial';
+import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
+import AttachDoc from './../../components/AttachDoc/AttachDoc';
+import RatingDetail from './../../components/Feedback/RatingDetail';
+import Feedback from './../../components/Feedback/Feedback';
 
 const DetailScreen = () => {
   const settings = {
@@ -68,6 +42,12 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const [valueSendCmt, setValueSendCmt] = useState({
+    userId: '',
+    value: '',
+    rating: null,
+  });
 
   return (
     <WrapDetail>
@@ -87,7 +67,10 @@ const DetailScreen = () => {
               <TitleProject>
                 Đồ án tốt nghiệp website bán hàng mông công nghệ thông tin
               </TitleProject>
-              <RatingStar />
+              <RatingStar
+                valueSendCmt={valueSendCmt}
+                setValueSendCmt={setValueSendCmt}
+              />
               <GroupMember>
                 <LabelProject>Thành viên nhóm: </LabelProject>
                 <div className="list-member">
@@ -151,132 +134,12 @@ const DetailScreen = () => {
                     <span>Đánh giá</span>
                   </TitleMain>
 
-                  <GroupRating>
-                    <RatingTotal>
-                      <div className="rating-percent">3.5</div>
-                      <div className="group-star">
-                        <div className="list-star">
-                          <AiFillStar />
-                          <AiFillStar />
-                          <AiFillStar />
-                          <AiFillStar />
-                          <AiFillStar />
-                        </div>
-                        <div className="view-project">1925 lượt xem</div>
-                      </div>
-                    </RatingTotal>
+                  <RatingDetail />
 
-                    <FilterRating>
-                      {LIST_RATING.map((itemStart) => (
-                        <div className="item-rating" key={itemStart.star}>
-                          <div className="item-rating__icon">
-                            {itemStart.star}
-                            <AiFillStar />
-                          </div>
-                          ({itemStart.total_star})
-                        </div>
-                      ))}
-                    </FilterRating>
-                  </GroupRating>
-
-                  <GroupComment>
-                    <EditorCommentMain>
-                      <img src={AvatarEmpty} alt="" className="user-comment" />
-
-                      <div className="comment-main">
-                        <input
-                          type="text"
-                          placeholder="Đánh giá của bàn về sản phẩm !"
-                          className="input-main"
-                        />
-                        <ActionComment>
-                          <button className="btn-comment btn-cancel">
-                            Hủy
-                          </button>
-                          <button className="btn-comment">Bình luận</button>
-                        </ActionComment>
-                      </div>
-                    </EditorCommentMain>
-
-                    <ItemComment>
-                      <ItemSendComment>
-                        <img src={AvatarEmpty} alt="" className="avatar-user" />
-                        <div className="">
-                          <span className="auth-comment">le quang son</span>
-                          <div className="star-comment">
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
-                            <AiFillStar />
-                          </div>
-
-                          <p className="content-comment">Sản phẩm đẹp quá !</p>
-
-                          <div className="box-comment">
-                            <p className="time-comment">2021-09-14 17:25</p>
-                            <button className="rep-comment">Trả lời</button>
-                          </div>
-                        </div>
-                      </ItemSendComment>
-
-                      <GroupRepComment>
-                        <ItemRepComment>
-                          <img
-                            src={AvatarEmpty}
-                            alt=""
-                            className="avatar-user"
-                          />
-                          <div className="">
-                            <span className="auth-comment">le quang son</span>
-                            <div className="star-comment">
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                            </div>
-                            <p className="content-comment">
-                              <span className="user-comment">Lê Quang Sơn</span>
-                              Sản phẩm đẹp quá !
-                            </p>
-                            <div className="box-comment">
-                              <p className="time-comment">2021-09-14 17:25</p>
-                              <button className="rep-comment">Trả lời</button>
-                            </div>
-                          </div>
-                        </ItemRepComment>
-
-                        <SubInputComment>
-                          <img
-                            src={AvatarEmpty}
-                            alt=""
-                            className="avatar-user"
-                          />
-
-                          <div className="box-sub-comment">
-                            <div className="editor-comment">
-                              <span className="auth-comment auth-rep">
-                                le quang son
-                              </span>
-                              <div
-                                className="input-comment"
-                                contentEditable="true"
-                              ></div>
-                            </div>
-                            <ActionComment>
-                              <button className="btn-comment btn-cancel">
-                                Hủy
-                              </button>
-                              <button className="btn-comment btn-send">
-                                Trả lời
-                              </button>
-                            </ActionComment>
-                          </div>
-                        </SubInputComment>
-                      </GroupRepComment>
-                    </ItemComment>
-                  </GroupComment>
+                  <Feedback
+                    valueSendCmt={valueSendCmt}
+                    setValueSendCmt={setValueSendCmt}
+                  />
                 </GroupFeedback>
 
                 <CarouselProduct />
@@ -284,88 +147,15 @@ const DetailScreen = () => {
             </div>
             <div className="xl-4">
               <GroupBox>
-                <TitleMain>
-                  <GrAttachment />
-                  <span>Tài liệu đính kèm</span>
-                </TitleMain>
-
-                <GroupAttach>
-                  <ItemAttach>
-                    <div className="title-attach">Link github:</div>
-                    <a href="!#">
-                      https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-                    </a>
-                  </ItemAttach>
-                  <ItemAttach>
-                    <div className="title-attach">Tài liệu hướng dẫn:</div>
-                    <a href="!#">
-                      https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-                    </a>
-                  </ItemAttach>
-                  <ItemAttach>
-                    <div className="title-attach">Tài liệu bài viết:</div>
-                    <a href="!#">
-                      https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-                    </a>
-                  </ItemAttach>
-                  <ItemAttach>
-                    <div className="title-attach">Video youtube:</div>
-                    <a href="!#">
-                      https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-                    </a>
-                    {/* <BoxYoutube>
-                      <iframe
-                        width="560"
-                        height="315"
-                        src="https://www.youtube.com/embed/nKHBIAdBvZ4"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        className="video-youtube"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      ></iframe>
-                    </BoxYoutube> */}
-                  </ItemAttach>
-                </GroupAttach>
+                <AttachDoc />
               </GroupBox>
 
               <GroupBox>
-                <TitleMain>
-                  <CgToolbox />
-                  <span>Công cụ</span>
-                </TitleMain>
-
-                <GroupTools>
-                  {LIST_TOOLS.map((tool, index) => (
-                    <img
-                      key={index}
-                      src={tool.img}
-                      alt=""
-                      className="img-tools"
-                    />
-                  ))}
-                </GroupTools>
+                <ToolsDetail />
               </GroupBox>
 
               <GroupBox>
-                <TitleMain>
-                  <BiShareAlt />
-                  <span>Chia sẻ</span>
-                </TitleMain>
-
-                <GroupShare>
-                  <button className="button-social share-facebook">
-                    <FaFacebookSquare />
-                  </button>
-                  <button className="button-social share-twitter">
-                    <FaTwitterSquare />
-                  </button>
-                  <button className="button-social share-instagram">
-                    <FaInstagram />
-                  </button>
-                  <button className="button-social share-linkedin">
-                    <FaLinkedin />
-                  </button>
-                </GroupShare>
+                <ShareSocial />
               </GroupBox>
             </div>
           </div>
