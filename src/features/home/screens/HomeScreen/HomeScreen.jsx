@@ -14,6 +14,10 @@ import {
 } from './HomeScreen.styles';
 
 const HomeScreen = () => {
+  // fetch('http://api.duanpoly.ml/api/products')
+  //   .then((response) => response.json())
+  //   .then((data) => console.log('ở đay home', data));
+
   return (
     <>
       {/* slider  */}

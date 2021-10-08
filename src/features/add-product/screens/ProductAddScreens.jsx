@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { shape } from './Validator';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState } from 'react';
+import { validationSchema } from './Validator';
+import { useFormik } from 'formik';
 import {
   WrapPage,
   Title,
@@ -15,6 +14,7 @@ import {
   BoxImage,
   From,
   WapItem,
+  Input,
 } from './ProductAddScreen.styles';
 
 import Select from 'react-select';
@@ -28,85 +28,91 @@ const AddProduct = () => {
     { id: 2, value: 'xin chào 2', label: 'Trần hữu Thiện ' },
     { id: 3, value: 'xin chào 3', label: 'xin chào 3' },
     { id: 4, value: 'xin chào 4 ', label: 'xin chào 4' },
-    { id: 5, value: 'xin chào 5', label: 'xin chào 5' },
-    { id: 6, value: 'xin chào 6', label: 'xin chào 6' },
-    { id: 7, value: 'xin chào 7', label: 'xin chào 7' },
-    { id: 8, value: 'xin chào 8', label: 'xin chào 8' },
-    { id: 9, value: 'xin chào 9', label: 'xin chào 9' },
-    { id: 10, value: 'xin chào 10', label: 'xin chào 10' },
-    { id: 11, value: 'xin chào 11', label: 'xin chào 11' },
-    { id: 12, value: 'xin chào 12', label: 'xin chào 12' },
   ];
   const [show, setShow] = useState(false);
-  const [FileName, SetFileName] = useState('');
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(shape) });
-  const AddProduct = (data) => {
-    console.log('ở đây', data);
-  };
-  useEffect(() => {
-    setValue('teacher', 'Trần hữu thiện', {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  }, []);
+  const [fileName, SetFileName] = useState('');
+  const [Image, setImage] = useState(false);
+  const [selectProduct_id, SetselectProduct_id] = useState('');
+  const [group_student, setGroup] = useState([]);
+  const [Description, SetDescription] = useState('');
+
   const ChangeDocument = (e) => {
     SetFileName(e.target.files[0].name);
-    let test = e.target.files[0].name.split('.');
-    console.log('file đây ', test[1]);
+    formik.values.document = e.target.files[0].name;
   };
   const ChangImage = (e) => {
     console.log(e.target.files);
+    setImage(true);
+  };
+  const ChangeDescription = (data) => {
+    SetDescription(data);
+    formik.values.description = data;
+  };
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      video: '',
+      teacher_id: 'giảng viên ',
+      subject_id: 'môn học ',
+      kyhoc: 'fall 20201',
+      product_id: '',
+      document: '',
+      group: '',
+      images: '',
+      description: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log('ở đây', values);
+    },
+  });
+  const ChangeSelect = (e) => {
+    formik.values.product_id = e.value;
+    SetselectProduct_id(e.value);
+  };
+  const ChangeGroup = (e) => {
+    setGroup(group_student.push(e));
   };
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <Warform>
-        <From onSubmit={handleSubmit(AddProduct)}>
+        <From onSubmit={formik.handleSubmit}>
           <WapItem>
             <FromGroup className="fromGroup">
               <label htmlFor="name" className="label-title ">
-                {' '}
                 Tên Sản phẩm{' '}
               </label>
-              <input
+              <Input
+                error={formik.errors.name ? 'red' : ''}
                 type="text"
                 placeholder="Tên đề tài "
                 id="name"
-                className={errors.name ? 'filed-input error' : 'filed-input'}
-                {...register('name')}
+                name="name"
+                className="filed-input"
+                value={formik.values.name}
+                onChange={formik.handleChange}
               />
-              <span> {errors.name?.message}</span>
-            </FromGroup>
-            <FromGroup className="fromGroup">
-              <label htmlFor="class" className="label-title">
-                Lớp Học
-              </label>
-              <input
-                type="text"
-                placeholder="Lớp Học "
-                id="class"
-                className={errors.class ? 'filed-input error' : 'filed-input'}
-                {...register('class')}
-              />
-              <span> {errors.class?.message}</span>
+              {formik.errors.name && formik.touched.name ? (
+                <span> {formik.errors.name} </span>
+              ) : null}
             </FromGroup>
             <FromGroup className="fromGroup">
               <label htmlFor="video" className="label-title">
                 Video
               </label>
-              <input
+              <Input
+                error={formik.errors.video ? 'red' : ''}
                 type="text"
                 placeholder="Link video  "
                 id="video"
-                className={errors.video ? 'filed-input error' : 'filed-input'}
-                {...register('video')}
+                className="filed-input"
+                value={formik.values.video}
+                onChange={formik.handleChange}
               />
-              <span> {errors.video?.message}</span>
+              {formik.errors.video && formik.touched.video ? (
+                <span> {formik.errors.video} </span>
+              ) : null}
             </FromGroup>
 
             <FromGroup className="fromGroup">
@@ -118,14 +124,12 @@ const AddProduct = () => {
                 id="class"
                 className="filed-input"
                 value="Trần Hữu Thiện "
-                setValue={setValue}
                 disabled
-                // {...register('teacher')}
               />
             </FromGroup>
             <FromGroup className="fromGroup">
               <label htmlFor="sub" className="label-title">
-                Subject id
+                Môn Học
               </label>
               <input
                 type="text"
@@ -134,10 +138,7 @@ const AddProduct = () => {
                 className="filed-input"
                 value="Thiết kế website "
                 disabled
-                className="filed-input"
-                {...register('subject_id')}
               />
-              <span> {errors.subject_id?.message}</span>
             </FromGroup>
             <FromGroup className="fromGroup">
               <label htmlFor="kyhoc" className="label-title">
@@ -153,48 +154,87 @@ const AddProduct = () => {
               />
             </FromGroup>
             <FromGroup className="fromGroup">
-              <label htmlFor="teacher" className="label-title">
+              <label htmlFor="product_id" className="label-title">
                 Product id
               </label>
-              <Select options={test} placeholder="Giảng viên " id="teacher" />
+              <Select
+                options={test}
+                name="product_id"
+                placeholder="Product id  "
+                id="product_id"
+                className={
+                  formik.errors.product_id && !selectProduct_id ? 'error' : ''
+                }
+                onChange={(e) => {
+                  ChangeSelect(e);
+                }}
+              />
+              {formik.errors.product_id && formik.touched.product_id ? (
+                <span hidden={selectProduct_id ? true : false}>
+                  {' '}
+                  {formik.errors.product_id}
+                  {''}
+                </span>
+              ) : null}
             </FromGroup>
 
             <FromGroup className="fromGroup">
               <label htmlFor="document" className="label-title">
                 Tài Liệu
               </label>
-              <BoxFile color={FileName ? 'orange' : ''}>
+              <BoxFile
+                color={fileName ? 'orange' : ''}
+                className={formik.errors.document}
+                error={fileName ? true : false}
+              >
                 <label
                   htmlFor="document"
-                  className={errors.document ? 'document error' : 'document'}
+                  className={
+                    formik.errors.document && !fileName ? 'error' : 'document'
+                  }
                 >
-                  {FileName ? FileName : 'Tài Liệu '}
+                  {fileName ? fileName : 'Tài Liệu '}
                 </label>
                 <input
                   hidden
                   type="file"
-                  placeholder="Video  "
+                  placeholder="tài liệu   "
                   id="document"
                   className="filed-input"
                   onChange={ChangeDocument}
-                  className={
-                    errors.document ? 'filed-input error' : 'filed-input'
-                  }
-                  // {...register('document')}
                 />
               </BoxFile>
-              <span className={FileName ? 'hidden' : 'show'}>
-                {' '}
-                {errors.document?.message}
-              </span>
+              {formik.errors.document && formik.touched.document ? (
+                <span hidden={fileName ? true : false}>
+                  {formik.errors.document}{' '}
+                </span>
+              ) : null}
             </FromGroup>
             <FromGroup className="fromGroup">
               <label htmlFor="teacher" className="label-title">
                 Thành viên
               </label>
-              <Select options={test} placeholder="Thành Viên " id="teacher" />
+              <Select
+                options={test}
+                placeholder="Thành Viên "
+                className={formik.errors.group && !group_student ? 'error' : ''}
+                id="teacher"
+                onChange={(e) => {
+                  ChangeGroup(e);
+                }}
+              />
+              {formik.errors.group && formik.touched.group ? (
+                <span hidden={group_student.length > 0 ? true : false}>
+                  {' '}
+                  {formik.errors.product_id}
+                  {''}
+                </span>
+              ) : null}
             </FromGroup>
-            <LisGroup className="listGrup" hidden>
+            <LisGroup
+              className="listGrup"
+              hidden={group_student ? true : false}
+            >
               <h4> Danh sách thành viên</h4>
               <ul>
                 <li>
@@ -230,7 +270,9 @@ const AddProduct = () => {
                   <span className="icon">
                     <BsImageFill />
                   </span>{' '}
-                  <span className="">
+                  <span
+                    className={formik.errors.images && !Image ? 'error' : ''}
+                  >
                     <b> Upload a file</b> Không có tệp nào được chọn or drag and
                     drop <br /> PNG, JPG, GIF up to 10MB
                   </span>
@@ -263,20 +305,18 @@ const AddProduct = () => {
             </GroupImage>
           </WapItem>
           <WapItem>
-            <Editor />
+            <Editor ChangeDescription={ChangeDescription} />
           </WapItem>
           <WapItem>
             <button onClick={() => setShow(!show)} className="review">
               Xem trước
             </button>
-            <button type="submit" onSubmit={AddProduct}>
-              Thêm Sản phẩm{' '}
-            </button>
+            <button type="submit">Thêm sản phẩm</button>
           </WapItem>
         </From>
       </Warform>
 
-      <ReviewProduct show={show} setShow={setShow} />
+      <ReviewProduct show={show} setShow={setShow} data={formik} />
     </WrapPage>
   );
 };

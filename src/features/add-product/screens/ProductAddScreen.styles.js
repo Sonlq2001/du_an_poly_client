@@ -32,8 +32,8 @@ export const FromGroup = styled.div`
     font-weight: 350;
     width: 100%;
   }
-  & input > .error {
-    border: 1px solid red;
+  &.error {
+    border: 1x solid red;
   }
   & .label-title {
     line-height: 3.6rem;
@@ -46,13 +46,14 @@ export const FromGroup = styled.div`
     border-radius: 5px;
     border: 1px solid #7d787878;
     outline: none;
+    background-color: var(--white-color);
   }
   & span {
     font-size: 10px;
     width: 100%;
     color: red;
     grid-column: 1/3;
-    text-align: center;
+    padding-left: 24%;
     padding-top: 5px;
   }
   & span.hidden {
@@ -61,7 +62,7 @@ export const FromGroup = styled.div`
   & .filed-input:focus {
     border: 2px solid #0e7fe1;
   }
-  & .error:focus {
+  & .error .css-yk16xz-control {
     border: 1px solid red;
   }
   & .css-1wa3eu0-placeholder,
@@ -72,6 +73,10 @@ export const FromGroup = styled.div`
   & .css-1okebmr-indicatorSeparator {
     display: none;
   }
+`;
+export const Input = styled.input`
+  background-color: red;
+  border: 1px solid ${(props) => props.error || '#7d787878'} !important;
 `;
 export const LisGroup = styled.div`
   padding-left: 22%;
@@ -99,7 +104,6 @@ export const LisGroup = styled.div`
     cursor: pointer;
   }
   & li:hover span {
-    /* display: block; */
     opacity: 1;
   }
 `;
@@ -111,7 +115,7 @@ export const BoxFile = styled.div`
   align-items: center;
   justify-content: center;
   color: ${(props) => props.color || ''};
-  border: 1px solid ${(props) => props.color || ''} !important;
+
   & .document {
     width: 100%;
     background-color: red;
@@ -122,10 +126,19 @@ export const BoxFile = styled.div`
     padding-top: 10px;
     padding-left: 8px;
     font-size: 14px;
-    border: none;
+    border: 1px solid #7d787878;
   }
   & .error {
     border: 1px solid red;
+    width: 100%;
+    background-color: red;
+    display: inline-block;
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--bg-2);
+    padding-top: 10px;
+    padding-left: 8px;
+    font-size: 14px;
   }
 `;
 export const GroupImage = styled.div`
@@ -155,6 +168,9 @@ export const GroupHeaderImage = styled.div`
   & span {
     font-weight: 400;
     font-size: 13px;
+  }
+  & span.error {
+    color: red;
   }
 `;
 export const ListImage = styled.div`
