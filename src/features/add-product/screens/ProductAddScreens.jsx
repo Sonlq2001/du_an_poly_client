@@ -308,9 +308,9 @@ const AddProduct = () => {
             <Editor ChangeDescription={ChangeDescription} />
           </WapItem>
           <WapItem>
-            <button onClick={() => setShow(!show)} className="review">
+            <label onClick={() => setShow(!show)} className="review">
               Xem trước
-            </button>
+            </label>
             <button type="submit">Thêm sản phẩm</button>
           </WapItem>
         </From>

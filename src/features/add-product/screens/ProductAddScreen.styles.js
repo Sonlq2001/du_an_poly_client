@@ -247,6 +247,17 @@ export const WapItem = styled.div`
     grid-column: 1/3;
     text-align: center;
   }
+  & > label {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #2b649b;
+    color: var(--white-color);
+    outline: none;
+    font-size: 1.7rem;
+    border: none;
+    line-height: 2.4rem;
+    cursor: pointer;
+  }
 `;
 
 export const WrapCkeditor = styled.div`
