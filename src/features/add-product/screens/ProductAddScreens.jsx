@@ -34,8 +34,6 @@ const AddProduct = () => {
   const [Image, setImage] = useState(false);
   const [selectProduct_id, SetselectProduct_id] = useState('');
   const [group_student, setGroup] = useState([]);
-  const [Description, SetDescription] = useState('');
-
   const ChangeDocument = (e) => {
     SetFileName(e.target.files[0].name);
     formik.values.document = e.target.files[0].name;
@@ -45,7 +43,6 @@ const AddProduct = () => {
     setImage(true);
   };
   const ChangeDescription = (data) => {
-    SetDescription(data);
     formik.values.description = data;
   };
   const formik = useFormik({

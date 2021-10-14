@@ -1,19 +1,22 @@
 import React from 'react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { WapEDitor } from './Editor.styles';
+import ReactQuill from 'react-quill';
+import { WarEditor } from './Editor.styles';
+import EditorToolbar, { formats, modules } from './CustomEditor';
 const Editor = ({ ChangeDescription }) => {
+  const ChangeEditor = (data) => {
+    ChangeDescription(data);
+  };
   return (
-    <WapEDitor>
-      <CKEditor
-        editor={ClassicEditor}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          ChangeDescription(data);
-        }}
+    <WarEditor>
+      <EditorToolbar />
+      <ReactQuill
+        theme="snow"
+        modules={modules}
+        formats={formats}
+        placeholder="chi tiết sản phẩm "
+        onChange={ChangeEditor}
       />
-    </WapEDitor>
+    </WarEditor>
   );
 };
-
 export default Editor;
