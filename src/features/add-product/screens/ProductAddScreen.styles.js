@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;

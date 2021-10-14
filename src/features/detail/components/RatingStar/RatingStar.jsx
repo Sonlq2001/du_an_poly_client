@@ -3,13 +3,14 @@ import { AiTwotoneStar } from 'react-icons/ai';
 
 import { BoxRating } from './RatingStar.styles';
 
-const RatingStar = () => {
+const RatingStar = ({ valueSendCmt, setValueSendCmt }) => {
   const startLength = Array(5).fill(0);
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(0);
 
   const handleClickStar = (value) => {
     setCurrentValue(value);
+    setValueSendCmt({ ...valueSendCmt, rating: value });
   };
 
   return (
