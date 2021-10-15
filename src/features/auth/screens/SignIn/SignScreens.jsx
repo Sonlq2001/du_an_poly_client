@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { AiOutlineGoogle } from 'react-icons/ai';
-import { GoogleLogin } from 'react-google-login';
+import { useDispatch } from 'react-redux';
+
 import LogoFpt from './../../../../assets/images/logo.png';
 import {
   PageSingIn,
@@ -8,10 +9,12 @@ import {
   PageSingInRight,
   FormLogin,
 } from './SignScreen.styles';
+import { loginSocial } from './../../redux/auth.slice';
 
 const SignScreens = () => {
-  const responseGoogle = (response) => {
-    console.log('ở đây ', response);
+  const dispatch = useDispatch();
+  const handleSignIn = () => {
+    dispatch(loginSocial());
   };
 
   return (
@@ -21,25 +24,12 @@ const SignScreens = () => {
         <FormLogin>
           <img src={LogoFpt} alt="" className="logo-from" />
           <p className="des-from">Cao đẳng thực hành Fpolytechnic</p>
-          <GoogleLogin
-            clientId="231695115576-r5jrpmc72fh2o5kfs4h4pdgsuahkr9io.apps.googleusercontent.com"
-            render={(renderProps) => (
-              <button
-                className="button-form"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-              >
-                <span className="icon-form">
-                  <AiOutlineGoogle />
-                </span>
-                Google
-              </button>
-            )}
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-          />
+          <button className="button-form" onClick={handleSignIn}>
+            <span className="icon-form">
+              <AiOutlineGoogle />
+            </span>
+            Google
+          </button>
         </FormLogin>
       </PageSingInRight>
     </PageSingIn>
