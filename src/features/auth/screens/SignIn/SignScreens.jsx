@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
 import { AiOutlineGoogle } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-
 import LogoFpt from './../../../../assets/images/logo.png';
 import {
   PageSingIn,
@@ -12,11 +10,6 @@ import {
 import { loginSocial } from './../../redux/auth.slice';
 
 const SignScreens = () => {
-  const dispatch = useDispatch();
-  const handleSignIn = () => {
-    dispatch(loginSocial());
-  };
-
   return (
     <PageSingIn>
       <PageSingInLeft></PageSingInLeft>
@@ -24,7 +17,7 @@ const SignScreens = () => {
         <FormLogin>
           <img src={LogoFpt} alt="" className="logo-from" />
           <p className="des-from">Cao đẳng thực hành Fpolytechnic</p>
-          <button className="button-form" onClick={handleSignIn}>
+          <button className="button-form">
             <span className="icon-form">
               <AiOutlineGoogle />
             </span>
