@@ -9,7 +9,7 @@ const responseInterceptor = (res) => {
 };
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API,
+  baseURL: 'http://api.duanpoly.ml/api',
   headers: { 'Content-Type': 'application/json' },
 });
 

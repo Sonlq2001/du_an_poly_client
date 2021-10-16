@@ -20,17 +20,16 @@ export const Content = styled.div`
   padding: 4rem;
   position: absolute;
   max-width: 70%;
+  width: 70%;
   z-index: 11;
   left: 15%;
   height: 90%;
   top: 5%;
-  /* visibility: hidden;
-  overflow: hidden; */
-  /* transform: translateY(-20%); */
-  transform: translateY(0%);
-  transition: ease-in-out 0.4s;
-  opacity: 1;
-  /* overflow-y: scroll; */
+  visibility: hidden;
+  overflow-y: scroll;
+  transform: translateY(-20%);
+  transition: ease-in-out 0.6s;
+  opacity: 0;
   ::-webkit-scrollbar {
     width: 6px;
     border-left: 1px solid #e6ecf8;
@@ -45,9 +44,9 @@ export const Content = styled.div`
     transform: translateY(0);
     opacity: 1;
   }
-  &:hover {
+  /* &:hover {
     overflow-y: scroll;
-  }
+  } */
   & img {
     image-rendering: pixelated;
   }
@@ -129,6 +128,9 @@ export const BoxProject = styled.div`
 
 export const GroupDetail = styled.div`
   margin-top: 6rem;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
 `;
 
 // group detail

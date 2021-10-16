@@ -27,7 +27,6 @@ function undoChange() {
 function redoChange() {
   this.quill.history.redo();
 }
-
 // Add sizes to whitelist and register them
 const Size = Quill.import('formats/size');
 Size.whitelist = ['extra-small', 'small', 'medium', 'large'];
@@ -44,7 +43,17 @@ Font.whitelist = [
   'lucida',
 ];
 Quill.register(Font, true);
-
+const ChangeImage = () => {
+  //   const input = document.createElement('input');
+  //   input.setAttribute('type', 'file');
+  //   input.setAttribute('multiple', 'multiple');
+  //   input.setAttribute('accept', 'image/*');
+  //   input.click();
+  //   input.onchange = () => {
+  //     const file = input.files;
+  //     console.log('User trying to upload this:', file);
+  //   };
+};
 // Modules object for setting up the Quill editor
 export const modules = {
   toolbar: {
@@ -52,6 +61,7 @@ export const modules = {
     handlers: {
       undo: undoChange,
       redo: redoChange,
+      image: ChangeImage,
     },
   },
   history: {

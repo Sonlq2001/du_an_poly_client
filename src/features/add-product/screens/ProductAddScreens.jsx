@@ -16,30 +16,35 @@ import {
   WapItem,
   Input,
 } from './ProductAddScreen.styles';
-
+import { addProduct } from './../redux/productadd.slice';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { BsImageFill } from 'react-icons/bs';
 import { AiFillDelete } from 'react-icons/ai';
 import Editor from './../components/editor/Editor';
 import ReviewProduct from '../components/Review/Review';
 const AddProduct = () => {
+  const dispatch = useDispatch();
   const test = [
-    { id: 1, value: 'xin chào 1 ', label: 'Lê trọng đạt  1' },
-    { id: 2, value: 'xin chào 2', label: 'Trần hữu Thiện ' },
-    { id: 3, value: 'xin chào 3', label: 'xin chào 3' },
-    { id: 4, value: 'xin chào 4 ', label: 'xin chào 4' },
+    { id: 1, value: 'datlt2306@fpt.edu.vn', label: 'Lê trọng đạt' },
+    { id: 2, value: 'sonnhph12562@fpt.edu.vn', label: 'nguyễn sơn ' },
   ];
   const [show, setShow] = useState(false);
   const [fileName, SetFileName] = useState('');
   const [Image, setImage] = useState(false);
   const [selectProduct_id, SetselectProduct_id] = useState('');
   const [group_student, setGroup] = useState([]);
+  const [avatar, setAvatar] = useState();
   const ChangeDocument = (e) => {
-    SetFileName(e.target.files[0].name);
-    formik.values.document = e.target.files[0].name;
+    SetFileName(e.target.files[0].name.slice(0, 20));
+    formik.values.resource_url = e.target.files[0];
+  };
+  const ChangeAvatar = (e) => {
+    setAvatar(e.target.files[0].name.slice(0, 20));
+    formik.values.image = e.target.files[0];
   };
   const ChangImage = (e) => {
-    console.log(e.target.files);
+    formik.values.galleries = e.target.files;
     setImage(true);
   };
   const ChangeDescription = (data) => {
@@ -47,38 +52,72 @@ const AddProduct = () => {
   };
   const formik = useFormik({
     initialValues: {
-      name: '',
-      video: '',
-      teacher_id: 'giảng viên ',
-      subject_id: 'môn học ',
-      kyhoc: 'fall 20201',
-      product_id: '',
-      document: '',
-      group: '',
-      images: '',
+      name: 'dự án mới',
+      video_url: 'câcdcasc',
+      campus_id: 1,
+      teacher_id: 1,
+      subject_id: 1,
+      semester_id: 1,
+      product_type_id: 1,
+      class: 'ph3r631',
+      image: '',
+      resource_url: '',
+      students: [],
+      galleries: [],
       description: '',
+      status: 0,
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log('ở đây', values);
+      const newProduct = new FormData();
+      newProduct.append('name', values.name);
+      newProduct.append('video_url', values.video_url);
+      newProduct.append('campus_id', values.campus_id);
+      newProduct.append('teacher_id', values.teacher_id);
+      newProduct.append('subject_id', values.subject_id);
+      newProduct.append('semester_id', values.semester_id);
+      newProduct.append('product_type_id', values.product_type_id);
+      newProduct.append('class', values.class);
+      newProduct.append('image', values.image);
+      newProduct.append('resource_url', values.resource_url);
+      newProduct.append('students', values.students);
+      newProduct.append('galleries', values.galleries);
+      newProduct.append('description', values.description);
+      newProduct.append('status', values.status);
+      fetch('http://api.duanpoly.ml/api/products', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify(newProduct),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log('trả về', data));
+      // dispatch(addProduct(newProduct));
+      console.log('value', values);
     },
   });
   const ChangeSelect = (e) => {
-    formik.values.product_id = e.value;
+    formik.values.product_type_id = e.id;
     SetselectProduct_id(e.value);
   };
   const ChangeGroup = (e) => {
-    setGroup(group_student.push(e));
+    setGroup(e);
+    let group = e.map((item) => {
+      return item.value;
+    });
+    formik.values.students = group;
   };
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <Warform>
-        <From onSubmit={formik.handleSubmit}>
+        <From enctype="multipart/form-data" onSubmit={formik.handleSubmit}>
           <WapItem>
             <FromGroup className="fromGroup">
               <label htmlFor="name" className="label-title ">
-                Tên Sản phẩm{' '}
+                Tên Sản phẩm
               </label>
               <Input
                 error={formik.errors.name ? 'red' : ''}
@@ -95,20 +134,21 @@ const AddProduct = () => {
               ) : null}
             </FromGroup>
             <FromGroup className="fromGroup">
-              <label htmlFor="video" className="label-title">
-                Video
+              <label htmlFor="video_url" className="label-title ">
+                video
               </label>
               <Input
-                error={formik.errors.video ? 'red' : ''}
+                error={formik.errors.video_url ? 'red' : ''}
                 type="text"
-                placeholder="Link video  "
-                id="video"
+                placeholder="Tên đề tài "
+                id="video_url"
+                name="video_url"
                 className="filed-input"
-                value={formik.values.video}
+                value={formik.values.video_url}
                 onChange={formik.handleChange}
               />
-              {formik.errors.video && formik.touched.video ? (
-                <span> {formik.errors.video} </span>
+              {formik.errors.video_url && formik.touched.video_url ? (
+                <span> {formik.errors.video_url} </span>
               ) : null}
             </FromGroup>
 
@@ -156,20 +196,22 @@ const AddProduct = () => {
               </label>
               <Select
                 options={test}
-                name="product_id"
+                name="product_type_id"
                 placeholder="Product id  "
-                id="product_id"
+                id="product_type_id"
                 className={
-                  formik.errors.product_id && !selectProduct_id ? 'error' : ''
+                  formik.errors.product_type_id && !selectProduct_id
+                    ? 'error'
+                    : ''
                 }
                 onChange={(e) => {
                   ChangeSelect(e);
                 }}
               />
-              {formik.errors.product_id && formik.touched.product_id ? (
+              {formik.errors.product_type_id &&
+              formik.touched.product_type_id ? (
                 <span hidden={selectProduct_id ? true : false}>
-                  {' '}
-                  {formik.errors.product_id}
+                  {formik.errors.product_type_id}
                   {''}
                 </span>
               ) : null}
@@ -187,10 +229,12 @@ const AddProduct = () => {
                 <label
                   htmlFor="document"
                   className={
-                    formik.errors.document && !fileName ? 'error' : 'document'
+                    formik.errors.resource_url && !fileName
+                      ? 'error'
+                      : 'document'
                   }
                 >
-                  {fileName ? fileName : 'Tài Liệu '}
+                  {fileName ? fileName + ' ...' : 'Tài Liệu '}
                 </label>
                 <input
                   hidden
@@ -201,9 +245,9 @@ const AddProduct = () => {
                   onChange={ChangeDocument}
                 />
               </BoxFile>
-              {formik.errors.document && formik.touched.document ? (
+              {formik.errors.resource_url && formik.touched.resource_url ? (
                 <span hidden={fileName ? true : false}>
-                  {formik.errors.document}{' '}
+                  {formik.errors.resource_url}
                 </span>
               ) : null}
             </FromGroup>
@@ -214,61 +258,65 @@ const AddProduct = () => {
               <Select
                 options={test}
                 placeholder="Thành Viên "
-                className={formik.errors.group && !group_student ? 'error' : ''}
+                className={
+                  formik.errors.students && !group_student ? 'error' : ''
+                }
+                className="basic-multi-select"
+                classNamePrefix="select"
                 id="teacher"
                 onChange={(e) => {
                   ChangeGroup(e);
                 }}
+                isMulti
               />
-              {formik.errors.group && formik.touched.group ? (
+              {formik.errors.students && formik.touched.students ? (
                 <span hidden={group_student.length > 0 ? true : false}>
-                  {' '}
-                  {formik.errors.product_id}
-                  {''}
+                  {formik.errors.students}
                 </span>
               ) : null}
             </FromGroup>
-            <LisGroup
-              className="listGrup"
-              hidden={group_student ? true : false}
-            >
-              <h4> Danh sách thành viên</h4>
-              <ul>
-                <li>
-                  Lê Quang Sơn - ph1205{' '}
-                  <span>
-                    <AiFillDelete />
-                  </span>
-                </li>
-                <li>
-                  Nguyễn Hữu Sơn - ph1205{' '}
-                  <span>
-                    <AiFillDelete />
-                  </span>{' '}
-                </li>
-                <li>
-                  Lê Phương Thảo - ph1205{' '}
-                  <span>
-                    <AiFillDelete />
-                  </span>{' '}
-                </li>
-                <li>
-                  Lê Quang Sơn - ph1205{' '}
-                  <span>
-                    <AiFillDelete />
-                  </span>{' '}
-                </li>
-              </ul>
-            </LisGroup>
+            <FromGroup className="fromGroup">
+              <label htmlFor="document" className="label-title">
+                Avatar
+              </label>
+              <BoxFile
+                color={avatar ? 'orange' : ''}
+                className={formik.errors.image}
+                error={avatar ? true : false}
+              >
+                <label
+                  htmlFor="avatar"
+                  className={
+                    formik.errors.image && !setAvatar ? 'error' : 'document'
+                  }
+                >
+                  {avatar ? avatar + '...' : 'Ảnh đại diện...'}
+                </label>
+                <input
+                  hidden
+                  type="file"
+                  placeholder="Ảnh đại diện..."
+                  id="avatar"
+                  name="image"
+                  className="filed-input"
+                  onChange={ChangeAvatar}
+                />
+              </BoxFile>
+              {formik.errors.avatar && formik.touched.avatar ? (
+                <span hidden={setAvatar ? true : false}>
+                  {formik.errors.avatar}
+                </span>
+              ) : null}
+            </FromGroup>
             <GroupImage>
               <h4>Hình ảnh </h4>
               <GroupHeaderImage>
-                <label htmlFor="image">
+                <label htmlFor="galleries">
                   <span className="icon">
                     <BsImageFill />
-                  </span>{' '}
+                  </span>
                   <span
-                    className={formik.errors.images && !Image ? 'error' : ''}
+                    className={formik.errors.galleries && !Image ? 'error' : ''}
                   >
                     <b> Upload a file</b> Không có tệp nào được chọn or drag and
                     drop <br /> PNG, JPG, GIF up to 10MB
@@ -277,7 +325,7 @@ const AddProduct = () => {
                 <input
                   type="file"
                   multiple
-                  id="image"
+                  id="galleries"
                   hidden
                   onChange={ChangImage}
                 />
@@ -312,7 +360,6 @@ const AddProduct = () => {
           </WapItem>
         </From>
       </Warform>
-
       <ReviewProduct show={show} setShow={setShow} data={formik} />
     </WrapPage>
   );

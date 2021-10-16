@@ -25,8 +25,6 @@ import { MdContentPaste } from 'react-icons/md';
 import { GrAttachment } from 'react-icons/gr';
 import { LIST_SLIDE } from './../../constants/ReviewProduct.constants';
 const ReviewProduct = ({ show, setShow, data }) => {
-  console.log(data.values.name);
-  window.scroll(0, 0);
   const settings = {
     customPaging: function (i) {
       return (
@@ -67,20 +65,19 @@ const ReviewProduct = ({ show, setShow, data }) => {
             )}
 
             <GroupMember>
-              {data.values.group ? (
-                <>
-                  <LabelProject>Thành viên nhóm: </LabelProject>
-                  <div className="list-member">
-                    <span className="item-member">Lê Quang Sơn - PH09794</span>
-                    <span className="item-member">Lê Quang Sơn - PH09794</span>
-                    <span className="item-member">Lê Quang Sơn - PH09794</span>
-                    <span className="item-member">Lê Quang Sơn - PH09794</span>
-                    <span className="item-member">Lê Quang Sơn - PH09794</span>
-                  </div>
-                </>
-              ) : (
-                ''
-              )}
+              <>
+                <LabelProject>Thành viên nhóm: </LabelProject>
+                <div className="list-member">
+                  {data.values.group &&
+                    data.values.group.map((item, index) => {
+                      return (
+                        <span className="item-member" key={index}>
+                          {item.label} - PH09794
+                        </span>
+                      );
+                    })}
+                </div>
+              </>
             </GroupMember>
             <BoxProject>
               <LabelProject>Khóa:</LabelProject>
@@ -114,7 +111,12 @@ const ReviewProduct = ({ show, setShow, data }) => {
                       <MdContentPaste />
                       <span>Bài viết giới thiệu</span>
                     </TitleMain>
-                    <ContentPost>{data.values.description}</ContentPost>
+                    <ContentPost> {data.values.description} </ContentPost>
+                    {/* <ContentPost
+                      dangerouslySetInnerHTML={{
+                        __html: data.values.description,
+                      }}
+                    /> */}
                   </>
                 ) : (
                   ''

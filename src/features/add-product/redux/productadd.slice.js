@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addPro } from './../api/prouduct_add.api';
+import { addPro } from './../api/product.api';
 export const addProduct = createAsyncThunk(
-  'product_add',
+  'product_add/add',
   async (newProduct) => {
     const response = await addPro(newProduct);
     console.log('ở đây response', response);
@@ -14,7 +14,14 @@ const initialState = {
 const ProductAddSlice = createSlice({
   name: 'product_add',
   initialState,
-  extraReducers: {},
+  extraReducers: {
+    [addProduct.fulfilled]: (state, action) => {
+      console.log('thành công ');
+    },
+    [addProduct.rejected]: (state, action) => {
+      console.log('lỗi');
+    },
+  },
 });
 const { reducer: productAddReducer } = ProductAddSlice;
 
