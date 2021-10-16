@@ -13,7 +13,6 @@ export const ContentWrap = styled.div`
 `;
 
 export const ContentBox = styled.div`
-  /* display: flex; */
   text-align: center;
   width: calc(100% / 3);
   margin-top: 2.5rem;
@@ -30,5 +29,14 @@ export const ContentBox = styled.div`
   & a {
     text-decoration: none;
     color: var(--second-color);
+  }
+  @media (max-width: 991.98px) {
+    width: calc(100% / 2);
+    .box-img {
+      height: 13rem;
+    }
+    .box-title {
+      font-size: 1.5rem;
+    }
   }
 `;
