@@ -1,3 +1,3 @@
 export const AUTH_ENDPOINTS = {
-  GET_PATH_LOGIN: '/login/google',
+  POST_ACCESS_TOKEN: '/callback/google',
 };
