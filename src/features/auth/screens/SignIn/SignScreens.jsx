@@ -1,6 +1,10 @@
 import React, { memo } from 'react';
 import { AiOutlineGoogle } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useHistory } from 'react-router-dom';
+
 import LogoFpt from './../../../../assets/images/logo.png';
 import {
   PageSingIn,
@@ -8,10 +12,16 @@ import {
   PageSingInRight,
   FormLogin,
 } from './SignScreen.styles';
+import { postLogin } from './../../redux/auth.slice';
 
 const SignScreens = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const responseGoogle = (response) => {
-    console.log('ở đây ', response);
+    const { accessToken } = response;
+    dispatch(postLogin(accessToken))
+      .then(unwrapResult)
+      .then(() => history.push('/'));
   };
 
   return (
@@ -22,7 +32,7 @@ const SignScreens = () => {
           <img src={LogoFpt} alt="" className="logo-from" />
           <p className="des-from">Cao đẳng thực hành Fpolytechnic</p>
           <GoogleLogin
-            clientId="231695115576-r5jrpmc72fh2o5kfs4h4pdgsuahkr9io.apps.googleusercontent.com"
+            clientId={process.env.REACT_APP_CLIENT_ID}
             render={(renderProps) => (
               <button
                 className="button-form"
