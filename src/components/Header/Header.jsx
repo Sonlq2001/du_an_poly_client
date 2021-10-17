@@ -43,7 +43,7 @@ const Header = () => {
   }, [pathname]);
 
   const { userLogin } = useSelector((state) => state.auth);
-
+  // console.log(Object.keys(userLogin).length === 0);
   return (
     <WrapHeader>
       <div className="container ">
@@ -138,7 +138,7 @@ const Header = () => {
               </FormSearch>
             )}
 
-            {userLogin ? (
+            {userLogin?.avatar ? (
               <GroupUser>
                 <img src={userLogin?.avatar} alt="" className="user-avatar" />
                 <span className="user-name">{userLogin?.email}</span>
