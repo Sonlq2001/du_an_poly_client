@@ -1,12 +1,20 @@
 import React, { memo, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Loading from './../components/Loading/Loading';
+// import { useSelector } from 'react-redux';
+// import { Redirect } from 'react-router-dom';
 
+import Loading from './../components/Loading/Loading';
 import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
+
 const RouterWrap = ({ component: Component, layout, path, exact }) => {
   const RouteLayout = layout || DefaultLayout;
   const isExact = exact ? true : false;
+  // const { accessToken } = useSelector((state) => state.auth);
+
+  // if (!accessToken && path === '') {
+  //   return <Redirect to="/" />;
+  // }
 
   return (
     <Route

@@ -6,6 +6,7 @@ import { MdWeb, MdAutorenew } from 'react-icons/md';
 import { GiLipstick } from 'react-icons/gi';
 import { FaSuitcaseRolling } from 'react-icons/fa';
 import { HiChartBar } from 'react-icons/hi';
+import { useSelector } from 'react-redux';
 
 import {
   WrapHeader,
@@ -18,6 +19,7 @@ import {
   FormSearch,
   SubMenu,
   SubMeuItem,
+  GroupUser,
 } from './header.styles';
 import LogoFpt from './../../assets/images/logo.png';
 
@@ -39,6 +41,8 @@ const Header = () => {
       window.removeEventListener('scroll', searchHeader);
     };
   }, [pathname]);
+
+  const { userLogin } = useSelector((state) => state.auth);
 
   return (
     <WrapHeader>
@@ -134,12 +138,19 @@ const Header = () => {
               </FormSearch>
             )}
 
-            <Link to="/sign-in" className="link-menu">
-              Login
-              <span className="icon-login">
-                <BiLogIn />
-              </span>
-            </Link>
+            {userLogin ? (
+              <GroupUser>
+                <img src={userLogin?.avatar} alt="" className="user-avatar" />
+                <span className="user-name">{userLogin?.email}</span>
+              </GroupUser>
+            ) : (
+              <Link to="/sign-in" className="link-menu">
+                Login
+                <span className="icon-login">
+                  <BiLogIn />
+                </span>
+              </Link>
+            )}
           </HeaderRight>
         </HeaderInner>
       </div>

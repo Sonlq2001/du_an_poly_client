@@ -1,22 +1,51 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { authApi } from './../api/auth.api';
+
+export const postLogin = createAsyncThunk(
+  'auth/postLogin',
+  async (accessToken) => {
+    const response = await authApi.getAccessToken({
+      access_token: accessToken,
+    });
+    return response.data;
+  }
+);
+
 const initialState = {
-  accessToken: '',
+  accessToken: null,
+  userLogin: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {},
+  extraReducers: {
+    [postLogin.pending]: (state) => {
+      state.accessToken = null;
+      state.userLogin = null;
+    },
+    [postLogin.fulfilled]: (state, action) => {
+      if (action.payload?.user !== null) {
+        const { avatar, email } = action.payload?.user !== null;
+        state.accessToken = action.payload.access_token;
+        state.userLogin = { avatar, email };
+      }
+    },
+    [postLogin.rejected]: (state) => {
+      state.accessToken = null;
+      state.userLogin = null;
+    },
+  },
 });
 
 const { reducer } = authSlice;
 const authConfig = {
   key: 'auth',
   storage,
-  whiteList: ['accessToken'],
+  whiteList: ['accessToken', 'userLogin'],
 };
 
 const authReducer = persistReducer(authConfig, reducer);
