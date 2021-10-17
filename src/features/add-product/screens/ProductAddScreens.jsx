@@ -73,36 +73,37 @@ const AddProduct = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      console.log(values);
       const formData = new FormData();
       // const image = document.getElementById('image');
       // const galleries = document.getElementById('galleries');
       // const resoure = document.getElementById('resource');
-      formData.append('teacher_id', 1);
-      formData.append('semester_id', 1);
-      formData.append('subject_id', 1);
-      formData.append('class', 'pt1221');
-      formData.append('product_type_id', 1);
-      formData.append('campus_id', 1);
-      formData.append('video_url', 'asdf');
-      formData.append('description', 'awhufiwef');
-      formData.append('name', 'website');
-      formData.append('image', values.image);
-      for (let i = 0; i < values.galleries.length; i++) {
-        formData.append(`galleries[]`, values.galleries[i]);
-      }
-      formData.append('students[]', values.students);
-      formData.append('resource_url', values.resource_url);
-      fetch('http://api.duanpoly.ml/api/products', {
-        method: 'POST',
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log('Success:', result);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
+      // formData.append('teacher_id', 1);
+      // formData.append('semester_id', 1);
+      // formData.append('subject_id', 1);
+      // formData.append('class', 'pt1221');
+      // formData.append('product_type_id', 1);
+      // formData.append('campus_id', 1);
+      // formData.append('video_url', 'asdf');
+      // formData.append('description', 'awhufiwef');
+      // formData.append('name', 'website');
+      // formData.append('image', values.image);
+      // for (let i = 0; i < values.galleries.length; i++) {
+      //   formData.append(`galleries[]`, values.galleries[i]);
+      // }
+      // formData.append('students[]', values.students);
+      // formData.append('resource_url', values.resource_url);
+      // fetch('http://api.duanpoly.ml/api/products', {
+      //   method: 'POST',
+      //   body: formData,
+      // })
+      //   .then((response) => response.json())
+      //   .then((result) => {
+      //     console.log('Success:', result);
+      //   })
+      //   .catch((error) => {
+      //     console.error('Error:', error);
+      //   });
     },
   });
   const ChangeSelect = (e) => {
