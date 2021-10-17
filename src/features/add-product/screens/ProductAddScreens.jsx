@@ -26,8 +26,12 @@ import ReviewProduct from '../components/Review/Review';
 const AddProduct = () => {
   const dispatch = useDispatch();
   const test = [
-    { id: 1, value: 'datlt2306@fpt.edu.vn', label: 'Lê trọng đạt' },
-    { id: 2, value: 'sonnhph12562@fpt.edu.vn', label: 'nguyễn sơn ' },
+    { value: 1, label: 'Dự án website' },
+    { value: 2, label: 'Dự án đồ họa ' },
+  ];
+  const students = [
+    { value: 1, label: 'Lê Quang Sơn' },
+    { value: 2, label: 'Bùi Hoàng Việt ' },
   ];
   const [show, setShow] = useState(false);
   const [fileName, SetFileName] = useState('');
@@ -52,14 +56,14 @@ const AddProduct = () => {
   };
   const formik = useFormik({
     initialValues: {
-      name: 'dự án mới',
-      video_url: 'câcdcasc',
+      name: '',
+      video_url: '',
       campus_id: 1,
       teacher_id: 1,
       subject_id: 1,
       semester_id: 1,
       product_type_id: 1,
-      class: 'ph3r631',
+      class: 'pt15319',
       image: '',
       resource_url: '',
       students: [],
@@ -69,33 +73,36 @@ const AddProduct = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      const newProduct = new FormData();
-      newProduct.append('name', values.name);
-      newProduct.append('video_url', values.video_url);
-      newProduct.append('campus_id', values.campus_id);
-      newProduct.append('teacher_id', values.teacher_id);
-      newProduct.append('subject_id', values.subject_id);
-      newProduct.append('semester_id', values.semester_id);
-      newProduct.append('product_type_id', values.product_type_id);
-      newProduct.append('class', values.class);
-      newProduct.append('image', values.image);
-      newProduct.append('resource_url', values.resource_url);
-      newProduct.append('students', values.students);
-      newProduct.append('galleries', values.galleries);
-      newProduct.append('description', values.description);
-      newProduct.append('status', values.status);
+      const formData = new FormData();
+      // const image = document.getElementById('image');
+      // const galleries = document.getElementById('galleries');
+      // const resoure = document.getElementById('resource');
+      formData.append('teacher_id', 1);
+      formData.append('semester_id', 1);
+      formData.append('subject_id', 1);
+      formData.append('class', 'pt1221');
+      formData.append('product_type_id', 1);
+      formData.append('campus_id', 1);
+      formData.append('video_url', 'asdf');
+      formData.append('description', 'awhufiwef');
+      formData.append('name', 'website');
+      formData.append('image', values.image);
+      for (let i = 0; i < values.galleries.length; i++) {
+        formData.append(`galleries[]`, values.galleries[i]);
+      }
+      formData.append('students[]', values.students);
+      formData.append('resource_url', values.resource_url);
       fetch('http://api.duanpoly.ml/api/products', {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
         method: 'POST',
-        body: JSON.stringify(newProduct),
+        body: formData,
       })
         .then((response) => response.json())
-        .then((data) => console.log('trả về', data));
-      // dispatch(addProduct(newProduct));
-      console.log('value', values);
+        .then((result) => {
+          console.log('Success:', result);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     },
   });
   const ChangeSelect = (e) => {
@@ -187,6 +194,7 @@ const AddProduct = () => {
                 id="kyhoc"
                 className="filed-input"
                 value="Fall 2021"
+                name=""
                 disabled
               />
             </FromGroup>
@@ -212,7 +220,6 @@ const AddProduct = () => {
               formik.touched.product_type_id ? (
                 <span hidden={selectProduct_id ? true : false}>
                   {formik.errors.product_type_id}
-                  {''}
                 </span>
               ) : null}
             </FromGroup>
@@ -239,7 +246,8 @@ const AddProduct = () => {
                 <input
                   hidden
                   type="file"
-                  placeholder="tài liệu   "
+                  placeholder="tài liệu"
+                  name="resource_url"
                   id="document"
                   className="filed-input"
                   onChange={ChangeDocument}
@@ -256,7 +264,7 @@ const AddProduct = () => {
                 Thành viên
               </label>
               <Select
-                options={test}
+                options={students}
                 placeholder="Thành Viên "
                 className={
                   formik.errors.students && !group_student ? 'error' : ''
