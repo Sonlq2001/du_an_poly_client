@@ -1,20 +1,33 @@
 import React, { memo, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import Loading from './../components/Loading/Loading';
 import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
+import store from './../redux/store';
+import { ROOT_ROUTE, SIGN_IN_ROUTE } from './../routes/routes.config';
 
-const RouterWrap = ({ component: Component, layout, path, exact }) => {
+const RouterWrap = ({
+  component: Component,
+  layout,
+  path,
+  exact,
+  isAuth,
+  isPrivateRoute,
+}) => {
   const RouteLayout = layout || DefaultLayout;
   const isExact = exact ? true : false;
-  const { accessToken } = useSelector((state) => state.auth);
+  const isPrivate = isPrivateRoute || false;
+  const isSigned = store.getState().auth.accessToken;
 
-  // if (accessToken) {
-  //   return <Redirect to="/" />;
-  // }
+  if (!isSigned && isPrivate) {
+    return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;
+  }
+
+  if (isSigned && isAuth) {
+    return <Redirect key="ROOT_ROUTE" to={ROOT_ROUTE} />;
+  }
 
   return (
     <Route

@@ -9,6 +9,7 @@ const SIGN_IN_SCREEN = {
   path: '/sign-in',
   component: SignInScreen,
   layout: AuthLayout,
+  isAuth: true,
 };
 
 export const SIGN_IN_ROUTES = [SIGN_IN_SCREEN];
