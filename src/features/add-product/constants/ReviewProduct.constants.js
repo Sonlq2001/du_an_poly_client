@@ -59,3 +59,15 @@ export const LIST_CAROUSEL = [
     img: 'https://cdn.pixabay.com/photo/2017/08/11/01/37/back-to-school-2629361__480.jpg',
   },
 ];
+
+export const PRODUCT_TYPE_ID = [
+  { value: 1, label: 'Thiết kế web' },
+  { value: 2, label: 'Thiết kế đồ họa' },
+];
+
+export const STUDENTS = [
+  { value: 1, label: 'Lê Quang Sơn' },
+  { value: 2, label: 'Lê Thanh Hải' },
+  { value: 3, label: 'Nguyễn Tiến Đạt' },
+  { value: 4, label: 'Lê Văn Vĩnh' },
+];

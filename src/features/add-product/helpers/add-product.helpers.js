@@ -1,0 +1,16 @@
+export const initForm = {
+  name: '',
+  video_url: '',
+  campus_id: '',
+  teacher_id: 'Trần Hữu Thiện',
+  subject_id: '',
+  semester_id: '',
+  product_type_id: '',
+  class: '',
+  image: '',
+  resource_url: '',
+  students: [],
+  galleries: [],
+  description: '',
+  status: 0,
+};

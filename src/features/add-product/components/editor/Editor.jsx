@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import ReactQuill from 'react-quill';
+import { useFormikContext } from 'formik';
+
 import { WarEditor } from './Editor.styles';
 import EditorToolbar, { formats } from './CustomEditor';
-// import storage from './UpfileImage';
+
 function undoChange() {
   this.quill.history.undo();
 }
@@ -10,10 +12,11 @@ function redoChange() {
   this.quill.history.redo();
 }
 
-const Editor = ({ ChangeDescription }) => {
+const Editor = ({ name }) => {
   const editor = useRef();
+  const { setFieldValue } = useFormikContext();
   const ChangeEditor = (data) => {
-    ChangeDescription(data);
+    setFieldValue(name, data);
   };
   // const ChangeImage = () => {
   //   const input = document.createElement('input');
@@ -40,7 +43,6 @@ const Editor = ({ ChangeDescription }) => {
       handlers: {
         undo: undoChange,
         redo: redoChange,
-        // image: ChangeImage,
       },
     },
     history: {
