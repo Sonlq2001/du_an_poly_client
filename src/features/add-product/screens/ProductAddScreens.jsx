@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, memo } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch } from 'react-redux';
 
@@ -10,7 +10,9 @@ import {
   FormLeft,
   FormRight,
   WrapButton,
+  ListImage,
 } from './ProductAddScreen.styles';
+import { RiDeleteBin2Line } from 'react-icons/ri';
 import Editor from './../components/editor/Editor';
 import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
@@ -21,10 +23,13 @@ import {
   PRODUCT_TYPE_ID,
   STUDENTS,
 } from './../constants/ReviewProduct.constants';
+import { addProduct } from '../redux/productadd.slice';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-
+  const [statusDocument, setStatusDocument] = useState(false);
+  const [statusGalleries, setStatusGalleries] = useState(false);
+  const [listImage, setListImage] = useState([]);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -33,6 +38,22 @@ const AddProduct = () => {
           initialValues={initForm}
           onSubmit={(values) => {
             console.log(values);
+            const newProduct = new FormData();
+            newProduct.append('name', values.name);
+            newProduct.append('video_url', values.video_url);
+            newProduct.append('campus_id', values.campus_id);
+            newProduct.append('teacher_id', values.teacher_id);
+            newProduct.append('subject_id', values.subject_id);
+            newProduct.append('semester_id', values.semester_id);
+            newProduct.append('product_type_id', values.product_type_id);
+            newProduct.append('class', values.class);
+            newProduct.append('image', values.image);
+            newProduct.append('resource_url', values.resource_url);
+            newProduct.append('students', values.students);
+            newProduct.append('galleries[]', values.galleries);
+            newProduct.append('status', values.status);
+            newProduct.append('description', values.description);
+            dispatch(addProduct(newProduct));
           }}
         >
           {() => (
@@ -53,6 +74,7 @@ const AddProduct = () => {
                   <InputElement
                     label="Môn học"
                     name="subject_id"
+                    disabled
                     placeholder="Nhập tên sản phẩm"
                   />
                   <InputElement
@@ -84,6 +106,7 @@ const AddProduct = () => {
                     label="Tài liệu"
                     id="file-document"
                     content="Chọn tài liệu"
+                    setStatusDocument={setStatusDocument}
                   />
                   <InputFileElement
                     name="galleries"
@@ -91,7 +114,23 @@ const AddProduct = () => {
                     id="file-gallery"
                     content="Chọn bộ sưu tập"
                     multiple
+                    setStatusGalleries={setStatusGalleries}
+                    setListImage={setListImage}
                   />
+                  <ListImage>
+                    {listImage &&
+                      listImage.map((item) => {
+                        console.log(item);
+                        return (
+                          <div className="box-item">
+                            <img src={item} alt="" />
+                            <div className="delete">
+                              <RiDeleteBin2Line />
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </ListImage>
                 </FormLeft>
                 <FormRight>
                   <Editor name="description" />
@@ -101,9 +140,15 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                <button type="submit" className="button-add">
-                  Thêm sản phẩm
-                </button>
+                {statusDocument && statusGalleries ? (
+                  <button type="submit" className="button-add">
+                    Thêm sản phẩm
+                  </button>
+                ) : (
+                  <button type="submit" disabled className="button-add">
+                    Thêm sản phẩm
+                  </button>
+                )}
               </WrapButton>
             </Form>
           )}
@@ -114,4 +159,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default memo(AddProduct);
