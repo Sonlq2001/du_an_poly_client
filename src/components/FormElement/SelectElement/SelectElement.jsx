@@ -5,7 +5,7 @@ import { useField, useFormikContext } from 'formik';
 import { GroupSelect } from './SelectElement.styles';
 
 const SelectElement = ({ options, label, placeholder, ...props }) => {
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue } = useFormikContext();
   const [field] = useField(props);
   const handleChangeSelect = (value) => {
     if (Array.isArray(value)) {

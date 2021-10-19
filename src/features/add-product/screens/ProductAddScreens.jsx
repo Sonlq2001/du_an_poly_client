@@ -124,7 +124,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {/* {statusDocument && statusGalleries ? (
+                {statusDocument && statusGalleries ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
@@ -132,10 +132,7 @@ const AddProduct = () => {
                   <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
-                )} */}
-                <button type="submit" className="button-add">
-                  Thêm sản phẩm
-                </button>
+                )}
               </WrapButton>
             </Form>
           )}
