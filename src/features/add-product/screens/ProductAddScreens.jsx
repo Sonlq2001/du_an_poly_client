@@ -38,22 +38,7 @@ const AddProduct = () => {
           initialValues={initForm}
           onSubmit={(values) => {
             console.log(values);
-            const newProduct = new FormData();
-            newProduct.append('name', values.name);
-            newProduct.append('video_url', values.video_url);
-            newProduct.append('campus_id', values.campus_id);
-            newProduct.append('teacher_id', values.teacher_id);
-            newProduct.append('subject_id', values.subject_id);
-            newProduct.append('semester_id', values.semester_id);
-            newProduct.append('product_type_id', values.product_type_id);
-            newProduct.append('class', values.class);
-            newProduct.append('image', values.image);
-            newProduct.append('resource_url', values.resource_url);
-            newProduct.append('students', values.students);
-            newProduct.append('galleries[]', values.galleries);
-            newProduct.append('status', values.status);
-            newProduct.append('description', values.description);
-            dispatch(addProduct(newProduct));
+            dispatch(addProduct(values));
           }}
         >
           {() => (
@@ -96,7 +81,7 @@ const AddProduct = () => {
                     options={PRODUCT_TYPE_ID}
                   />
                   <InputFileElement
-                    name="image"
+                    name="image_url"
                     label="Ảnh đại diện"
                     id="file-avatar"
                     content="Chọn ảnh đại diện"
@@ -120,7 +105,6 @@ const AddProduct = () => {
                   <ListImage>
                     {listImage &&
                       listImage.map((item) => {
-                        console.log(item);
                         return (
                           <div className="box-item">
                             <img src={item} alt="" />
@@ -140,7 +124,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && statusGalleries ? (
+                {/* {statusDocument && statusGalleries ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
@@ -148,7 +132,10 @@ const AddProduct = () => {
                   <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
-                )}
+                )} */}
+                <button type="submit" className="button-add">
+                  Thêm sản phẩm
+                </button>
               </WrapButton>
             </Form>
           )}

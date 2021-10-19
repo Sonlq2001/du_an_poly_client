@@ -16,11 +16,9 @@ const SelectElement = ({ options, label, placeholder, ...props }) => {
         },
       };
       field.onChange(valueOption);
-      const groupStudent =
-        valueOption.target.value &&
-        valueOption.target.value.map((item) => {
-          return item.value;
-        });
+      const groupStudent = valueOption.target.value.map((item) => {
+        return item.value;
+      });
       setFieldValue(valueOption.target.name, groupStudent);
     }
     const valueOption = {

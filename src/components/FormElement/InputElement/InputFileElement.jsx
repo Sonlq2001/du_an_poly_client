@@ -23,39 +23,48 @@ const InputFileElement = ({
     const files = e.target.files;
     const formData = new FormData();
     const galleriesList = new FormData();
-    formData.append('resource_url', file);
-    formData.append('name', file.name);
+
     if (file.size < 5097152) {
       if (name === 'resource_url') {
-        api
-          .post('/products/document', formData)
-          .then(
-            (res) =>
-              console.log('resource_url', res) +
-              setFieldValue(name, res.data.resource_url) +
-              setStatusDocument(true)
-          );
+        formData.append('resource_url', file && file);
+        formData.append('name', file && file.name);
+        file &&
+          api
+            .post('/products/document', formData)
+            .then(
+              (res) =>
+                console.log('resource_url', res) +
+                setFieldValue(name, res.data.resource_url) +
+                setStatusDocument(true)
+            );
       } else if (name === 'galleries') {
         const listImage = Array.from(files);
-
-        const abc = listImage.map((item) => {
-          return galleriesList.append('galleries[]', item);
-        });
+        let test = [];
+        const abc =
+          files &&
+          listImage.map((item) => {
+            return galleriesList.append('galleries[]', item);
+          });
         abc.length > 0 &&
           api
             .post('/products/galleries', galleriesList)
             .then(
               (res) =>
-                console.log('galleries', res) +
+                console.log(
+                  'test ',
+                  res.data,
+                  typeof test.push(res.data.array_url)
+                ) +
                 setFieldValue(name, res.data.array_url) +
                 setStatusGalleries(true) +
                 setListImage(res.data.array_url)
             );
       }
-      setFieldValue('image', file);
-      // multiple
-      // ? setFieldValue(name, e.target.files)
-      // : setFieldValue(name, e.target.files[0]);
+      formData.append('image', file);
+      file &&
+        api
+          .post('/products/image', formData)
+          .then((res) => setFieldValue(name, res.data.image_url));
     }
   };
 
