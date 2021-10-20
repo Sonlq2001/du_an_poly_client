@@ -24,8 +24,8 @@ const ProductProfile = () => {
         </button>
       </Title>
       <div className={toggle === 1 ? 'show' : 'hidden'}>
-        <Product className="row">
-          <div className="productItem col-3">
+        <Product>
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <Link to="/product/1">
@@ -47,7 +47,7 @@ const ProductProfile = () => {
               </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -65,7 +65,7 @@ const ProductProfile = () => {
               </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -83,7 +83,7 @@ const ProductProfile = () => {
               </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -101,7 +101,7 @@ const ProductProfile = () => {
               </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -123,8 +123,8 @@ const ProductProfile = () => {
         <Pagination />
       </div>
       <div className={toggle === 2 ? 'show' : 'hidden'}>
-        <Product className="row">
-          <div className="productItem col-3">
+        <Product>
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -136,7 +136,7 @@ const ProductProfile = () => {
               <p className="title">{str.slice(0, 20) + ' ...'}</p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -148,7 +148,7 @@ const ProductProfile = () => {
               <p className="title">Ứng dụng phầm mềm </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <img
@@ -160,7 +160,7 @@ const ProductProfile = () => {
               <p className="title">Thiết kế đồ họa </p>
             </div>
           </div>
-          <div className="productItem col-3">
+          <div className="productItem ">
             <div className="productImage">
               <div className="overlay"> </div>
               <Link to="/product/1">

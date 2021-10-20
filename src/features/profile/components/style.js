@@ -8,6 +8,18 @@ export const HeaderProfile = styled.div`
     padding: 2rem;
     /* height: 160px; */
     box-sizing: border-box;
+    @media (max-width: 991.98px) {
+      display: grid;
+      grid-template-columns: 40% 1fr;
+    }
+    @media (max-width: 767.98px) {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+    }
+    @media (max-width: 575.98px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 export const Eye = styled(AiOutlineEye)`
@@ -23,6 +35,13 @@ export const Avatar = styled.div`
     border-radius: 50%;
     max-height: 130px;
     width: 110px;
+  }
+  @media (max-width: 575.98px) {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 export const Information = styled.div`
@@ -47,6 +66,14 @@ export const Information = styled.div`
     /* color: #28287bf7; */
     color: #374151;
     font-weight: 550;
+  }
+  @media (max-width: 991.98px) {
+    & li {
+      font-size: 1.3rem;
+    }
+    .rigth li {
+      font-size: 1.3rem;
+    }
   }
 `;
 // end profile
@@ -83,15 +110,65 @@ export const Title = styled.div`
     padding-left: 4px;
     margin-left: 5px;
   }
+  @media (max-width: 991.98px) {
+    & button {
+      font-size: 1.5rem;
+    }
+  }
 `;
 export const Product = styled.div`
   box-sizing: border-box;
   padding: 10px 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 0.5rem;
+  @media (max-width: 991.98px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.4rem;
+    & .productItem {
+      height: 23rem !important;
+    }
+    & .contenPro .title {
+      font-size: 1.3rem !important;
+    }
+    & .contenPro .view {
+      font-size: 1.3rem !important;
+    }
+    &.productImage {
+      height: 80%;
+    }
+  }
+  @media (max-width: 767.98px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & .productItem {
+      height: 22rem !important;
+    }
+  }
+  @media (max-width: 575.98px) {
+    max-width: 100%;
+    overflow: hidden;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 15px;
+    & .productItem {
+      width: 100%;
+      overflow: hidden;
+      height: 24rem !important;
+    }
+    & .productItem img {
+      width: 100% !important;
+    }
+  }
   & .productItem {
     padding: 8px;
     box-sizing: border-box;
     border-radius: 5px;
     margin-bottom: 1.2rem;
+    height: 26rem;
   }
   .productImage {
     height: 90%;
@@ -114,11 +191,12 @@ export const Product = styled.div`
   }
   & .productItem img {
     width: 100%;
-    height: 230px;
+    height: 100%;
     border-radius: 5px;
     transition: 1s;
     overflow: hidden;
     image-rendering: pixelated;
+    image-orientation: flip;
   }
   .productItem a {
     color: #374151;
@@ -160,6 +238,27 @@ export const WaperPagi = styled.div`
     justify-content: right;
     align-items: right;
   }
+  @media (max-width: 767.98px) {
+    & ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    & ul li {
+      font-size: 1.3rem !important;
+    }
+  }
+  @media (max-width: 575.98px) {
+    & ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    & ul li {
+      font-size: 1.2rem !important;
+    }
+  }
+
   & ul li.icon {
     padding: 6px 5px 0px 5px;
     line-height: 20px;
