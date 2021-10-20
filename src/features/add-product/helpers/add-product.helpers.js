@@ -8,13 +8,9 @@ export const initForm = {
   product_type_id: '',
   class: 'pt12365',
   image_url: '',
-  resource_url: 'fgtubshagyuabhsjndvagy8udbhc',
-  students: ['sonnhph12562@fpt.edu.vn'],
-  galleries: [
-    'https://dbk.vn/uploads/ckfinder/images/tranh-anh/Anh-thien-nhien-1.jpg',
-    'https://dbk.vn/uploads/ckfinder/images/tranh-anh/Anh-thien-nhien-1.jpg',
-    'https://dbk.vn/uploads/ckfinder/images/tranh-anh/Anh-thien-nhien-1.jpg',
-  ],
+  resource_url: '',
+  students: [],
+  galleries: [],
   description: '',
   status: 0,
 };
