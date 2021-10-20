@@ -154,6 +154,7 @@ export const Product = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0px 15px;
+    margin-top: 1rem;
     & .productItem {
       width: 100%;
       overflow: hidden;
