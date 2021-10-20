@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BiLogIn, BiPalette } from 'react-icons/bi';
-import { FcSearch } from 'react-icons/fc';
-import { MdWeb, MdAutorenew } from 'react-icons/md';
-import { GiLipstick } from 'react-icons/gi';
-import { FaSuitcaseRolling } from 'react-icons/fa';
-import { HiChartBar } from 'react-icons/hi';
-import { useSelector } from 'react-redux';
+import { BiLogIn } from 'react-icons/bi';
+import { FcSearch, FcMenu } from 'react-icons/fc';
+import { GrBottomCorner } from 'react-icons/gr';
+import { RiCloseLine } from 'react-icons/ri';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   WrapHeader,
@@ -19,13 +17,21 @@ import {
   FormSearch,
   SubMenu,
   SubMeuItem,
+  MenuResponse,
+  HeaderBar,
+  BodyBar,
   GroupUser,
+  GroupLogin,
 } from './header.styles';
 import LogoFpt from './../../assets/images/logo.png';
+import { menubar } from './../../routes/routes.constants';
+import { postLogout } from './../../features/auth/redux/auth.slice';
 
 const Header = () => {
   const { pathname } = useLocation();
   const [isSearchHeader, setIsSearchHeader] = useState(false);
+  const [isUserAction, setIsUserAction] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     pathname === '/' ? setIsSearchHeader(false) : setIsSearchHeader(true);
@@ -43,7 +49,11 @@ const Header = () => {
   }, [pathname]);
 
   const { userLogin } = useSelector((state) => state.auth);
-  // console.log(Object.keys(userLogin).length === 0);
+
+  const handleLogout = () => {
+    dispatch(postLogout());
+  };
+
   return (
     <WrapHeader>
       <div className="container ">
@@ -54,77 +64,36 @@ const Header = () => {
             </Link>
 
             <HeaderMenu>
-              <li className="item-menu">
-                <Link to="/" className="link-menu">
-                  Trang chủ
-                </Link>
-              </li>
-              <li className="item-menu">
-                <Link to="/" className="link-menu">
-                  Thông tin
-                </Link>
-              </li>
-              <ItemMenuNew className="item-menu">
-                <div>
-                  <div className="link-disabled link-menu">
-                    Các chuyên ngành
-                  </div>
-                  <BoxNew>
-                    <span className="text-new">New</span>
-                  </BoxNew>
-                </div>
-
-                <SubMenu>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <MdWeb />
-                      </span>
-                      <span>Công nghệ thông tin</span>
+              {menubar.map((menu, index) =>
+                menu?.items.length <= 1 ? (
+                  <li className="item-menu" key={index}>
+                    <Link to="/" className="link-menu">
+                      {menu.items[0].navigationTitle}
                     </Link>
-                  </SubMeuItem>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <BiPalette />
-                      </span>
-                      <span>Thiết kế đồ họa</span>
-                    </Link>
-                  </SubMeuItem>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <HiChartBar />
-                      </span>
-                      <span>Kinh tế kinh doanh</span>
-                    </Link>
-                  </SubMeuItem>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <GiLipstick />
-                      </span>
-                      <span> Mĩ phẩm làm đẹp</span>
-                    </Link>
-                  </SubMeuItem>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <MdAutorenew />
-                      </span>
-                      <span>Cơ khí tự động hóa</span>
-                    </Link>
-                  </SubMeuItem>
-                  <SubMeuItem>
-                    <Link to="/category" className="link-sub">
-                      <span>
-                        <FaSuitcaseRolling />
-                      </span>
-                      <span>Du lịch - Khách sạn - Nhà hàng</span>
-                    </Link>
-                  </SubMeuItem>
-                </SubMenu>
-              </ItemMenuNew>
+                  </li>
+                ) : (
+                  <ItemMenuNew className="item-menu" key={index}>
+                    <div>
+                      <div className="link-disabled link-menu">
+                        {menu?.cate}
+                      </div>
+                      <BoxNew>
+                        <span className="text-new">New</span>
+                      </BoxNew>
+                    </div>
+                    <SubMenu>
+                      {menu?.items.map((item) => (
+                        <SubMeuItem key={item.id}>
+                          <Link to="/category" className="link-sub">
+                            {item?.icon && <span>{item.icon}</span>}
+                            <span>{item.navigationTitle}</span>
+                          </Link>
+                        </SubMeuItem>
+                      ))}
+                    </SubMenu>
+                  </ItemMenuNew>
+                )
+              )}
             </HeaderMenu>
           </HeaderLeft>
 
@@ -138,19 +107,83 @@ const Header = () => {
               </FormSearch>
             )}
 
-            {userLogin?.avatar ? (
-              <GroupUser>
-                <img src={userLogin?.avatar} alt="" className="user-avatar" />
-                <span className="user-name">{userLogin?.email}</span>
-              </GroupUser>
-            ) : (
-              <Link to="/sign-in" className="link-menu">
-                Login
-                <span className="icon-login">
-                  <BiLogIn />
-                </span>
-              </Link>
-            )}
+            <MenuResponse className="lg-0">
+              <label className="icon-menu" htmlFor="checked-mobile">
+                <FcMenu />
+              </label>
+              <input type="checkbox" id="checked-mobile" hidden />
+              <label htmlFor="checked-mobile" className="overlay-bar"></label>
+              <div className="menu-bar">
+                <HeaderBar>
+                  <div className="user-login">
+                    <img
+                      src="https://cdn.pixabay.com/photo/2021/10/05/16/53/kimono-6683245__480.jpg"
+                      alt=""
+                      className="user-avatar"
+                    />
+                    Lê Quang Sơn
+                  </div>
+                  <label htmlFor="checked-mobile" className="close-bar">
+                    <RiCloseLine />
+                  </label>
+                </HeaderBar>
+
+                <BodyBar>
+                  {menubar.map((menu, index) => (
+                    <React.Fragment key={index}>
+                      {!menu.title && <div className="line-menu" />}
+                      {menu?.items.map((item) => (
+                        <li className="item-bar" key={item.id}>
+                          <Link to={item.path} className="link-bar">
+                            <span className="icon-bar">
+                              {item?.icon && item.icon}
+                            </span>
+                            <span className="txt-bar">
+                              {item.navigationTitle}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </BodyBar>
+              </div>
+            </MenuResponse>
+            <div className="group-user">
+              {userLogin?.avatar ? (
+                <GroupLogin>
+                  <GroupUser>
+                    <img
+                      src={userLogin?.avatar}
+                      alt=""
+                      className="user-avatar"
+                    />
+                    <span className="user-name">{userLogin?.email}</span>
+                    <span
+                      className="icon-drop"
+                      onClick={() => setIsUserAction(!isUserAction)}
+                    >
+                      <GrBottomCorner />
+                    </span>
+                  </GroupUser>
+
+                  {isUserAction && (
+                    <div className="action-user">
+                      <button className="item-user" onClick={handleLogout}>
+                        Logout out
+                      </button>
+                    </div>
+                  )}
+                </GroupLogin>
+              ) : (
+                <Link to="/sign-in" className="link-menu">
+                  Login
+                  <span className="icon-login">
+                    <BiLogIn />
+                  </span>
+                </Link>
+              )}
+            </div>
           </HeaderRight>
         </HeaderInner>
       </div>

@@ -5,9 +5,9 @@ import { Variables } from './config/variables';
 
 const GlobalStyle = createGlobalStyle(() => {
   return /*CSS*/ `
+		${Variables()}
 		${ResetCss()}
 		${GridColumn()}
-		${Variables()}
 	`;
 });
 
