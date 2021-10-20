@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { BiLogIn } from 'react-icons/bi';
 import { FcSearch, FcMenu } from 'react-icons/fc';
 import { RiCloseLine } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
 
 import {
   WrapHeader,
@@ -18,6 +19,7 @@ import {
   MenuResponse,
   HeaderBar,
   BodyBar,
+  GroupUser,
 } from './header.styles';
 import LogoFpt from './../../assets/images/logo.png';
 import { menubar } from './../../routes/routes.constants';
@@ -41,6 +43,8 @@ const Header = () => {
     };
   }, [pathname]);
 
+  const { userLogin } = useSelector((state) => state.auth);
+  // console.log(Object.keys(userLogin).length === 0);
   return (
     <WrapHeader>
       <div className="container ">
@@ -143,6 +147,19 @@ const Header = () => {
                 </BodyBar>
               </div>
             </MenuResponse>
+            {userLogin?.avatar ? (
+              <GroupUser>
+                <img src={userLogin?.avatar} alt="" className="user-avatar" />
+                <span className="user-name">{userLogin?.email}</span>
+              </GroupUser>
+            ) : (
+              <Link to="/sign-in" className="link-menu">
+                Login
+                <span className="icon-login">
+                  <BiLogIn />
+                </span>
+              </Link>
+            )}
           </HeaderRight>
         </HeaderInner>
       </div>

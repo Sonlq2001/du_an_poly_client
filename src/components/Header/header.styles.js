@@ -301,3 +301,16 @@ export const BodyBar = styled.ul`
     }
   }
 `;
+export const GroupUser = styled.div`
+  display: flex;
+  align-items: center;
+  .user-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 100%;
+    margin-right: 1rem;
+  }
+  .user-name {
+    font-size: 1.3rem;
+  }
+`;
