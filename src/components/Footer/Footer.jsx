@@ -15,10 +15,10 @@ const Footer = () => {
     <FooterWrap>
       <div className="container">
         <div className="row">
-          <div className="xl-3 lg-3">
+          <div className="xl-3 lg-3 md-6 sm-6 col-12">
             <img src={ImageLogo} alt="" className="footer-img" />
           </div>
-          <div className="xl-3 lg-3">
+          <div className="xl-3 lg-3 md-6 sm-6 col-12">
             <FooterItem>
               <FooterTitle>THÔNG TIN LIÊN HỆ</FooterTitle>
               <FooterText>Điện thoại: 0394570202</FooterText>
@@ -26,7 +26,7 @@ const Footer = () => {
             </FooterItem>
           </div>
 
-          <div className="xl-6 lg-6">
+          <div className="xl-6 lg-6 md-12 sm-12 col-12">
             <FooterItem>
               <FooterTitle>HỆ THỐNG CƠ SỞ ĐÀO TẠO</FooterTitle>
               <FooterContent>

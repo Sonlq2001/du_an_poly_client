@@ -1,0 +1,86 @@
+export const DATA_FAKE = [
+  {
+    id: 1,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2016/11/19/11/11/hands-1838658_1280.jpg',
+  },
+  {
+    id: 2,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2012/12/27/19/41/halloween-72939_1280.jpg',
+  },
+  {
+    id: 3,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2021/09/07/11/53/car-6603726_1280.jpg',
+  },
+  {
+    id: 4,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2014/09/03/20/15/shoes-434918_1280.jpg',
+  },
+  {
+    id: 5,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2016/02/13/13/11/oldtimer-1197800_1280.jpg',
+  },
+  {
+    id: 6,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2014/09/05/18/32/old-books-436498_1280.jpg',
+  },
+  {
+    id: 7,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2015/11/19/21/10/glasses-1052010_1280.jpg',
+  },
+  {
+    id: 8,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2015/01/08/18/26/man-593333_1280.jpg',
+  },
+  {
+    id: 9,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2014/02/01/17/28/apple-256261_1280.jpg',
+  },
+  {
+    id: 10,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2015/06/08/15/11/typewriter-801921_1280.jpg',
+  },
+  {
+    id: 11,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2015/01/08/18/26/man-593333_1280.jpg',
+  },
+  {
+    id: 12,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2012/03/04/01/01/father-22194_1280.jpg',
+  },
+  {
+    id: 13,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2015/02/24/15/41/wolf-647528_1280.jpg',
+  },
+  {
+    id: 14,
+    name: 'web abc',
+    view: 123784,
+    img: 'https://cdn.pixabay.com/photo/2020/07/21/16/24/landscape-5426755_1280.jpg',
+  },
+];

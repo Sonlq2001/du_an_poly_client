@@ -14,6 +14,10 @@ export const postLogin = createAsyncThunk(
   }
 );
 
+export const postLogout = createAsyncThunk('auth/postLogout', async () => {
+  await authApi.postLogout();
+});
+
 const initialState = {
   accessToken: null,
   userLogin: null,
@@ -35,6 +39,14 @@ const authSlice = createSlice({
       }
     },
     [postLogin.rejected]: (state) => {
+      state.accessToken = null;
+      state.userLogin = null;
+    },
+    [postLogout.fulfilled]: (state) => {
+      state.accessToken = null;
+      state.userLogin = null;
+    },
+    [postLogout.rejected]: (state) => {
       state.accessToken = null;
       state.userLogin = null;
     },

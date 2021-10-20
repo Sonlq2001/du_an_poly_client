@@ -6,6 +6,11 @@ const getAccessToken = (accessToken) => {
   return api.post(AUTH_ENDPOINTS.POST_ACCESS_TOKEN, accessToken);
 };
 
+const postLogout = () => {
+  return api.post(AUTH_ENDPOINTS.POST_LOGOUT);
+};
+
 export const authApi = {
   getAccessToken,
+  postLogout,
 };

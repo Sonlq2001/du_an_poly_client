@@ -15,6 +15,7 @@ export const ResetCss = () => {
 
     a{
       text-decoration: none;
+      color: var(--txt-color);
     }
 
     ul{
