@@ -141,10 +141,37 @@ export const HeaderRight = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    .group-user {
+      display: none;
+    }
   }
   @media (max-width: 767.98px) {
     .link-menu {
       display: none;
+    }
+  }
+`;
+
+export const GroupLogin = styled.div`
+  position: relative;
+  .action-user {
+    position: absolute;
+    right: 0;
+    margin-top: 1rem;
+    background-color: var(--white-color);
+    width: 20rem;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 2px var(--eee-color);
+  }
+  .item-user {
+    border: none;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background-color: transparent;
+    text-align: left;
+    &:hover {
+      background-color: var(--eee-color);
     }
   }
 `;
@@ -312,5 +339,12 @@ export const GroupUser = styled.div`
   }
   .user-name {
     font-size: 1.3rem;
+  }
+  .icon-drop {
+    font-size: 1.5rem;
+    transform: rotate(45deg);
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 1.5rem;
   }
 `;

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BiLogIn } from 'react-icons/bi';
 import { FcSearch, FcMenu } from 'react-icons/fc';
+import { GrBottomCorner } from 'react-icons/gr';
 import { RiCloseLine } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   WrapHeader,
@@ -20,13 +21,17 @@ import {
   HeaderBar,
   BodyBar,
   GroupUser,
+  GroupLogin,
 } from './header.styles';
 import LogoFpt from './../../assets/images/logo.png';
 import { menubar } from './../../routes/routes.constants';
+import { postLogout } from './../../features/auth/redux/auth.slice';
 
 const Header = () => {
   const { pathname } = useLocation();
   const [isSearchHeader, setIsSearchHeader] = useState(false);
+  const [isUserAction, setIsUserAction] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     pathname === '/' ? setIsSearchHeader(false) : setIsSearchHeader(true);
@@ -44,7 +49,11 @@ const Header = () => {
   }, [pathname]);
 
   const { userLogin } = useSelector((state) => state.auth);
-  // console.log(Object.keys(userLogin).length === 0);
+
+  const handleLogout = () => {
+    dispatch(postLogout());
+  };
+
   return (
     <WrapHeader>
       <div className="container ">
@@ -98,13 +107,6 @@ const Header = () => {
               </FormSearch>
             )}
 
-            <Link to="/sign-in" className="link-menu">
-              Login
-              <span className="icon-login">
-                <BiLogIn />
-              </span>
-            </Link>
-
             <MenuResponse className="lg-0">
               <label className="icon-menu" htmlFor="checked-mobile">
                 <FcMenu />
@@ -147,19 +149,41 @@ const Header = () => {
                 </BodyBar>
               </div>
             </MenuResponse>
-            {userLogin?.avatar ? (
-              <GroupUser>
-                <img src={userLogin?.avatar} alt="" className="user-avatar" />
-                <span className="user-name">{userLogin?.email}</span>
-              </GroupUser>
-            ) : (
-              <Link to="/sign-in" className="link-menu">
-                Login
-                <span className="icon-login">
-                  <BiLogIn />
-                </span>
-              </Link>
-            )}
+            <div className="group-user">
+              {userLogin?.avatar ? (
+                <GroupLogin>
+                  <GroupUser>
+                    <img
+                      src={userLogin?.avatar}
+                      alt=""
+                      className="user-avatar"
+                    />
+                    <span className="user-name">{userLogin?.email}</span>
+                    <span
+                      className="icon-drop"
+                      onClick={() => setIsUserAction(!isUserAction)}
+                    >
+                      <GrBottomCorner />
+                    </span>
+                  </GroupUser>
+
+                  {isUserAction && (
+                    <div className="action-user">
+                      <button className="item-user" onClick={handleLogout}>
+                        Logout out
+                      </button>
+                    </div>
+                  )}
+                </GroupLogin>
+              ) : (
+                <Link to="/sign-in" className="link-menu">
+                  Login
+                  <span className="icon-login">
+                    <BiLogIn />
+                  </span>
+                </Link>
+              )}
+            </div>
           </HeaderRight>
         </HeaderInner>
       </div>
