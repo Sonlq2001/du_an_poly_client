@@ -4,6 +4,9 @@ export const ContentIntro = styled.div`
   max-width: 80rem;
   margin: 0 auto;
   margin-top: 5rem;
+  @media (max-width: 767.98px) {
+    max-width: 45rem;
+  }
 `;
 
 export const ContentWrap = styled.div`
@@ -37,6 +40,15 @@ export const ContentBox = styled.div`
     }
     .box-title {
       font-size: 1.5rem;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .box-img {
+      height: 10rem;
+    }
+    .box-title {
+      font-size: 1.4rem;
+      margin-top: 5px;
     }
   }
 `;

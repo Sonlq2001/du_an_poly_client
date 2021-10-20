@@ -27,6 +27,12 @@ export const SliderItem = styled.div`
   .slick-slider {
     line-height: 0;
   }
+  @media (max-width: 767.98px) {
+    height: 35rem;
+  }
+  @media (max-width: 575.98px) {
+    height: 27rem;
+  }
 `;
 export const SearchMain = styled.div`
   .container {
@@ -50,7 +56,7 @@ export const GroupSearch = styled.div`
     font-size: 3rem;
     line-height: 3.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
     font-family: 'Open Sans', sans-serif;
   }
   .box-search {
@@ -89,6 +95,26 @@ export const GroupSearch = styled.div`
       line-height: 4rem;
     }
   }
+  @media (max-width: 767.98px) {
+    width: 95%;
+    .title-search {
+      line-height: 3rem;
+      font-size: 2.3rem;
+      padding: 0 4rem;
+    }
+    .input-search {
+      height: 5rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .title-search {
+      font-size: 2rem;
+      padding: 0;
+    }
+    .input-search {
+      height: 4.5rem;
+    }
+  }
 `;
 export const BoxTrending = styled.div`
   margin-top: 1.3rem;
@@ -97,5 +123,8 @@ export const BoxTrending = styled.div`
   .txt-popular {
     display: inline-block;
     margin-right: 1rem;
+  }
+  @media (max-width: 767.98px) {
+    font-size: 1.3rem;
   }
 `;

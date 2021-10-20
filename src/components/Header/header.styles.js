@@ -10,6 +10,9 @@ export const WrapHeader = styled.header`
   right: 0;
   z-index: 10;
   background-color: var(--white-color);
+  @media (max-width: 575.98px) {
+    height: 6rem;
+  }
 `;
 export const HeaderInner = styled.div`
   height: 7rem;
@@ -21,6 +24,12 @@ export const HeaderInner = styled.div`
   }
   @media (max-width: 991.98px) {
     justify-content: flex-start;
+  }
+  @media (max-width: 575.98px) {
+    height: 6rem;
+    img {
+      height: 3rem;
+    }
   }
 `;
 
@@ -35,22 +44,18 @@ export const HeaderMenu = styled.ul`
   align-items: center;
   justify-content: space-between;
   margin-left: 4rem;
-
   .item-menu + .item-menu {
     margin-left: 3rem;
   }
-
   .link-menu {
     color: var(--text-color);
     font-size: 1.4rem;
     font-weight: 500;
   }
-
   @media (max-width: 991.98px) {
     display: none;
   }
 `;
-
 export const SubMenu = styled.div`
   position: absolute;
   background-color: var(--white-color);
@@ -63,21 +68,17 @@ export const SubMenu = styled.div`
   margin-top: 2rem;
   transition: linear 0.3s;
 `;
-
 export const ItemMenuNew = styled.li`
   position: relative;
-
   .link-disabled {
     cursor: pointer;
   }
-
   &:hover ${SubMenu} {
     opacity: 1;
     visibility: visible;
     margin-top: 0;
   }
 `;
-
 const EffectBox = keyframes`
   from{
     opacity: 1;
@@ -85,7 +86,6 @@ const EffectBox = keyframes`
     opacity: 0.8;
   }
 `;
-
 export const BoxNew = styled.span`
   position: absolute;
   background-color: red;
@@ -94,7 +94,6 @@ export const BoxNew = styled.span`
   padding: 0 5px;
   right: -24px;
   top: -13px;
-
   .text-new {
     animation: ${EffectBox} 0.5s ease-in-out infinite;
     font-size: 9px;
@@ -111,22 +110,18 @@ export const SubMeuItem = styled.div`
     line-height: 2rem;
     border-radius: 1rem;
   }
-
   .link-sub:hover {
     background-color: var(--bg-1);
   }
-
   span:first-child {
     font-size: 1.5rem;
     transform: translateY(1px);
   }
-
   span:last-child {
     display: inline-block;
     margin-left: 1rem;
   }
 `;
-
 export const HeaderRight = styled.div`
   display: flex;
   align-items: center;
@@ -146,6 +141,11 @@ export const HeaderRight = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
+  }
+  @media (max-width: 767.98px) {
+    .link-menu {
+      display: none;
+    }
   }
 `;
 
@@ -176,6 +176,12 @@ export const FormSearch = styled.form`
       width: 100%;
     }
   }
+  @media (max-width: 767.98px) {
+    margin: 0 2.5rem;
+  }
+  @media (max-width: 767.98px) {
+    margin: 0 1rem;
+  }
 `;
 
 export const MenuResponse = styled.div`
@@ -200,7 +206,6 @@ export const MenuResponse = styled.div`
       transition: ease-in-out 0.3s;
     }
     .menu-bar {
-      position: absolute;
       position: fixed;
       top: 0;
       right: 0;
@@ -211,6 +216,12 @@ export const MenuResponse = styled.div`
       transform: translateX(110%);
       transition: ease-in-out 0.3s;
       opacity: 0;
+      @media (max-width: 767.98px) {
+        width: 90%;
+      }
+      @media (max-width: 575.98px) {
+        width: 100%;
+      }
     }
     #checked-mobile:checked ~ .menu-bar {
       transform: translateX(0);
@@ -220,6 +231,9 @@ export const MenuResponse = styled.div`
       visibility: visible;
       opacity: 1;
     }
+  }
+  @media (max-width: 767.98px) {
+    margin-left: 0;
   }
 `;
 

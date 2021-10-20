@@ -62,7 +62,6 @@ const AddProduct = () => {
           </FromGroup>
           <FromGroup className="fromGroup">
             <label htmlFor="name" className="label-title">
-              {' '}
               Link video
             </label>
             <input

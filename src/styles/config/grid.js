@@ -12,7 +12,7 @@ export const GridColumn = () => {
 }
 
 .container {
-	width: 1200px;
+	width: 100%;
 	padding-right: 12px;
 	padding-left: 12px;
 	margin-right: auto;
