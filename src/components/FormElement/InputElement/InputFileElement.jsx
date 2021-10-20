@@ -23,11 +23,10 @@ const InputFileElement = ({
     const files = e.target.files;
     const formData = new FormData();
     const galleriesList = new FormData();
-
+    formData.append('resource_url', file && file);
+    formData.append('name', file && file.name);
     if (file.size < 5097152) {
       if (name === 'resource_url') {
-        formData.append('resource_url', file && file);
-        formData.append('name', file && file.name);
         file &&
           api
             .post('/products/document', formData)
@@ -39,7 +38,6 @@ const InputFileElement = ({
             );
       } else if (name === 'galleries') {
         const listImage = Array.from(files);
-        let test = [];
         const abc =
           files &&
           listImage.map((item) => {
@@ -50,21 +48,22 @@ const InputFileElement = ({
             .post('/products/galleries', galleriesList)
             .then(
               (res) =>
-                console.log(
-                  'test ',
-                  res.data,
-                  typeof test.push(res.data.array_url)
-                ) +
+                console.log('galleries', res.data.array_url) +
                 setFieldValue(name, res.data.array_url) +
                 setStatusGalleries(true) +
                 setListImage(res.data.array_url)
             );
+      } else {
+        formData.append('image', file);
+        file &&
+          api
+            .post('/products/image', formData)
+            .then(
+              (res) =>
+                console.log('image', res.data.image_url) +
+                setFieldValue(name, res.data.image_url)
+            );
       }
-      formData.append('image', file);
-      file &&
-        api
-          .post('/products/image', formData)
-          .then((res) => setFieldValue(name, res.data.image_url));
     }
   };
 

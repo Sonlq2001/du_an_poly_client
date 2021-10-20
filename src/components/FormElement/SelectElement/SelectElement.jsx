@@ -4,11 +4,11 @@ import { useField, useFormikContext } from 'formik';
 
 import { GroupSelect } from './SelectElement.styles';
 
-const SelectElement = ({ options, label, placeholder, ...props }) => {
-  const { setFieldValue } = useFormikContext();
+const SelectElement = ({ options, label, placeholder, name, ...props }) => {
+  const { setFieldValue, values } = useFormikContext();
   const [field] = useField(props);
   const handleChangeSelect = (value) => {
-    if (Array.isArray(value)) {
+    if (Array.isArray(value, name)) {
       const valueOption = {
         target: {
           name: field.name,
@@ -19,7 +19,9 @@ const SelectElement = ({ options, label, placeholder, ...props }) => {
       const groupStudent = valueOption.target.value.map((item) => {
         return item.value;
       });
-      setFieldValue(valueOption.target.name, groupStudent);
+      // lỗi không  lấy  được  group students
+      console.log('wor dyada', valueOption.target);
+      setFieldValue(name, groupStudent);
     }
     const valueOption = {
       target: {

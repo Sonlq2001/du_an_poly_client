@@ -17,13 +17,6 @@ const InputElement = ({ label, type = 'text', placeholder, ...props }) => {
         placeholder={placeholder}
         className="form-input"
         {...field}
-        disabled={
-          props.name === 'subject_id' &&
-          props.name === 'teacher_id' &&
-          props.name === 'semester_id'
-            ? true
-            : false
-        }
       />
     </GroupForm>
   );
