@@ -7,7 +7,7 @@ export const WarEditor = styled.div`
     font-weight: 550;
   }
   & .ql-container {
-    height: 48rem;
+    height: 50rem;
     border: 1px solid #ccc;
     border-bottom-right-radius: 1rem;
     border-bottom-left-radius: 1rem;

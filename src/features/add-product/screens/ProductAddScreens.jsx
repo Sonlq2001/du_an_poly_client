@@ -22,34 +22,43 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from './../../../components/FormElement/InputElement/InputElement';
 import InputFileElement from './../../../components/FormElement/InputElement/InputFileElement';
 import SelectElement from './../../../components/FormElement/SelectElement/SelectElement';
-import {
-  PRODUCT_TYPE_ID,
-  // STUDENTS,
-} from './../constants/ReviewProduct.constants';
 import { addProduct } from '../redux/productadd.slice';
-import { getData } from '../redux/subjectReducer';
+import { getData } from '../redux/productTypeReducer';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getData());
-  }, []);
+  }, [dispatch]);
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
   let abc = [];
-  const [Group, setGroup] = useState(['']);
-  // const Subject = useSelector((state) => console.log(state));
-  const remove = (i) => {
-    setGroup(Group.filter((item, index) => index !== i));
-  };
+  const [Group, setGroup] = useState(['sonnhph12562@fpt.edu.vn']);
+  // danh sách product_type_id
+  const listProductType = useSelector(
+    (state) => state.ListProTypes.productTypes
+  );
 
+  const productType =
+    listProductType &&
+    listProductType.map((item) => {
+      return { ...item, label: item.name, value: item.id };
+    });
+  // xóa thành viên nhóm
+  const remove = (value) => {
+    setGroup(Group.filter((item, index) => item !== value));
+  };
+  //  xóa danh sách ảnh
+  const RemoveImage = (i) => {
+    setListImage(listImage.filter((item, index) => index !== i));
+  };
+  // lấy dữ liệu email
   const EmailChange = (e, key) => {
     abc = [...Group];
     abc[key] = e.target.value;
     setGroup(abc);
   };
-  console.log(Group);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -57,18 +66,10 @@ const AddProduct = () => {
         <Formik
           initialValues={initForm}
           onSubmit={(values) => {
-            // let result = null;
-            // if (Array.isArray(students)) {
-            //   result = students.map((item) => item.value);
-            // }
-            // const newObj = {
-            //   ...rest,
-            //   product_type_id: product_type_id?.value,
-            //   students: result,
-            // };
             values.product_type_id = values.product_type_id.value;
             values.students = Group;
-            console.log('students', values);
+            values.galleries = listImage;
+            console.log('values', values);
             dispatch(addProduct(values));
           }}
         >
@@ -115,7 +116,7 @@ const AddProduct = () => {
                             <button
                               className="remove"
                               type="button"
-                              onClick={() => remove(index)}
+                              onClick={() => remove(item)}
                             >
                               <RiDeleteBin2Line />
                             </button>
@@ -131,12 +132,12 @@ const AddProduct = () => {
                       </button>
                     </GroupInput>
                   </GroupStudents>
-                  {/*  group students  */}
+
                   <SelectElement
                     label="Loại"
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
-                    options={PRODUCT_TYPE_ID}
+                    options={productType && productType}
                   />
 
                   <InputFileElement
@@ -168,7 +169,9 @@ const AddProduct = () => {
                           <div className="box-item">
                             <img src={item} alt="" />
                             <div className="delete">
-                              <RiDeleteBin2Line />
+                              <RiDeleteBin2Line
+                                onClick={() => RemoveImage(index)}
+                              />
                             </div>
                           </div>
                         );
@@ -183,12 +186,12 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {!statusDocument && !statusGalleries ? (
-                  <button type="submit" disabled className="button-add">
+                {statusDocument && statusGalleries ? (
+                  <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit" className="button-add">
+                  <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}

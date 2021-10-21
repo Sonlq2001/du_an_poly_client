@@ -3,8 +3,7 @@ export const addPro = (data) => {
   let url = '/products';
   return api.post(url, data);
 };
-export const getSubject = () => {
-  let url = '/subjects';
+export const getProductType = () => {
+  let url = '/product_types';
   return api.get(url);
 };
-// http://api.duanpoly.ml/api/products

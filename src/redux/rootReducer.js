@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import subjectReducer from '../features/add-product/redux/subjectReducer';
+import subjectReducer from '../features/add-product/redux/productTypeReducer';
 
 import authReducer from './../features/auth/redux/auth.slice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  subject: subjectReducer,
+  ListProTypes: subjectReducer,
 });
 
 export default rootReducer;

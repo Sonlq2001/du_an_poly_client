@@ -69,27 +69,32 @@ export const GroupStudents = styled.div`
   padding-top: 1.4rem;
   display: grid;
   width: 100%;
-  grid-template-columns: 26% 1fr;
+  grid-template-columns: 27% 1fr;
   & .group {
     width: 100%;
     padding: 5px 0px;
+    position: relative;
   }
 
   & .group .inputE {
-    width: 92%;
-    padding: 4px 2px;
-
-    border: 1px solid gray;
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    border: none;
     border-radius: 5px;
     margin-right: 4px;
+    font-size: 1.5rem;
+    background-color: var(--bg-input);
   }
   & .group .remove {
     line-height: 10px;
     padding: 4px 2px;
     border: none;
     background: none;
-    color: red;
-    font-size: 2rem;
+    color: gray;
+    font-size: 2.4rem;
+    position: absolute;
+    right: 6px;
+    top: 4px;
   }
 `;
 export const GroupInput = styled.div`
@@ -98,8 +103,8 @@ export const GroupInput = styled.div`
   & .add {
     width: 100%;
     border-radius: 7px;
-    border: 1px dashed red;
-    padding: 5px;
+    border: 1px dashed gray;
+    padding: 1rem;
     margin: 5px 0px;
   }
 `;
