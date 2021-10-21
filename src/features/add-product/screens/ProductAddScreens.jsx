@@ -14,7 +14,7 @@ import {
 } from './ProductAddScreen.styles';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import Editor from './../components/editor/Editor';
-import ReviewProduct from '../components/Review/Review';
+// import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
 import InputElement from './../../../components/FormElement/InputElement/InputElement';
 import InputFileElement from './../../../components/FormElement/InputElement/InputFileElement';
@@ -23,7 +23,7 @@ import {
   PRODUCT_TYPE_ID,
   STUDENTS,
 } from './../constants/ReviewProduct.constants';
-import { addProduct } from '../redux/productadd.slice';
+// import { addProduct } from '../redux/productadd.slice';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -36,9 +36,17 @@ const AddProduct = () => {
       <WrapForm>
         <Formik
           initialValues={initForm}
-          onSubmit={(values) => {
-            console.log(values);
-            // dispatch(addProduct(values));
+          onSubmit={({ product_type_id, students, ...rest }) => {
+            let result = null;
+            if (Array.isArray(students)) {
+              result = students.map((item) => item.value);
+            }
+            const newObj = {
+              ...rest,
+              product_type_id: product_type_id?.value,
+              students: result,
+            };
+            console.log(newObj);
           }}
         >
           {() => (
