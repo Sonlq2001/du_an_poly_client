@@ -30,15 +30,27 @@ const AddProduct = () => {
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
+  const remove = (index) => {
+    console.log(' ', index);
+  };
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <WrapForm>
         <Formik
           initialValues={initForm}
-          onSubmit={(values) => {
-            console.log(values);
-            // dispatch(addProduct(values));
+          onSubmit={({ product_type_id, students, ...rest }) => {
+            let result = null;
+            if (Array.isArray(students)) {
+              result = students.map((item) => item.value);
+            }
+            const newObj = {
+              ...rest,
+              product_type_id: product_type_id?.value,
+              students: result,
+            };
+            console.log(newObj);
+            dispatch(addProduct(newObj));
           }}
         >
           {() => (
@@ -104,12 +116,12 @@ const AddProduct = () => {
                   />
                   <ListImage>
                     {listImage &&
-                      listImage.map((item) => {
+                      listImage.map((item, index) => {
                         return (
                           <div className="box-item">
                             <img src={item} alt="" />
                             <div className="delete">
-                              <RiDeleteBin2Line />
+                              <RiDeleteBin2Line onClick={() => remove(item)} />
                             </div>
                           </div>
                         );
@@ -124,7 +136,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {/* {statusDocument && statusGalleries ? (
+                {statusDocument && statusGalleries ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
@@ -132,10 +144,7 @@ const AddProduct = () => {
                   <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
-                )} */}
-                <button type="submit" className="button-add">
-                  Thêm sản phẩm
-                </button>
+                )}
               </WrapButton>
             </Form>
           )}
