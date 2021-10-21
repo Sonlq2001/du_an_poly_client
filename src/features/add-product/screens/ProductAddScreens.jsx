@@ -1,6 +1,7 @@
 import React, { useState, memo } from 'react';
 import { Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import {
   WrapPage,
@@ -30,9 +31,14 @@ const AddProduct = () => {
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
+  const { userLogin } = useSelector((state) => state.auth);
   const remove = (index) => {
     console.log(' ', index);
   };
+  console.log(userLogin);
+  if (!userLogin) {
+    <Redirect to="/sign-in" />;
+  }
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>

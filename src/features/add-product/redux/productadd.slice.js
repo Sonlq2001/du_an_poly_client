@@ -4,7 +4,7 @@ export const addProduct = createAsyncThunk(
   'product_add/add',
   async (newProduct) => {
     const response = await addPro(newProduct);
-    console.log('ở đây response', response);
+    console.log('product mới ', response);
   }
 );
 const initialState = {
