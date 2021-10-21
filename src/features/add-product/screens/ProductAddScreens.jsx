@@ -1,7 +1,7 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 import {
   WrapPage,
@@ -12,51 +12,64 @@ import {
   FormRight,
   WrapButton,
   ListImage,
+  GroupStudents,
+  GroupInput,
 } from './ProductAddScreen.styles';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import Editor from './../components/editor/Editor';
-import ReviewProduct from '../components/Review/Review';
+// import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
 import InputElement from './../../../components/FormElement/InputElement/InputElement';
 import InputFileElement from './../../../components/FormElement/InputElement/InputFileElement';
 import SelectElement from './../../../components/FormElement/SelectElement/SelectElement';
 import {
   PRODUCT_TYPE_ID,
-  STUDENTS,
+  // STUDENTS,
 } from './../constants/ReviewProduct.constants';
 import { addProduct } from '../redux/productadd.slice';
+import { getData } from '../redux/subjectReducer';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
-  const { userLogin } = useSelector((state) => state.auth);
-  const remove = (index) => {
-    console.log(' ', index);
+  let abc = [];
+  const [Group, setGroup] = useState(['']);
+  // const Subject = useSelector((state) => console.log(state));
+  const remove = (i) => {
+    setGroup(Group.filter((item, index) => index !== i));
   };
-  console.log(userLogin);
-  if (!userLogin) {
-    <Redirect to="/sign-in" />;
-  }
+
+  const EmailChange = (e, key) => {
+    abc = [...Group];
+    abc[key] = e.target.value;
+    setGroup(abc);
+  };
+  console.log(Group);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <WrapForm>
         <Formik
           initialValues={initForm}
-          onSubmit={({ product_type_id, students, ...rest }) => {
-            let result = null;
-            if (Array.isArray(students)) {
-              result = students.map((item) => item.value);
-            }
-            const newObj = {
-              ...rest,
-              product_type_id: product_type_id?.value,
-              students: result,
-            };
-            console.log(newObj);
-            dispatch(addProduct(newObj));
+          onSubmit={(values) => {
+            // let result = null;
+            // if (Array.isArray(students)) {
+            //   result = students.map((item) => item.value);
+            // }
+            // const newObj = {
+            //   ...rest,
+            //   product_type_id: product_type_id?.value,
+            //   students: result,
+            // };
+            values.product_type_id = values.product_type_id.value;
+            values.students = Group;
+            console.log('students', values);
+            dispatch(addProduct(values));
           }}
         >
           {() => (
@@ -85,19 +98,47 @@ const AddProduct = () => {
                     name="semester_id"
                     placeholder="Nhập tên sản phẩm"
                   />
-                  <SelectElement
-                    label="Thành viên"
-                    name="students"
-                    isMulti
-                    placeholder="Chọn thành viên tham gia"
-                    options={STUDENTS}
-                  />
+
+                  <GroupStudents>
+                    <Title> Thành viên </Title>
+                    <GroupInput>
+                      {Group.map((item, index) => {
+                        return (
+                          <div className="group">
+                            <input
+                              className="inputE"
+                              type="email"
+                              placeholder="email"
+                              defaultValue={item}
+                              onChange={(e) => EmailChange(e, index)}
+                            />
+                            <button
+                              className="remove"
+                              type="button"
+                              onClick={() => remove(index)}
+                            >
+                              <RiDeleteBin2Line />
+                            </button>
+                          </div>
+                        );
+                      })}
+                      <button
+                        type="button"
+                        className="add"
+                        onClick={() => setGroup([...Group, ''])}
+                      >
+                        Thêm +
+                      </button>
+                    </GroupInput>
+                  </GroupStudents>
+                  {/*  group students  */}
                   <SelectElement
                     label="Loại"
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
                     options={PRODUCT_TYPE_ID}
                   />
+
                   <InputFileElement
                     name="image_url"
                     label="Ảnh đại diện"
@@ -127,7 +168,7 @@ const AddProduct = () => {
                           <div className="box-item">
                             <img src={item} alt="" />
                             <div className="delete">
-                              <RiDeleteBin2Line onClick={() => remove(item)} />
+                              <RiDeleteBin2Line />
                             </div>
                           </div>
                         );
@@ -142,12 +183,12 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && statusGalleries ? (
-                  <button type="submit" className="button-add">
+                {!statusDocument && !statusGalleries ? (
+                  <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit" disabled className="button-add">
+                  <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}
