@@ -17,7 +17,7 @@ const InputFileElement = ({
   setListImage,
   ...props
 }) => {
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue } = useFormikContext();
   const handleChangeFile = (e) => {
     const file = e.target.files[0];
     const files = e.target.files;

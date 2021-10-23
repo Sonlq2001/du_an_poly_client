@@ -1,6 +1,7 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+// import { Redirect } from 'react-router-dom';
 
 import {
   WrapPage,
@@ -11,6 +12,8 @@ import {
   FormRight,
   WrapButton,
   ListImage,
+  GroupStudents,
+  GroupInput,
 } from './ProductAddScreen.styles';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import Editor from './../components/editor/Editor';
@@ -19,35 +22,55 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from './../../../components/FormElement/InputElement/InputElement';
 import InputFileElement from './../../../components/FormElement/InputElement/InputFileElement';
 import SelectElement from './../../../components/FormElement/SelectElement/SelectElement';
-import {
-  PRODUCT_TYPE_ID,
-  STUDENTS,
-} from './../constants/ReviewProduct.constants';
-import AddStudent from './../components/AddStudent/AddStudent';
-// import { addProduct } from '../redux/productadd.slice';
+import { addProduct } from '../redux/productadd.slice';
+import { getData } from '../redux/productTypeReducer';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
+  let abc = [];
+  const [Group, setGroup] = useState(['sonnhph12562@fpt.edu.vn']);
+  // danh sách product_type_id
+  const listProductType = useSelector(
+    (state) => state.ListProTypes.productTypes
+  );
+
+  const productType =
+    listProductType &&
+    listProductType.map((item) => {
+      return { ...item, label: item.name, value: item.id };
+    });
+  // xóa thành viên nhóm
+  const remove = (value) => {
+    setGroup(Group.filter((item, index) => item !== value));
+  };
+  //  xóa danh sách ảnh
+  const RemoveImage = (i) => {
+    setListImage(listImage.filter((item, index) => index !== i));
+  };
+  // lấy dữ liệu email
+  const EmailChange = (e, key) => {
+    abc = [...Group];
+    abc[key] = e.target.value;
+    setGroup(abc);
+  };
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <WrapForm>
         <Formik
           initialValues={initForm}
-          onSubmit={({ product_type_id, students, ...rest }) => {
-            let result = null;
-            if (Array.isArray(students)) {
-              result = students.map((item) => item.value);
-            }
-            const newObj = {
-              ...rest,
-              product_type_id: product_type_id?.value,
-              students: result,
-            };
-            console.log(newObj);
+          onSubmit={(values) => {
+            values.product_type_id = values.product_type_id.value;
+            values.students = Group;
+            values.galleries = listImage;
+            console.log('values', values);
+            dispatch(addProduct(values));
           }}
         >
           {() => (
@@ -76,20 +99,47 @@ const AddProduct = () => {
                     name="semester_id"
                     placeholder="Nhập tên sản phẩm"
                   />
-                  <AddStudent name="students" />
-                  {/* <SelectElement
-                    label="Thành viên"
-                    name="students"
-                    isMulti
-                    placeholder="Chọn thành viên tham gia"
-                    options={STUDENTS}
-                  /> */}
+
+                  <GroupStudents>
+                    <Title> Thành viên </Title>
+                    <GroupInput>
+                      {Group.map((item, index) => {
+                        return (
+                          <div className="group">
+                            <input
+                              className="inputE"
+                              type="email"
+                              placeholder="email"
+                              defaultValue={item}
+                              onChange={(e) => EmailChange(e, index)}
+                            />
+                            <button
+                              className="remove"
+                              type="button"
+                              onClick={() => remove(item)}
+                            >
+                              <RiDeleteBin2Line />
+                            </button>
+                          </div>
+                        );
+                      })}
+                      <button
+                        type="button"
+                        className="add"
+                        onClick={() => setGroup([...Group, ''])}
+                      >
+                        Thêm +
+                      </button>
+                    </GroupInput>
+                  </GroupStudents>
+
                   <SelectElement
                     label="Loại"
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
-                    options={PRODUCT_TYPE_ID}
+                    options={productType && productType}
                   />
+
                   <InputFileElement
                     name="image_url"
                     label="Ảnh đại diện"
@@ -114,12 +164,14 @@ const AddProduct = () => {
                   />
                   <ListImage>
                     {listImage &&
-                      listImage.map((item) => {
+                      listImage.map((item, index) => {
                         return (
                           <div className="box-item">
                             <img src={item} alt="" />
                             <div className="delete">
-                              <RiDeleteBin2Line />
+                              <RiDeleteBin2Line
+                                onClick={() => RemoveImage(index)}
+                              />
                             </div>
                           </div>
                         );
@@ -134,7 +186,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {/* {statusDocument && statusGalleries ? (
+                {statusDocument && statusGalleries ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
@@ -142,10 +194,7 @@ const AddProduct = () => {
                   <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
-                )} */}
-                <button type="submit" className="button-add">
-                  Thêm sản phẩm
-                </button>
+                )}
               </WrapButton>
             </Form>
           )}

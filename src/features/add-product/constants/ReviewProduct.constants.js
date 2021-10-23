@@ -66,8 +66,13 @@ export const PRODUCT_TYPE_ID = [
 ];
 
 export const STUDENTS = [
+<<<<<<< HEAD
   { value: 'sonlqph09794@fpt.edu.vn', label: 'Lê Quang Sơn' },
   { value: 'hailqph09894@fpt.edu.vn', label: 'Lê Thanh Hải' },
   { value: 'datlqph09714@fpt.edu.vn', label: 'Nguyễn Tiến Đạt' },
   { value: 'vinhlqph04794@fpt.edu.vn', label: 'Lê Văn Vĩnh' },
+=======
+  { value: 'sonnhph12562@fpt.edu.vn', label: 'Lê Quang Sơn' },
+  { value: 'vietbhph09726@fpt.edu.vn', label: 'Bùi Hoàng  Việt ' },
+>>>>>>> 7a06c4f101315e3d9b2a7ee22dd3df9f17a946c5
 ];

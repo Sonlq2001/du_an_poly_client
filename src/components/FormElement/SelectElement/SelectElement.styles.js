@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const GroupSelect = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   .css-yk16xz-control {
     background-color: var(--bg-input);
     border: none;
+    padding: 0.6rem 0.9rem;
   }
   .css-1s2u09g-control {
     background-color: var(--bg-input);
@@ -26,5 +27,6 @@ export const GroupSelect = styled.div`
   .form-select {
     font-size: 1.4rem;
     width: 100%;
+    margin: 1rem 0rem;
   }
 `;

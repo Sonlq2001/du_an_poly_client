@@ -4,12 +4,9 @@ export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;
 `;
-export const Title = styled.h2`
+export const Title = styled.label`
   margin-top: 2.4rem;
-  text-align: ${(props) => props.mota || 'center'};
-  padding: ${(props) => props.padding || '0px'};
-  font-size: 1.7rem;
-  font-weight: ${(props) => props.fontWeight || '0'};
+  font-size: 1.5rem;
 `;
 export const WrapForm = styled.div`
   padding-top: 4rem;
@@ -66,6 +63,49 @@ export const ListImage = styled.div`
   }
   & .box-item:hover .delete {
     opacity: 1;
+  }
+`;
+export const GroupStudents = styled.div`
+  padding-top: 1.4rem;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 27% 1fr;
+  & .group {
+    width: 100%;
+    padding: 5px 0px;
+    position: relative;
+  }
+
+  & .group .inputE {
+    width: 100%;
+    padding: 0.8rem 1.1rem;
+    border: none;
+    border-radius: 5px;
+    margin-right: 4px;
+    font-size: 1.5rem;
+    background-color: var(--bg-input);
+  }
+  & .group .remove {
+    line-height: 10px;
+    padding: 4px 2px;
+    border: none;
+    background: none;
+    color: gray;
+    font-size: 2.4rem;
+    position: absolute;
+    right: 6px;
+    top: 4px;
+  }
+`;
+export const GroupInput = styled.div`
+  width: 100%;
+
+  & .add {
+    width: 100%;
+    border-radius: 7px;
+    border: 1px dashed gray;
+    padding: 1rem;
+    margin: 5px 0px;
   }
 `;
 // editor
