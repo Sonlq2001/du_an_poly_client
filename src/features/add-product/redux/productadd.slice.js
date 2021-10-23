@@ -16,10 +16,8 @@ const ProductAddSlice = createSlice({
   initialState,
   extraReducers: {
     [addProduct.fulfilled]: (state, action) => {
-      console.log('thành công ');
     },
     [addProduct.rejected]: (state, action) => {
-      console.log('lỗi');
     },
   },
 });

@@ -18,6 +18,22 @@ export const GroupForm = styled.div`
     border-radius: 5px;
     background-color: var(--bg-input);
     padding: 1.3rem 1.5rem;
+    position: relative;
+  }
+  .form-label__file .loading {
+    position: absolute;
+    top: 25%;
+    right: 2%;
+    font-size: 2rem;
+    animation: rotate infinite 1s linear;
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
   }
   &.group-file {
     margin-top: 2rem;
