@@ -9,7 +9,7 @@ export const initForm = {
   class: 'pt12365',
   image_url: '',
   resource_url: '',
-  students: [],
+  students: null,
   galleries: [],
   description: '',
   status: 0,

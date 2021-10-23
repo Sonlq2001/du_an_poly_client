@@ -23,6 +23,7 @@ import {
   PRODUCT_TYPE_ID,
   STUDENTS,
 } from './../constants/ReviewProduct.constants';
+import AddStudent from './../components/AddStudent/AddStudent';
 // import { addProduct } from '../redux/productadd.slice';
 
 const AddProduct = () => {
@@ -75,13 +76,14 @@ const AddProduct = () => {
                     name="semester_id"
                     placeholder="Nhập tên sản phẩm"
                   />
-                  <SelectElement
+                  <AddStudent name="students" />
+                  {/* <SelectElement
                     label="Thành viên"
                     name="students"
                     isMulti
                     placeholder="Chọn thành viên tham gia"
                     options={STUDENTS}
-                  />
+                  /> */}
                   <SelectElement
                     label="Loại"
                     name="product_type_id"
