@@ -59,7 +59,7 @@ const AddProduct = () => {
     email[key] = e.target.value;
     setGroup(email);
   };
-  console.log(Group);
+  console.log('Group', Group);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -111,7 +111,7 @@ const AddProduct = () => {
                               className="inputE"
                               type="email"
                               placeholder="email"
-                              defaultValue={item}
+                              value={item}
                               onChange={(e) => EmailChange(e, index)}
                             />
                             <button
