@@ -1,9 +1,10 @@
-import React, { memo, useState, useRef } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
 import Select from 'react-select';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   WrapControl,
@@ -17,15 +18,16 @@ import {
 } from './CategoryControl.styles';
 import {
   LIST_OBJECT,
-  LIST_CATEGORY,
   LIST_TEACHER,
   LIST_SORT,
   LIST_STATUS,
 } from './../../constants/category.constants';
+import { getMajors } from './../../redux/category.slice';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
   const [isToggle, setIsToggle] = useState(false);
+  const dispatch = useDispatch();
 
   const WrapCate = useRef(null);
   const handlePrev = () => {
@@ -57,6 +59,12 @@ const CategoryControl = () => {
     };
   };
 
+  useEffect(() => {
+    dispatch(getMajors());
+  }, [dispatch]);
+
+  const { listMajors } = useSelector((state) => state.category);
+
   return (
     <WrapControl>
       <div className="container">
@@ -80,15 +88,17 @@ const CategoryControl = () => {
                 <NavLink to={url} className="link-cate">
                   All
                 </NavLink>
-                {LIST_CATEGORY.map((cate) => (
-                  <NavLink
-                    to={`${url}/${cate.param}`}
-                    className="link-cate"
-                    key={cate.name}
-                  >
-                    {cate.name}
-                  </NavLink>
-                ))}
+                {listMajors &&
+                  listMajors.length > 0 &&
+                  listMajors.map((cate) => (
+                    <NavLink
+                      to={`${url}/${cate.name}`}
+                      className="link-cate"
+                      key={cate.name}
+                    >
+                      {cate.name}
+                    </NavLink>
+                  ))}
               </div>
             </GroupLinkFilter>
           </ControlFilterCate>
