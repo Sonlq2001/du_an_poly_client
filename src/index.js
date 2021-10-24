@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import GlobalStyle from './styles/index';
-
+import 'react-quill/dist/quill.snow.css';
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
