@@ -33,7 +33,7 @@ const AddProduct = () => {
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
-  let abc = [];
+  let email = [];
   const [Group, setGroup] = useState(['sonnhph12562@fpt.edu.vn']);
   // danh sách product_type_id
   const listProductType = useSelector(
@@ -46,8 +46,8 @@ const AddProduct = () => {
       return { ...item, label: item.name, value: item.id };
     });
   // xóa thành viên nhóm
-  const remove = (value) => {
-    setGroup(Group.filter((item, index) => item !== value));
+  const remove = (i) => {
+    setGroup(Group.filter((item, index) => index !== i));
   };
   //  xóa danh sách ảnh
   const RemoveImage = (i) => {
@@ -55,10 +55,11 @@ const AddProduct = () => {
   };
   // lấy dữ liệu email
   const EmailChange = (e, key) => {
-    abc = [...Group];
-    abc[key] = e.target.value;
-    setGroup(abc);
+    email = [...Group];
+    email[key] = e.target.value;
+    setGroup(email);
   };
+  console.log('Group', Group);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -110,13 +111,13 @@ const AddProduct = () => {
                               className="inputE"
                               type="email"
                               placeholder="email"
-                              defaultValue={item}
+                              value={item}
                               onChange={(e) => EmailChange(e, index)}
                             />
                             <button
                               className="remove"
                               type="button"
-                              onClick={() => remove(item)}
+                              onClick={() => remove(index)}
                             >
                               <RiDeleteBin2Line />
                             </button>
@@ -152,6 +153,7 @@ const AddProduct = () => {
                     id="file-document"
                     content="Chọn tài liệu"
                     setStatusDocument={setStatusDocument}
+                    statusDocument={statusDocument}
                   />
                   <InputFileElement
                     name="galleries"
@@ -161,6 +163,7 @@ const AddProduct = () => {
                     multiple
                     setStatusGalleries={setStatusGalleries}
                     setListImage={setListImage}
+                    statusGalleries={statusGalleries}
                   />
                   <ListImage>
                     {listImage &&
