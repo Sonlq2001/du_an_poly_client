@@ -4,7 +4,7 @@ import { GrAttachment } from 'react-icons/gr';
 import { GroupAttach, ItemAttach } from './AttachDoc.styles';
 import { TitleMain } from './../../screens/DetailScreen/DetailScreen.styles';
 
-const AttachDoc = () => {
+const AttachDoc = ({ data }) => {
   return (
     <>
       <TitleMain>
@@ -14,27 +14,9 @@ const AttachDoc = () => {
 
       <GroupAttach>
         <ItemAttach>
-          <div className="title-attach">Link github:</div>
-          <a href="!#">
-            https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-          </a>
-        </ItemAttach>
-        <ItemAttach>
-          <div className="title-attach">Tài liệu hướng dẫn:</div>
-          <a href="!#">
-            https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-          </a>
-        </ItemAttach>
-        <ItemAttach>
-          <div className="title-attach">Tài liệu bài viết:</div>
-          <a href="!#">
-            https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
-          </a>
-        </ItemAttach>
-        <ItemAttach>
-          <div className="title-attach">Video youtube:</div>
-          <a href="!#">
-            https://caodang.fpt.edu.vn/tin-tuc-poly/nu-sinh-fpoly-tay-nguyen-dat-chung-chi-cuoc-thi-vo-dich-thiet-ke-do-hoa-the-gioi.html
+          {/* <div className="title-attach">Link github:</div> */}
+          <a href={data?.resource_url} target="_blank" rel="noreferrer">
+            {data?.resource_url}
           </a>
         </ItemAttach>
       </GroupAttach>

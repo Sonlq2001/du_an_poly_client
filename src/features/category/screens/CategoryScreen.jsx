@@ -18,6 +18,8 @@ import Loading from 'components/Loading/Loading';
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProducts } from './../redux/category.slice';
 
+import { DETAIL_PATHS } from './../../detail/constants/detail.paths';
+
 const CategoryScreen = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
@@ -50,7 +52,13 @@ const CategoryScreen = () => {
                         <img src={item.image} alt="" />
                       </MasonryHeader>
                       <MasonryContent>
-                        <Link to="/" className="content-title">
+                        <Link
+                          to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                            ':id',
+                            item.id
+                          )}
+                          className="content-title"
+                        >
                           {item.name}
                         </Link>
                         <p className="content-object">

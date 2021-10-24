@@ -37,7 +37,7 @@ const AddProduct = () => {
   const [Group, setGroup] = useState(['sonlqph09794@fpt.edu.vn']);
   // danh sách product_type_id
   const listProductType = useSelector(
-    (state) => state.ListProTypes.productTypes
+    (state) => state.listProTypes.productTypes
   );
 
   const productType =
@@ -59,7 +59,6 @@ const AddProduct = () => {
     email[key] = e.target.value;
     setGroup(email);
   };
-  console.log('Group', Group);
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>

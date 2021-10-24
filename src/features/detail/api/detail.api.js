@@ -1,5 +1,11 @@
 import api from 'api/api';
 
-const getProductDetail = () => {
-  return;
+import { DETAIL_ENDPOINTS } from '../constants/detail.endpoints';
+
+const getProductDetail = (id) => {
+  return api.get(DETAIL_ENDPOINTS.GET_PRODUCT_DETAIL.replace(':id', id));
+};
+
+export const detailProductApi = {
+  getProductDetail,
 };

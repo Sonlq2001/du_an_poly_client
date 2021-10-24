@@ -3,7 +3,18 @@ import styled from 'styled-components';
 export const WrapDetail = styled.div`
   padding-top: 5rem;
   margin-bottom: 10rem;
-
+  .image-gallery {
+    height: 48rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid var(--eee-color);
+  }
+  .current-slide {
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 5px;
+  }
   .slick-dots {
     position: relative;
     top: 5px;
