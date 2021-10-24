@@ -66,12 +66,13 @@ const AddProduct = () => {
       <WrapForm>
         <Formik
           initialValues={initForm}
-          onSubmit={(values) => {
+          onSubmit={(values, { resetForm }) => {
             values.product_type_id = values.product_type_id.value;
             values.students = Group;
             values.galleries = listImage;
             console.log('values', values);
             dispatch(addProduct(values));
+            resetForm();
           }}
         >
           {() => (

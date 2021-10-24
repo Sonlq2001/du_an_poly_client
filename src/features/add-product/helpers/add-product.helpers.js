@@ -2,7 +2,7 @@ export const initForm = {
   name: '',
   video_url: '',
   campus_id: 1,
-  teacher_id: 1,
+  teacher_id: 100,
   subject_id: 69,
   semester_id: 1,
   product_type_id: '',
