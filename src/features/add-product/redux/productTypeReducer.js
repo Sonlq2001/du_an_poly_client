@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getProductType } from '../api/product.api';
+import { getProductType } from '../api/add-product.api';
 export const getData = createAsyncThunk('subject', async () => {
   const response = await getProductType();
   return response.data.product_types;

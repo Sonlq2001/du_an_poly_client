@@ -2,6 +2,7 @@ import React, { useState, memo, useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   WrapPage,
@@ -19,11 +20,12 @@ import { RiDeleteBin2Line } from 'react-icons/ri';
 import Editor from './../components/editor/Editor';
 // import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
-import InputElement from './../../../components/FormElement/InputElement/InputElement';
-import InputFileElement from './../../../components/FormElement/InputElement/InputFileElement';
-import SelectElement from './../../../components/FormElement/SelectElement/SelectElement';
-import { addProduct } from '../redux/productadd.slice';
+import InputElement from 'components/FormElement/InputElement/InputElement';
+import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
+import SelectElement from 'components/FormElement/SelectElement/SelectElement';
+import { addProduct } from '../redux/add-product.slice';
 import { getData } from '../redux/productTypeReducer';
+import store from 'redux/store';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -34,7 +36,11 @@ const AddProduct = () => {
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
   let email = [];
-  const [Group, setGroup] = useState(['sonlqph09794@fpt.edu.vn']);
+
+  const { userLogin } = store.getState().auth;
+
+  const [Group, setGroup] = useState([userLogin?.email]);
+
   // danh sách product_type_id
   const listProductType = useSelector(
     (state) => state.listProTypes.productTypes
@@ -47,11 +53,11 @@ const AddProduct = () => {
     });
   // xóa thành viên nhóm
   const remove = (i) => {
-    setGroup(Group.filter((item, index) => index !== i));
+    setGroup(Group.filter((_, index) => index !== i));
   };
   //  xóa danh sách ảnh
   const RemoveImage = (i) => {
-    setListImage(listImage.filter((item, index) => index !== i));
+    setListImage(listImage.filter((_, index) => index !== i));
   };
   // lấy dữ liệu email
   const EmailChange = (e, key) => {
@@ -106,18 +112,20 @@ const AddProduct = () => {
                     <GroupInput>
                       {Group.map((item, index) => {
                         return (
-                          <div className="group">
+                          <div className="group" key={index}>
                             <input
                               className="inputE"
                               type="email"
                               placeholder="email"
                               value={item}
                               onChange={(e) => EmailChange(e, index)}
+                              disabled={index === 0 ? true : false}
                             />
                             <button
                               className="remove"
                               type="button"
                               onClick={() => remove(index)}
+                              disabled={index === 0 ? true : false}
                             >
                               <RiDeleteBin2Line />
                             </button>
@@ -189,21 +197,22 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && statusGalleries ? (
-                  <button type="submit" className="button-add">
-                    Thêm sản phẩm
-                  </button>
-                ) : (
-                  <button type="submit" disabled className="button-add">
-                    Thêm sản phẩm
-                  </button>
-                )}
+
+                <button
+                  type="submit"
+                  className="button-add"
+                  disabled={!statusDocument && !statusGalleries}
+                >
+                  Thêm sản phẩm
+                </button>
               </WrapButton>
             </Form>
           )}
         </Formik>
       </WrapForm>
       {/* <ReviewProduct show={show} setShow={setShow} data={formik} /> */}
+
+      <ToastContainer position="top-right" autoClose={1500} />
     </WrapPage>
   );
 };
