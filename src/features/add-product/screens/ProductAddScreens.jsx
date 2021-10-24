@@ -34,7 +34,7 @@ const AddProduct = () => {
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
   let email = [];
-  const [Group, setGroup] = useState(['sonnhph12562@fpt.edu.vn']);
+  const [Group, setGroup] = useState(['sonlqph09794@fpt.edu.vn']);
   // danh sách product_type_id
   const listProductType = useSelector(
     (state) => state.ListProTypes.productTypes
