@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
+import { useDispatch } from 'react-redux';
 
 import Slider from './../../../../components/Slider/Slider';
 import Majors from './../../components/Majors/Majors';
-import { TitleMain } from './../../../../styles/common/index';
+import { TitleMain } from 'styles/common/index';
 import {
   GridWrap,
   GridContent,
@@ -13,11 +14,14 @@ import {
   GridEnd,
 } from './HomeScreen.styles';
 import { DATA_FAKE } from './../../constants/home.constants';
+import { getProducts } from 'helpers/api/productApi/product.slice';
 
 const HomeScreen = () => {
-  // fetch('http://api.duanpoly.ml/api/products')
-  //   .then((response) => response.json())
-  //   .then((data) => console.log('ở đay home', data));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <>
