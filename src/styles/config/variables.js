@@ -11,6 +11,7 @@ export const Variables = () => {
       --aaa-color: #aaa;
       --bbb-color: #bbb;
       --ccc-color: #ccc;
+      --bg-input: #f0f2f5;
       --gray1-color: #6e6d7a;
       --yellow-color: #f9ca24;
       --green-color: #248888;

@@ -5,7 +5,7 @@ import store from './../redux/store';
 const requestInterceptor = (req) => {
   const { accessToken } = store.getState().auth;
   if (accessToken) {
-    req.headers.Authorization = `Bearer ${accessToken}`;
+    req.headers.Authorization = 'Bearer ' + accessToken;
   }
   return req;
 };

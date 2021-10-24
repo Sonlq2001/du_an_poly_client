@@ -52,7 +52,7 @@ export const FormLogin = styled.div`
     justify-content: center;
     border: none;
     background-color: var(--pink-color);
-    margin-top: 4rem;
+    margin-top: 4rem; 
     border-radius: 5px;
     padding: 1rem 0;
     color: var(--white-color);
