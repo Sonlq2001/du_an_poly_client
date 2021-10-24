@@ -1,18 +1,3 @@
-export const LIST_SLIDE = [
-  {
-    img: 'https://cdn.pixabay.com/photo/2019/11/19/22/24/watch-4638673__480.jpg',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2016/01/19/01/42/library-1147815__480.jpg',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2016/03/09/15/29/books-1246674__480.jpg',
-  },
-  {
-    img: 'https://cdn.pixabay.com/photo/2017/09/21/13/32/girl-2771936__480.jpg',
-  },
-];
-
 export const LIST_RATING = [
   { star: 1, total_star: 10 },
   { star: 2, total_star: 5 },

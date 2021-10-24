@@ -1,7 +1,9 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { MdContentPaste } from 'react-icons/md';
 import { GoCommentDiscussion } from 'react-icons/go';
+import { useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
@@ -18,7 +20,6 @@ import {
   ContentPost,
   GroupFeedback,
 } from './DetailScreen.styles';
-import { LIST_SLIDE } from './../../constants/detail.constants';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
 import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
@@ -26,12 +27,27 @@ import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
 
+import { getDetailProduct } from './../../redux/detail.slice';
+import Loading from 'components/Loading/Loading';
+
 const DetailScreen = () => {
+  const params = useParams();
+  const id = Number(params?.id);
+  const dispatch = useDispatch();
+
+  const { isLoadingDetailProduct, detailProduct } = useSelector(
+    (state) => state.detailProduct
+  );
+
   const settings = {
     customPaging: function (i) {
       return (
         <ListCurrentImg>
-          <img src={LIST_SLIDE[i].img} className="current-slide" alt="" />
+          <img
+            src={detailProduct?.product_galleries[i].image_url}
+            className="current-slide"
+            alt=""
+          />
         </ListCurrentImg>
       );
     },
@@ -49,24 +65,31 @@ const DetailScreen = () => {
     rating: null,
   });
 
+  useEffect(() => {
+    if (id) {
+      dispatch(getDetailProduct(id));
+    }
+  }, [dispatch, id]);
+
+  if (isLoadingDetailProduct) {
+    return <Loading />;
+  }
   return (
     <WrapDetail>
       <div className="container">
         <div className="row">
           <div className="xl-7">
             <Slider {...settings}>
-              {LIST_SLIDE.map((item, index) => (
+              {detailProduct?.product_galleries.map((item, index) => (
                 <div key={index}>
-                  <img src={item.img} alt="" />
+                  <img src={item?.image_url} alt="" className="image-gallery" />
                 </div>
               ))}
             </Slider>
           </div>
           <div className="xl-5">
             <div>
-              <TitleProject>
-                Đồ án tốt nghiệp website bán hàng mông công nghệ thông tin
-              </TitleProject>
+              <TitleProject>{detailProduct?.name}</TitleProject>
               <RatingStar
                 valueSendCmt={valueSendCmt}
                 setValueSendCmt={setValueSendCmt}
@@ -74,11 +97,11 @@ const DetailScreen = () => {
               <GroupMember>
                 <LabelProject>Thành viên nhóm: </LabelProject>
                 <div className="list-member">
-                  <span className="item-member">Lê Quang Sơn - PH09794</span>
-                  <span className="item-member">Lê Quang Sơn - PH09794</span>
-                  <span className="item-member">Lê Quang Sơn - PH09794</span>
-                  <span className="item-member">Lê Quang Sơn - PH09794</span>
-                  <span className="item-member">Lê Quang Sơn - PH09794</span>
+                  {detailProduct?.students.map((student) => (
+                    <span className="item-member" key={student.id}>
+                      {student.email} - {student.student_code}
+                    </span>
+                  ))}
                 </div>
               </GroupMember>
               <BoxProject>
@@ -87,7 +110,7 @@ const DetailScreen = () => {
               </BoxProject>
               <BoxProject>
                 <LabelProject>Giảng viên hướng dẫn:</LabelProject>
-                Trần hữu thiện
+                {detailProduct?.teacher?.name}
               </BoxProject>
               <BoxProject>
                 <LabelProject>Chuyên ngành:</LabelProject>
@@ -99,7 +122,7 @@ const DetailScreen = () => {
               </BoxProject>
               <BoxProject>
                 <LabelProject>Kì học:</LabelProject>
-                Fall 2021
+                {detailProduct?.semester?.name}
               </BoxProject>
             </div>
           </div>
@@ -113,20 +136,11 @@ const DetailScreen = () => {
                   <MdContentPaste />
                   <span>Bài viết giới thiệu</span>
                 </TitleMain>
-                <ContentPost>
-                  Theo đó, nói về lý do tham dự cuộc thi Thiết kế đồ họa thế
-                  giới (Adobe Certified Associate World Championship – ACAWC),
-                  cả Kim Thắm và Ánh Lam đều chia sẻ rằng hai bạn biết cuộc thi
-                  qua bài viết giới thiệu cuộc thi của FPT Polytechnic Tây
-                  Nguyên, từ đó cảm thấy cuộc thi thú vị nên 2 bạn muốn thử sức
-                  cũng như quyết định đăng ký tham gia. Việc tham gia một cuộc
-                  thi lớn như vậy khiến cho 2 cô gái của FPT Polytechnic Tây
-                  Nguyên cảm thấy rất hứng khởi nhưng phần nào cảm thấy hơi lo
-                  lắng, áp lực vì bài thi khó hơn so với trình đủ. Chính vì thế
-                  mà Thắm và Lam tự nhủ phải nỗ lực, cố gắng hơn rất nhiều để có
-                  thể vượt qua. Bên cạnh đó là việc nhiều người giỏi cùng tham
-                  dự cuộc thi nên khả năng bị loại rất cao.
-                </ContentPost>
+                <ContentPost
+                  dangerouslySetInnerHTML={{
+                    __html: detailProduct?.description,
+                  }}
+                />
 
                 <GroupFeedback>
                   <TitleMain>
@@ -147,7 +161,7 @@ const DetailScreen = () => {
             </div>
             <div className="xl-4">
               <GroupBox>
-                <AttachDoc />
+                <AttachDoc data={detailProduct} />
               </GroupBox>
 
               <GroupBox>
