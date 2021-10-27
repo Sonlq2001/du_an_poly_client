@@ -1,8 +1,10 @@
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { unwrapResult } from '@reduxjs/toolkit';
+import queryString from 'query-string';
 
 import {
   WrapPage,
@@ -15,69 +17,106 @@ import {
   ListImage,
   GroupStudents,
   GroupInput,
+  GroupLabel,
 } from './ProductAddScreen.styles';
 import { RiDeleteBin2Line } from 'react-icons/ri';
-import Editor from './../components/editor/Editor';
 // import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
-import { addProduct } from '../redux/add-product.slice';
-import { getData } from '../redux/productTypeReducer';
+import {
+  postAddProduct,
+  getInfo,
+  getProductTypes,
+} from '../redux/add-product.slice';
 import store from 'redux/store';
+import CKEditor from './../components/Editor/CKEditor';
+import { WarEditor } from './../components/Editor/Editor.styles';
+import { MapOptions } from 'helpers/convert/map-options';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getData());
-  }, [dispatch]);
+  const history = useHistory();
+  const { search } = useLocation();
+  const { userLogin } = store.getState().auth;
+
   const [statusDocument, setStatusDocument] = useState(false);
   const [statusGalleries, setStatusGalleries] = useState(false);
   const [listImage, setListImage] = useState([]);
-  let email = [];
 
-  const { userLogin } = store.getState().auth;
+  const fetchProductTypes = useCallback(() => {
+    dispatch(getProductTypes());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchProductTypes();
+  }, [fetchProductTypes]);
+
+  const { productTypes, infoProduct } = useSelector((state) => ({
+    productTypes: state.addProduct.productTypes,
+    infoProduct: state.addProduct.infoProduct,
+  }));
+
+  const selectProductTypes = MapOptions(productTypes);
+
+  const { teach, subject, campus, semester } = queryString.parse(search);
+
+  const fetchInfoProduct = useCallback(() => {
+    if (search) {
+      const objQuery = {
+        teacher_id: teach,
+        subject_id: subject,
+        campus_id: campus,
+        semester_id: semester,
+      };
+      dispatch(getInfo(objQuery));
+    }
+  }, [dispatch, search, teach, subject, campus, semester]);
+
+  useEffect(() => {
+    fetchInfoProduct();
+  }, [fetchInfoProduct]);
+
+  let email = [];
 
   const [Group, setGroup] = useState([userLogin?.email]);
 
-  // danh sách product_type_id
-  const listProductType = useSelector(
-    (state) => state.listProTypes.productTypes
-  );
-
-  const productType =
-    listProductType &&
-    listProductType.map((item) => {
-      return { ...item, label: item.name, value: item.id };
-    });
-  // xóa thành viên nhóm
   const remove = (i) => {
     setGroup(Group.filter((_, index) => index !== i));
   };
-  //  xóa danh sách ảnh
+
   const RemoveImage = (i) => {
     setListImage(listImage.filter((_, index) => index !== i));
   };
-  // lấy dữ liệu email
+
   const EmailChange = (e, key) => {
     email = [...Group];
     email[key] = e.target.value;
     setGroup(email);
   };
+
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
       <WrapForm>
         <Formik
-          initialValues={initForm}
-          onSubmit={(values, { resetForm }) => {
-            values.product_type_id = values.product_type_id.value;
-            values.students = Group;
-            values.galleries = listImage;
-            console.log('values', values);
-            dispatch(addProduct(values));
-            resetForm();
+          initialValues={{
+            ...initForm,
+            teacher_id: teach,
+            semester_id: semester,
+          }}
+          onSubmit={({ product_type_id, ...rest }) => {
+            const { value } = product_type_id;
+            const newObjProduct = { ...rest, product_type_id: value };
+            newObjProduct.students = Group;
+            newObjProduct.galleries = listImage;
+            dispatch(postAddProduct(newObjProduct))
+              .then(unwrapResult)
+              .then(() => {
+                toast.success('Thêm sản phẩm thành công !');
+                setTimeout(() => history.push('/'), 1000);
+              });
           }}
         >
           {() => (
@@ -94,18 +133,64 @@ const AddProduct = () => {
                     name="video_url"
                     placeholder="Đường dẫn"
                   />
-                  <InputElement label="Giảng viên" name="teacher_id" />
-                  <InputElement
-                    label="Môn học"
-                    name="subject_id"
-                    disabled
-                    placeholder="Nhập tên sản phẩm"
-                  />
-                  <InputElement
-                    label="Kì học"
-                    name="semester_id"
-                    placeholder="Nhập tên sản phẩm"
-                  />
+
+                  <GroupLabel className="group-label">
+                    <InputElement
+                      label="Giảng viên"
+                      name="teacher_id"
+                      value={teach}
+                      hidden
+                    />
+                    {infoProduct?.teacherName &&
+                    infoProduct?.teacherName !== null ? (
+                      <>
+                        <div className="text-label">
+                          {infoProduct.teacherName}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-label">Chưa có thông tin ?</div>
+                    )}
+                  </GroupLabel>
+
+                  <GroupLabel className="group-label">
+                    <InputElement
+                      label="Môn học"
+                      name="subject_id"
+                      value={subject}
+                      hidden
+                    />
+                    {infoProduct?.subjectName &&
+                    infoProduct?.subjectName === null ? (
+                      <>
+                        <div className="text-label">
+                          {infoProduct.subjectName}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-label">Chưa có thông tin ?</div>
+                    )}
+                  </GroupLabel>
+
+                  <GroupLabel className="group-label">
+                    <InputElement
+                      label="Kì học"
+                      name="semester_id"
+                      placeholder="Nhập tên sản phẩm"
+                      value={teach}
+                      hidden
+                    />
+                    {infoProduct?.semesterName &&
+                    infoProduct?.semesterName !== null ? (
+                      <>
+                        <div className="text-label">
+                          {infoProduct.semesterName}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-label">Chưa có thông tin ?</div>
+                    )}
+                  </GroupLabel>
 
                   <GroupStudents>
                     <Title> Thành viên </Title>
@@ -146,7 +231,7 @@ const AddProduct = () => {
                     label="Loại"
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
-                    options={productType && productType}
+                    options={selectProductTypes || []}
                   />
 
                   <InputFileElement
@@ -177,7 +262,7 @@ const AddProduct = () => {
                     {listImage &&
                       listImage.map((item, index) => {
                         return (
-                          <div className="box-item">
+                          <div className="box-item" key={index}>
                             <img src={item} alt="" />
                             <div className="delete">
                               <RiDeleteBin2Line
@@ -189,8 +274,11 @@ const AddProduct = () => {
                       })}
                   </ListImage>
                 </FormLeft>
+
                 <FormRight>
-                  <Editor name="description" />
+                  <WarEditor>
+                    <CKEditor />
+                  </WarEditor>
                 </FormRight>
               </ContentForm>
               <WrapButton>
@@ -198,11 +286,7 @@ const AddProduct = () => {
                   Xem trước
                 </label> */}
 
-                <button
-                  type="submit"
-                  className="button-add"
-                  disabled={!statusDocument && !statusGalleries}
-                >
+                <button className="button-add" type="submit">
                   Thêm sản phẩm
                 </button>
               </WrapButton>

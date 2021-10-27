@@ -1,15 +1,21 @@
 import api from 'api/api';
 
+import { ADD_PRODUCT_ENDPOINTS } from './../constants/add-product.endpoints';
+
 const addProduct = (data) => {
-  let url = '/products';
-  return api.post(url, data);
+  return api.post(ADD_PRODUCT_ENDPOINTS.POST_ADD_PRODUCT, data);
 };
 
-export const getProductType = () => {
-  let url = '/product_types';
-  return api.get(url);
+const getProductTypes = () => {
+  return api.get(ADD_PRODUCT_ENDPOINTS.GET_PRODUCT_TYPES);
+};
+
+const getInfo = (params) => {
+  return api.post('/products/getinfo', params);
 };
 
 export const addProductApi = {
   addProduct,
+  getInfo,
+  getProductTypes,
 };

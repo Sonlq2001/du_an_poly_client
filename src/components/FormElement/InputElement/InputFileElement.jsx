@@ -70,8 +70,7 @@ const InputFileElement = ({
             .post('/products/image', formData)
             .then(
               (res) =>
-                setFieldValue(name, res.data.image_url) +
-                setLoadingImage(false)
+                setFieldValue(name, res.data.image_url) + setLoadingImage(false)
             );
       }
     }

@@ -7,7 +7,7 @@ import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
 import store from './../redux/store';
 import { ROOT_ROUTE, SIGN_IN_ROUTE } from './../routes/routes.config';
-import { ADD_PRODUCT_PATHS } from 'features/add-product/constants/add-product.paths';
+// import { ADD_PRODUCT_PATHS } from 'features/add-product/constants/add-product.paths';
 
 const RouterWrap = ({
   component: Component,
