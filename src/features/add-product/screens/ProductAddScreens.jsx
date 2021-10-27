@@ -31,8 +31,8 @@ import {
   getProductTypes,
 } from '../redux/add-product.slice';
 import store from 'redux/store';
-import CKEditor from './../components/Editor/CKEditor';
-import { WarEditor } from './../components/Editor/Editor.styles';
+import CKEditor from '../components/Editor/CKEditor';
+import { WarEditor } from '../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 
 const AddProduct = () => {
@@ -42,8 +42,6 @@ const AddProduct = () => {
   const { userLogin } = store.getState().auth;
 
   const [statusDocument, setStatusDocument] = useState(false);
-  const [statusGalleries, setStatusGalleries] = useState(false);
-
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
