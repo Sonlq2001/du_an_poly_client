@@ -31,8 +31,8 @@ const AddProduct = () => {
     dispatch(getData());
   }, [dispatch]);
   const [statusDocument, setStatusDocument] = useState(false);
-  const [statusGalleries, setStatusGalleries] = useState(false);
-  const [listImage, setListImage] = useState([]);
+
+  const [listImages, setListImage] = useState([]);
   let email = [];
   const [Group, setGroup] = useState(['sonlqph09794@fpt.edu.vn']);
   // danh sách product_type_id
@@ -51,7 +51,7 @@ const AddProduct = () => {
   };
   //  xóa danh sách ảnh
   const RemoveImage = (i) => {
-    setListImage(listImage.filter((item, index) => index !== i));
+    setListImage(listImages.filter((item, index) => index !== i));
   };
   // lấy dữ liệu email
   const EmailChange = (e, key) => {
@@ -68,7 +68,7 @@ const AddProduct = () => {
           onSubmit={(values, { resetForm }) => {
             values.product_type_id = values.product_type_id.value;
             values.students = Group;
-            values.galleries = listImage;
+            values.galleries = listImages;
             console.log('values', values);
             dispatch(addProduct(values));
             resetForm();
@@ -159,15 +159,19 @@ const AddProduct = () => {
                     name="galleries"
                     label="Hình ảnh"
                     id="file-gallery"
-                    content="Chọn bộ sưu tập"
+                    content={
+                      listImages.length > 0
+                        ? `Danh sách ảnh  ${listImages.length} `
+                        : ' Chọn bộ sưu tập'
+                    }
                     multiple
-                    setStatusGalleries={setStatusGalleries}
                     setListImage={setListImage}
-                    statusGalleries={statusGalleries}
+                    listImages={listImages}
+                    disabled={listImages && listImages.length >= 6}
                   />
                   <ListImage>
-                    {listImage &&
-                      listImage.map((item, index) => {
+                    {listImages &&
+                      listImages.map((item, index) => {
                         return (
                           <div className="box-item">
                             <img src={item} alt="" />
@@ -189,7 +193,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && statusGalleries ? (
+                {statusDocument && listImages.length > 0 ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
