@@ -20,18 +20,55 @@ export const GroupForm = styled.div`
     padding: 1.3rem 1.5rem;
     position: relative;
   }
+  .form-label__file[name='galleries']:disabled :hover {
+    cursor: not-allowed;
+  }
   .form-label__file .loading {
     position: absolute;
     top: 25%;
     right: 2%;
     font-size: 2rem;
-    animation: rotate infinite 1s linear;
+    animation: rotate infinite 1.3s linear;
     @keyframes rotate {
       from {
         transform: rotate(0deg);
       }
       to {
         transform: rotate(360deg);
+      }
+    }
+  }
+  .form-label__file .check {
+    position: absolute;
+    top: 25%;
+    right: 2%;
+    font-size: 2rem;
+    color: #1fe10c;
+    animation: checked 1s linear;
+    @keyframes checked {
+      from {
+        opacity: 0;
+      }
+      to {
+        transition: 1.3s;
+        opacity: 1;
+      }
+    }
+  }
+  .form-label__file .error {
+    position: absolute;
+    top: 25%;
+    right: 2%;
+    font-size: 2rem;
+    color: red;
+    animation: error 1s linear;
+    @keyframes error {
+      from {
+        opacity: 0;
+      }
+      to {
+        transition: 1.3s;
+        opacity: 1;
       }
     }
   }
