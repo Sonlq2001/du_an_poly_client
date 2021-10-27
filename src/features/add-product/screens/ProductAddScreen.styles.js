@@ -3,6 +3,13 @@ import styled from 'styled-components';
 export const WrapPage = styled.div`
   margin: auto;
   padding: 12px 0px 15px 0px;
+  .text-label {
+    font-size: 1.4rem;
+    padding: 1.3rem 1.5rem;
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--bg-input);
+  }
 `;
 export const Title = styled.label`
   margin-top: 2.4rem;
@@ -25,9 +32,18 @@ export const FormRight = styled(FormLeft)`
     height: 48rem;
   }
 `;
+export const GroupLabel = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  &:nth-child(1) {
+  }
+  & + & {
+    margin-top: 2rem;
+  }
+`;
 export const ListImage = styled.div`
   display: grid;
-  /* background-color: red; */
   margin-top: 1rem;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -79,7 +95,7 @@ export const GroupStudents = styled.div`
 
   & .group .inputE {
     width: 100%;
-    padding: 0.8rem 1.1rem;
+    padding: 1.3rem 1.5rem;
     border: none;
     border-radius: 5px;
     margin-right: 4px;
@@ -87,7 +103,6 @@ export const GroupStudents = styled.div`
     background-color: var(--bg-input);
   }
   & .group .remove {
-    line-height: 10px;
     padding: 4px 2px;
     border: none;
     background: none;
@@ -95,7 +110,8 @@ export const GroupStudents = styled.div`
     font-size: 2.4rem;
     position: absolute;
     right: 6px;
-    top: 4px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 `;
 export const GroupInput = styled.div`
@@ -110,12 +126,6 @@ export const GroupInput = styled.div`
   }
 `;
 // editor
-export const Editor = styled.div`
-  width: 100%;
-  padding: 10px 0px;
-  position: relative;
-`;
-
 export const WrapButton = styled.div`
   margin-top: 5rem;
   display: flex;
@@ -128,11 +138,5 @@ export const WrapButton = styled.div`
   }
   .button-add:disabled:hover {
     cursor: not-allowed;
-  }
-`;
-
-export const WrapCkeditor = styled.div`
-  & .ck-editor__editable {
-    height: 25rem;
   }
 `;

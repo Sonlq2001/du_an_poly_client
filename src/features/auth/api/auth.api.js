@@ -7,7 +7,7 @@ const getAccessToken = (accessToken) => {
 };
 
 const postLogout = () => {
-  return api.post(AUTH_ENDPOINTS.POST_LOGOUT);
+  return api.get(AUTH_ENDPOINTS.POST_LOGOUT);
 };
 
 export const authApi = {

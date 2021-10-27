@@ -7,6 +7,7 @@ import { ROUTE_LIST } from './routes.config';
 import DefaultLayout from './../layouts/DefaultLayout/DefaultLayout';
 import store from './../redux/store';
 import { ROOT_ROUTE, SIGN_IN_ROUTE } from './../routes/routes.config';
+// import { ADD_PRODUCT_PATHS } from 'features/add-product/constants/add-product.paths';
 
 const RouterWrap = ({
   component: Component,
@@ -20,6 +21,10 @@ const RouterWrap = ({
   const isExact = exact ? true : false;
   const isPrivate = isPrivateRoute || false;
   const isSigned = store.getState().auth.accessToken;
+
+  // if (path === ADD_PRODUCT_PATHS.ADD_PRODUCT || !isSigned) {
+  //   return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;
+  // }
 
   if (!isSigned && isPrivate) {
     return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;

@@ -17,6 +17,7 @@ const InputElement = ({ label, type = 'text', placeholder, ...props }) => {
         placeholder={placeholder}
         className="form-input"
         {...field}
+        {...props}
       />
     </GroupForm>
   );

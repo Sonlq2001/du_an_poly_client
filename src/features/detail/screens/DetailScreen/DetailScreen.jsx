@@ -74,6 +74,7 @@ const DetailScreen = () => {
   if (isLoadingDetailProduct) {
     return <Loading />;
   }
+
   return (
     <WrapDetail>
       <div className="container">
