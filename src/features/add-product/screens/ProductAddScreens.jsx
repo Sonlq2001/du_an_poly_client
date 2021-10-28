@@ -58,7 +58,6 @@ const AddProduct = () => {
   const selectProductTypes = MapOptions(productTypes);
 
   const { teach, subject, campus, semester } = queryString.parse(search);
-
   const fetchInfoProduct = useCallback(() => {
     if (search) {
       const objQuery = {
@@ -159,7 +158,7 @@ const AddProduct = () => {
                       hidden
                     />
                     {infoProduct?.subjectName &&
-                    infoProduct?.subjectName === null ? (
+                    infoProduct?.subjectName !== null ? (
                       <>
                         <div className="text-label">
                           {infoProduct.subjectName}
