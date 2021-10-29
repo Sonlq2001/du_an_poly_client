@@ -10,6 +10,9 @@ export const WrapPage = styled.div`
     border-radius: 5px;
     background-color: var(--bg-input);
   }
+  .text-label:hover {
+    cursor: not-allowed;
+  }
 `;
 export const Title = styled.label`
   margin-top: 2.4rem;
