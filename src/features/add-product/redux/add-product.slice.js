@@ -16,9 +16,9 @@ export const postAddProduct = createAsyncThunk(
 
 export const getInfo = createAsyncThunk(
   'add-product/getInfo',
-  async (params) => {
+  async (email) => {
     try {
-      const response = await addProductApi.getInfo(params);
+      const response = await addProductApi.getInfo(email);
       return response.data;
     } catch (error) {}
   }

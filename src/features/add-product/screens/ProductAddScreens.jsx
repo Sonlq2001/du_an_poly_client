@@ -1,11 +1,9 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
-import queryString from 'query-string';
-
 import {
   WrapPage,
   Title,
@@ -38,9 +36,7 @@ import { MapOptions } from 'helpers/convert/map-options';
 const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { search } = useLocation();
   const { userLogin } = store.getState().auth;
-
   const [statusDocument, setStatusDocument] = useState(false);
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
@@ -50,29 +46,16 @@ const AddProduct = () => {
     fetchProductTypes();
   }, [fetchProductTypes]);
 
-  const { productTypes, infoProduct } = useSelector((state) => ({
-    productTypes: state.addProduct.productTypes,
-    infoProduct: state.addProduct.infoProduct,
-  }));
+  const productTypes = useSelector((state) => state.addProduct.productTypes);
+  const infoProduct = useSelector((state) => state.addProduct.infoProduct);
 
   const selectProductTypes = MapOptions(productTypes);
-
-  const { teach, subject, campus, semester } = queryString.parse(search);
   const fetchInfoProduct = useCallback(() => {
-    if (search) {
-      const objQuery = {
-        teacher_id: teach,
-        subject_id: subject,
-        campus_id: campus,
-        semester_id: semester,
-      };
-      dispatch(getInfo(objQuery));
-    }
-  }, [dispatch, search, teach, subject, campus, semester]);
-
+    dispatch(getInfo(userLogin));
+  }, [dispatch, userLogin]);
   useEffect(() => {
     fetchInfoProduct();
-  }, [fetchInfoProduct]);
+  }, [dispatch, fetchInfoProduct]);
 
   const [listImages, setListImage] = useState([]);
   let email = [];
@@ -92,7 +75,19 @@ const AddProduct = () => {
     email[key] = e.target.value;
     setGroup(email);
   };
-
+  const optionSelect =
+    infoProduct &&
+    infoProduct.map((item) => {
+      return item[0];
+    });
+  const [valueSelect, setValueSelect] = useState({ label: '', value: '' });
+  const arrayValue =
+    infoProduct &&
+    infoProduct.filter(
+      // lọc các trường có id subject
+      (element) => element[0].id === valueSelect.value
+    );
+  const valueOptions = MapOptions(optionSelect); // giá trị value
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -100,14 +95,17 @@ const AddProduct = () => {
         <Formik
           initialValues={{
             ...initForm,
-            teacher_id: teach,
-            semester_id: semester,
           }}
           onSubmit={({ product_type_id, ...rest }) => {
             const { value } = product_type_id;
             const newObjProduct = { ...rest, product_type_id: value };
             newObjProduct.students = Group;
             newObjProduct.galleries = listImages;
+            newObjProduct.subject_id = arrayValue[0][0].id;
+            newObjProduct.teacher_id = arrayValue[0][1].id;
+            newObjProduct.campus_id = arrayValue[0][2].id;
+            newObjProduct.semester_id = arrayValue[0][3].id;
+            // newObjProduct.subject
             dispatch(postAddProduct(newObjProduct))
               .then(unwrapResult)
               .then(() => {
@@ -130,65 +128,45 @@ const AddProduct = () => {
                     name="video_url"
                     placeholder="Đường dẫn"
                   />
-
-                  <GroupLabel className="group-label">
-                    <InputElement
-                      label="Giảng viên"
-                      name="teacher_id"
-                      value={teach}
-                      hidden
-                    />
-                    {infoProduct?.teacherName &&
-                    infoProduct?.teacherName !== null ? (
-                      <>
+                  <SelectElement
+                    label="môn học "
+                    name="subject_id"
+                    placeholder="Môn học "
+                    options={valueOptions || []}
+                    setValueSelect={setValueSelect}
+                  />
+                  {arrayValue && arrayValue.length > 0 && (
+                    <>
+                      <GroupLabel className="group-label">
+                        <InputElement
+                          label="Giảng viên"
+                          name="teacher_id"
+                          hidden
+                          value={null}
+                        />
                         <div className="text-label">
-                          {infoProduct.teacherName}
+                          {arrayValue && arrayValue.length > 0
+                            ? arrayValue[0][1].name
+                            : 'Tên giảng viên '}
                         </div>
-                      </>
-                    ) : (
-                      <div className="text-label">Chưa có thông tin ?</div>
-                    )}
-                  </GroupLabel>
+                      </GroupLabel>
 
-                  <GroupLabel className="group-label">
-                    <InputElement
-                      label="Môn học"
-                      name="subject_id"
-                      value={subject}
-                      hidden
-                    />
-                    {infoProduct?.subjectName &&
-                    infoProduct?.subjectName !== null ? (
-                      <>
+                      <GroupLabel className="group-label">
+                        <InputElement
+                          label="Kì học"
+                          name="semester_id"
+                          placeholder="Nhập tên sản phẩm"
+                          hidden
+                          value={null}
+                        />
                         <div className="text-label">
-                          {infoProduct.subjectName}
+                          {arrayValue && arrayValue.length > 0
+                            ? arrayValue[0][3].name
+                            : 'Kỳ Học'}
                         </div>
-                      </>
-                    ) : (
-                      <div className="text-label">Chưa có thông tin ?</div>
-                    )}
-                  </GroupLabel>
-
-                  <GroupLabel className="group-label">
-                    <InputElement
-                      label="Kì học"
-                      name="semester_id"
-                      placeholder="Nhập tên sản phẩm"
-                      value={teach}
-                      hidden
-                    />
-                    {infoProduct?.semesterName &&
-                    infoProduct?.semesterName !== null ? (
-                      <>
-                        <div className="text-label">
-                          {infoProduct.semesterName}
-                        </div>
-                      </>
-                    ) : (
-                      <div className="text-label">Chưa có thông tin ?</div>
-                    )}
-                  </GroupLabel>
-
+                      </GroupLabel>
+                    </>
+                  )}
                   <GroupStudents>
                     <Title> Thành viên </Title>
                     <GroupInput>

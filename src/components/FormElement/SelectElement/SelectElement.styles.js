@@ -20,11 +20,7 @@ export const GroupSelect = styled.div`
     background-color: var(--bg-input);
     border: none;
     box-shadow: none;
-<<<<<<< HEAD
-    padding: 3px 5px;
-=======
     padding: 0.6rem 0.9rem;
->>>>>>> 6035169c30316b7ca20a1cd0fb2a1704d85f8007
   }
   .form-label {
     font-size: 1.4rem;

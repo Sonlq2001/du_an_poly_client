@@ -4,9 +4,18 @@ import { useField } from 'formik';
 
 import { GroupSelect } from './SelectElement.styles';
 
-const SelectElement = ({ options, label, placeholder, ...props }) => {
+const SelectElement = ({
+  options,
+  label,
+  placeholder,
+  setValueSelect,
+  ...props
+}) => {
   const [field] = useField(props);
   const handleChangeSelect = (value) => {
+    if (props.name === 'subject_id') {
+      setValueSelect(value);
+    }
     const valueOption = {
       target: {
         name: field.name,
