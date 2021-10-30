@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import {
@@ -17,7 +17,7 @@ import {
   GroupInput,
   GroupLabel,
 } from './ProductAddScreen.styles';
-// import { Redirect } from 'react-router-dom';
+
 // import ReactPlayer from 'react-player';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 // import ReviewProduct from '../components/Review/Review';
@@ -51,7 +51,6 @@ const AddProduct = () => {
 
   const productTypes = useSelector((state) => state.addProduct.productTypes);
   const infoProduct = useSelector((state) => state.addProduct.infoProduct);
-
   const selectProductTypes = MapOptions(productTypes);
   const fetchInfoProduct = useCallback(() => {
     dispatch(getInfo(userLogin));
@@ -92,6 +91,9 @@ const AddProduct = () => {
       (element) => element[0].id === valueSelect.value
     );
   const valueOptions = MapOptions(optionSelect); // giá trị value
+  if (!infoProduct) {
+    history.push('/page404');
+  }
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -110,7 +112,6 @@ const AddProduct = () => {
             newObjProduct.campus_id = arrayValue[0][2].id;
             newObjProduct.semester_id = arrayValue[0][3].id;
             newObjProduct.email = userLogin.email;
-            console.log('product', newObjProduct);
             dispatch(postAddProduct(newObjProduct))
               .then(unwrapResult)
               .then(() => {
