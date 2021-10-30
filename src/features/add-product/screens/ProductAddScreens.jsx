@@ -17,6 +17,8 @@ import {
   GroupInput,
   GroupLabel,
 } from './ProductAddScreen.styles';
+// import { Redirect } from 'react-router-dom';
+// import ReactPlayer from 'react-player';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 // import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
@@ -38,6 +40,7 @@ const AddProduct = () => {
   const history = useHistory();
   const { userLogin } = store.getState().auth;
   const [statusDocument, setStatusDocument] = useState(false);
+  const [statusVideo, setStatusVideo] = useState(false);
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
@@ -58,6 +61,7 @@ const AddProduct = () => {
   }, [dispatch, fetchInfoProduct]);
 
   const [listImages, setListImage] = useState([]);
+  // const [linkVideo, setLinkVideo] = useState(null);
   let email = [];
 
   const [Group, setGroup] = useState([userLogin?.email]);
@@ -105,13 +109,14 @@ const AddProduct = () => {
             newObjProduct.teacher_id = arrayValue[0][1].id;
             newObjProduct.campus_id = arrayValue[0][2].id;
             newObjProduct.semester_id = arrayValue[0][3].id;
-            // newObjProduct.subject
-            dispatch(postAddProduct(newObjProduct))
-              .then(unwrapResult)
-              .then(() => {
-                toast.success('Thêm sản phẩm thành công !');
-                setTimeout(() => history.push('/'), 1000);
-              });
+            newObjProduct.email = userLogin.email;
+            console.log('product', newObjProduct);
+            // dispatch(postAddProduct(newObjProduct))
+            //   .then(unwrapResult)
+            //   .then(() => {
+            //     toast.success('Thêm sản phẩm thành công !');
+            //     setTimeout(() => history.push('/'), 1000);
+            //   });
           }}
         >
           {() => (
@@ -126,8 +131,16 @@ const AddProduct = () => {
                   <InputElement
                     label="Đường dẫn video"
                     name="video_url"
-                    placeholder="Đường dẫn"
+                    placeholder="Link video "
                   />
+                  {/* <InputFileElement
+                    name="video_url"
+                    label="Video "
+                    id="file-document"
+                    content="Chọn Video"
+                    setStatusVideo={setStatusVideo}
+                    setLinkVideo={setLinkVideo}
+                  /> */}
                   <SelectElement
                     label="môn học "
                     name="subject_id"
@@ -252,6 +265,21 @@ const AddProduct = () => {
                         );
                       })}
                   </ListImage>
+                  {/* {!linkVideo && (
+                    <ReactPlayer
+                      controls
+                      volume
+                      playing={true}
+                      width="80%"
+                      style={({ padding: 10 }, { margin_top: 200 })}
+                      height="260px"
+                      playbackRate
+                      previewTabIndex="10"
+                      playIcon
+                      onReady={() => console.log('play')}
+                      url="https://www.youtube.com/watch?v=MMRP5lh-gJ4"
+                    />
+                  )} */}
                 </FormLeft>
 
                 <FormRight>
@@ -264,12 +292,12 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && listImages.length > 0 ? (
+                {statusDocument && statusVideo && listImages.length > 0 ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit" disabled className="button-add">
+                  <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}

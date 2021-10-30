@@ -15,12 +15,15 @@ const InputFileElement = ({
   multiple,
   setStatusDocument,
   setListImage,
+  setStatusVideo,
+  setLinkVideo,
   listImages,
   ...props
 }) => {
   const [loadingDocument, setLoadingDocument] = useState(0);
   const [loadingImage, setLoadingImage] = useState(0);
   const [loadingGalleries, setLoadingGalleries] = useState(0);
+  const [loadingVideo, setLoadingVideo] = useState(0);
   const [nameFile, setNameFile] = useState('');
   const { setFieldValue } = useFormikContext();
   const handleChangeFile = (e) => {
@@ -68,7 +71,7 @@ const InputFileElement = ({
             .post('/products/galleries', galleriesList)
             .then(
               (res) =>
-                setFieldValue(name, res.data.array_url) +
+                // setFieldValue(name, res.data.array_url) +
                 setLoadingGalleries(2) +
                 setListImage([...listImages, ...res.data.array_url]) +
                 setNameFile('')
@@ -83,6 +86,33 @@ const InputFileElement = ({
       } else {
         setNameFile('Không được để quá 6 ảnh - Không quá 3MB');
         setLoadingGalleries(3);
+        setNameFile(file && file.name);
+      }
+    } else if (name === 'video_url') {
+      if (file.size < 3145728) {
+        setLoadingVideo(1);
+        formData.append('video_url', file);
+        file &&
+          api
+            .post('/products/image', formData)
+            .then(
+              (res) =>
+                setFieldValue(name, res.data.image_url) +
+                setLoadingVideo(2) +
+                setLinkVideo(res.data.image_url) +
+                setNameFile(file && file.name)
+            )
+            .catch(
+              (errors) =>
+                setLoadingVideo(3) +
+                setNameFile(
+                  errors ? 'Lỗi' : 'Dung lượng quá lớn,Không quá 30MB '
+                )
+            );
+      } else {
+        setNameFile('Dung lượng quá lớn,Không quá 30MB');
+        setLoadingVideo(3);
+        setNameFile(file && file.name);
       }
     } else {
       if (file.size <= 3145728) {
@@ -127,6 +157,21 @@ const InputFileElement = ({
         <div className="file-text">
           {content && !nameFile ? content : nameFile}
         </div>
+        {loadingVideo === 1 && (
+          <div className="loading">
+            <AiOutlineLoading3Quarters />
+          </div>
+        )}
+        {loadingVideo === 2 && (
+          <div className="check">
+            <AiOutlineCheck />
+          </div>
+        )}
+        {loadingVideo === 3 && (
+          <div className="error">
+            <BiErrorCircle />
+          </div>
+        )}
         {loadingDocument === 1 && (
           <div className="loading">
             <AiOutlineLoading3Quarters />
