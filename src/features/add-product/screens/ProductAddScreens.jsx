@@ -111,12 +111,12 @@ const AddProduct = () => {
             newObjProduct.semester_id = arrayValue[0][3].id;
             newObjProduct.email = userLogin.email;
             console.log('product', newObjProduct);
-            // dispatch(postAddProduct(newObjProduct))
-            //   .then(unwrapResult)
-            //   .then(() => {
-            //     toast.success('Thêm sản phẩm thành công !');
-            //     setTimeout(() => history.push('/'), 1000);
-            //   });
+            dispatch(postAddProduct(newObjProduct))
+              .then(unwrapResult)
+              .then(() => {
+                toast.success('Thêm sản phẩm thành công !');
+                setTimeout(() => history.push('/'), 1000);
+              });
           }}
         >
           {() => (
