@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import {
@@ -17,6 +17,8 @@ import {
   GroupInput,
   GroupLabel,
 } from './ProductAddScreen.styles';
+
+// import ReactPlayer from 'react-player';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 // import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
@@ -38,6 +40,7 @@ const AddProduct = () => {
   const history = useHistory();
   const { userLogin } = store.getState().auth;
   const [statusDocument, setStatusDocument] = useState(false);
+  const [statusVideo, setStatusVideo] = useState(false);
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
@@ -48,7 +51,6 @@ const AddProduct = () => {
 
   const productTypes = useSelector((state) => state.addProduct.productTypes);
   const infoProduct = useSelector((state) => state.addProduct.infoProduct);
-
   const selectProductTypes = MapOptions(productTypes);
   const fetchInfoProduct = useCallback(() => {
     dispatch(getInfo(userLogin));
@@ -58,6 +60,7 @@ const AddProduct = () => {
   }, [dispatch, fetchInfoProduct]);
 
   const [listImages, setListImage] = useState([]);
+  // const [linkVideo, setLinkVideo] = useState(null);
   let email = [];
 
   const [Group, setGroup] = useState([userLogin?.email]);
@@ -88,6 +91,9 @@ const AddProduct = () => {
       (element) => element[0].id === valueSelect.value
     );
   const valueOptions = MapOptions(optionSelect); // giá trị value
+  if (!infoProduct) {
+    history.push('/page404');
+  }
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>
@@ -105,7 +111,7 @@ const AddProduct = () => {
             newObjProduct.teacher_id = arrayValue[0][1].id;
             newObjProduct.campus_id = arrayValue[0][2].id;
             newObjProduct.semester_id = arrayValue[0][3].id;
-            // newObjProduct.subject
+            newObjProduct.email = userLogin.email;
             dispatch(postAddProduct(newObjProduct))
               .then(unwrapResult)
               .then(() => {
@@ -126,8 +132,16 @@ const AddProduct = () => {
                   <InputElement
                     label="Đường dẫn video"
                     name="video_url"
-                    placeholder="Đường dẫn"
+                    placeholder="Link video "
                   />
+                  {/* <InputFileElement
+                    name="video_url"
+                    label="Video "
+                    id="file-document"
+                    content="Chọn Video"
+                    setStatusVideo={setStatusVideo}
+                    setLinkVideo={setLinkVideo}
+                  /> */}
                   <SelectElement
                     label="môn học "
                     name="subject_id"
@@ -252,6 +266,21 @@ const AddProduct = () => {
                         );
                       })}
                   </ListImage>
+                  {/* {!linkVideo && (
+                    <ReactPlayer
+                      controls
+                      volume
+                      playing={true}
+                      width="80%"
+                      style={({ padding: 10 }, { margin_top: 200 })}
+                      height="260px"
+                      playbackRate
+                      previewTabIndex="10"
+                      playIcon
+                      onReady={() => console.log('play')}
+                      url="https://www.youtube.com/watch?v=MMRP5lh-gJ4"
+                    />
+                  )} */}
                 </FormLeft>
 
                 <FormRight>
@@ -264,12 +293,12 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && listImages.length > 0 ? (
+                {statusDocument && statusVideo && listImages.length > 0 ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit" disabled className="button-add">
+                  <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}
