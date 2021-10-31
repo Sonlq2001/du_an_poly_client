@@ -108,19 +108,19 @@ const AddProduct = () => {
                     name="name"
                     placeholder="Nhập tên sản phẩm"
                   />
-                  {/* <InputElement
+                  <InputElement
                     label="Đường dẫn video"
                     name="video_url"
                     placeholder="Link video "
-                  /> */}
-                  <InputFileElement
+                  />
+                  {/* <InputFileElement
                     name="video_url"
                     label="Video "
                     id="file-document"
                     content="Chọn Video"
                     setStatusVideo={setStatusVideo}
                     setLinkVideo={setLinkVideo}
-                  />
+                  /> */}
                   <GroupLabel className="group-label">
                     <InputElement
                       label="Môn Học  "
@@ -237,7 +237,7 @@ const AddProduct = () => {
                         );
                       })}
                   </ListImage>
-                  {!linkVideo && (
+                  {linkVideo && (
                     <ReactPlayer
                       controls
                       volume
@@ -269,7 +269,7 @@ const AddProduct = () => {
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit" className="button-add">
+                  <button type="submit" disabled className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}
