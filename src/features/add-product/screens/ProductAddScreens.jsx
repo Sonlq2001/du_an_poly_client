@@ -242,14 +242,14 @@ const AddProduct = () => {
                       controls
                       volume
                       playing={true}
-                      width="80%"
-                      style={({ padding: 10 }, { margin_top: 200 })}
+                      style={({ padding: 10 }, { margin_top: 50 })}
                       height="260px"
+                      width="80%"
                       playbackRate
                       previewTabIndex="10"
                       playIcon
                       onReady={() => console.log('play')}
-                      url="https://vimeo.com/640700896"
+                      url="https://www.youtube.com/watch?v=gRjLwIw-QoE"
                     />
                   )}
                 </FormLeft>
