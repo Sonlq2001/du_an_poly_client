@@ -10,8 +10,8 @@ const getProductTypes = () => {
   return api.get(ADD_PRODUCT_ENDPOINTS.GET_PRODUCT_TYPES);
 };
 
-const getInfo = (email) => {
-  return api.post('/products/getinfo', email);
+const getInfo = (product_token) => {
+  return api.post('/products/getinfo', product_token);
 };
 
 export const addProductApi = {
