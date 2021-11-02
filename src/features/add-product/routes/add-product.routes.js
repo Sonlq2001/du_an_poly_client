@@ -3,7 +3,7 @@ const AddProductScreen = lazy(() => import('./../screens/ProductAddScreens'));
 
 const ADD_PRODUCT_SCREEN = {
   id: 'id_product_add',
-  path: '/product/add',
+  path: '/product/update/:product_token',
   component: AddProductScreen,
   isPrivateRoute: true,
 };

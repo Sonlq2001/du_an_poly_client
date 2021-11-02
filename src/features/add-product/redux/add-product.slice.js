@@ -16,9 +16,9 @@ export const postAddProduct = createAsyncThunk(
 
 export const getInfo = createAsyncThunk(
   'add-product/getInfo',
-  async (email) => {
+  async (product_token) => {
     try {
-      const response = await addProductApi.getInfo(email);
+      const response = await addProductApi.getInfo(product_token);
       return response.data;
     } catch (error) {}
   }
@@ -40,7 +40,7 @@ const initialState = {
   isProductFinishedLoading: false,
 
   // info product
-  infoProduct: null,
+  infoProduct: [],
   isInfoProductLoading: false,
 
   // product types
