@@ -12,17 +12,17 @@ const ConfigEditor = ({ handleChange, ...props }) => {
         return new Promise(async (resolve, reject) => {
           const formData = new FormData();
           const res = await loader.file;
-          formData.append('file', res);
-          formData.append('upload_preset', 'ug5tpbky');
+          formData.append('url_image', res);
 
           const {
-            data: { secure_url },
+            data: { link_image },
           } = await Axios.post(
-            'https://api.cloudinary.com/v1_1/sonel/image/upload',
+            'http://api.duanpoly.ml/api/products/createimage',
             formData
           );
+
           resolve({
-            default: secure_url,
+            default: link_image,
           });
         });
       },
