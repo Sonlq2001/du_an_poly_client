@@ -4,6 +4,12 @@ import { GroupFormFile } from './InputElement.styles';
 import api from './../../../api/api';
 import { AiOutlineLoading3Quarters, AiOutlineCheck } from 'react-icons/ai';
 import { BiErrorCircle } from 'react-icons/bi';
+import { RiContrastDropLine } from 'react-icons/ri';
+import { useDispatch } from 'react-redux';
+import {
+  removeDocument,
+  removeImage,
+} from 'features/add-product/redux/add-product.slice';
 
 const InputFileElement = ({
   label,
@@ -13,17 +19,18 @@ const InputFileElement = ({
   id,
   content,
   multiple,
-  setStatusDocument,
   setListImage,
-  setStatusVideo,
-  setLinkVideo,
   listImages,
+  linkAvatar,
+  setLinkAvatar,
+  LinkDoc,
+  setLinkDoc,
   ...props
 }) => {
+  const dispatch = useDispatch();
   const [loadingDocument, setLoadingDocument] = useState(0);
   const [loadingImage, setLoadingImage] = useState(0);
   const [loadingGalleries, setLoadingGalleries] = useState(0);
-  const [loadingVideo, setLoadingVideo] = useState(0);
   const [nameFile, setNameFile] = useState('');
   const { setFieldValue } = useFormikContext();
   const handleChangeFile = (e) => {
@@ -31,19 +38,21 @@ const InputFileElement = ({
     const files = e.target.files;
     const formData = new FormData();
     const galleriesList = new FormData();
-    formData.append('resource_url', file && file);
-    formData.append('name', file && file.name);
 
     if (name === 'resource_url') {
-      if (file.size <= 31457280) {
+      if (file && file.size <= 31457280) {
+        formData.append('resource_url', file && file);
+        formData.append('name', file && file.name);
         setLoadingDocument(1);
-        file &&
+        if (LinkDoc) {
+          const link = { resource_url: LinkDoc };
+          dispatch(removeDocument(link));
+
           api
             .post('/products/document', formData)
             .then(
               (res) =>
-                setFieldValue(name, res.data.resource_url) +
-                setStatusDocument(true) +
+                setLinkDoc(res.data.resource_url) +
                 setLoadingDocument(2) +
                 setNameFile(file && file.name)
             )
@@ -53,6 +62,22 @@ const InputFileElement = ({
                   errors ? 'Lỗi' : 'Dung lượng quá lớn !  Không quá 10MB'
                 ) + setLoadingDocument(3)
             );
+        } else {
+          api
+            .post('/products/document', formData)
+            .then(
+              (res) =>
+                setLinkDoc(res.data.resource_url) +
+                setLoadingDocument(2) +
+                setNameFile(file && file.name)
+            )
+            .catch(
+              (errors) =>
+                setNameFile(
+                  errors ? 'Lỗi' : 'Dung lượng quá lớn !  Không quá 10MB'
+                ) + setLoadingDocument(3)
+            );
+        }
       }
     } else if (name === 'galleries') {
       const listImage = Array.from(files);
@@ -88,42 +113,18 @@ const InputFileElement = ({
         setLoadingGalleries(3);
         setNameFile(file && file.name);
       }
-    } else if (name === 'video_url') {
-      if (file.size < 3145728) {
-        setLoadingVideo(1);
-        formData.append('video_url', file);
-        file &&
-          api
-            .post('/products/image', formData)
-            .then(
-              (res) =>
-                setFieldValue(name, res.data.image_url) +
-                setLoadingVideo(2) +
-                setLinkVideo(res.data.image_url) +
-                setNameFile(file && file.name)
-            )
-            .catch(
-              (errors) =>
-                setLoadingVideo(3) +
-                setNameFile(
-                  errors ? 'Lỗi' : 'Dung lượng quá lớn,Không quá 30MB '
-                )
-            );
-      } else {
-        setNameFile('Dung lượng quá lớn,Không quá 30MB');
-        setLoadingVideo(3);
-        setNameFile(file && file.name);
-      }
     } else {
-      if (file.size <= 3145728) {
+      if (file && file.size <= 3145728) {
         setLoadingImage(1);
         formData.append('image', file);
-        file &&
+        if (linkAvatar) {
+          const url_image = { img_url: linkAvatar };
+          dispatch(removeImage(url_image));
           api
             .post('/products/image', formData)
             .then(
               (res) =>
-                setFieldValue(name, res.data.image_url) +
+                setLinkAvatar(res.data.image_url) +
                 setLoadingImage(2) +
                 setNameFile(file && file.name)
             )
@@ -133,6 +134,22 @@ const InputFileElement = ({
                   errors ? 'Lỗi' : 'Dung lượng ảnh quá lớn ! Không quá 3MB'
                 ) + setLoadingImage(3)
             );
+        } else {
+          api
+            .post('/products/image', formData)
+            .then(
+              (res) =>
+                setLinkAvatar(res.data.image_url) +
+                setLoadingImage(2) +
+                setNameFile(file && file.name)
+            )
+            .catch(
+              (errors) =>
+                setNameFile(
+                  errors ? 'Lỗi' : 'Dung lượng ảnh quá lớn ! Không quá 3MB'
+                ) + setLoadingImage(3)
+            );
+        }
       }
     }
   };
@@ -157,21 +174,6 @@ const InputFileElement = ({
         <div className="file-text">
           {content && !nameFile ? content : nameFile}
         </div>
-        {loadingVideo === 1 && (
-          <div className="loading">
-            <AiOutlineLoading3Quarters />
-          </div>
-        )}
-        {loadingVideo === 2 && (
-          <div className="check">
-            <AiOutlineCheck />
-          </div>
-        )}
-        {loadingVideo === 3 && (
-          <div className="error">
-            <BiErrorCircle />
-          </div>
-        )}
         {loadingDocument === 1 && (
           <div className="loading">
             <AiOutlineLoading3Quarters />

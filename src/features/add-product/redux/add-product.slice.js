@@ -33,6 +33,18 @@ export const getProductTypes = createAsyncThunk(
     } catch (error) {}
   }
 );
+export const removeImage = createAsyncThunk(
+  'product-add/delete_image',
+  async (url_image) => {
+    await addProductApi.removeImage(url_image);
+  }
+);
+export const removeDocument = createAsyncThunk(
+  'product-add/delete_image',
+  async (resource_url) => {
+    await addProductApi.removeDocument(resource_url);
+  }
+);
 
 const initialState = {
   // product finished successfully

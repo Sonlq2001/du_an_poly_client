@@ -1,9 +1,11 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+
 import {
   WrapPage,
   Title,
@@ -17,8 +19,6 @@ import {
   GroupInput,
   GroupLabel,
 } from './ProductAddScreen.styles';
-
-import ReactPlayer from 'react-player';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 // import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
@@ -27,8 +27,9 @@ import InputFileElement from 'components/FormElement/InputElement/InputFileEleme
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
 import {
   postAddProduct,
-  getInfo,
+  // getInfo,
   getProductTypes,
+  removeImage,
 } from '../redux/add-product.slice';
 import store from 'redux/store';
 import CKEditor from '../components/Editor/CKEditor';
@@ -39,9 +40,8 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userLogin } = store.getState().auth;
-  const { product_token } = useParams();
-  const [statusDocument, setStatusDocument] = useState(false);
-  const [statusVideo, setStatusVideo] = useState(false);
+  // const { product_token } = useParams();
+  const [loadingItem, setLoadingItem] = useState(true);
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
@@ -49,16 +49,17 @@ const AddProduct = () => {
   useEffect(() => {
     fetchProductTypes();
   }, [fetchProductTypes]);
+  // useEffect(() => {
+  //   dispatch(getInfo(product_token));
+  // }, [dispatch]);
 
   const productTypes = useSelector((state) => state.addProduct.productTypes);
   // const infoProduct = useSelector((state) => state.addProduct.infoProduct);
   const selectProductTypes = MapOptions(productTypes);
-  useEffect(() => {
-    dispatch(getInfo(product_token));
-  }, [dispatch]);
 
   const [listImages, setListImage] = useState([]);
-  const [linkVideo, setLinkVideo] = useState(null);
+  const [linkAvatar, setLinkAvatar] = useState(null);
+  const [LinkDoc, setLinkDoc] = useState(null);
   let email = [];
 
   const [Group, setGroup] = useState([userLogin?.email]);
@@ -67,8 +68,14 @@ const AddProduct = () => {
     setGroup(Group.filter((_, index) => index !== i));
   };
 
-  const RemoveImage = (i) => {
-    setListImage(listImages.filter((item, index) => index !== i));
+  const RemoveImage = async (i, key) => {
+    const url = { img_url: i };
+    try {
+      await dispatch(removeImage(url));
+      setListImage(listImages.filter((item, index) => index !== key));
+    } catch (error) {
+      // setListImage = [...listImages];
+    }
   };
 
   const EmailChange = (e, key) => {
@@ -91,6 +98,8 @@ const AddProduct = () => {
             newObjProduct.students = Group;
             newObjProduct.galleries = listImages;
             newObjProduct.email = userLogin.email;
+            newObjProduct.image_url = linkAvatar;
+            newObjProduct.resource_url = LinkDoc;
             dispatch(postAddProduct(newObjProduct))
               .then(unwrapResult)
               .then(() => {
@@ -113,32 +122,24 @@ const AddProduct = () => {
                     name="video_url"
                     placeholder="Link video "
                   />
-                  {/* <InputFileElement
-                    name="video_url"
-                    label="Video "
-                    id="file-document"
-                    content="Chọn Video"
-                    setStatusVideo={setStatusVideo}
-                    setLinkVideo={setLinkVideo}
-                  /> */}
                   <GroupLabel className="group-label">
-                    <InputElement
-                      label="Môn Học  "
-                      name="subject_id"
-                      hidden
-                      value={null}
-                    />
-                    <div className="text-label">Môn học</div>
+                    <InputElement label="Môn Học  " name="subject_id" hidden />
+                    <div className="text-label">Môn học </div>
+                    {loadingItem && (
+                      <div className="loading">
+                        <AiOutlineLoading3Quarters />
+                      </div>
+                    )}
                   </GroupLabel>
 
                   <GroupLabel className="group-label">
-                    <InputElement
-                      label="Giảng viên"
-                      name="teacher_id"
-                      hidden
-                      value={null}
-                    />
+                    <InputElement label="Giảng viên" name="teacher_id" hidden />
                     <div className="text-label">Tên giảng viên</div>
+                    {loadingItem && (
+                      <div className="loading">
+                        <AiOutlineLoading3Quarters />
+                      </div>
+                    )}
                   </GroupLabel>
 
                   <GroupLabel className="group-label">
@@ -147,9 +148,13 @@ const AddProduct = () => {
                       name="semester_id"
                       placeholder="Nhập tên sản phẩm"
                       hidden
-                      value={null}
                     />
                     <div className="text-label">Kỳ Học</div>
+                    {loadingItem && (
+                      <div className="loading">
+                        <AiOutlineLoading3Quarters />
+                      </div>
+                    )}
                   </GroupLabel>
 
                   <GroupStudents>
@@ -199,14 +204,16 @@ const AddProduct = () => {
                     label="Ảnh đại diện"
                     id="file-avatar"
                     content="Chọn ảnh đại diện"
+                    linkAvatar={linkAvatar}
+                    setLinkAvatar={setLinkAvatar}
                   />
                   <InputFileElement
                     name="resource_url"
                     label="Tài liệu"
                     id="file-document"
                     content="Chọn tài liệu"
-                    setStatusDocument={setStatusDocument}
-                    statusDocument={statusDocument}
+                    setLinkDoc={setLinkDoc}
+                    LinkDoc={LinkDoc}
                   />
                   <InputFileElement
                     name="galleries"
@@ -230,28 +237,13 @@ const AddProduct = () => {
                             <img src={item} alt="" />
                             <div className="delete">
                               <RiDeleteBin2Line
-                                onClick={() => RemoveImage(index)}
+                                onClick={() => RemoveImage(item, index)}
                               />
                             </div>
                           </div>
                         );
                       })}
                   </ListImage>
-                  {linkVideo && (
-                    <ReactPlayer
-                      controls
-                      volume
-                      playing={true}
-                      style={({ padding: 10 }, { margin_top: 50 })}
-                      height="260px"
-                      width="80%"
-                      playbackRate
-                      previewTabIndex="10"
-                      playIcon
-                      onReady={() => console.log('play')}
-                      url="https://www.youtube.com/watch?v=gRjLwIw-QoE"
-                    />
-                  )}
                 </FormLeft>
 
                 <FormRight>
@@ -264,7 +256,7 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {statusDocument && statusVideo && listImages.length > 0 ? (
+                {LinkDoc && linkAvatar && listImages.length > 0 ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
