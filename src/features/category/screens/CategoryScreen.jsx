@@ -31,7 +31,6 @@ const CategoryScreen = () => {
   const { isLoadingProducts, listProduct } = useSelector(
     (state) => state.category
   );
-
   if (isLoadingProducts) {
     return <Loading />;
   }
@@ -62,7 +61,7 @@ const CategoryScreen = () => {
                           {item.name}
                         </Link>
                         <p className="content-object">
-                          Môn học: Thiết kế website
+                          Môn học: {item.subject && item.subject.name}
                         </p>
                         <MasonryAction>
                           <MasonryActionItem>
