@@ -134,7 +134,7 @@ const AddProduct = () => {
 
                   <GroupLabel className="group-label">
                     <InputElement label="Giảng viên" name="teacher_id" hidden />
-                    <div className="text-label">Tên giảng viên</div>
+                    <div className="text-label">xin chào giảng viên</div>
                     {loadingItem && (
                       <div className="loading">
                         <AiOutlineLoading3Quarters />
@@ -146,7 +146,7 @@ const AddProduct = () => {
                     <InputElement
                       label="Kì học"
                       name="semester_id"
-                      placeholder="Nhập tên sản phẩm"
+                      placeholder="Kỳ học"
                       hidden
                     />
                     <div className="text-label">Kỳ Học</div>
@@ -168,6 +168,7 @@ const AddProduct = () => {
                               type="email"
                               placeholder="email"
                               value={item}
+                              required
                               onChange={(e) => EmailChange(e, index)}
                               disabled={index === 0 ? true : false}
                             />
