@@ -27,7 +27,7 @@ import InputFileElement from 'components/FormElement/InputElement/InputFileEleme
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
 import {
   postAddProduct,
-  // getInfo,
+  getInfo,
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
@@ -40,7 +40,7 @@ const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userLogin } = store.getState().auth;
-  // const { product_token } = useParams();
+  const { product_token } = useParams();
   const [loadingItem, setLoadingItem] = useState(true);
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
@@ -49,14 +49,19 @@ const AddProduct = () => {
   useEffect(() => {
     fetchProductTypes();
   }, [fetchProductTypes]);
-  // useEffect(() => {
-  //   dispatch(getInfo(product_token));
-  // }, [dispatch]);
-
-  const productTypes = useSelector((state) => state.addProduct.productTypes);
-  // const infoProduct = useSelector((state) => state.addProduct.infoProduct);
+  useEffect(async () => {
+    const tokens = {
+      token: product_token,
+    };
+    const response = await dispatch(getInfo(tokens));
+    if (getInfo.fulfilled.match(response)) {
+      setLoadingItem(false);
+    }
+  }, [dispatch, product_token]);
+  const { productTypes, infoProduct } = useSelector(
+    (state) => state.addProduct
+  );
   const selectProductTypes = MapOptions(productTypes);
-
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
@@ -73,9 +78,7 @@ const AddProduct = () => {
     try {
       await dispatch(removeImage(url));
       setListImage(listImages.filter((item, index) => index !== key));
-    } catch (error) {
-      // setListImage = [...listImages];
-    }
+    } catch (error) {}
   };
 
   const EmailChange = (e, key) => {
@@ -100,6 +103,7 @@ const AddProduct = () => {
             newObjProduct.email = userLogin.email;
             newObjProduct.image_url = linkAvatar;
             newObjProduct.resource_url = LinkDoc;
+            newObjProduct.token = product_token;
             dispatch(postAddProduct(newObjProduct))
               .then(unwrapResult)
               .then(() => {
