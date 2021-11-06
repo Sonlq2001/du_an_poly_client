@@ -45,7 +45,10 @@ const AddProduct = () => {
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
-  const fetchInfo = useCallback(async () => {
+  useEffect(() => {
+    fetchProductTypes();
+  }, [fetchProductTypes]);
+  useEffect(async () => {
     const tokens = {
       token: product_token,
     };
@@ -53,13 +56,7 @@ const AddProduct = () => {
     if (getInfo.fulfilled.match(response)) {
       setLoadingItem(false);
     }
-  }, [dispatch, product_token]);
-  useEffect(() => {
-    fetchProductTypes();
-  }, [fetchProductTypes]);
-  useEffect(() => {
-    fetchInfo();
-  }, [dispatch, fetchInfo]);
+  }, [dispatch]);
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
@@ -69,8 +66,8 @@ const AddProduct = () => {
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
   let email = [];
-
-  const [Group, setGroup] = useState([userLogin?.email]);
+  // email-nhom : vietbhph09726
+  const [Group, setGroup] = useState(['sonnhph12562']);
 
   const remove = (i) => {
     setGroup(Group.filter((_, index) => index !== i));
@@ -98,7 +95,7 @@ const AddProduct = () => {
           initialValues={{
             ...initForm,
           }}
-          onSubmit={({ product_type_id, ...rest }) => {
+          onSubmit={async ({ product_type_id, ...rest }) => {
             const { value } = product_type_id;
             const newObjProduct = { ...rest, product_type_id: value };
             newObjProduct.students = Group;
@@ -107,12 +104,14 @@ const AddProduct = () => {
             newObjProduct.image_url = linkAvatar;
             newObjProduct.resource_url = LinkDoc;
             newObjProduct.token = product_token;
-            dispatch(postAddProduct(newObjProduct))
-              .then(unwrapResult)
-              .then(() => {
-                toast.success('Thêm sản phẩm thành công !');
-                setTimeout(() => history.push('/'), 1000);
-              });
+            const response = await dispatch(postAddProduct(newObjProduct));
+            if (postAddProduct.fulfilled.match(response)) {
+              toast.success('Thêm sản phẩm thành công !');
+              setTimeout(
+                () => history.push(`/product/${response.payload.id}`),
+                1000
+              );
+            }
           }}
         >
           {() => (
@@ -184,8 +183,8 @@ const AddProduct = () => {
                           <div className="group" key={index}>
                             <input
                               className="inputE"
-                              type="email"
-                              placeholder="email"
+                              type="text"
+                              placeholder="Tên và mã số sinh viên "
                               value={item}
                               required
                               onChange={(e) => EmailChange(e, index)}

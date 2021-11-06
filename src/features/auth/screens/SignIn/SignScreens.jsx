@@ -3,7 +3,7 @@ import { AiOutlineGoogle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import LogoFpt from './../../../../assets/images/logo.png';
 import {
@@ -17,11 +17,13 @@ import { postLogin } from './../../redux/auth.slice';
 const SignScreens = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  let location = useLocation();
+  console.log(location.pathname);
   const responseGoogle = (response) => {
     const { accessToken } = response;
     dispatch(postLogin(accessToken))
       .then(unwrapResult)
-      .then(() => history.push('/'));
+      .then(() => history.goBack());
   };
 
   return (
