@@ -45,11 +45,7 @@ const AddProduct = () => {
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
-
-  useEffect(() => {
-    fetchProductTypes();
-  }, [fetchProductTypes]);
-  useEffect(async () => {
+  const fetchInfo = useCallback(async () => {
     const tokens = {
       token: product_token,
     };
@@ -58,9 +54,16 @@ const AddProduct = () => {
       setLoadingItem(false);
     }
   }, [dispatch, product_token]);
+  useEffect(() => {
+    fetchProductTypes();
+  }, [fetchProductTypes]);
+  useEffect(() => {
+    fetchInfo();
+  }, [dispatch, fetchInfo]);
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
+
   const selectProductTypes = MapOptions(productTypes);
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
@@ -128,7 +131,11 @@ const AddProduct = () => {
                   />
                   <GroupLabel className="group-label">
                     <InputElement label="Môn Học  " name="subject_id" hidden />
-                    <div className="text-label">Môn học </div>
+                    <div className="text-label">
+                      {infoProduct && infoProduct.subject_id
+                        ? infoProduct.subject_id
+                        : 'Môn Học '}
+                    </div>
                     {loadingItem && (
                       <div className="loading">
                         <AiOutlineLoading3Quarters />
@@ -138,7 +145,11 @@ const AddProduct = () => {
 
                   <GroupLabel className="group-label">
                     <InputElement label="Giảng viên" name="teacher_id" hidden />
-                    <div className="text-label">xin chào giảng viên</div>
+                    <div className="text-label">
+                      {infoProduct && infoProduct.teacher_id
+                        ? infoProduct.teacher_id
+                        : 'Giảng Viên '}
+                    </div>
                     {loadingItem && (
                       <div className="loading">
                         <AiOutlineLoading3Quarters />
@@ -153,7 +164,11 @@ const AddProduct = () => {
                       placeholder="Kỳ học"
                       hidden
                     />
-                    <div className="text-label">Kỳ Học</div>
+                    <div className="text-label">
+                      {infoProduct && infoProduct.semester_id
+                        ? infoProduct.semester_id
+                        : 'Kỳ học '}
+                    </div>
                     {loadingItem && (
                       <div className="loading">
                         <AiOutlineLoading3Quarters />
@@ -261,7 +276,10 @@ const AddProduct = () => {
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
                 </label> */}
-                {LinkDoc && linkAvatar && listImages.length > 0 ? (
+                {LinkDoc &&
+                linkAvatar &&
+                infoProduct &&
+                listImages.length > 0 ? (
                   <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>

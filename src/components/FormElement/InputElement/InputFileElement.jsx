@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useFormikContext } from 'formik';
 import { GroupFormFile } from './InputElement.styles';
 import api from './../../../api/api';
 import { AiOutlineLoading3Quarters, AiOutlineCheck } from 'react-icons/ai';
 import { BiErrorCircle } from 'react-icons/bi';
-import { RiContrastDropLine } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import {
   removeDocument,
@@ -32,7 +30,6 @@ const InputFileElement = ({
   const [loadingImage, setLoadingImage] = useState(0);
   const [loadingGalleries, setLoadingGalleries] = useState(0);
   const [nameFile, setNameFile] = useState('');
-  const { setFieldValue } = useFormikContext();
   const handleChangeFile = (e) => {
     const file = e.target.files[0];
     const files = e.target.files;

@@ -52,7 +52,7 @@ const initialState = {
   isProductFinishedLoading: false,
 
   // info product
-  infoProduct: [],
+  infoProduct: {},
   isInfoProductLoading: false,
 
   // product types
