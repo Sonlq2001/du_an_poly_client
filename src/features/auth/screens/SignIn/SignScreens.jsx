@@ -2,7 +2,12 @@ import React, { memo } from 'react';
 import { AiOutlineGoogle } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
+<<<<<<< HEAD
 import { useHistory } from 'react-router-dom';
+=======
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useHistory, useLocation } from 'react-router-dom';
+>>>>>>> 769a018dd5f97cd888c32441359d1b2530017b80
 
 import LogoFpt from './../../../../assets/images/logo.png';
 import {
@@ -16,14 +21,11 @@ import { postLogin } from './../../redux/auth.slice';
 const SignScreens = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const responseGoogle = async (response) => {
+  const responseGoogle = (response) => {
     const { accessToken } = response;
-    if (accessToken) {
-      const response = await dispatch(postLogin(accessToken));
-      if (postLogin.fulfilled.match(response)) {
-        history.push('/');
-      }
-    }
+    dispatch(postLogin(accessToken))
+      .then(unwrapResult)
+      .then(() => history.goBack());
   };
 
   return (

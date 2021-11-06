@@ -36,6 +36,7 @@ export const FormRight = styled(FormLeft)`
   }
 `;
 export const GroupLabel = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   margin-top: 2rem;
@@ -43,6 +44,23 @@ export const GroupLabel = styled.div`
   }
   & + & {
     margin-top: 2rem;
+  }
+  & .loading {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    font-size: 19px;
+    transition: 2s;
+    animation: rotate infinite 1.3s linear;
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+        opacity: 0.5;
+      }
+    }
   }
 `;
 export const ListImage = styled.div`
