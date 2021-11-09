@@ -1,59 +1,128 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HeaderProfile, Avatar, Information } from './style';
+import { Formik } from 'formik';
+import { initForm } from '../helpers/profile.helpers';
 
-const Profile = () => {
+import { useDispatch, useSelector } from 'react-redux';
+const Profile = ({ profile }) => {
+  const [status, setStatus] = useState(false);
+  const { userLogin } = useSelector((state) => state.auth);
   return (
-    <HeaderProfile className="profile">
-      <Avatar className="avatar">
-        <img
-          src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          alt=""
-        />
-      </Avatar>
-      <Information className="information">
-        <div className="left">
-          <li>Họ và Tên </li>
-          <li>Email </li>
-          <li> Mssv </li>
-          <li>Chuyên ngành </li>
-          <li>Link git </li>
-          <li>Cv cá nhân </li>
-          <li>Facebook </li>
-        </div>
-        <div className="rigth">
-          <li>Nguyễn Hữu Sơn </li>
-          <li>Sonnhph12562@fpt.edu.vn </li>
-          <li> Ph12562 </li>
-          <li> Lập trình website </li>
-          <li>
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+    <HeaderProfile>
+      <div className="profile">
+        <Avatar className="avatar">
+          <img src={profile.avatar} alt="" />
+        </Avatar>
+
+        <Information className="information">
+          {profile && (
+            <div className="left">
+              <li>Họ và Tên </li>
+              <li>Email </li>
+              <li> Mssv </li>
+              <li>Chuyên ngành </li>
+              <li className={status && 'label'}>Link git </li>
+              <li className={status && 'label'}>Cv cá nhân</li>
+              <li className={status && 'label'}>Facebook cá nhân </li>
+            </div>
+          )}
+          <div className="rigth">
+            {profile && profile.name ? <li>{profile.name} </li> : ''}
+            {profile && profile.email ? <li>{profile.email} </li> : ''}
+            {profile && profile.student_code ? (
+              <li>{profile.student_code} </li>
+            ) : (
+              ''
+            )}
+
+            <li> Lập trình website </li>
+            <Formik
+              initialValues={{ ...initForm }}
+              onSubmit={(value) => {
+                console.log(value);
+              }}
             >
-              https://github.com/
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.topcv.vn/cv-la-gi"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://www.topcv.vn/cv-la-gi
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.facebook.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://www.facebook.com/
-            </a>
-          </li>
-        </div>
-      </Information>
+              {({ handleChange, handleSubmit }) => (
+                <form
+                  onSubmit={handleSubmit}
+                  hidden={
+                    userLogin === null || userLogin.id !== profile.id
+                      ? true
+                      : false
+                  }
+                >
+                  <div className="inputForm">
+                    <li>
+                      {profile.linkGit ? (
+                        <a href="cấcvgbh"> link git </a>
+                      ) : status ? (
+                        <input
+                          type="text"
+                          className="inputGroup"
+                          name="linkGit"
+                          onChange={handleChange}
+                          defaultValue="Link git  "
+                        />
+                      ) : (
+                        ''
+                      )}
+                    </li>
+                    <li>
+                      {profile.linkGit ? (
+                        <a href="cấcvgbh"> link cv </a>
+                      ) : status ? (
+                        <input
+                          type="text"
+                          className="inputGroup"
+                          name="CvIndividual"
+                          onChange={handleChange}
+                          defaultValue="Link cv  "
+                        />
+                      ) : (
+                        ''
+                      )}
+                    </li>
+                    <li>
+                      {profile.linkGit ? (
+                        <a href="cấcvgbh"> link facebook</a>
+                      ) : status ? (
+                        <input
+                          type="text"
+                          className="inputGroup"
+                          name="facebook"
+                          defaultValue="Link Facebook  "
+                          onChange={handleChange}
+                        />
+                      ) : (
+                        ''
+                      )}
+                    </li>
+                  </div>
+                  {status && (
+                    <button className={`btn ${status ? 'update' : ''}`}>
+                      Cập nhật
+                    </button>
+                  )}
+                  {!status && (
+                    <label
+                      hidden={
+                        userLogin === null || userLogin.id !== profile.id
+                          ? true
+                          : false
+                      }
+                      htmlFor=""
+                      className="btn"
+                      onClick={() => setStatus(!status)}
+                    >
+                      Cập Nhật
+                    </label>
+                  )}
+                </form>
+              )}
+            </Formik>
+          </div>
+        </Information>
+      </div>
     </HeaderProfile>
   );
 };

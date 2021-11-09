@@ -56,7 +56,7 @@ const AddProduct = () => {
     if (getInfo.fulfilled.match(response)) {
       setLoadingItem(false);
     }
-  }, [dispatch]);
+  }, [dispatch, product_token]);
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
