@@ -8,6 +8,6 @@ export const initForm = {
   students: null,
   galleries: [],
   description: '',
-  status: 0,
+  status: 1,
   token: '',
 };
