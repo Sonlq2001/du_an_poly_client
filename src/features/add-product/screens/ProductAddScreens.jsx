@@ -5,6 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 import {
   WrapPage,
@@ -56,15 +57,15 @@ const AddProduct = () => {
     if (getInfo.fulfilled.match(response)) {
       setLoadingItem(false);
     }
-  }, [dispatch]);
+  }, [dispatch, product_token]);
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
-
   const selectProductTypes = MapOptions(productTypes);
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
+  const [loadingButton, setLoadingButton] = useState(2);
   let email = [];
   // email-nhom : vietbhph09726
   const [Group, setGroup] = useState(['sonnhph12562']);
@@ -104,13 +105,18 @@ const AddProduct = () => {
             newObjProduct.image_url = linkAvatar;
             newObjProduct.resource_url = LinkDoc;
             newObjProduct.token = product_token;
+            setLoadingButton(1);
             const response = await dispatch(postAddProduct(newObjProduct));
             if (postAddProduct.fulfilled.match(response)) {
               toast.success('Thêm sản phẩm thành công !');
+              setLoadingButton(0);
               setTimeout(
                 () => history.push(`/product/${response.payload.id}`),
                 1000
               );
+            }
+            if (postAddProduct.rejected.match(response)) {
+              setLoadingButton(2);
             }
           }}
         >
@@ -279,7 +285,16 @@ const AddProduct = () => {
                 linkAvatar &&
                 infoProduct &&
                 listImages.length > 0 ? (
-                  <button type="submit" className="button-add">
+                  <button
+                    type="submit"
+                    className={`button-add ${loadingButton === 2 && 'er'}`}
+                  >
+                    {loadingButton === 1 && <div className="loader"> </div>}
+                    {loadingButton === 2 && (
+                      <div className="error">
+                        <RiErrorWarningLine />
+                      </div>
+                    )}
                     Thêm sản phẩm
                   </button>
                 ) : (
