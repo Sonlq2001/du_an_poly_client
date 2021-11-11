@@ -32,7 +32,7 @@ const authSlice = createSlice({
       state.userLogin = null;
     },
     [postLogin.fulfilled]: (state, action) => {
-      if (action.payload?.user !== null) {
+      if (action?.payload?.user !== null) {
         const { avatar, email } = action.payload?.user;
         state.accessToken = action.payload.access_token;
         state.userLogin = { avatar, email };
