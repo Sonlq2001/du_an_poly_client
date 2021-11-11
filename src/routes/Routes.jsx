@@ -23,7 +23,8 @@ const RouterWrap = ({
   const isSigned = store.getState().auth.accessToken;
 
   // if (path === ADD_PRODUCT_PATHS.ADD_PRODUCT || !isSigned) {
-  //   return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;
+  //   history.goBack();
+  //   // return history.push('/product/update/asdf');
   // }
 
   if (!isSigned && isPrivate) {

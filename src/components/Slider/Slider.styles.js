@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const GroupSlide = styled.div`
+  position: relative;
+`;
+
 export const SliderMain = styled.div`
   overflow: hidden;
   position: relative;
@@ -125,6 +129,80 @@ export const BoxTrending = styled.div`
     margin-right: 1rem;
   }
   @media (max-width: 767.98px) {
+    font-size: 1.3rem;
+  }
+`;
+export const SearchComplete = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 6.5rem;
+  width: 100%;
+  background-color: var(--white-color);
+  border-radius: 5px;
+  text-align: left;
+  overflow: hidden;
+  box-shadow: 0 0 3rem var(--aaa-color);
+  color: var(--txt-color);
+  .label-result {
+    font-size: 1.4rem;
+    color: var(--txt-color);
+    font-weight: 500;
+    background-color: var(--eee-color);
+    padding: 1.5rem;
+  }
+  .value-search {
+    font-weight: 400;
+    color: gray;
+  }
+  .search-result {
+    padding: 0 1rem 2rem 1rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: var(--ccc-color);
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--bbb-color);
+    }
+  }
+  .label-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    font-size: 1.4rem;
+    border-bottom: 1px solid var(--eee-color);
+    color: var(--aaa-color);
+  }
+  .result-list {
+    margin-top: 1rem;
+  }
+  .item-list {
+    display: flex;
+    align-items: center;
+  }
+  .item-list + .item-list {
+    margin-top: 1rem;
+  }
+  .item-img {
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--eee-color);
+    margin-right: 2rem;
+  }
+  .item-name {
     font-size: 1.3rem;
   }
 `;
