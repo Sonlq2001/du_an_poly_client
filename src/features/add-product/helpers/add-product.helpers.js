@@ -1,10 +1,6 @@
 export const initForm = {
   name: '',
   video_url: '',
-  campus_id: 1,
-  teacher_id: null,
-  subject_id: 69,
-  semester_id: null,
   product_type_id: '',
   class: 'pt12365',
   image_url: '',
@@ -12,5 +8,6 @@ export const initForm = {
   students: null,
   galleries: [],
   description: '',
-  status: 0,
+  status: 1,
+  token: '',
 };

@@ -28,7 +28,7 @@ const RouterWrap = ({
   // }
 
   if (!isSigned && isPrivate) {
-    return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;
+    return <Redirect key="SIGN_IN_ROUTE" to={{ SIGN_IN_ROUTE }} />;
   }
 
   if (isSigned && isAuth) {

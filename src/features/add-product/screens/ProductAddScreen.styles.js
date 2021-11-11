@@ -36,6 +36,7 @@ export const FormRight = styled(FormLeft)`
   }
 `;
 export const GroupLabel = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   margin-top: 2rem;
@@ -43,6 +44,23 @@ export const GroupLabel = styled.div`
   }
   & + & {
     margin-top: 2rem;
+  }
+  & .loading {
+    position: absolute;
+    top: 11px;
+    right: 10px;
+    font-size: 19px;
+    transition: 2s;
+    animation: rotate infinite 1.3s linear;
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+        opacity: 0.5;
+      }
+    }
   }
 `;
 export const ListImage = styled.div`
@@ -135,9 +153,40 @@ export const WrapButton = styled.div`
   align-items: center;
   justify-content: flex-end;
   .button-add {
-    padding: 1rem;
+    padding: 0.7rem;
+    /* padding-top: 0rem; */
     border: none;
     border-radius: 5px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+  }
+  .button-add .loader {
+    width: 17px;
+    height: 17px;
+    border-top: 2px solid green;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+    margin-right: 8px;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .button-add .error {
+    font-size: 20px;
+    margin-right: 8px;
+    color: red;
+    padding-top: 5px;
+  }
+  .button-add.er {
+    border: 1px solid red;
+    color: red;
   }
   .button-add:disabled:hover {
     cursor: not-allowed;
