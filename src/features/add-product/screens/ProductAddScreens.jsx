@@ -65,7 +65,9 @@ const AddProduct = () => {
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
-  const [loadingButton, setLoadingButton] = useState(2);
+  const [loadingButton, setLoadingButton] = useState(0);
+  const [disableButton, setDisableButton] = useState(false);
+
   let email = [];
   // email-nhom : vietbhph09726
   const [Group, setGroup] = useState(['sonnhph12562']);
@@ -106,6 +108,7 @@ const AddProduct = () => {
             newObjProduct.resource_url = LinkDoc;
             newObjProduct.token = product_token;
             setLoadingButton(1);
+            setDisableButton(true);
             const response = await dispatch(postAddProduct(newObjProduct));
             if (postAddProduct.fulfilled.match(response)) {
               toast.success('Thêm sản phẩm thành công !');
@@ -118,6 +121,7 @@ const AddProduct = () => {
             if (postAddProduct.rejected.match(response)) {
               setLoadingButton(2);
             }
+            setDisableButton(false);
           }}
         >
           {() => (
@@ -286,6 +290,7 @@ const AddProduct = () => {
                 infoProduct &&
                 listImages.length > 0 ? (
                   <button
+                    disabled={disableButton}
                     type="submit"
                     className={`button-add ${loadingButton === 2 && 'er'}`}
                   >
