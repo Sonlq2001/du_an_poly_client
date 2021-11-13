@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import { persistReducer } from 'redux-persist';
 import { addProductApi } from '../api/add-product.api';
-
+import storage from 'redux-persist/lib/storage';
 export const postAddProduct = createAsyncThunk(
   'add-product/postProduct',
   async (value, { rejectWithValue }) => {

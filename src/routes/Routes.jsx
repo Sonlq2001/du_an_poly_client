@@ -21,14 +21,12 @@ const RouterWrap = ({
   const isExact = exact ? true : false;
   const isPrivate = isPrivateRoute || false;
   const isSigned = store.getState().auth.accessToken;
-
   // if (path === ADD_PRODUCT_PATHS.ADD_PRODUCT || !isSigned) {
   //   history.goBack();
   //   // return history.push('/product/update/asdf');
   // }
-
   if (!isSigned && isPrivate) {
-    return <Redirect key="SIGN_IN_ROUTE" to={{ SIGN_IN_ROUTE }} />;
+    return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;
   }
 
   if (isSigned && isAuth) {
