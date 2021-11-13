@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
@@ -38,9 +38,10 @@ import { WarEditor } from '../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 
 const AddProduct = () => {
+  document.title = 'Thêm sản phẩm';
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userLogin } = store.getState().auth;
+  const { userLogin, accessToken } = store.getState().auth;
   const { product_token } = useParams();
   const [loadingItem, setLoadingItem] = useState(true);
   const fetchProductTypes = useCallback(() => {
@@ -61,6 +62,8 @@ const AddProduct = () => {
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
+  window.localStorage.setItem('product_token', product_token);
+  const token = window.localStorage.getItem('product_token');
   const selectProductTypes = MapOptions(productTypes);
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
@@ -89,7 +92,9 @@ const AddProduct = () => {
     email[key] = e.target.value;
     setGroup(email);
   };
-
+  if (userLogin === null || accessToken === null) {
+    return <Redirect to="/sign-in" />;
+  }
   return (
     <WrapPage className="container">
       <Title> Sản phẩm mới</Title>

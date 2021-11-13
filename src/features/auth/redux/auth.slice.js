@@ -57,7 +57,7 @@ const { reducer } = authSlice;
 const authConfig = {
   key: 'auth',
   storage,
-  whiteList: ['accessToken', 'userLogin'],
+  whiteList: ['accessToken','userLogin'],
 };
 
 const authReducer = persistReducer(authConfig, reducer);
