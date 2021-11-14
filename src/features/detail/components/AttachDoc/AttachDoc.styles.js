@@ -9,6 +9,7 @@ export const ItemAttach = styled.div`
     margin-top: 2rem;
   }
   font-size: 1.2rem;
+  word-break: break-all;
 
   .title-attach {
     font-size: 1.4rem;
