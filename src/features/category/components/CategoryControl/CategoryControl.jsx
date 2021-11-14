@@ -26,8 +26,15 @@ import { getMajors } from './../../redux/category.slice';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMajors());
+  }, [dispatch]);
+
+  const { listMajors } = useSelector((state) => state.category);
+  const slidesLength = listMajors.length;
 
   const WrapCate = useRef(null);
   const handlePrev = () => {
@@ -41,9 +48,10 @@ const CategoryControl = () => {
   const handleNext = () => {
     const cateSlide = WrapCate.current;
     cateSlide.scrollLeft += cateSlide.offsetWidth;
-    if (cateSlide.scrollLeft >= 0) {
+    if (cateSlide.scrollLeft > 0) {
       cateSlide.scrollLeft = cateSlide.offsetWidth;
     }
+    // setCurrentSlide(currentSlide === slidesLength - 1 ? 0 : currentSlide + 1);
   };
 
   const customTheme = (theme) => {
@@ -59,38 +67,34 @@ const CategoryControl = () => {
     };
   };
 
-  useEffect(() => {
-    dispatch(getMajors());
-  }, [dispatch]);
-
-  const { listMajors } = useSelector((state) => state.category);
-
   return (
     <WrapControl>
       <div className="container">
         <GroupFilterBasic>
           <ControlFilterCate>
-            <span className="title-filter">Chọn theo chuyên ngành</span>
-            <GroupLinkFilter>
-              <span
-                className="btn-carousel btn-prev"
-                onClick={() => handlePrev()}
-              >
-                <AiOutlineLeft />
-              </span>
-              <span
-                className="btn-carousel btn-next"
-                onClick={() => handleNext()}
-              >
-                <AiOutlineRight />
-              </span>
-              <div className="list-cate" ref={WrapCate}>
+            <span className="title-filter">Chọn chuyên ngành</span>
+          </ControlFilterCate>
+          <GroupLinkFilter>
+            <span
+              className="btn-carousel btn-prev"
+              onClick={() => handlePrev()}
+            >
+              <AiOutlineLeft />
+            </span>
+            <span
+              className="btn-carousel btn-next"
+              onClick={() => handleNext()}
+            >
+              <AiOutlineRight />
+            </span>
+            <div className="list-cate" ref={WrapCate}>
+              <div className="group-cate">
                 <NavLink to={url} className="link-cate">
                   All
                 </NavLink>
                 {listMajors &&
                   listMajors.length > 0 &&
-                  listMajors.map((cate) => (
+                  listMajors.map((cate, index) => (
                     <NavLink
                       to={`${url}/${cate.name}`}
                       className="link-cate"
@@ -100,8 +104,8 @@ const CategoryControl = () => {
                     </NavLink>
                   ))}
               </div>
-            </GroupLinkFilter>
-          </ControlFilterCate>
+            </div>
+          </GroupLinkFilter>
 
           <ButtonControlFilter
             onClick={() => {

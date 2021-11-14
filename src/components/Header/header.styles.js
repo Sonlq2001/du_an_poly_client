@@ -347,4 +347,9 @@ export const GroupUser = styled.div`
     display: inline-block;
     margin-left: 1.5rem;
   }
+  @media (max-width: 1199.98px) {
+    .user-name {
+      display: none;
+    }
+  }
 `;
