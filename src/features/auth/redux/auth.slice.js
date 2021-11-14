@@ -33,9 +33,9 @@ const authSlice = createSlice({
     },
     [postLogin.fulfilled]: (state, action) => {
       if (action?.payload?.user !== null) {
-        const { avatar, email } = action.payload?.user;
+        const { avatar, email, id } = action.payload?.user;
         state.accessToken = action.payload.access_token;
-        state.userLogin = { avatar, email };
+        state.userLogin = { avatar, email, id };
       }
     },
     [postLogin.rejected]: (state) => {

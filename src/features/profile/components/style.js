@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsChevronLeft } from 'react-icons/bs';
 export const HeaderProfile = styled.div`
-  &.profile {
+  & div.profile {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 2rem;
@@ -20,6 +20,19 @@ export const HeaderProfile = styled.div`
       display: flex;
       flex-direction: column;
     }
+  }
+  & div.update {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+  }
+  .btn {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--eee-color);
+    font-size: 15px;
+    float: right;
   }
 `;
 export const Eye = styled(AiOutlineEye)`
@@ -58,14 +71,41 @@ export const Information = styled.div`
   }
   .rigth li {
     font-size: 1.5rem;
-    font-weight: 570;
     padding-left: 10px;
+    color: var(--txt-color);
+  }
+  .left li.label {
+    margin-top: 12px;
   }
   .rigth li a {
     text-decoration: none;
     /* color: #28287bf7; */
     color: #374151;
     font-weight: 550;
+  }
+  .rigth li input {
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--txt-color);
+    background-color: var(--white-color);
+  }
+  .rigth .inputForm {
+    height: 70px;
+    margin-bottom: 15px;
+  }
+  .rigth li input.inputGroup {
+    border: 1px solid #d9cdcd;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: var(--bg-input);
+  }
+
+  .rigth .btn.update {
+    background-color: #55cb5d;
+    color: var(--white-color);
+    margin-top: 40px;
+    float: right;
   }
   @media (max-width: 991.98px) {
     & li {
@@ -86,6 +126,17 @@ export const ProductFile = styled.div`
   }
   & .hidden {
     display: none;
+  }
+  & .message {
+    font-size: 15px;
+    text-align: center;
+    color: #374151;
+    margin: 1.5rem 0px;
+  }
+  & .message a {
+    color: #5a5952;
+    font-size: 16px;
+    font-weight: 550;
   }
 `;
 export const Title = styled.div`
