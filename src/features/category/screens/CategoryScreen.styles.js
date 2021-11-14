@@ -3,6 +3,15 @@ import styled from 'styled-components';
 export const MasonryLayout = styled.div`
   column-count: 4;
   column-gap: 1.5rem;
+  @media (max-width: 991.98px) {
+    column-count: 3;
+  }
+  @media (max-width: 767.98px) {
+    column-count: 2;
+  }
+  @media (max-width: 575.98px) {
+    column-count: 2;
+  }
 `;
 
 export const MasonryHeader = styled.div`

@@ -35,11 +35,12 @@ const categorySlice = createSlice({
     },
     [getProducts.fulfilled]: (state, action) => {
       state.isLoadingProducts = false;
-      state.listProduct = action.payload;
+      state.listProduct = action.payload.data;
     },
     [getProducts.rejected]: (state) => {
       state.isLoadingProducts = false;
     },
+
     [getMajors.fulfilled]: (state, action) => {
       state.listMajors = action.payload.data;
     },

@@ -31,6 +31,7 @@ const CategoryScreen = () => {
   const { isLoadingProducts, listProduct } = useSelector(
     (state) => state.category
   );
+
   if (isLoadingProducts) {
     return <Loading />;
   }
@@ -42,53 +43,53 @@ const CategoryScreen = () => {
         <Switch>
           <Route exact path={path}>
             <MasonryLayout>
-              {listProduct.data &&
-                listProduct.data.length > 0 &&
-                listProduct.data.map((item) => {
-                  return (
-                    <MasonryBox className="item" key={item.id}>
-                      <MasonryHeader>
-                        <img src={item.image} alt="" />
-                      </MasonryHeader>
-                      <MasonryContent>
-                        <Link
-                          to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
-                            ':id',
-                            item.id
-                          )}
-                          className="content-title"
-                        >
-                          {item.name}
-                        </Link>
-                        <p className="content-object">
-                          Môn học: {item.subject && item.subject.name}
-                        </p>
-                        <MasonryAction>
-                          <MasonryActionItem>
-                            <span className="icon-masonry">
-                              <AiOutlineStar />
-                            </span>
-                            <span className="icon-masonry">
-                              <AiOutlineStar />
-                            </span>
-                            <span>12</span>
-                          </MasonryActionItem>
-                          <MasonryActionItem>
-                            <span className="icon-masonry">
-                              <FaRegComment />
-                            </span>
-                            <span>15</span>
-                          </MasonryActionItem>
-                          <MasonryActionItem>
-                            <span className="icon-bookmark">
-                              <FiBookmark />
-                            </span>
-                          </MasonryActionItem>
-                        </MasonryAction>
-                      </MasonryContent>
-                    </MasonryBox>
-                  );
-                })}
+              {listProduct && listProduct.length > 0
+                ? listProduct.map((item) => {
+                    return (
+                      <MasonryBox className="item" key={item.id}>
+                        <MasonryHeader>
+                          <img src={item.image} alt="" />
+                        </MasonryHeader>
+                        <MasonryContent>
+                          <Link
+                            to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                              ':id',
+                              item.id
+                            )}
+                            className="content-title"
+                          >
+                            {item.name}
+                          </Link>
+                          <p className="content-object">
+                            Môn học: {item.subject && item.subject.name}
+                          </p>
+                          <MasonryAction>
+                            <MasonryActionItem>
+                              <span className="icon-masonry">
+                                <AiOutlineStar />
+                              </span>
+                              <span className="icon-masonry">
+                                <AiOutlineStar />
+                              </span>
+                              <span>12</span>
+                            </MasonryActionItem>
+                            <MasonryActionItem>
+                              <span className="icon-masonry">
+                                <FaRegComment />
+                              </span>
+                              <span>15</span>
+                            </MasonryActionItem>
+                            <MasonryActionItem>
+                              <span className="icon-bookmark">
+                                <FiBookmark />
+                              </span>
+                            </MasonryActionItem>
+                          </MasonryAction>
+                        </MasonryContent>
+                      </MasonryBox>
+                    );
+                  })
+                : ''}
             </MasonryLayout>
           </Route>
           <Route path={`${path}/:id`}>
