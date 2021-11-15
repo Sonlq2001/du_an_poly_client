@@ -26,10 +26,10 @@ const SignScreens = () => {
   }, [dispatch]);
   useEffect(() => {
     dataCampuses();
-  }, [dataCampuses]);
+  }, [dispatch]);
   const history = useHistory();
-  const { campuses } = useSelector((state) => state.auth.campuses);
-  const optionCampuses = MapOptionsCampuses(campuses);
+  const { listCampuses } = useSelector((state) => state.auth);
+  const optionCampuses = MapOptionsCampuses(listCampuses);
   const product_token = window.localStorage.getItem('product_token');
   const responseGoogle = (response) => {
     const { accessToken } = response;
