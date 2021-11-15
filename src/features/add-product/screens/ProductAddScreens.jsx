@@ -62,6 +62,7 @@ const AddProduct = () => {
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
+  console.log('product token');
   window.localStorage.setItem('product_token', product_token);
   const token = window.localStorage.getItem('product_token');
   const selectProductTypes = MapOptions(productTypes);
