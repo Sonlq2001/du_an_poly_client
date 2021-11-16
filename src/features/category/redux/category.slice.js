@@ -18,12 +18,17 @@ export const getMajors = createAsyncThunk('category/getMajors', async () => {
     return response.data;
   } catch (error) {}
 });
-
+export const getSubject = createAsyncThunk('category/getSubject', async () => {
+  try {
+    const response = await categoryApi.getSubject();
+    return response.data;
+  } catch (error) {}
+});
 const initialState = {
   isLoadingProducts: false,
   listProduct: [],
-
   listMajors: [],
+  listSubject: [],
 };
 
 const categorySlice = createSlice({
@@ -46,6 +51,12 @@ const categorySlice = createSlice({
     },
     [getMajors.rejected]: (state) => {
       state.listMajors = [];
+    },
+    [getSubject.fulfilled]: (state, action) => {
+      state.listSubject = action.payload.data;
+    },
+    [getSubject.rejected]: (state, action) => {
+      state.listSubject = action.payload.data;
     },
   },
 });

@@ -9,8 +9,11 @@ const getProducts = () => {
 const getMajors = () => {
   return api.get(CATEGORY_ENDPOINTS.GET_MAJORS);
 };
-
+const getSubject = () => {
+  return api.get(CATEGORY_ENDPOINTS.GET_SUBJECT);
+};
 export const categoryApi = {
   getProducts,
   getMajors,
+  getSubject,
 };
