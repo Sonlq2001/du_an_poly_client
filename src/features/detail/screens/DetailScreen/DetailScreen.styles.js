@@ -73,7 +73,15 @@ export const LabelProject = styled.div`
   font-weight: 500;
   margin-right: 1rem;
 `;
-
+export const Video = styled.div`
+  height: 50%;
+  width: 100%;
+  padding-top: 10px;
+  border-radius: 10px;
+  & .react-player {
+    border-radius: 10px;
+  }
+`;
 export const BoxProject = styled.div`
   margin-top: 2rem;
   display: flex;
