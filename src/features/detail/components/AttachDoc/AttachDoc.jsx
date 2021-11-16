@@ -14,7 +14,7 @@ const AttachDoc = ({ data }) => {
 
       <GroupAttach>
         <ItemAttach>
-          {/* <div className="title-attach">Link github:</div> */}
+          <div className="title-attach">Tài Liệu : </div>
           <a href={data?.resource_url} target="_blank" rel="noreferrer">
             {data?.resource_url}
           </a>
