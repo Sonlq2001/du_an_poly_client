@@ -25,7 +25,7 @@ export const BoxSelect = styled.div`
   padding-top: 2rem;
   text-align: left;
   .select-option {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     border-radius: 5px;
     padding: 2.5px 0;
     background-color: var(--eee-color);
@@ -41,7 +41,7 @@ export const BoxSelect = styled.div`
     box-shadow: none;
   }
   .css-qc6sy-singleValue {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
   .css-yk16xz-control {
     background-color: var(--eee-color);
@@ -60,7 +60,14 @@ export const FormLogin = styled.div`
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-
+  .error {
+    padding-top: 1rem;
+    font-size: 1.3rem;
+    color: red !important;
+    float: left;
+    height: 50px;
+    background-color: red;
+  }
   .logo-from {
     width: 18rem;
   }
