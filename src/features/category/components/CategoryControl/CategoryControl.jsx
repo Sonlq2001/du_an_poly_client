@@ -22,8 +22,7 @@ import {
   LIST_SORT,
   LIST_STATUS,
 } from './../../constants/category.constants';
-import { getMajors, getSubject } from './../../redux/category.slice';
-import { MapOptions } from 'helpers/convert/map-options';
+import { getMajors } from './../../redux/category.slice';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
@@ -32,11 +31,9 @@ const CategoryControl = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getMajors());
-    dispatch(getSubject());
   }, [dispatch]);
 
-  const { listMajors, listSubject } = useSelector((state) => state.category);
-  const subjectOption = MapOptions(listSubject);
+  const { listMajors } = useSelector((state) => state.category);
   const slidesLength = listMajors.length;
 
   const WrapCate = useRef(null);
@@ -145,7 +142,7 @@ const CategoryControl = () => {
             </label>
             <CustomerSelect>
               <Select
-                options={subjectOption}
+                options={LIST_OBJECT}
                 placeholder="Tìm theo môn học"
                 theme={customTheme}
               />

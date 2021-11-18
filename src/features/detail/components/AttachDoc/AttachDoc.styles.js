@@ -5,9 +5,6 @@ export const GroupAttach = styled.div`
 `;
 
 export const ItemAttach = styled.div`
-  max-width: 100%;
-  word-wrap: break-word;
-  letter-spacing: 1.1px;
   & + & {
     margin-top: 2rem;
   }

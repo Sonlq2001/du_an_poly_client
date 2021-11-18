@@ -19,7 +19,6 @@ import {
   TitleMain,
   ContentPost,
   GroupFeedback,
-  Video,
 } from './DetailScreen.styles';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
@@ -27,7 +26,7 @@ import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
 import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
-import ReactPlayer from 'react-player';
+
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
 
@@ -138,16 +137,6 @@ const DetailScreen = () => {
                   <MdContentPaste />
                   <span>Bài viết giới thiệu</span>
                 </TitleMain>
-                <Video>
-                  <ReactPlayer
-                    className="react-player"
-                    playing={true}
-                    height="300px"
-                    controls
-                    url={detailProduct?.video_url}
-                  />
-                </Video>
-
                 <ContentPost
                   dangerouslySetInnerHTML={{
                     __html: detailProduct?.description,
