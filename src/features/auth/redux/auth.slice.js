@@ -1,12 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
+import _get from 'lodash.get';
 import { authApi } from './../api/auth.api';
 
-export const postLogin = createAsyncThunk('auth/postLogin', async (data) => {
+export const postLogin = createAsyncThunk('auth/postLogin', async (data,{rejectWithValue}) => {
+  try{
   const response = await authApi.getAccessToken(data);
   return response.data;
+  }catch(error){
+    return rejectWithValue(_get(error.response.data, 'errors', ''));
+  }
 });
 
 export const postLogout = createAsyncThunk('auth/postLogout', async () => {
