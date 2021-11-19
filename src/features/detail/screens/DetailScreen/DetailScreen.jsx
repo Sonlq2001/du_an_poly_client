@@ -41,7 +41,6 @@ const DetailScreen = () => {
   const { isLoadingDetailProduct, detailProduct } = useSelector(
     (state) => state.detailProduct
   );
-  console.log('detailProduct', detailProduct);
   const settings = {
     customPaging: function (i) {
       return (
