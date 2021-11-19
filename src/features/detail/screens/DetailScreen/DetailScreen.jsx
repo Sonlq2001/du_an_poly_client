@@ -4,6 +4,7 @@ import { MdContentPaste } from 'react-icons/md';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import ReactPlayer from 'react-player';
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
 import {
@@ -18,6 +19,7 @@ import {
   TitleMain,
   ContentPost,
   GroupFeedback,
+  Video,
 } from './DetailScreen.styles';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
@@ -39,7 +41,7 @@ const DetailScreen = () => {
   const { isLoadingDetailProduct, detailProduct } = useSelector(
     (state) => state.detailProduct
   );
-
+  console.log('detailProduct', detailProduct);
   const settings = {
     customPaging: function (i) {
       return (
@@ -71,7 +73,7 @@ const DetailScreen = () => {
       dispatch(getDetailProduct(id));
     }
   }, [dispatch, id]);
-
+  // video_url
   if (isLoadingDetailProduct) {
     return <Loading />;
   }
@@ -80,91 +82,104 @@ const DetailScreen = () => {
       <div className="container">
         {detailProduct ? (
           <>
-            {detailProduct.status !== 3
-           ? (
-              // status !=3 chi có thằng đó và giáo viên được xem 
+            {detailProduct.status !== 3 ? (
+              // status !=3 chi có thằng đó và giáo viên được xem
               <>
-              { userLogin.id === detailProduct.user_id  || userLogin.id === detailProduct.teacher_id ? <>             
-                <div className="row">
-                  <div className="xl-7">
-                    <Slider {...settings}>
-                      {detailProduct?.product_galleries.map((item, index) => (
-                        <div key={index}>
-                          <img
-                            src={item?.image_url}
-                            alt=""
-                            className="image-gallery"
-                          />
+                {userLogin.id === detailProduct.user_id ||
+                userLogin.id === detailProduct.teacher_id ? (
+                  <>
+                    <div className="row">
+                      <div className="xl-7">
+                        <Slider {...settings}>
+                          {detailProduct?.product_galleries.map(
+                            (item, index) => (
+                              <div key={index}>
+                                <img
+                                  src={item?.image_url}
+                                  alt=""
+                                  className="image-gallery"
+                                />
+                              </div>
+                            )
+                          )}
+                        </Slider>
+                      </div>
+                      <div className="xl-5">
+                        <div>
+                          <TitleProject>{detailProduct?.name}</TitleProject>
+                          <GroupMember>
+                            <LabelProject>Thành viên nhóm: </LabelProject>
+                            <div className="list-member">
+                              {detailProduct?.students.map((student) => (
+                                <span className="item-member" key={student.id}>
+                                  {student.email} - {student.student_code}
+                                </span>
+                              ))}
+                            </div>
+                          </GroupMember>
+                          <BoxProject>
+                            <LabelProject>Khóa:</LabelProject>
+                            16.3
+                          </BoxProject>
+                          <BoxProject>
+                            <LabelProject>Giảng viên hướng dẫn:</LabelProject>
+                            {detailProduct?.teacher?.name}
+                          </BoxProject>
+                          <BoxProject>
+                            <LabelProject>Chuyên ngành:</LabelProject>
+                            Thiết kế website
+                          </BoxProject>
+                          <BoxProject>
+                            <LabelProject>Mã môn học:</LabelProject>
+                            PRO2016
+                          </BoxProject>
+                          <BoxProject>
+                            <LabelProject>Kì học:</LabelProject>
+                            {detailProduct?.semester?.name}
+                          </BoxProject>
                         </div>
-                      ))}
-                    </Slider>
-                  </div>
-                  <div className="xl-5">
-                    <div>
-                      <TitleProject>{detailProduct?.name}</TitleProject>
-                      <GroupMember>
-                        <LabelProject>Thành viên nhóm: </LabelProject>
-                        <div className="list-member">
-                          {detailProduct?.students.map((student) => (
-                            <span className="item-member" key={student.id}>
-                              {student.email} - {student.student_code}
-                            </span>
-                          ))}
-                        </div>
-                      </GroupMember>
-                      <BoxProject>
-                        <LabelProject>Khóa:</LabelProject>
-                        16.3
-                      </BoxProject>
-                      <BoxProject>
-                        <LabelProject>Giảng viên hướng dẫn:</LabelProject>
-                        {detailProduct?.teacher?.name}
-                      </BoxProject>
-                      <BoxProject>
-                        <LabelProject>Chuyên ngành:</LabelProject>
-                        Thiết kế website
-                      </BoxProject>
-                      <BoxProject>
-                        <LabelProject>Mã môn học:</LabelProject>
-                        PRO2016
-                      </BoxProject>
-                      <BoxProject>
-                        <LabelProject>Kì học:</LabelProject>
-                        {detailProduct?.semester?.name}
-                      </BoxProject>
-                    </div>
-                  </div>
-                </div>
-
-                <GroupDetail>
-                  <div className="row">
-                    <div className="xl-8">
-                      <div className="group-des">
-                        <TitleMain>
-                          <MdContentPaste />
-                          <span>Bài viết giới thiệu</span>
-                        </TitleMain>
-                        <ContentPost
-                          dangerouslySetInnerHTML={{
-                            __html: detailProduct?.description,
-                          }}
-                        />
-                     
-                        <CarouselProduct />
                       </div>
                     </div>
-                    <div className="xl-4">
-                      <GroupBox>
-                        <AttachDoc data={detailProduct} />
-                      </GroupBox>
-                     
-                   
-                    </div>
-                  </div>
-                </GroupDetail>
-              </> : 
-                <div className="messenger"> Không tìm thấy sản phẩm ! </div>}
-               
+
+                    <GroupDetail>
+                      <div className="row">
+                        <div className="xl-8">
+                          <div className="group-des">
+                            <TitleMain>
+                              <MdContentPaste />
+                              <span>Bài viết giới thiệu</span>
+                            </TitleMain>
+                            <Video>
+                        
+                        <ReactPlayer
+                          width="100%"
+                          className="video"
+                          height="100%"
+                          playing
+                          controls={true}
+                          url={detailProduct?.video_url}
+                        />
+                      </Video>
+                            <ContentPost
+                              dangerouslySetInnerHTML={{
+                                __html: detailProduct?.description,
+                              }}
+                            />
+
+                            <CarouselProduct />
+                          </div>
+                        </div>
+                        <div className="xl-4">
+                          <GroupBox>
+                            <AttachDoc data={detailProduct} />
+                          </GroupBox>
+                        </div>
+                      </div>
+                    </GroupDetail>
+                  </>
+                ) : (
+                  <div className="messenger"> Không tìm thấy sản phẩm ! </div>
+                )}
               </>
             ) : (
               // status = 3
@@ -233,6 +248,18 @@ const DetailScreen = () => {
                           <MdContentPaste />
                           <span>Bài viết giới thiệu</span>
                         </TitleMain>
+                        <Video>
+                        
+                          <ReactPlayer
+                            width="100%"
+                            className="video"
+                            height="100%"
+                            playing
+                            controls={true}
+                            url={detailProduct?.video_url}
+                          />
+                        </Video>
+
                         <ContentPost
                           dangerouslySetInnerHTML={{
                             __html: detailProduct?.description,
