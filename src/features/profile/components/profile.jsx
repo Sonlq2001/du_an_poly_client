@@ -3,7 +3,7 @@ import { HeaderProfile, Avatar, Information } from './style';
 import { Formik } from 'formik';
 import { initForm } from '../helpers/profile.helpers';
 
-import { useDispatch, useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 const Profile = ({ profile }) => {
   const [status, setStatus] = useState(false);
   const { userLogin } = useSelector((state) => state.auth);
