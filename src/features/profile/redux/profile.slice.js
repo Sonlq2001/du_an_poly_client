@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ProfileApi } from './../api/profile.api';
-export const getData = createAsyncThunk('profile/products', async () => {
+export const getData = createAsyncThunk('profile/products', async (id) => {
   try {
-    const response = await ProfileApi.getProducts();
-    return response.data.data;
+    const response = await ProfileApi.getProducts(id);
+    return response.data;
   } catch (error) {}
 });
 export const getProfile = createAsyncThunk('profile/get', async (id) => {
   try {
     const response = await ProfileApi.getDetails(id);
+   
     return response.data.user;
   } catch (error) {}
 });
@@ -16,15 +17,14 @@ const initialState = {
   product: [],
   loading: false,
   profile: {},
+  productUnactive:[]
 };
 const ProfileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    convertData: (state, action) => {
-      //   state.product = state.product.map((item) => {
-      //     return item.students;
-      //   });
+    convertData: (state) => {
+      state.productUnactive = state.product.filter((item)=>  item.status === 0)
     },
   },
   extraReducers: {

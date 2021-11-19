@@ -138,6 +138,12 @@ export const ProductFile = styled.div`
     font-size: 16px;
     font-weight: 550;
   }
+  & .messenger{
+    display:flex;
+    font-size: 1.4rem;
+    margin: 4rem 0px;
+    font-weight: 500;
+  }
 `;
 export const Title = styled.div`
   font-size: 1.7rem;

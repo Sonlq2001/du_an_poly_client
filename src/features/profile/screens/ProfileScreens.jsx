@@ -5,28 +5,32 @@ import { WaperPage } from './Profile.styles';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getData, convertData, getProfile } from '../redux/profile.slice';
+import { getData, getProfile } from '../redux/profile.slice';
+import Loading from 'components/Loading/Loading';
 const ProfileScreens = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product, profile } = useSelector((state) => state.productProfile);
-  const { userLogin } = useSelector((state) => state.auth);
-  const getData = useCallback(() => {
+  const { product, profile,loading } = useSelector((state) => state.productProfile);
+  const getDatas = useCallback(() => {
     dispatch(getProfile(id));
+    dispatch(getData(id));
   }, [dispatch, id]);
-  useEffect(async () => {
-    dispatch(getProfile(id));
-  }, [dispatch, id, userLogin]);
+  useEffect(() => {
+    getDatas();
+  }, [dispatch,getDatas]);
+  if(loading ){
+    return <Loading />
+  }
   return (
     <div className="container">
       <WaperPage className="profile">
-        {profile ? (
+        {profile && product ? (
           <>
             <Profile id={id} profile={profile} />
-            <ProductProfile id={id} profile={profile} />
+            <ProductProfile product={product || []} id={id} profile={profile} />
           </>
         ) : (
-          <div className="loader">Loading... </div>
+          <Loading />
         )}
       </WaperPage>
     </div>
