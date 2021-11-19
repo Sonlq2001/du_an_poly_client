@@ -17,22 +17,65 @@ export const WrapPage = styled.div`
 export const Title = styled.label`
   margin-top: 2.4rem;
   font-size: 1.5rem;
+
+  @media (max-width: 991.98px) {
+    display :${props => props.title ? "flex" :""};
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4rem;
+  }
+  @media (max-width: 767.98px) {
+    display :${props => props.title ? "flex" :""};
+    justify-content: center;
+    align-items: center;
+  }
+  @media (max-width: 575.98px) {
+    display :${props => props.title ? "flex" :""};
+    justify-content: center;
+    align-items: center;
+  }
 `;
 export const WrapForm = styled.div`
   padding-top: 4rem;
   padding-bottom: 2.1rem;
   max-width: 100%;
+  @media (max-width: 991.98px) {
+    padding: 0px 10rem;
+  }
+  @media (max-width: 767.98px) {
+    padding: 0px 5rem;
+  }
+  @media (max-width: 575.98px) {}
+
 `;
 export const ContentForm = styled.div`
   display: flex;
+  @media (max-width: 991.98px) {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+  @media (max-width: 767.98px) {
+  }
+  @media (max-width: 575.98px) {}
 `;
 export const FormLeft = styled.div`
   width: 50%;
+  @media (max-width: 991.98px) {
+   width :100%
+  }
+  @media (max-width: 767.98px) {
+  }
+  @media (max-width: 575.98px) {}
 `;
 export const FormRight = styled(FormLeft)`
   margin-left: 2rem;
   .XwDyO .ql-container {
     height: 48rem;
+  }
+  @media (max-width: 991.98px) {
+   width :100%;
+   margin-top: 1.5rem;
+   margin-left: 0rem;
   }
 `;
 export const GroupLabel = styled.div`
@@ -134,6 +177,14 @@ export const GroupStudents = styled.div`
     top: 50%;
     transform: translateY(-50%);
   }
+  @media (max-width: 991.98px) {
+   width :100%;
+   text-align: left;
+   .title{
+     text-align: left;
+     float: left !important;
+   }
+  }
 `;
 export const GroupInput = styled.div`
   width: 100%;
@@ -144,6 +195,14 @@ export const GroupInput = styled.div`
     border: 1px dashed gray;
     padding: 1rem;
     margin: 5px 0px;
+  }
+  @media (max-width: 991.98px) {
+    padding-left: 10px;
+
+  }
+  @media (max-width: 767.98px) {
+    padding-left: 3rem;
+
   }
 `;
 // editor
@@ -190,5 +249,26 @@ export const WrapButton = styled.div`
   }
   .button-add:disabled:hover {
     cursor: not-allowed;
+  }
+  @media (max-width: 991.98px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:3rem;
+    margin-bottom:4rem;
+  }
+  @media (max-width: 767.98px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:3rem;
+    margin-bottom:4rem;
+  }
+  @media (max-width: 575.98px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:3rem;
+    margin-bottom:4rem;
   }
 `;
