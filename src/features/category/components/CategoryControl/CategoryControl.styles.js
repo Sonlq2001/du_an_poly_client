@@ -174,6 +174,7 @@ export const SearchAdvance = styled.div`
   }
   @media (max-width: 991.98px) {
     width: 30%;
+    
     margin-top: 1rem;
     & + & {
       margin-left: 3.4rem;
@@ -181,9 +182,19 @@ export const SearchAdvance = styled.div`
     &:nth-child(4) {
       margin-left: 0;
     }
+   .label-search {
+      font-size: 1.2rem !important;
+    }
+    .css-yk16xz-control{
+      height: 20px !important;
+    }
+    .input-filter{
+      /* padding: 0.7rem 1.2rem 0.6rem 2rem; */
+    
   }
   @media (max-width: 767.98px) {
     width: 50%;
+  
     &:nth-child(even) {
       padding-left: 1.5rem;
     }
@@ -195,6 +206,9 @@ export const SearchAdvance = styled.div`
     }
   }
   @media (max-width: 575.98px) {
+    .label-search {
+      font-size: 1.1rem !important;
+    }
     &:nth-child(even) {
       padding-left: 1rem;
     }
