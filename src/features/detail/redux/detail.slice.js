@@ -1,14 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import _get from 'lodash.get';
 import { detailProductApi } from './../api/detail.api';
 
 export const getDetailProduct = createAsyncThunk(
   'detail/getDetailProduct',
-  async (id) => {
+  async (id,{rejectWithValue}) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
 
@@ -29,7 +31,8 @@ const detailProductSlice = createSlice({
       state.detailProduct = action.payload.data;
     },
     [getDetailProduct.rejected]: (state) => {
-      state.isLoadingDetailProduct = true;
+      state.detailProduct = null
+      state.isLoadingDetailProduct = false;
     },
   },
 });

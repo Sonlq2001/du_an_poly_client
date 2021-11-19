@@ -31,6 +31,13 @@ export const WrapDetail = styled.div`
     left: 0;
     z-index: 1;
   }
+  .messenger{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ee-color);
+  }
 `;
 
 export const ListCurrentImg = styled.div`
