@@ -62,7 +62,6 @@ const AddProduct = () => {
   const { productTypes, infoProduct } = useSelector(
     (state) => state.addProduct
   );
-  console.log('product token');
   window.localStorage.setItem('product_token', product_token);
   const token = window.localStorage.getItem('product_token');
   const selectProductTypes = MapOptions(productTypes);
@@ -98,7 +97,7 @@ const AddProduct = () => {
   }
   return (
     <WrapPage className="container">
-      <Title> Sản phẩm mới</Title>
+      <Title title> Sản phẩm mới</Title>
       <WrapForm>
         <Formik
           initialValues={{
@@ -192,7 +191,7 @@ const AddProduct = () => {
                   </GroupLabel>
 
                   <GroupStudents>
-                    <Title> Thành viên </Title>
+                    <Title className="title"> Thành viên </Title>
                     <GroupInput>
                       {Group.map((item, index) => {
                         return (
