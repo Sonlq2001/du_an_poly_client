@@ -26,7 +26,6 @@ import { getMajors } from './../../redux/category.slice';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
-  const [currentSlide, setCurrentSlide] = useState(0);
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +33,6 @@ const CategoryControl = () => {
   }, [dispatch]);
 
   const { listMajors } = useSelector((state) => state.category);
-  const slidesLength = listMajors.length;
 
   const WrapCate = useRef(null);
   const handlePrev = () => {
@@ -51,7 +49,6 @@ const CategoryControl = () => {
     if (cateSlide.scrollLeft > 0) {
       cateSlide.scrollLeft = cateSlide.offsetWidth;
     }
-    // setCurrentSlide(currentSlide === slidesLength - 1 ? 0 : currentSlide + 1);
   };
 
   const customTheme = (theme) => {

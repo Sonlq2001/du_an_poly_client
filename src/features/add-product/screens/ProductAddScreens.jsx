@@ -1,11 +1,11 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import { BsTrash } from 'react-icons/bs';
 
 import {
   WrapPage,
@@ -20,8 +20,6 @@ import {
   GroupInput,
   GroupLabel,
 } from './ProductAddScreen.styles';
-import { RiDeleteBin2Line } from 'react-icons/ri';
-// import ReviewProduct from '../components/Review/Review';
 import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
@@ -32,69 +30,76 @@ import {
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
-import store from 'redux/store';
-import CKEditor from './../components/editor/CKEditor';
-import { WarEditor } from './../components/editor/Editor.styles';
+import CKEditor from '../components/Editor/CKEditor';
+import { WarEditor } from '../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
+import { STATUS_KEY_INPUT } from './../constants/add-product.key';
 
 const AddProduct = () => {
-  document.title = 'Thêm sản phẩm';
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userLogin, accessToken } = store.getState().auth;
-  const { product_token } = useParams();
-  const [loadingItem, setLoadingItem] = useState(true);
-  const fetchProductTypes = useCallback(() => {
-    dispatch(getProductTypes());
-  }, [dispatch]);
-  useEffect(() => {
-    fetchProductTypes();
-  }, [fetchProductTypes]);
-  useEffect(async () => {
-    const tokens = {
-      token: product_token,
-    };
-    const response = await dispatch(getInfo(tokens));
-    if (getInfo.fulfilled.match(response)) {
-      setLoadingItem(false);
-    }
-  }, [dispatch, product_token]);
-  const { productTypes, infoProduct } = useSelector(
-    (state) => state.addProduct
-  );
-  window.localStorage.setItem('product_token', product_token);
-  const token = window.localStorage.getItem('product_token');
-  const selectProductTypes = MapOptions(productTypes);
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
-  const [loadingButton, setLoadingButton] = useState(0);
+  const [loadingButton, setLoadingButton] = useState(STATUS_KEY_INPUT.DEFAULT);
   const [disableButton, setDisableButton] = useState(false);
+  const [loadingItem, setLoadingItem] = useState(true);
+  const { product_token } = useParams();
 
+  const fetchProductTypes = useCallback(() => {
+    dispatch(getProductTypes());
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchProductTypes();
+  }, [fetchProductTypes]);
+
+  useEffect(() => {
+    const getInfoApi = async () => {
+      const response = await dispatch(
+        getInfo({
+          token: product_token,
+        })
+      );
+      if (getInfo.fulfilled.match(response)) {
+        setLoadingItem(false);
+      }
+    };
+    getInfoApi();
+  }, [dispatch, product_token]);
+
+  const { productTypes, infoProduct, userLogin } = useSelector((state) => ({
+    productTypes: state.addProduct.productTypes,
+    infoProduct: state.addProduct.infoProduct,
+    userLogin: state.auth.userLogin,
+  }));
+
+  const selectProductTypes = MapOptions(productTypes);
+  window.localStorage.setItem('product_token', product_token);
   let email = [];
-  // email-nhom : vietbhph09726
-  const [Group, setGroup] = useState(['sonnhph12562']);
+  const [groupCodeStudent, setGroupCodeStudent] = useState([
+    userLogin?.student_code,
+  ]);
 
   const remove = (i) => {
-    setGroup(Group.filter((_, index) => index !== i));
+    setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
   };
 
   const RemoveImage = async (i, key) => {
     const url = { img_url: i };
     try {
       await dispatch(removeImage(url));
-      setListImage(listImages.filter((item, index) => index !== key));
+      setListImage(listImages.filter((_, index) => index !== key));
     } catch (error) {}
   };
 
   const EmailChange = (e, key) => {
-    email = [...Group];
-    email[key] = e.target.value;
-    setGroup(email);
+    const valueEmail = e.target.value;
+    email = [...groupCodeStudent];
+    email[key] = valueEmail;
+    setGroupCodeStudent(email);
   };
-  if (userLogin === null || accessToken === null) {
-    return <Redirect to="/sign-in" />;
-  }
+
   return (
     <WrapPage className="container">
       <Title title> Sản phẩm mới</Title>
@@ -106,25 +111,26 @@ const AddProduct = () => {
           onSubmit={async ({ product_type_id, ...rest }) => {
             const { value } = product_type_id;
             const newObjProduct = { ...rest, product_type_id: value };
-            newObjProduct.students = Group;
+            newObjProduct.students = groupCodeStudent;
             newObjProduct.galleries = listImages;
             newObjProduct.email = userLogin.email;
             newObjProduct.image_url = linkAvatar;
             newObjProduct.resource_url = LinkDoc;
             newObjProduct.token = product_token;
-            setLoadingButton(1);
+            setLoadingButton(STATUS_KEY_INPUT.LOADING);
             setDisableButton(true);
+
             const response = await dispatch(postAddProduct(newObjProduct));
             if (postAddProduct.fulfilled.match(response)) {
               toast.success('Thêm sản phẩm thành công !');
-              setLoadingButton(0);
+              setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
               setTimeout(
                 () => history.push(`/product/${response.payload.id}`),
                 1000
               );
-            }
-            if (postAddProduct.rejected.match(response)) {
-              setLoadingButton(2);
+            } else {
+              toast.success('Thêm sản phẩm thất bại !');
+              setLoadingButton(STATUS_KEY_INPUT.ERROR);
             }
             setDisableButton(false);
           }}
@@ -146,7 +152,7 @@ const AddProduct = () => {
                   <GroupLabel className="group-label">
                     <InputElement label="Môn Học  " name="subject_id" hidden />
                     <div className="text-label">
-                      {infoProduct && infoProduct.subject_id
+                      {infoProduct?.subject_id
                         ? infoProduct.subject_id
                         : 'Môn Học '}
                     </div>
@@ -160,9 +166,9 @@ const AddProduct = () => {
                   <GroupLabel className="group-label">
                     <InputElement label="Giảng viên" name="teacher_id" hidden />
                     <div className="text-label">
-                      {infoProduct && infoProduct.teacher_id
+                      {infoProduct?.teacher_id
                         ? infoProduct.teacher_id
-                        : 'Giảng Viên '}
+                        : 'Giảng Viên'}
                     </div>
                     {loadingItem && (
                       <div className="loading">
@@ -179,7 +185,7 @@ const AddProduct = () => {
                       hidden
                     />
                     <div className="text-label">
-                      {infoProduct && infoProduct.semester_id
+                      {infoProduct?.semester_id
                         ? infoProduct.semester_id
                         : 'Kỳ học '}
                     </div>
@@ -191,9 +197,9 @@ const AddProduct = () => {
                   </GroupLabel>
 
                   <GroupStudents>
-                    <Title className="title"> Thành viên </Title>
+                    <Title className="title">Thành viên</Title>
                     <GroupInput>
-                      {Group.map((item, index) => {
+                      {groupCodeStudent.map((item, index) => {
                         return (
                           <div className="group" key={index}>
                             <input
@@ -205,13 +211,14 @@ const AddProduct = () => {
                               onChange={(e) => EmailChange(e, index)}
                               disabled={index === 0 ? true : false}
                             />
+
                             <button
                               className="remove"
                               type="button"
                               onClick={() => remove(index)}
                               disabled={index === 0 ? true : false}
                             >
-                              <RiDeleteBin2Line />
+                              <BsTrash />
                             </button>
                           </div>
                         );
@@ -219,7 +226,9 @@ const AddProduct = () => {
                       <button
                         type="button"
                         className="add"
-                        onClick={() => setGroup([...Group, ''])}
+                        onClick={() => {
+                          setGroupCodeStudent([...groupCodeStudent, '']);
+                        }}
                       >
                         Thêm +
                       </button>
@@ -270,7 +279,7 @@ const AddProduct = () => {
                           <div className="box-item" key={index}>
                             <img src={item} alt="" />
                             <div className="delete">
-                              <RiDeleteBin2Line
+                              <BsTrash
                                 onClick={() => RemoveImage(item, index)}
                               />
                             </div>
@@ -297,10 +306,14 @@ const AddProduct = () => {
                   <button
                     disabled={disableButton}
                     type="submit"
-                    className={`button-add ${loadingButton === 2 && 'er'}`}
+                    className={`button-add ${
+                      loadingButton === STATUS_KEY_INPUT.ERROR && 'er'
+                    }`}
                   >
-                    {loadingButton === 1 && <div className="loader"> </div>}
-                    {loadingButton === 2 && (
+                    {loadingButton === STATUS_KEY_INPUT.LOADING && (
+                      <div className="loader"></div>
+                    )}
+                    {loadingButton === STATUS_KEY_INPUT.ERROR && (
                       <div className="error">
                         <RiErrorWarningLine />
                       </div>

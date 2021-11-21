@@ -31,7 +31,6 @@ import Feedback from './../../components/Feedback/Feedback';
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
 import store from 'redux/store';
-import { GiConsoleController } from 'react-icons/gi';
 
 const DetailScreen = () => {
   const params = useParams();
@@ -149,16 +148,15 @@ const DetailScreen = () => {
                               <span>Bài viết giới thiệu</span>
                             </TitleMain>
                             <Video>
-                        
-                        <ReactPlayer
-                          width="100%"
-                          className="video"
-                          height="100%"
-                          playing
-                          controls={true}
-                          url={detailProduct?.video_url}
-                        />
-                      </Video>
+                              <ReactPlayer
+                                width="100%"
+                                className="video"
+                                height="100%"
+                                playing
+                                controls={true}
+                                url={detailProduct?.video_url}
+                              />
+                            </Video>
                             <ContentPost
                               dangerouslySetInnerHTML={{
                                 __html: detailProduct?.description,
@@ -248,7 +246,6 @@ const DetailScreen = () => {
                           <span>Bài viết giới thiệu</span>
                         </TitleMain>
                         <Video>
-                        
                           <ReactPlayer
                             width="100%"
                             className="video"

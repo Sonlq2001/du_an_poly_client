@@ -12,52 +12,57 @@ import {
   FormLogin,
   BoxSelect,
 } from './SignScreen.styles';
-import { postLogin, getCampuses } from './../../redux/auth.slice';
+import { postLogin } from './../../redux/auth.slice';
 import Select from 'react-select';
 import { MapOptionsCampuses } from 'helpers/convert/map-options';
+import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
 const SignScreens = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [codeCampus, setCampusesCode] = useState(null);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState(null);
   const [isError, setIsError] = useState(false);
+
   const dataCampuses = useCallback(() => {
     dispatch(getCampuses());
   }, [dispatch]);
+
   useEffect(() => {
     dataCampuses();
-  }, [dispatch]);
-  const history = useHistory();
-  const { listCampuses } = useSelector((state) => state.auth);
-  const optionCampuses = MapOptionsCampuses(listCampuses);
+  }, [dataCampuses]);
+
+  const { listCampus } = useSelector((state) => state.masterData);
+  const optionCampuses = MapOptionsCampuses(listCampus);
+
   const product_token = window.localStorage.getItem('product_token');
   const responseGoogle = async (response) => {
     const { accessToken } = response;
-    const data = { campus_code: codeCampus, access_token: accessToken };
-    if (!codeCampus) {
-      setMessage(true);
-    } else {
-      const responsive = await dispatch(postLogin(data))
+
+    if (accessToken) {
+      const data = { campus_code: codeCampus, access_token: accessToken };
+
+      const responsive = await dispatch(postLogin(data));
       if (postLogin.fulfilled.match(responsive)) {
         product_token
           ? history.push(`/product/update/${product_token}`)
-          : history.push('/')
-      }else{
-        console.log("lỗi")
+          : history.push('/');
+      } else {
         setIsError(true);
         setMessage(_get(responsive, 'payload', ''));
       }
     }
   };
+
   const handleClickLogin = () => {
     if (!codeCampus) {
       setIsError(true);
       setMessage('Vui lòng chọn cơ sở');
     }
   };
+
   const handleCampuses = (data) => {
     setCampusesCode(data.value);
-    setMessage(false);
     setIsError(false);
   };
 
@@ -73,7 +78,7 @@ const SignScreens = () => {
               onChange={(e) => handleCampuses(e)}
               className="select-option input-search"
               placeholder="Lựa chọn cơ sở "
-              options={optionCampuses}
+              options={optionCampuses || []}
             />
             {isError && <p className="error">{message}</p>}
           </BoxSelect>

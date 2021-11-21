@@ -30,7 +30,7 @@ const Slider = () => {
   const handleSearch = (e) => {
     setValueSearch(e.target.value);
   };
-  console.log(valueSearch);
+
   return (
     <GroupSlide>
       <SliderMain>
