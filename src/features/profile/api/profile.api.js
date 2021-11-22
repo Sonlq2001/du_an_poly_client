@@ -1,7 +1,7 @@
 import api from './../../../api/api';
 import { PROFILE_PATH } from './../constants/profile.constants';
-const getProducts = () => {
-  return api.get(PROFILE_PATH.LIST_PRODUCTS);
+const getProducts = (id) => {
+  return api.get(PROFILE_PATH.LIST_PRODUCTS.replace('id',id.toString()));
 };
 const getDetails = (id) => {
   return api.get(PROFILE_PATH.GET_DETAIL.replace(':id', id.toString()));
