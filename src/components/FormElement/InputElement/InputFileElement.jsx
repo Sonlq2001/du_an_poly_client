@@ -30,6 +30,7 @@ const InputFileElement = ({
   const [loadingImage, setLoadingImage] = useState(0);
   const [loadingGalleries, setLoadingGalleries] = useState(0);
   const [nameFile, setNameFile] = useState('');
+
   const handleChangeFile = (e) => {
     const file = e.target.files[0];
     const files = e.target.files;
@@ -86,6 +87,7 @@ const InputFileElement = ({
             if (item.size < 3145728 && index + 1 <= lengthGallery) {
               return galleriesList.append('galleries[]', item);
             }
+            return item;
           });
         setLoadingGalleries(1);
         arrayGalleries.length > 0 &&
@@ -93,7 +95,6 @@ const InputFileElement = ({
             .post('/products/galleries', galleriesList)
             .then(
               (res) =>
-                // setFieldValue(name, res.data.array_url) +
                 setLoadingGalleries(2) +
                 setListImage([...listImages, ...res.data.array_url]) +
                 setNameFile('')

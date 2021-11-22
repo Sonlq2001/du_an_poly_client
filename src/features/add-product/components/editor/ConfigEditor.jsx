@@ -5,7 +5,7 @@ import Axios from 'axios';
 import { useFormikContext } from 'formik';
 
 const ConfigEditor = ({ handleChange, ...props }) => {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext(props);
   function uploadAdapter(loader) {
     return {
       upload: () => {

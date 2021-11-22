@@ -7,7 +7,6 @@ import {
   MainReview,
   ImageSlice,
   ContentReview,
-  // csftygubhc
   ListCurrentImg,
   TitleProject,
   GroupMember,
@@ -19,7 +18,6 @@ import {
   ContentPost,
   GroupAttach,
   ItemAttach,
-  // BoxYoutube,
 } from './Review.styles';
 import { MdContentPaste } from 'react-icons/md';
 import { GrAttachment } from 'react-icons/gr';

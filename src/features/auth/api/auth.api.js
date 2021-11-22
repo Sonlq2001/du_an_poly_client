@@ -9,11 +9,8 @@ const getAccessToken = (accessToken) => {
 const postLogout = () => {
   return api.get(AUTH_ENDPOINTS.POST_LOGOUT);
 };
-const fetChCampuses = () => {
-  return api.get(AUTH_ENDPOINTS.GET_CAMPUSES);
-};
+
 export const authApi = {
   getAccessToken,
   postLogout,
-  fetChCampuses,
 };

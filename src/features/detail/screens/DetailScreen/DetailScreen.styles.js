@@ -31,6 +31,13 @@ export const WrapDetail = styled.div`
     left: 0;
     z-index: 1;
   }
+  .messenger{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ee-color);
+  }
 `;
 
 export const ListCurrentImg = styled.div`
@@ -126,3 +133,18 @@ export const GroupFeedback = styled.div`
   margin-top: 4rem;
   margin-right: 7rem;
 `;
+export const Video = styled.div`
+  margin:  2rem 0px;
+  max-width: 100%;
+  height:350px;
+  max-height: 500px;
+  overflow: hidden;
+  padding-right: 3rem;
+  border-radius: 10px;
+  & iframe{
+    border-radius: 10px !important;
+  }
+  video {
+    border-radius: 10px;
+  }
+`

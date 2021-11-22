@@ -17,7 +17,7 @@ import Loading from 'components/Loading/Loading';
 
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProducts } from './../redux/category.slice';
-
+import { PRODUCT_STATUS_KEY } from './../constants/category.key';
 import { DETAIL_PATHS } from './../../detail/constants/detail.paths';
 
 const CategoryScreen = () => {
@@ -28,9 +28,12 @@ const CategoryScreen = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const { isLoadingProducts, listProduct } = useSelector(
-    (state) => state.category
-  );
+  const { isLoadingProducts, listProduct } = useSelector((state) => ({
+    isLoadingProducts: state.category.isLoadingProducts,
+    listProduct: state.category.listProduct.filter(
+      (product) => product.status === PRODUCT_STATUS_KEY.DONE
+    ),
+  }));
 
   if (isLoadingProducts) {
     return <Loading />;

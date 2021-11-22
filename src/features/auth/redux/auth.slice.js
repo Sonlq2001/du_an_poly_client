@@ -4,29 +4,25 @@ import storage from 'redux-persist/lib/storage';
 import _get from 'lodash.get';
 import { authApi } from './../api/auth.api';
 
-export const postLogin = createAsyncThunk('auth/postLogin', async (data,{rejectWithValue}) => {
-  try{
-  const response = await authApi.getAccessToken(data);
-  return response.data;
-  }catch(error){
-    return rejectWithValue(_get(error.response.data, 'errors', ''));
+export const postLogin = createAsyncThunk(
+  'auth/postLogin',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await authApi.getAccessToken(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
-});
+);
 
 export const postLogout = createAsyncThunk('auth/postLogout', async () => {
   await authApi.postLogout();
 });
-export const getCampuses = createAsyncThunk('auth/abc', async () => {
-  try {
-    const response = await authApi.fetChCampuses();
-    return response.data.campuses;
-  } catch (error) {}
-});
+
 const initialState = {
   accessToken: null,
   userLogin: null,
-  listCampuses: [],
-  loading: false,
 };
 
 const authSlice = createSlice({
@@ -38,11 +34,9 @@ const authSlice = createSlice({
       state.userLogin = null;
     },
     [postLogin.fulfilled]: (state, action) => {
-      if (action?.payload?.user !== null) {
-        const { avatar, email, id } = action.payload?.user;
-        state.accessToken = action.payload.access_token;
-        state.userLogin = { avatar, email, id };
-      }
+      const { avatar, email, id, student_code } = action.payload?.user;
+      state.accessToken = action.payload.access_token;
+      state.userLogin = { avatar, email, id, student_code };
     },
     [postLogin.rejected]: (state) => {
       state.accessToken = null;
@@ -55,16 +49,6 @@ const authSlice = createSlice({
     [postLogout.rejected]: (state) => {
       state.accessToken = null;
       state.userLogin = null;
-    },
-    [getCampuses.pending]: (state) => {
-      state.loading = true;
-    },
-    [getCampuses.fulfilled]: (state, action) => {
-      state.listCampuses = action.payload;
-      state.loading = false;
-    },
-    [getCampuses.rejected]: (state) => {
-      state.loading = false;
     },
   },
 });
