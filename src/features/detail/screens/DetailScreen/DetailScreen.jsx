@@ -147,15 +147,21 @@ const DetailScreen = () => {
                               <MdContentPaste />
                               <span>Bài viết giới thiệu</span>
                             </TitleMain>
-                            <Video>
+                            
+                            <Video className={detailProduct.status !== 3 && "video"} >
+                              {detailProduct.status === 3?
                               <ReactPlayer
                                 width="100%"
                                 className="video"
-                                height="100%"
+                                height="350px"
                                 playing
                                 controls={true}
                                 url={detailProduct?.video_url}
-                              />
+                              /> 
+                              : <div > 
+                                  <h3>Link video</h3>
+                                  <a  href={detailProduct.video_url} target="_blank">  {detailProduct.video_url} </a>
+                                 </div>  }
                             </Video>
                             <ContentPost
                               dangerouslySetInnerHTML={{
@@ -245,17 +251,18 @@ const DetailScreen = () => {
                           <MdContentPaste />
                           <span>Bài viết giới thiệu</span>
                         </TitleMain>
-                        <Video>
-                          <ReactPlayer
-                            width="100%"
-                            className="video"
-                            height="100%"
-                            playing
-                            controls={true}
-                            url={detailProduct?.video_url}
-                          />
-                        </Video>
-
+                      
+                            <Video>
+                              <ReactPlayer
+                                width="100%"
+                                className="video"
+                                height="100%"
+                                playing
+                                controls={true}
+                                url={detailProduct?.video_url}
+                              />
+                            </Video>
+                            
                         <ContentPost
                           dangerouslySetInnerHTML={{
                             __html: detailProduct?.description,

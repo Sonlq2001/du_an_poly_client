@@ -144,7 +144,19 @@ export const Video = styled.div`
   & iframe{
     border-radius: 10px !important;
   }
+  &.video{
+    height:auto;
+  }
   video {
     border-radius: 10px;
+  }
+  h3{
+    margin: 1rem 0rem;
+    font-size:  1.4rem;
+  }
+  a{
+    font-weight: 450;
+    color: black;
+    font-size:  1.3em;
   }
 `

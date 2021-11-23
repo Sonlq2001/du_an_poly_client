@@ -41,7 +41,6 @@ const SignScreens = () => {
 
     if (accessToken) {
       const data = { campus_code: codeCampus, access_token: accessToken };
-
       const responsive = await dispatch(postLogin(data));
       if (postLogin.fulfilled.match(responsive)) {
         product_token

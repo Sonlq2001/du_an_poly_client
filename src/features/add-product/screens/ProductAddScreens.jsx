@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory,Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
@@ -78,7 +78,7 @@ const AddProduct = () => {
   window.localStorage.setItem('product_token', product_token);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([
-    userLogin?.student_code,
+    userLogin?.email.substring(0,userLogin.email.search("@") )
   ]);
 
   const remove = (i) => {
@@ -101,6 +101,8 @@ const AddProduct = () => {
   };
 
   return (
+    <> 
+    {product_token  &&  userLogin ? 
     <WrapPage className="container">
       <Title title> Sản phẩm mới</Title>
       <WrapForm>
@@ -334,6 +336,8 @@ const AddProduct = () => {
 
       <ToastContainer position="top-right" autoClose={1500} />
     </WrapPage>
+    : <Redirect to="/sign-in" />  }
+    </>
   );
 };
 
