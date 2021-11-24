@@ -21,8 +21,12 @@ export const ItemCarousel = styled.div`
 
 export const ItemHeader = styled.div`
   position: relative;
-
   .img-carousel {
+    max-width: 100%;
+    height: 200px;
+    vertical-align: middle;
+    width: 100%;
+    image-rendering: pixelated;
   }
 `;
 
