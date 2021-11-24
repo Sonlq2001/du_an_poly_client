@@ -125,6 +125,7 @@ const AddProduct = () => {
             const response = await dispatch(postAddProduct(newObjProduct));
             if (postAddProduct.fulfilled.match(response)) {
               toast.success('Thêm sản phẩm thành công !');
+              window.localStorage.removeItem("product_token")
               setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
               setTimeout(
                 () => history.push(`/product/${response.payload.id}`),
