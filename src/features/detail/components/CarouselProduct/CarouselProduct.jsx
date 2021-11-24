@@ -15,15 +15,16 @@ const CarouselProduct = () => {
   const settings = {
     dots: false,
     infinite: true,
+    autoplay: true,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 4,
+    slidesToScroll: 4,
   };
   return (
     <Carousel>
       <TitleMain className="title-main">
         <GrProductHunt />
-        <span>Bài viết giới thiệu</span>
+        <span>Sản Phẩm Liên Quan </span>
       </TitleMain>
       <Slider {...settings}>
         {LIST_CAROUSEL.map((carousel, index) => (
