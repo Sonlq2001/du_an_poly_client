@@ -13,6 +13,12 @@ export const WrapPage = styled.div`
   .text-label:hover {
     cursor: not-allowed;
   }
+  .mess {
+    position:  relative;
+    background-color:  red;
+    width: 500px;
+    height:  300px;
+  }
 `;
 export const Title = styled.label`
   margin-top: 2.4rem;

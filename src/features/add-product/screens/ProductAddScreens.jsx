@@ -24,6 +24,7 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
+import Loading  from "components/Loading/Loading"
 import {
   postAddProduct,
   getInfo,
@@ -68,12 +69,13 @@ const AddProduct = () => {
     getInfoApi();
   }, [dispatch, product_token]);
 
-  const { productTypes, infoProduct, userLogin } = useSelector((state) => ({
+  const { productTypes, infoProduct, userLogin,isInfoProductLoading } = useSelector((state) => ({
     productTypes: state.addProduct.productTypes,
     infoProduct: state.addProduct.infoProduct,
+    isInfoProductLoading: state.addProduct.isInfoProductLoading,
     userLogin: state.auth.userLogin,
   }));
-
+console.log("infoProduct",infoProduct)
   const selectProductTypes = MapOptions(productTypes);
   window.localStorage.setItem('product_token', product_token);
   let email = [];
@@ -99,10 +101,14 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-
+  if(isInfoProductLoading){
+      return <Loading />
+  }
   return (
     <> 
-    {product_token  &&  userLogin ? 
+    { userLogin ?
+    <>
+    {infoProduct && !infoProduct.message ?
     <WrapPage className="container">
       <Title title> Sản phẩm mới</Title>
       <WrapForm>
@@ -337,6 +343,11 @@ const AddProduct = () => {
 
       <ToastContainer position="top-right" autoClose={1500} />
     </WrapPage>
+       : <div>  <Redirect to="/" />
+        <div className="mess"> Không tìm sản phẩm </div>
+       </div> 
+          }
+    </>
     : <Redirect to="/sign-in" />  }
     </>
   );
