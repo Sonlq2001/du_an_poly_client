@@ -88,7 +88,8 @@ console.log("infoProduct",infoProduct)
   };
 
   const RemoveImage = async (i, key) => {
-    const url = { img_url: i };
+    const url = { img_url: i,
+      folder : "product_galleries" };
     try {
       await dispatch(removeImage(url));
       setListImage(listImages.filter((_, index) => index !== key));
@@ -343,10 +344,7 @@ console.log("infoProduct",infoProduct)
 
       <ToastContainer position="top-right" autoClose={1500} />
     </WrapPage>
-       : <div>  <Redirect to="/" />
-        <div className="mess"> Không tìm sản phẩm </div>
-       </div> 
-          }
+      : <Redirect to="/" />  }
     </>
     : <Redirect to="/sign-in" />  }
     </>

@@ -116,7 +116,8 @@ const InputFileElement = ({
         setLoadingImage(1);
         formData.append('image', file);
         if (linkAvatar) {
-          const url_image = { img_url: linkAvatar };
+          const url_image = { img_url: linkAvatar,
+            "folder":"products" };
           dispatch(removeImage(url_image));
           api
             .post('/products/image', formData)
