@@ -23,7 +23,7 @@ import {
 } from './DetailScreen.styles';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
-import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
+// import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
 import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
@@ -55,6 +55,7 @@ const DetailScreen = () => {
     dots: true,
     dotsClass: 'slick-dots slick-thumb',
     infinite: true,
+    autoplay: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -147,15 +148,21 @@ const DetailScreen = () => {
                               <MdContentPaste />
                               <span>Bài viết giới thiệu</span>
                             </TitleMain>
-                            <Video>
+                            
+                            <Video className={detailProduct.status !== 3 && "video"} >
+                              {detailProduct.status === 3?
                               <ReactPlayer
                                 width="100%"
                                 className="video"
-                                height="100%"
+                                height="350px"
                                 playing
                                 controls={true}
                                 url={detailProduct?.video_url}
-                              />
+                              /> 
+                              : <div > 
+                                  <h3>Link video</h3>
+                                  <a  href={detailProduct.video_url} target="_blank">  {detailProduct.video_url} </a>
+                                 </div>  }
                             </Video>
                             <ContentPost
                               dangerouslySetInnerHTML={{
@@ -182,10 +189,10 @@ const DetailScreen = () => {
               // status = 3
               <>
                 <div className="row">
-                  <div className="xl-7">
+                  <div className="xl-7" >
                     <Slider {...settings}>
                       {detailProduct?.product_galleries.map((item, index) => (
-                        <div key={index}>
+                        <div  key={index}>
                           <img
                             src={item?.image_url}
                             alt=""
@@ -245,17 +252,18 @@ const DetailScreen = () => {
                           <MdContentPaste />
                           <span>Bài viết giới thiệu</span>
                         </TitleMain>
-                        <Video>
-                          <ReactPlayer
-                            width="100%"
-                            className="video"
-                            height="100%"
-                            playing
-                            controls={true}
-                            url={detailProduct?.video_url}
-                          />
-                        </Video>
-
+                      
+                            <Video>
+                              <ReactPlayer
+                                width="100%"
+                                className="video"
+                                height="100%"
+                                playing
+                                controls={true}
+                                url={detailProduct?.video_url}
+                              />
+                            </Video>
+                            
                         <ContentPost
                           dangerouslySetInnerHTML={{
                             __html: detailProduct?.description,
@@ -275,26 +283,25 @@ const DetailScreen = () => {
                             setValueSendCmt={setValueSendCmt}
                           />
                         </GroupFeedback>
-
-                        <CarouselProduct />
+{/* bài viết giới thiệu  */}
+                    
                       </div>
                     </div>
                     <div className="xl-4">
+                      {/* tài liệu đính kèm  */}
                       <GroupBox>
                         <AttachDoc data={detailProduct} />
                       </GroupBox>
                       {/* công cụ  */}
-
-                      <GroupBox>
-                        <ToolsDetail />
-                      </GroupBox>
-
                       <GroupBox>
                         <ShareSocial />
                       </GroupBox>
                     </div>
                   </div>
-                </GroupDetail>{' '}
+                  <div className="row">
+                  <CarouselProduct />
+                  </div>
+                </GroupDetail>
               </>
             )}
           </>

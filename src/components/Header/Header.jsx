@@ -51,6 +51,7 @@ const Header = () => {
   const { userLogin } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
+    window.localStorage.removeItem("product_token")
     dispatch(postLogout());
   };
 
@@ -170,7 +171,7 @@ const Header = () => {
                   {isUserAction && (
                     <div className="action-user">
                       <button className="item-user" onClick={handleLogout}>
-                        Logout out
+                       Đăng xuất 
                       </button>
                     </div>
                   )}
