@@ -6,6 +6,7 @@ export const PageSingIn = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
+  max-height: auto;
   @media (max-width: 991.98px){
     display: flex;
   }
@@ -20,19 +21,21 @@ export const PageSingIn = styled.div`
 export const PageSingInLeft = styled.div`
   width: 65%;
   height: 100%;
+  max-height: 100%;
   background-image: url(${BgLogin});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   @media (max-width: 991.98px){
      width: 100%;
-     height: 100vh;
+     height: 50%;
      position: absolute;
      z-index: 1;
      top: 0;
      right:0;
      left: 0;
      bottom: 0;
+     display: none;
   }
 `;
 
@@ -43,9 +46,8 @@ export const PageSingInRight = styled.div`
     width:55%;
     position: absolute;
     z-index: 2;
-    top: 25%;
+    top: 18%;
     left:25%;
-    background-image: url(${BgLogin});
  }
  @media (max-width: 767.98px){
     width: 70%;
@@ -140,11 +142,13 @@ export const FormLogin = styled.div`
     // left: 15%;
     .button-form{
       height: 15px;
+      padding: 2rem 0;
     }
 }
 @media (max-width: 575.98px){
   .button-form{
     height: 20px;
+    padding: 2rem 0;
   }
 }
 
