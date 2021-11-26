@@ -30,7 +30,7 @@ const CategoryScreen = () => {
 
   const { isLoadingProducts, listProduct } = useSelector((state) => ({
     isLoadingProducts: state.category.isLoadingProducts,
-    listProduct: state.category.listProduct.filter(
+    listProduct: state.category.listProduct?.filter(
       (product) => product.status === PRODUCT_STATUS_KEY.DONE
     ),
   }));
