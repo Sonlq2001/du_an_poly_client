@@ -9,14 +9,14 @@ export const getData = createAsyncThunk('profile/products', async (id) => {
 export const getProfile = createAsyncThunk('profile/get', async (id) => {
   try {
     const response = await ProfileApi.getDetails(id);
-   
     return response.data.user;
-  } catch (error) {}
+  } catch (error) {
+  }
 });
 const initialState = {
   product: [],
   loading: false,
-  profile: {},
+  profile: null,
   productUnactive:[]
 };
 const ProfileSlice = createSlice({

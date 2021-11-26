@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import ProductProfile from '../components/product.Profile';
 import Profile from '../components/profile';
-import { WaperPage } from './Profile.styles';
+import { WrapePage } from './Profile.styles';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,7 +10,7 @@ import Loading from 'components/Loading/Loading';
 const ProfileScreens = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product, profile,loading } = useSelector((state) => state.productProfile);
+  const { product, profile } = useSelector((state) => state.productProfile);
   const getDatas = useCallback(() => {
     dispatch(getProfile(id));
     dispatch(getData(id));
@@ -18,21 +18,22 @@ const ProfileScreens = () => {
   useEffect(() => {
     getDatas();
   }, [dispatch,getDatas]);
-  if(loading ){
-    return <Loading />
-  }
+
   return (
     <div className="container">
-      <WaperPage className="profile">
-        {profile && product ? (
-          <>
+      <WrapePage className="profile">
+        {profile !== null ? (
+          <> {profile !== undefined ? 
+            <>
             <Profile id={id} profile={profile} />
             <ProductProfile product={product || []} id={id} profile={profile} />
+            </>
+            :<div className="messengers">  Profile không tồn tại !  </div>}
           </>
         ) : (
           <Loading />
         )}
-      </WaperPage>
+      </WrapePage>
     </div>
   );
 };

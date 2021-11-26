@@ -42,12 +42,12 @@ export const Eye = styled(AiOutlineEye)`
   margin-right: 8px;
 `;
 export const Avatar = styled.div`
+text-align: center;
   padding-right: 10px;
   & img {
-    float: right;
     border-radius: 50%;
-    max-height: 130px;
-    width: 110px;
+    max-height: 150px;
+    width: 140px;
   }
   @media (max-width: 575.98px) {
     text-align: center;
