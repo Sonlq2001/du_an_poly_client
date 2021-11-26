@@ -11,7 +11,6 @@ export const getData = createAsyncThunk('profile/getData', async (id) => {
 export const getProfile = createAsyncThunk('profile/getProfile', async (id) => {
   try {
     const response = await ProfileApi.getDetails(id);
-
     return response.data.user;
   } catch (error) {}
 });

@@ -36,6 +36,7 @@ const ProfileScreens = () => {
           <>
             <Profile id={id} profile={profile} />
             <ProductProfile product={product || []} id={id} profile={profile} />
+            <div className="messengers"> Profile không tồn tại ! </div>
           </>
         ) : (
           <Loading />
