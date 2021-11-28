@@ -8,8 +8,8 @@ import {
   LoaderDot3,
 } from './Loading.styles';
 
-const Loading = () => {
-  return (
+const Loading = ({ nowrap = true }) => {
+  return nowrap ? (
     <Loader>
       <LoaderContent>
         <LoaderDot1 />
@@ -17,6 +17,12 @@ const Loading = () => {
         <LoaderDot3 />
       </LoaderContent>
     </Loader>
+  ) : (
+    <LoaderContent>
+      <LoaderDot1 />
+      <LoaderDot2 />
+      <LoaderDot3 />
+    </LoaderContent>
   );
 };
 

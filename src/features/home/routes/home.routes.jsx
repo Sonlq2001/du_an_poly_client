@@ -7,6 +7,7 @@ const HOME_SCREEN = {
   path: '/',
   component: HomeScreen,
   exact: true,
+  titlePage: 'Trang chủ fpoly',
 };
 
 export const HOME_ROUTES = [HOME_SCREEN];

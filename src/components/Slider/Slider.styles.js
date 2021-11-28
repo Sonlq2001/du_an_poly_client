@@ -147,12 +147,16 @@ export const SearchComplete = styled.div`
     font-size: 1.4rem;
     color: var(--txt-color);
     font-weight: 500;
-    background-color: var(--eee-color);
+    background-color: rgba(240, 240, 240, 1);
     padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
   }
   .value-search {
     font-weight: 400;
     color: gray;
+    padding-left: 5px;
   }
   .search-result {
     padding: 0 1rem 2rem 1rem;
@@ -183,6 +187,9 @@ export const SearchComplete = styled.div`
     font-size: 1.4rem;
     border-bottom: 1px solid var(--eee-color);
     color: var(--aaa-color);
+  }
+  .label-text {
+    padding-right: 1rem;
   }
   .result-list {
     margin-top: 1rem;
