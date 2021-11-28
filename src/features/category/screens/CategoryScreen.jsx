@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { FiBookmark } from 'react-icons/fi';
 import { FaRegComment } from 'react-icons/fa';
@@ -24,9 +24,13 @@ const CategoryScreen = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const { isLoadingProducts, listProduct } = useSelector((state) => ({
     isLoadingProducts: state.category.isLoadingProducts,
@@ -51,20 +55,20 @@ const CategoryScreen = () => {
                     return (
                       <MasonryBox className="item" key={item.id}>
                         <MasonryHeader>
-                          <img src={item.image} alt="" />
+                          <img src={item?.image} alt="" />
                         </MasonryHeader>
                         <MasonryContent>
                           <Link
                             to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
                               ':id',
-                              item.id
+                              item?.id
                             )}
                             className="content-title"
                           >
-                            {item.name}
+                            {item?.name}
                           </Link>
                           <p className="content-object">
-                            Môn học: {item.subject && item.subject.name}
+                            Môn học: {item?.subject?.name}
                           </p>
                           <MasonryAction>
                             <MasonryActionItem>

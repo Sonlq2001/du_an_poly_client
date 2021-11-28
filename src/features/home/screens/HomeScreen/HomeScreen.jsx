@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
 
-import Slider from './../../../../components/Slider/Slider';
+import Slider from 'components/Slider/Slider';
 import Majors from './../../components/Majors/Majors';
 import { TitleMain } from 'styles/common/index';
 import {

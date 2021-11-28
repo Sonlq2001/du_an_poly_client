@@ -10,6 +10,7 @@ const SIGN_IN_SCREEN = {
   component: SignInScreen,
   layout: AuthLayout,
   isAuth: true,
+  titlePage: 'Đăng nhập',
 };
 
 export const SIGN_IN_ROUTES = [SIGN_IN_SCREEN];
