@@ -13,7 +13,6 @@
     "@trendyol-js/react-carousel": "^2.0.0",
     "axios": "^0.22.0",
     "formik": "^2.2.9",
-    "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
