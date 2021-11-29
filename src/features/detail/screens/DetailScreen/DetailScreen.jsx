@@ -40,6 +40,8 @@ const DetailScreen = () => {
   const { isLoadingDetailProduct, detailProduct } = useSelector(
     (state) => state.detailProduct
   );
+  document.title = detailProduct?.name;
+
   const settings = {
     customPaging: function (i) {
       return (

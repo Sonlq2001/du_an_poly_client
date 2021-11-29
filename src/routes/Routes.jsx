@@ -22,7 +22,7 @@ const RouterWrap = ({
   const isExact = exact ? true : false;
   const isPrivate = isPrivateRoute || false;
   const isSigned = !!store.getState().auth.accessToken;
-  document.title = titlePage;
+  document.title = titlePage || '';
 
   if (!isSigned && isPrivate) {
     return <Redirect key="SIGN_IN_ROUTE" to={SIGN_IN_ROUTE} />;

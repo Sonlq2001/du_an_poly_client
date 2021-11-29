@@ -4,13 +4,23 @@ import { detailProductApi } from './../api/detail.api';
 
 export const getDetailProduct = createAsyncThunk(
   'detail/getDetailProduct',
-  async (id,{rejectWithValue}) => {
+  async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
+  }
+);
+
+export const postProductRating = createAsyncThunk(
+  'detail/postProductRating',
+  async (countRating) => {
+    try {
+      const response = await detailProductApi.postProductRating(countRating);
+      console.log(response);
+    } catch (error) {}
   }
 );
 
@@ -31,7 +41,7 @@ const detailProductSlice = createSlice({
       state.detailProduct = action.payload.data;
     },
     [getDetailProduct.rejected]: (state) => {
-      state.detailProduct = null
+      state.detailProduct = null;
       state.isLoadingDetailProduct = false;
     },
   },
