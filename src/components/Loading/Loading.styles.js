@@ -50,3 +50,24 @@ export const LoaderDot3 = styled(LoaderDot)`
   animation: ${LoadingAnimation} 0.5s 0.3s ease-in-out infinite;
   background-color: ${(props) => props?.color};
 `;
+
+// loading search
+export const WrapLoader = styled.div`
+  .loader {
+    border: 1.5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 1.5px solid var(--first-color);
+    border-bottom: 1.5px solid var(--first-color);
+    width: 15px;
+    height: 15px;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;

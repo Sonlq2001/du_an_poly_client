@@ -176,7 +176,7 @@ export const GroupLogin = styled.div`
   }
 `;
 
-export const FormSearch = styled.form`
+export const FormSearch = styled.div`
   position: relative;
   margin-right: 5rem;
   input {

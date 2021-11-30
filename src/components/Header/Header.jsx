@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { BiLogIn } from 'react-icons/bi';
 import { FcSearch, FcMenu } from 'react-icons/fc';
 import { GrBottomCorner } from 'react-icons/gr';
@@ -26,12 +26,24 @@ import {
 import LogoFpt from './../../assets/images/logo.png';
 import { menubar } from './../../routes/routes.constants';
 import { postLogout } from './../../features/auth/redux/auth.slice';
+import { SEARCH_PATHS } from 'features/search/constants/search.paths';
+import { useQuery } from 'helpers/convert/use-query';
 
 const Header = () => {
   const { pathname } = useLocation();
   const [isSearchHeader, setIsSearchHeader] = useState(false);
   const [isUserAction, setIsUserAction] = useState(false);
+  const [querySearch, setQuerySearch] = useState('');
+  const history = useHistory();
   const dispatch = useDispatch();
+  const query = useQuery();
+  const valueSearch = query.get('keyword');
+
+  useEffect(() => {
+    if (valueSearch) {
+      setQuerySearch(valueSearch);
+    }
+  }, [valueSearch]);
 
   useEffect(() => {
     pathname === '/' ? setIsSearchHeader(false) : setIsSearchHeader(true);
@@ -51,8 +63,15 @@ const Header = () => {
   const { userLogin } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    window.localStorage.removeItem("product_token")
+    window.localStorage.removeItem('product_token');
     dispatch(postLogout());
+  };
+
+  const handleSearch = (e) => {
+    const { charCode } = e;
+    if (charCode === 13) {
+      history.push(`${SEARCH_PATHS.SEARCH_MAIN}?keyword=${querySearch}`);
+    }
   };
 
   return (
@@ -101,7 +120,13 @@ const Header = () => {
           <HeaderRight>
             {isSearchHeader && (
               <FormSearch>
-                <input type="text" placeholder="Tìm kiếm ..." />
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm ..."
+                  onKeyPress={handleSearch}
+                  value={querySearch}
+                  onChange={(e) => setQuerySearch(e.target.value)}
+                />
                 <span className="icon-search">
                   <FcSearch />
                 </span>
@@ -171,7 +196,7 @@ const Header = () => {
                   {isUserAction && (
                     <div className="action-user">
                       <button className="item-user" onClick={handleLogout}>
-                       Đăng xuất 
+                        Đăng xuất
                       </button>
                     </div>
                   )}

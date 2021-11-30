@@ -8,6 +8,7 @@ const PAGE404_SCREEN = {
   path: '*',
   component: Page404Screen,
   layout: Layout404,
+  titlePage: 'Địa chị không hợp lê',
 };
 
 export const PAGE404_ROUTES = [PAGE404_SCREEN];
