@@ -38,7 +38,7 @@ const CategoryScreen = () => {
       (product) => product.status === PRODUCT_STATUS_KEY.DONE
     ),
   }));
-
+  
   if (isLoadingProducts) {
     return <Loading />;
   }
@@ -100,7 +100,8 @@ const CategoryScreen = () => {
             </MasonryLayout>
           </Route>
           <Route path={`${path}/:id`}>
-            <MasonryBox>Hiển thị sản phẩm theo chuyên ngành</MasonryBox>
+            <MasonryBox> Hiển thị sản phẩm theo chuyên ngành  </MasonryBox> 
+            <MasonryLayout> Sản phẩm theo chuyên ngành </MasonryLayout>
           </Route>
         </Switch>
       </div>

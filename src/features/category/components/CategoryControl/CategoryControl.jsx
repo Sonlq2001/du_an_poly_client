@@ -1,5 +1,5 @@
-import React, { memo, useState, useRef, useEffect } from 'react';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
+import { NavLink, useRouteMatch, useHistory } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
@@ -17,23 +17,35 @@ import {
   CustomerSelect,
 } from './CategoryControl.styles';
 import {
-  LIST_OBJECT,
   LIST_TEACHER,
   LIST_SORT,
-  LIST_STATUS,
 } from './../../constants/category.constants';
-import { getMajors } from './../../redux/category.slice';
+import { getSubjects } from './../../redux/category.slice';
+import { MapOptions } from 'helpers/convert/map-options';
+import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
 const CategoryControl = () => {
   const { url } = useRouteMatch();
   const [isToggle, setIsToggle] = useState(false);
+  const history = useHistory()
   const dispatch = useDispatch();
+  const dataSubject = useCallback (()=>{
+    dispatch(getSubjects())
+  },[dispatch])
+  const dataCampuse = useCallback (()=>{
+    dispatch(getCampuses())
+  },[dispatch])
+
   useEffect(() => {
-    dispatch(getMajors());
-  }, [dispatch]);
+    dataSubject()
+    dataCampuse()
+  }, [dispatch,dataSubject,dataCampuse]);
 
-  const { listMajors } = useSelector((state) => state.category);
-
+  const { listSubject } = useSelector((state) => state.category);
+  const { listCampus } = useSelector((state) => state.masterData);
+  const optionSubject = MapOptions(listSubject)
+  const optionListCampus = MapOptions(listCampus)
+  
   const WrapCate = useRef(null);
   const handlePrev = () => {
     const cateSlide = WrapCate.current;
@@ -63,6 +75,9 @@ const CategoryControl = () => {
       },
     };
   };
+  const ChangeName = (name,id)=>{
+    history.push(`/category/${name}`)
+  }
 
   return (
     <WrapControl>
@@ -89,17 +104,12 @@ const CategoryControl = () => {
                 <NavLink to={url} className="link-cate">
                   All
                 </NavLink>
-                {listMajors &&
-                  listMajors.length > 0 &&
-                  listMajors.map((cate, index) => (
-                    <NavLink
-                      to={`${url}/${cate.name}`}
-                      className="link-cate"
-                      key={cate.name}
-                    >
-                      {cate.name}
-                    </NavLink>
-                  ))}
+                 <span  className="link-cate"   onClick={()=>ChangeName("công-nghệ-thông-tin",1)}> Công Nghệ - Thông Tin  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("kinh-tế-kinh-doanh",2)}>  Kinh Tế - Kinh Doanh  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("thiết-kế-đồ-họa", 3)}>  Thiết Kế Đồ Họa  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("mỹ-phẩm-làm-đẹp", 4)}>  Mỹ Phẩm Làm Đẹp</span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("cơ-khí-tự-đông-hóa",5)}>  Cơ Khí - Tự Động Hóa  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("du-lịch-nhà-hàng-khách-sạn",7)}>  Du Lịch - Nhà Hàng - Khách Sạn </span>
               </div>
             </div>
           </GroupLinkFilter>
@@ -139,7 +149,7 @@ const CategoryControl = () => {
             </label>
             <CustomerSelect>
               <Select
-                options={LIST_OBJECT}
+                options={optionSubject ? optionSubject : []}
                 placeholder="Tìm theo môn học"
                 theme={customTheme}
               />
@@ -159,20 +169,19 @@ const CategoryControl = () => {
               />
             </CustomerSelect>
           </SearchAdvance>
-
           <SearchAdvance>
             <label htmlFor="" className="label-search">
-              Trạng Thái
+             Cơ Sở 
             </label>
             <CustomerSelect>
               <Select
-                options={LIST_STATUS}
-                placeholder="Trạng thái"
+                options={optionListCampus ?  optionListCampus : []}
+                placeholder="Tìm theo cơ sở "
                 theme={customTheme}
+                noOptionsMessage="le quang son"
               />
             </CustomerSelect>
           </SearchAdvance>
-
           <SearchAdvance>
             <label htmlFor="" className="label-search">
               Xắp xếp

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const MasonryLayout = styled.div`
+  margin:1rem 0rem;
   column-count: 4;
   column-gap: 1.5rem;
   @media (max-width: 991.98px) {
@@ -45,7 +46,7 @@ export const MasonryBox = styled.div`
   box-shadow: 0 3px 8px var(--eee-color);
   overflow: hidden;
   border-radius: 1rem;
-
+  font-size: 1.4rem;
   &:hover ${MasonryHeader}::after {
     opacity: 0;
   }

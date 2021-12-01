@@ -29,8 +29,6 @@ const SignScreens = () => {
       } 
     }
   };
-
-
   return (
     <PageSingIn>
       <PageSingInLeft></PageSingInLeft>
