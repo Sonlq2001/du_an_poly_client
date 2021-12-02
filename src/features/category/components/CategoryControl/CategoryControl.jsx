@@ -20,7 +20,7 @@ import {
   LIST_TEACHER,
   LIST_SORT,
 } from './../../constants/category.constants';
-import { getSubjects } from './../../redux/category.slice';
+import { getProductMajor, getSubjects } from './../../redux/category.slice';
 import { MapOptions } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
@@ -77,6 +77,7 @@ const CategoryControl = () => {
   };
   const ChangeName = (name,id)=>{
     history.push(`/category/${name}`)
+    dispatch(getProductMajor(id))
   }
 
   return (

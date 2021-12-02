@@ -11,7 +11,14 @@ export const getProducts = createAsyncThunk(
     } catch (error) {}
   }
 );
-
+export const getProductMajor = createAsyncThunk("category/productMajors", async (id)=>{
+       try {
+        const response = await categoryApi.productMajor(id)
+        console.log("ở đây", response)
+       } catch (error) {
+        console.log("ở đây lỗi", error) 
+       }
+})
 export const getMajors = createAsyncThunk('category/getMajors', async () => {
   try {
     const response = await categoryApi.getMajors();

@@ -12,8 +12,12 @@ const getMajors = () => {
 const getSubject = ()=>{
   return api.get(CATEGORY_ENDPOINTS.GET_SUBJECT)
 }
+const productMajor = (id)=>{
+  return api.get(CATEGORY_ENDPOINTS.PRODUCT_MAJOR.replace(':id',id.toString()))
+}
 export const categoryApi = {
   getProducts,
   getMajors,
-  getSubject
+  getSubject,
+  productMajor
 };

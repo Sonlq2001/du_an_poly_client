@@ -27,7 +27,7 @@ const CategoryScreen = () => {
   const fetchData = useCallback(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
+  
   useEffect(() => {
     fetchData();
   }, [fetchData]);
