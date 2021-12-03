@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addProductApi } from '../api/add-product.api';
+import { addProductApi } from '../api/update-product.api';
 
 export const postAddProduct = createAsyncThunk(
-  'add-product/postProduct',
+  'product-update/postProduct',
   async (value, { rejectWithValue }) => {
     try {
       const response = await addProductApi.addProduct(value);
@@ -14,7 +14,7 @@ export const postAddProduct = createAsyncThunk(
 );
 
 export const getInfo = createAsyncThunk(
-  'add-product/getInfo',
+  'product-update/getInfo',
   async (product_token) => {
     try {
       const response = await addProductApi.getInfo(product_token);
@@ -24,7 +24,7 @@ export const getInfo = createAsyncThunk(
 );
 
 export const getProductTypes = createAsyncThunk(
-  'add-product/getProductTypes',
+  'product-update/getProductTypes',
   async () => {
     try {
       const response = await addProductApi.getProductTypes();
@@ -33,13 +33,13 @@ export const getProductTypes = createAsyncThunk(
   }
 );
 export const removeImage = createAsyncThunk(
-  'product-add/delete_image',
+  'product-update/delete_image',
   async (url_image) => {
     await addProductApi.removeImage(url_image);
   }
 );
 export const removeDocument = createAsyncThunk(
-  'product-add/delete_image',
+  'product-update/delete_image',
   async (resource_url) => {
     await addProductApi.removeDocument(resource_url);
   }
@@ -58,8 +58,8 @@ const initialState = {
   isProductTypesLoading: false,
   productTypes: [],
 };
-const ProductAddSlice = createSlice({
-  name: 'product-add',
+const ProductUpdateSlice = createSlice({
+  name: 'product-update',
   initialState,
   extraReducers: {
     [postAddProduct.pending]: (state) => {
@@ -72,9 +72,7 @@ const ProductAddSlice = createSlice({
     [postAddProduct.rejected]: (state) => {
       state.isProductFinishedLoading = false;
     },
-    [getInfo.pending]: (state, action) => {
-      state.isInfoProductLoading = true;
-    },
+
     [getInfo.fulfilled]: (state, action) => {
       state.isInfoProductLoading = false;
       state.infoProduct = action.payload;
@@ -93,6 +91,6 @@ const ProductAddSlice = createSlice({
     },
   },
 });
-const { reducer: productAddReducer } = ProductAddSlice;
+const { reducer: productUpdateReducer } = ProductUpdateSlice;
 
-export default productAddReducer;
+export default productUpdateReducer;
