@@ -24,15 +24,15 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
-import Loading from "components/Loading/Loading"
+import Loading from 'components/Loading/Loading';
 import {
   postAddProduct,
   getInfo,
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
-import CKEditor from './../components/editor/CKEditor';
-import { WarEditor } from './../components/editor/Editor.styles';
+import CKEditor from './../components/Editor/CKEditor';
+import { WarEditor } from './../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from './../constants/add-product.key';
 
@@ -69,12 +69,13 @@ const AddProduct = () => {
     getInfoApi();
   }, [dispatch, product_token]);
 
-  const { productTypes, infoProduct, userLogin,isInfoProductLoading } = useSelector((state) => ({
-    productTypes: state.addProduct.productTypes,
-    infoProduct: state.addProduct.infoProduct,
-    isInfoProductLoading: state.addProduct.isInfoProductLoading,
-    userLogin: state.auth.userLogin,
-  }));
+  const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
+    useSelector((state) => ({
+      productTypes: state.addProduct.productTypes,
+      infoProduct: state.addProduct.infoProduct,
+      isInfoProductLoading: state.addProduct.isInfoProductLoading,
+      userLogin: state.auth.userLogin,
+    }));
 
   const selectProductTypes = MapOptions(productTypes);
   window.localStorage.setItem('product_token', product_token);
@@ -100,13 +101,15 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-  if(userLogin === null){
-    return   <Redirect to="/sign-in" />
-  }
-  else if(infoProduct){
-    window.localStorage.removeItem("product_token")
-  return <>
-   <Redirect to="/" /> </>
+  if (userLogin === null) {
+    return <Redirect to="/sign-in" />;
+  } else if (infoProduct) {
+    window.localStorage.removeItem('product_token');
+    return (
+      <>
+        <Redirect to="/" />{' '}
+      </>
+    );
   }
   return (
     <>
@@ -353,9 +356,9 @@ const AddProduct = () => {
 
           <ToastContainer position="top-right" autoClose={1500} />
         </WrapPage>
-       ) : (
-        <Loading/> 
-      )} 
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };
