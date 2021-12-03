@@ -24,14 +24,15 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
+import Loading from "components/Loading/Loading"
 import {
   postAddProduct,
   getInfo,
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
-import CKEditor from './../components/Editor/CKEditor';
-import { WarEditor } from './../components/Editor/Editor.styles';
+import CKEditor from './../components/editor/CKEditor';
+import { WarEditor } from './../components/editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from './../constants/add-product.key';
 
@@ -68,9 +69,10 @@ const AddProduct = () => {
     getInfoApi();
   }, [dispatch, product_token]);
 
-  const { productTypes, infoProduct, userLogin } = useSelector((state) => ({
+  const { productTypes, infoProduct, userLogin,isInfoProductLoading } = useSelector((state) => ({
     productTypes: state.addProduct.productTypes,
     infoProduct: state.addProduct.infoProduct,
+    isInfoProductLoading: state.addProduct.isInfoProductLoading,
     userLogin: state.auth.userLogin,
   }));
 
@@ -80,7 +82,6 @@ const AddProduct = () => {
   const [groupCodeStudent, setGroupCodeStudent] = useState([
     userLogin?.email.substring(0, userLogin.email.search('@')),
   ]);
-
   const remove = (i) => {
     setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
   };
@@ -99,10 +100,17 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-
+  if(userLogin === null){
+    return   <Redirect to="/sign-in" />
+  }
+  else if(infoProduct){
+    window.localStorage.removeItem("product_token")
+  return <>
+   <Redirect to="/" /> </>
+  }
   return (
     <>
-      {product_token && userLogin ? (
+      {!isInfoProductLoading ? (
         <WrapPage className="container">
           <Title title> Sản phẩm mới</Title>
           <WrapForm>
@@ -345,9 +353,9 @@ const AddProduct = () => {
 
           <ToastContainer position="top-right" autoClose={1500} />
         </WrapPage>
-      ) : (
-        <Redirect to="/sign-in" />
-      )}
+       ) : (
+        <Loading/> 
+      )} 
     </>
   );
 };
