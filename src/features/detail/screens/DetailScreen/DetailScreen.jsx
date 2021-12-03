@@ -62,9 +62,8 @@ const DetailScreen = () => {
   };
 
   const [valueSendCmt, setValueSendCmt] = useState({
-    userId: '',
-    value: '',
-    rating: null,
+    product_id: id,
+    comment: '',
   });
 
   useEffect(() => {
@@ -297,14 +296,15 @@ const DetailScreen = () => {
                       </div>
                     </div>
                     <div className="xl-4">
-                      {/* tài liệu đính kèm  */}
-                      <GroupBox>
-                        <AttachDoc data={detailProduct} />
-                      </GroupBox>
-                      {/* công cụ  */}
-                      <GroupBox>
-                        <ShareSocial />
-                      </GroupBox>
+                      <div className="group-document">
+                        <GroupBox>
+                          <AttachDoc data={detailProduct} />
+                        </GroupBox>
+
+                        <GroupBox>
+                          <ShareSocial />
+                        </GroupBox>
+                      </div>
                     </div>
                   </div>
                   <div className="row">

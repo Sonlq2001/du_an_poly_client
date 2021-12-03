@@ -60,7 +60,9 @@ const Header = () => {
     };
   }, [pathname]);
 
-  const { userLogin } = useSelector((state) => state.auth);
+  const { userLogin } = useSelector((state) => ({
+    userLogin: state.auth?.userLogin,
+  }));
 
   const handleLogout = () => {
     window.localStorage.removeItem('product_token');
