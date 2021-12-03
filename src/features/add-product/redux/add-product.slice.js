@@ -72,7 +72,9 @@ const ProductAddSlice = createSlice({
     [postAddProduct.rejected]: (state) => {
       state.isProductFinishedLoading = false;
     },
-
+    [getInfo.pending]: (state, action) => {
+      state.isInfoProductLoading = true;
+    },
     [getInfo.fulfilled]: (state, action) => {
       state.isInfoProductLoading = false;
       state.infoProduct = action.payload;
