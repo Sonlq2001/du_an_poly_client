@@ -4,7 +4,7 @@ export const WrapDetail = styled.div`
   padding-top: 5rem;
   margin-bottom: 10rem;
   .image-gallery {
-    height: 48rem;
+    height: 34rem;
     width: 100%;
     object-fit: cover;
     border-radius: 3px;
@@ -31,7 +31,7 @@ export const WrapDetail = styled.div`
     left: 0;
     z-index: 1;
   }
-  .messenger{
+  .messenger {
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
@@ -90,6 +90,10 @@ export const BoxProject = styled.div`
 
 export const GroupDetail = styled.div`
   margin-top: 6rem;
+  .group-document {
+    position: sticky;
+    top: 10rem;
+  }
 `;
 
 // group detail
@@ -134,29 +138,29 @@ export const GroupFeedback = styled.div`
   margin-right: 7rem;
 `;
 export const Video = styled.div`
-  margin:  2rem 0px;
+  margin: 2rem 0px;
   max-width: 100%;
-  height:350px;
+  height: 350px;
   max-height: 500px;
   overflow: hidden;
   padding-right: 3rem;
   border-radius: 10px;
-  & iframe{
+  & iframe {
     border-radius: 10px !important;
   }
-  &.video{
-    height:auto;
+  &.video {
+    height: auto;
   }
   video {
     border-radius: 10px;
   }
-  h3{
+  h3 {
     margin: 1rem 0rem;
-    font-size:  1.4rem;
+    font-size: 1.4rem;
   }
-  a{
+  a {
     font-weight: 450;
     color: black;
-    font-size:  1.3em;
+    font-size: 1.3em;
   }
-`
+`;

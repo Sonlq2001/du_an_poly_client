@@ -40,4 +40,7 @@ export const LIST_CAROUSEL = [
   {
     img: 'https://cdn.pixabay.com/photo/2017/08/11/01/37/back-to-school-2629361__480.jpg',
   },
+  {
+    img: 'https://cdn.pixabay.com/photo/2018/01/23/10/38/book-3101151__480.jpg',
+  },
 ];
