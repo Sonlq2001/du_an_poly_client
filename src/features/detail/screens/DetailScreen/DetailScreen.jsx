@@ -27,6 +27,7 @@ import ShareSocial from './../../components/ShareSocial/ShareSocial';
 import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
@@ -77,6 +78,11 @@ const DetailScreen = () => {
   }
   return (
     <WrapDetail>
+      <Breadcrumb
+        position={
+          !isLoadingDetailProduct && detailProduct ? detailProduct?.name : ''
+        }
+      />
       <div className="container">
         {detailProduct ? (
           <>

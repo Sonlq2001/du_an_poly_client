@@ -1,56 +1,69 @@
 import styled from 'styled-components';
 
+export const ListCurrentImg = styled.div`
+  overflow: hidden;
+  position: relative;
+  & + & {
+    margin-left: 2rem;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  .current-slide {
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid var(--eee-color);
+  }
+`;
 export const WrapDetail = styled.div`
-  padding-top: 5rem;
+  /* padding-top: 5rem; */
   margin-bottom: 10rem;
   .image-gallery {
     height: 34rem;
     width: 100%;
     object-fit: cover;
     border-radius: 3px;
-    border: 1px solid var(--eee-color);
-  }
-  .current-slide {
-    height: 8rem;
-    object-fit: cover;
-    border-radius: 5px;
+    border: 1px solid var(--ddd-color);
   }
   .slick-dots {
     position: relative;
     top: 5px;
+    overflow: hidden;
   }
   .slick-dots li {
     width: 100px;
   }
-
   .slick-next {
     right: 0;
   }
-
   .slick-prev {
     left: 0;
     z-index: 1;
+  }
+  .slick-next:before,
+  .slick-prev:before {
+    color: var(--bbb-color);
   }
   .messenger {
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--ee-color);
+    color: var(--ddd-color);
   }
-`;
-
-export const ListCurrentImg = styled.div`
-  & + & {
-    margin-left: 2rem;
-  }
-
-  img {
+  .slick-active ${ListCurrentImg}::after {
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
-
 export const TitleProject = styled.h1`
   font-size: 2rem;
   line-height: 2.5rem;
@@ -59,7 +72,6 @@ export const TitleProject = styled.h1`
 
 export const GroupMember = styled.div`
   margin-top: 2rem;
-
   .list-member {
     margin: 1.5rem 0 0 2rem;
   }

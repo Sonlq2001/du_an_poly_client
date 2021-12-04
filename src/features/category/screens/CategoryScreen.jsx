@@ -14,6 +14,7 @@ import {
   MasonryActionItem,
 } from './CategoryScreen.styles';
 import Loading from 'components/Loading/Loading';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProducts } from './../redux/category.slice';
@@ -45,6 +46,7 @@ const CategoryScreen = () => {
 
   return (
     <>
+      <Breadcrumb position="Chuyên ngành" />
       <CategoryControl />
       <div className="container">
         <Switch>

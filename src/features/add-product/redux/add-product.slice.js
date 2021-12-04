@@ -72,15 +72,16 @@ const ProductAddSlice = createSlice({
     [postAddProduct.rejected]: (state) => {
       state.isProductFinishedLoading = false;
     },
-    [getInfo.pending]: (state, action) => {
+    [getInfo.pending]: (state) => {
       state.isInfoProductLoading = true;
     },
     [getInfo.fulfilled]: (state, action) => {
-      state.isInfoProductLoading = false;
       state.infoProduct = action.payload;
+
+      state.isInfoProductLoading = false;
     },
     [getInfo.rejected]: (state) => {
-      state.isInfoProductLoading = true;
+      state.isInfoProductLoading = false;
     },
 
     // product types
