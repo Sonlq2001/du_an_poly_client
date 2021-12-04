@@ -76,14 +76,12 @@ const CategoryControl = ({ setCategoryName }) => {
     };
   };
   const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true,
+    dot: false,
+    draggable: true,
   };
-;
   return (
     <WrapControl>
       <div className="container">

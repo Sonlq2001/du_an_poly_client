@@ -71,6 +71,7 @@ export const GroupLinkFilter = styled.div`
     width: 100%;
     display: block;
     text-align: center;
+    margin: 0 1rem;
   }
   .link-cate:hover {
     color: var(--txt-color);
