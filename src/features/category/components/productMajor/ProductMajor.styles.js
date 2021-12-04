@@ -4,6 +4,13 @@ export const MasonryLayout = styled.div`
   margin:1rem 0rem;
   column-count: 4;
   column-gap: 1.5rem;
+  & .messenger{
+    text-align: center;
+    font-size: 1.8rem;
+    width: 100%;
+    margin: 20rem 0rem 20rem 14rem;
+    line-height: 100px;
+  }
   @media (max-width: 991.98px) {
     column-count: 3;
   }
@@ -110,3 +117,12 @@ export const MasonryActionItem = styled.div`
     transition: ease-in-out 0.3s;
   }
 `;
+export const Titel = styled.h2`
+  font-size:14px;
+  font-weight: 400;
+  margin: 2rem 0rem;
+  & span{
+      font-size: 15px;
+     font-weight: 500
+  }
+`

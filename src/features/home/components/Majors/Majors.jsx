@@ -8,8 +8,16 @@ import ImageTravel from './../../../../assets/images/undraw_Travelers_re_y25a.pn
 
 import { ContentIntro, ContentWrap, ContentBox } from './majors.styles';
 import { TitleMain } from './../../../../styles/common/index';
-import { Link } from 'react-router-dom';
+import {  useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getProductMajor } from 'features/category/redux/category.slice';
 const Majors = () => {
+  const history = useHistory();
+  const dispatch = useDispatch()
+  const ChangeCategory = (name,id) => {
+    history.push(`/category/${name}`)
+    dispatch(getProductMajor(id))
+  };
   return (
     <ContentIntro>
       <TitleMain>Chuyên ngành</TitleMain>
@@ -17,39 +25,56 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageDev} alt="" className="box-img" />
           <div className="box-title">
-            <Link to="/category/1"> Công nghệ thông tin</Link>
+            <span onClick={() => ChangeCategory('công-nghê-thông-tin', 1)}>
+              Công nghệ thông tin
+            </span>
           </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageDesign} alt="" className="box-img" />
           <div className="box-title">
-            <Link to=""> Thiết kế đồ họa</Link>
+            <span onClick={() => ChangeCategory('thiet-ke-do-hoa',3)}>
+              {' '}
+              Thiết kế đồ họa
+            </span>
           </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageMarketing} alt="" className="box-img" />
           <div className="box-title">
-            <Link to=""> Kinh tế kinh doanh</Link>
+            <span onClick={() => ChangeCategory('kinh-te-kinh-doan', 2)}>
+              {' '}
+              Kinh tế - kinh doanh
+            </span>
           </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageBeauty} alt="" className="box-img" />
           <div className="box-title">
-            <Link to=""> Thẩm mĩ làm đẹp</Link>
+            <span onClick={() => ChangeCategory('my-pham-lam-dep',5)}>
+              Thẩm mĩ làm đẹp
+            </span>
           </div>
         </ContentBox>
 
         <ContentBox>
           <img src={ImageAuto} alt="" className="box-img" />
-          <div className="box-title">Cơ khí, tự động hóa</div>
+          <div className="box-title">
+            <span onClick={() => ChangeCategory('co-khi-tu-dong-hoa',4)}>
+              Cơ khí - tự động hóa
+            </span>
+          </div>
         </ContentBox>
-
         <ContentBox>
           <img src={ImageTravel} alt="" className="box-img" />
-          <div className="box-title">Du lịch - Khách sạn - Nhà hàng</div>
+          <div className="box-title">
+          <span onClick={() => ChangeCategory('du-lich-nha-hang-khach-san',6)}>
+                 Du lịch - Khách sạn - Nhà hàng
+            </span>
+          </div>
         </ContentBox>
       </ContentWrap>
     </ContentIntro>
