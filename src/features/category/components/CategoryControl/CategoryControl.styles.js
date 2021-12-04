@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const WrapControl = styled.div`
-  padding: 2rem 0 0 0;
   margin-bottom: 2rem;
 `;
 
