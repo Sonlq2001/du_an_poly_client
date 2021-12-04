@@ -107,7 +107,7 @@ const AddProduct = () => {
     window.localStorage.removeItem('product_token');
     return (
       <>
-        <Redirect to="/" />{' '}
+        <Redirect to="/" />
       </>
     );
   }

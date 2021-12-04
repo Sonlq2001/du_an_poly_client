@@ -16,9 +16,18 @@ export const ListCurrentImg = styled.div`
     border-radius: 5px;
     border: 1px solid var(--eee-color);
   }
+  @media (max-width: 767.98px) {
+    .current-slide {
+      height: 6rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .current-slide {
+      height: 4rem;
+    }
+  }
 `;
 export const WrapDetail = styled.div`
-  /* padding-top: 5rem; */
   margin-bottom: 10rem;
   .image-gallery {
     height: 34rem;
@@ -63,6 +72,27 @@ export const WrapDetail = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.1);
   }
+  @media (max-width: 767.98px) {
+    .image-gallery {
+      height: 30rem;
+    }
+    .slick-dots li {
+      width: 6rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .image-gallery {
+      height: 26rem;
+    }
+    .slick-dots li {
+      width: 4rem;
+    }
+  }
+`;
+export const GroupContentDetail = styled.div`
+  @media (max-width: 991.98px) {
+    margin-top: 3rem;
+  }
 `;
 export const TitleProject = styled.h1`
   font-size: 2rem;
@@ -106,6 +136,11 @@ export const GroupDetail = styled.div`
     position: sticky;
     top: 10rem;
   }
+  @media (max-width: 991.98px) {
+    .group-document {
+      margin-top: 3rem;
+    }
+  }
 `;
 
 // group detail
@@ -146,16 +181,16 @@ export const BoxYoutube = styled.div`
 
 // comment
 export const GroupFeedback = styled.div`
-  margin-top: 4rem;
-  margin-right: 7rem;
+  margin: 4rem 0 7rem 0;
+  @media (max-width: 991.98px) {
+    margin: 4rem 0 0 0;
+  }
 `;
 export const Video = styled.div`
   margin: 2rem 0px;
   max-width: 100%;
   height: 350px;
-  max-height: 500px;
   overflow: hidden;
-  padding-right: 3rem;
   border-radius: 10px;
   & iframe {
     border-radius: 10px !important;
@@ -174,5 +209,8 @@ export const Video = styled.div`
     font-weight: 450;
     color: black;
     font-size: 1.3em;
+  }
+  @media (max-width: 575.98px) {
+    height: 25rem;
   }
 `;

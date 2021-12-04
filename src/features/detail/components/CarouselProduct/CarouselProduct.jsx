@@ -18,7 +18,32 @@ const CarouselProduct = () => {
     autoplay: true,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 1199.98,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 991.98,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 767.98,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 575.98,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
   return (
     <Carousel>
@@ -36,7 +61,7 @@ const CarouselProduct = () => {
               <div className="item-title">Tài liệu cơ khí điện tử</div>
               <div className="item-box">
                 <span className="item-label">Môn học:</span>
-                Điện tử 1
+                <span className="item-txt">Điện tử sssssssssss1</span>
               </div>
             </ItemBody>
           </ItemCarousel>

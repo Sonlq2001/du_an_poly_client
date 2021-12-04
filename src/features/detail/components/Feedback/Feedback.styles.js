@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const GroupRating = styled.div`
   display: flex;
   margin-top: 3rem;
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+  }
 `;
 export const RatingTotal = styled.div`
   margin-right: 3rem;
@@ -43,6 +46,9 @@ export const FilterRating = styled.div`
   .item-rating__icon {
     display: flex;
     align-items: center;
+  }
+  @media (max-width: 575.98px) {
+    margin-top: 2rem;
   }
 `;
 
@@ -99,9 +105,25 @@ export const ItemComment = styled.div`
   .rep-comment:hover {
     text-decoration: none;
   }
+  @media (max-width: 767.98px) {
+    .group-edit-comment {
+      margin-left: 3rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .group-edit-comment {
+      margin-left: 1rem;
+    }
+  }
 `;
 export const GroupRepComment = styled.div`
   margin: 2rem 0 0 6rem;
+  @media (max-width: 767.98px) {
+    margin: 2rem 0 0 3rem;
+  }
+  @media (max-width: 575.98px) {
+    margin: 2rem 0 0 1rem;
+  }
 `;
 export const ItemRepComment = styled.div`
   display: flex;
