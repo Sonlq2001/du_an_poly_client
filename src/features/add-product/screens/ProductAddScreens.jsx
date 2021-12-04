@@ -31,8 +31,8 @@ import {
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
-import CKEditor from './../components/editor/CKEditor';
-import { WarEditor } from './../components/editor/Editor.styles';
+import CKEditor from './../components/Editor/CKEditor';
+import { WarEditor } from './../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from './../constants/add-product.key';
 
@@ -107,7 +107,7 @@ const AddProduct = () => {
     window.localStorage.removeItem('product_token');
     return (
       <>
-        <Redirect to="/" />{' '}
+        <Redirect to="/" />
       </>
     );
   }
