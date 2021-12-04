@@ -106,7 +106,7 @@ const Header = () => {
                     <SubMenu>
                       {menu?.items.map((item) => (
                         <SubMeuItem key={item.id}>
-                          <Link to="/category" className="link-sub">
+                          <Link to={`/category${item.path}`} className="link-sub">
                             {item?.icon && <span>{item.icon}</span>}
                             <span>{item.navigationTitle}</span>
                           </Link>
@@ -162,12 +162,12 @@ const Header = () => {
                       {!menu.title && <div className="line-menu" />}
                       {menu?.items.map((item) => (
                         <li className="item-bar" key={item.id}>
-                          <Link to={item.path} className="link-bar">
+                          <Link to={`/category/${item.path}`} className="link-bar">
                             <span className="icon-bar">
                               {item?.icon && item.icon}
                             </span>
                             <span className="txt-bar">
-                              {item.navigationTitle}
+                              {item.navigationTitle}  
                             </span>
                           </Link>
                         </li>
