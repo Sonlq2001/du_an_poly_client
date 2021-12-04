@@ -62,7 +62,6 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
       setActionComment(false)
     }
   };
-console.log("listComment",listComment)
   const handleReplyCmt = async () => {
     const response = await dispatch(postCommentReply(commentReply));
     if (postCommentReply.fulfilled.match(response)) {
