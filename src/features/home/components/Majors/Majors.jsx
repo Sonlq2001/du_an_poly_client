@@ -9,10 +9,14 @@ import ImageTravel from './../../../../assets/images/undraw_Travelers_re_y25a.pn
 import { ContentIntro, ContentWrap, ContentBox } from './majors.styles';
 import { TitleMain } from './../../../../styles/common/index';
 import {  useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getProductMajor } from 'features/category/redux/category.slice';
 const Majors = () => {
   const history = useHistory();
+  const dispatch = useDispatch()
   const ChangeCategory = (name,id) => {
     history.push(`/category/${name}`)
+    dispatch(getProductMajor(id))
   };
   return (
     <ContentIntro>
@@ -30,7 +34,7 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageDesign} alt="" className="box-img" />
           <div className="box-title">
-            <span onClick={() => ChangeCategory('thiết-kế-đồ-họa', 2)}>
+            <span onClick={() => ChangeCategory('thiet-ke-do-hoa',3)}>
               {' '}
               Thiết kế đồ họa
             </span>
@@ -40,9 +44,9 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageMarketing} alt="" className="box-img" />
           <div className="box-title">
-            <span onClick={() => ChangeCategory('kinh-tế -kinh-doanh', 3)}>
+            <span onClick={() => ChangeCategory('kinh-te-kinh-doan', 2)}>
               {' '}
-              Kinh tế kinh doanh
+              Kinh tế - kinh doanh
             </span>
           </div>
         </ContentBox>
@@ -50,7 +54,7 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageBeauty} alt="" className="box-img" />
           <div className="box-title">
-            <span onClick={() => ChangeCategory('thẩm-mĩ-làm-đẹp', 4)}>
+            <span onClick={() => ChangeCategory('my-pham-lam-dep',5)}>
               Thẩm mĩ làm đẹp
             </span>
           </div>
@@ -59,7 +63,7 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageAuto} alt="" className="box-img" />
           <div className="box-title">
-            <span onClick={() => ChangeCategory('cơ-khí-tự-động-hóa', 5)}>
+            <span onClick={() => ChangeCategory('co-khi-tu-dong-hoa',4)}>
               Cơ khí - tự động hóa
             </span>
           </div>
@@ -67,7 +71,7 @@ const Majors = () => {
         <ContentBox>
           <img src={ImageTravel} alt="" className="box-img" />
           <div className="box-title">
-          <span onClick={() => ChangeCategory('du-lịch-khách-sạn-nhà-hàng',6)}>
+          <span onClick={() => ChangeCategory('du-lich-nha-hang-khach-san',6)}>
                  Du lịch - Khách sạn - Nhà hàng
             </span>
           </div>

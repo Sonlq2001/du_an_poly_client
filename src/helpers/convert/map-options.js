@@ -16,3 +16,12 @@ export const MapOptionsCampuses = (array) => {
     return handleResult;
   }
 };
+export const MapOptionsLong = (array) => {
+  if (Array.isArray(array)) {
+    const handleResult = array.map((item) => ({
+      label: `${item.name.slice(0,20)+ "  ..."} `,
+      value: item.id,
+    }));
+    return handleResult;
+  }
+};

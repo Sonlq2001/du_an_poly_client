@@ -1,10 +1,11 @@
 import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
-import { NavLink, useRouteMatch, useHistory } from 'react-router-dom';
+import { useRouteMatch, Link } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
 import Select from 'react-select';
 import { useDispatch, useSelector } from 'react-redux';
+import Slider from 'react-slick';
 
 import {
   WrapControl,
@@ -19,33 +20,32 @@ import {
 import {
   LIST_TEACHER,
   LIST_SORT,
+  LIST_MAJOR,
 } from './../../constants/category.constants';
-import { getProductMajor, getSubjects } from './../../redux/category.slice';
-import { MapOptions } from 'helpers/convert/map-options';
+import { getSubjects } from './../../redux/category.slice';
+import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
-const CategoryControl = () => {
+const CategoryControl = ({ setCategoryName }) => {
   const { url } = useRouteMatch();
   const [isToggle, setIsToggle] = useState(false);
-  const history = useHistory()
   const dispatch = useDispatch();
-  const dataSubject = useCallback (()=>{
-    dispatch(getSubjects())
-  },[dispatch])
-  const dataCampuse = useCallback (()=>{
-    dispatch(getCampuses())
-  },[dispatch])
+  const dataSubject = useCallback(() => {
+    dispatch(getSubjects());
+  }, [dispatch]);
+  const dataCampuse = useCallback(() => {
+    dispatch(getCampuses());
+  }, [dispatch]);
 
   useEffect(() => {
-    dataSubject()
-    dataCampuse()
-  }, [dispatch,dataSubject,dataCampuse]);
+    dataSubject();
+    dataCampuse();
+  }, [dispatch, dataSubject, dataCampuse]);
 
   const { listSubject } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
-  const optionSubject = MapOptions(listSubject)
-  const optionListCampus = MapOptions(listCampus)
-  
+  const optionSubject = MapOptionsLong(listSubject);
+  const optionListCampus = MapOptions(listCampus);
   const WrapCate = useRef(null);
   const handlePrev = () => {
     const cateSlide = WrapCate.current;
@@ -75,11 +75,15 @@ const CategoryControl = () => {
       },
     };
   };
-  const ChangeName = (name,id)=>{
-    history.push(`/category/${name}`)
-    dispatch(getProductMajor(id))
-  }
-
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+  };
+;
   return (
     <WrapControl>
       <div className="container">
@@ -100,19 +104,32 @@ const CategoryControl = () => {
             >
               <AiOutlineRight />
             </span>
-            <div className="list-cate" ref={WrapCate}>
+            {/* <div className="list-cate" ref={WrapCate}>
               <div className="group-cate">
                 <NavLink to={url} className="link-cate">
                   All
                 </NavLink>
                  <span  className="link-cate"   onClick={()=>ChangeName("công-nghệ-thông-tin",1)}> Công Nghệ - Thông Tin  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("kinh-tế-kinh-doanh",2)}>  Kinh Tế - Kinh Doanh  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("thiết-kế-đồ-họa", 3)}>  Thiết Kế Đồ Họa  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("mỹ-phẩm-làm-đẹp", 4)}>  Mỹ Phẩm Làm Đẹp</span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("cơ-khí-tự-đông-hóa",5)}>  Cơ Khí - Tự Động Hóa  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("du-lịch-nhà-hàng-khách-sạn",7)}>  Du Lịch - Nhà Hàng - Khách Sạn </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("kinh-te-kinh-doanh",2)}>  Kinh Tế - Kinh Doanh  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("thiet-ke-do-hoa", 3)}>  Thiết Kế Đồ Họa  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("co-khi-tu-dong-hoa",4)}>  Cơ Khí - Tự Động Hóa  </span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("my-pham-lam-dep", 5)}>  Mỹ Phẩm Làm Đẹp</span>
+                 <span  className="link-cate"   onClick={()=>ChangeName("du-lich-nha-hang-khach-san",6)}>  Du Lịch - Nhà Hàng - Khách Sạn </span>
               </div>
-            </div>
+            </div> */}
+            <Slider {...settings}>
+              {LIST_MAJOR.map((item, index) => {
+                return (
+                  <Link
+                    key={index}
+                    to={`${url}/${item.nameLink}/${item.id}`}
+                    className="link-cate"
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </Slider>
           </GroupLinkFilter>
 
           <ButtonControlFilter
@@ -172,11 +189,11 @@ const CategoryControl = () => {
           </SearchAdvance>
           <SearchAdvance>
             <label htmlFor="" className="label-search">
-             Cơ Sở 
+              Cơ Sở
             </label>
             <CustomerSelect>
               <Select
-                options={optionListCampus ?  optionListCampus : []}
+                options={optionListCampus ? optionListCampus : []}
                 placeholder="Tìm theo cơ sở "
                 theme={customTheme}
                 noOptionsMessage="le quang son"

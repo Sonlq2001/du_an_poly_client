@@ -14,9 +14,9 @@ export const getProducts = createAsyncThunk(
 export const getProductMajor = createAsyncThunk("category/productMajors", async (id)=>{
        try {
         const response = await categoryApi.productMajor(id)
-        console.log("ở đây", response)
+        return  response.data
        } catch (error) {
-        console.log("ở đây lỗi", error) 
+
        }
 })
 export const getMajors = createAsyncThunk('category/getMajors', async () => {
@@ -35,7 +35,8 @@ export const getSubjects = createAsyncThunk('category/getMajors', async () => {
 const initialState = {
   isLoadingProducts: false,
   listProduct: [],
-  listSubject : []
+  listSubject : [],
+  productMajor : []
 };
 
 const categorySlice = createSlice({
@@ -58,6 +59,13 @@ const categorySlice = createSlice({
     },
     [getSubjects.rejected]: (state) => {
       state.listSubject = [];
+    },
+  // product major 
+    [getProductMajor.fulfilled]: (state,action) => {
+      state.productMajor = action.payload.data
+    },
+    [getProductMajor.rejected]: (state,action) => {
+      state.productMajor = []
     },
   },
 });
