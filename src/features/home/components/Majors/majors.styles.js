@@ -28,6 +28,7 @@ export const ContentBox = styled.div`
   }
   .box-title:hover {
     color: var(--first-color);
+    cursor: pointer;
   }
   & a {
     text-decoration: none;
