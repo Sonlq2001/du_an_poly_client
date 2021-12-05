@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import { FiBookmark } from 'react-icons/fi';
 import { FaRegComment } from 'react-icons/fa';
@@ -25,7 +25,7 @@ import ProductMajor from '../components/productMajor/ProductMajor';
 const CategoryScreen = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
-
+const [nameCategory,setnameCategory] = useState(null)
   const fetchData = useCallback(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -40,6 +40,7 @@ const CategoryScreen = () => {
       (product) => product.status === PRODUCT_STATUS_KEY.DONE
     ),
   }));
+
   if (isLoadingProducts) {
     return <Loading />;
   }
@@ -47,7 +48,7 @@ const CategoryScreen = () => {
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
-      <CategoryControl />
+      <CategoryControl setnameCategory={setnameCategory} nameCategory={nameCategory}/>
       <div className="container">
         <Switch>
           <Route exact path={path}>
