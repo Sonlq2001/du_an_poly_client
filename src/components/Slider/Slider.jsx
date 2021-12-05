@@ -56,7 +56,7 @@ const Slider = () => {
           text: q,
         })
       );
-    }, 800);
+    }, 500);
   };
 
   const handleEnterSearch = (e) => {
@@ -111,38 +111,33 @@ const Slider = () => {
                       <div>{isDataSearchLoading && <LoadingSearch />}</div>
                     </div>
 
-                    {!isDataSearchLoading && (
-                      <div className="search-result">
-                        <div className="label-list">
-                          <div>
-                            <span className="label-text">Kết quả</span>
-                            {dataSearch?.length || 0}
+                    <div className="search-result">
+                      <div className="result-list">
+                        {dataSearch ? (
+                          dataSearch.map((data) => (
+                            <Link
+                              to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                                /:id/,
+                                data.id
+                              )}
+                              className="item-list"
+                              key={data.id}
+                            >
+                              <img
+                                src={data.image}
+                                alt=""
+                                className="item-img"
+                              />
+                              <span className="item-name">{data.name}</span>
+                            </Link>
+                          ))
+                        ) : (
+                          <div className="no-result">
+                            Không tìm thấy kết quả
                           </div>
-                          <div className="view-more">Xem thêm</div>
-                        </div>
-
-                        <div className="result-list">
-                          {dataSearch &&
-                            dataSearch.map((data) => (
-                              <Link
-                                to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
-                                  /:id/,
-                                  data.id
-                                )}
-                                className="item-list"
-                                key={data.id}
-                              >
-                                <img
-                                  src={data.image}
-                                  alt=""
-                                  className="item-img"
-                                />
-                                <span className="item-name">{data.name}</span>
-                              </Link>
-                            ))}
-                        </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </SearchComplete>
                 </OutsideClickHandler>
               )}

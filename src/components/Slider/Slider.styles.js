@@ -159,7 +159,7 @@ export const SearchComplete = styled.div`
     padding-left: 5px;
   }
   .search-result {
-    padding: 0 1rem 2rem 1rem;
+    padding: 2rem 1rem 2rem 1rem;
     max-height: 20rem;
     overflow-y: auto;
     /* width */
@@ -179,21 +179,6 @@ export const SearchComplete = styled.div`
       background: var(--bbb-color);
     }
   }
-  .label-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
-    font-size: 1.4rem;
-    border-bottom: 1px solid var(--eee-color);
-    color: var(--aaa-color);
-  }
-  .label-text {
-    padding-right: 1rem;
-  }
-  .result-list {
-    margin-top: 1rem;
-  }
   .item-list {
     display: flex;
     align-items: center;
@@ -211,5 +196,10 @@ export const SearchComplete = styled.div`
   }
   .item-name {
     font-size: 1.3rem;
+  }
+  .no-result {
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--aaa-color);
   }
 `;

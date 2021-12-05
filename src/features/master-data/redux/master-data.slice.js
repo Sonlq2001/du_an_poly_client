@@ -26,7 +26,7 @@ const masterDataSlice = createSlice({
     },
     [getCampuses.fulfilled]: (state, action) => {
       state.isListCampusLoading = false;
-      state.listCampus = action.payload.campuses;
+      state.listCampus = action.payload?.campuses;
     },
     [getCampuses.rejected]: (state) => {
       state.isListCampusLoading = false;
