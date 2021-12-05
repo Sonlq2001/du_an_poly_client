@@ -17,8 +17,6 @@ const RatingStar = ({ valueSendCmt, setValueSendCmt }) => {
   const handleClickStar = (value) => {
     setCurrentValue(value);
     setValueSendCmt({ ...valueSendCmt, rating: value });
-
-    console.log(value, 'o day');
     dispatch(
       postProductRating({
         id,

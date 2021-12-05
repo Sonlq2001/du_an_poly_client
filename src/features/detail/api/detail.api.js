@@ -50,6 +50,10 @@ const putCommentReply = (comment) => {
   );
 };
 
+const getCountStar = (id) => {
+  return api.get(DETAIL_ENDPOINTS.GET_COUNT_STAR.replace(/:id/, id));
+};
+
 export const detailProductApi = {
   getProductDetail,
   getCommentsOfProduct,
@@ -60,4 +64,5 @@ export const detailProductApi = {
   putComment,
   putCommentReply,
   postProductRating,
+  getCountStar,
 };

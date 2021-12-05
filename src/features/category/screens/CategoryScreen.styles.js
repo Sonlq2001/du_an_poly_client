@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
 export const MasonryLayout = styled.div`
-<<<<<<< HEAD
   margin: 1rem 0rem;
-=======
-  margin:1rem 0rem;
->>>>>>> 70d3fddabf64df212f0fdf30d75d002aec328e3c
   column-count: 4;
   column-gap: 1.5rem;
   @media (max-width: 991.98px) {

@@ -108,12 +108,27 @@ export const putCommentReply = createAsyncThunk(
   }
 );
 
+export const getCountStar = createAsyncThunk(
+  'detail/getCountStar',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await detailProductApi.getCountStar(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
+
 const initialState = {
   detailProduct: null,
   isLoadingDetailProduct: false,
 
   listComment: [],
   isListCommentLoading: false,
+
+  countStar: null,
+  isCountStarLoading: null,
 };
 
 const detailProductSlice = createSlice({
@@ -221,6 +236,12 @@ const detailProductSlice = createSlice({
     },
     [putCommentReply.rejected]: (state) => {
       state.isListCommentLoading = false;
+    },
+
+    // count star
+    [getCountStar.fulfilled]: (state, action) => {
+      state.isCountStarLoading = false;
+      state.countStar = action.payload.data;
     },
   },
 });

@@ -1,8 +1,8 @@
 import api from 'api/api';
 import { HOME_ENDPOINTS } from './../constants/home.endpoints';
 
-const getData = async () => {
-  return api.get(HOME_ENDPOINTS.GET_DATA);
+const getProducts = async (params) => {
+  return api.get(HOME_ENDPOINTS.GET_PRODUCT, { params });
 };
 
 const searchData = (data) => {
@@ -10,6 +10,6 @@ const searchData = (data) => {
 };
 
 export const homeApi = {
-  getData,
+  getProducts,
   searchData,
 };

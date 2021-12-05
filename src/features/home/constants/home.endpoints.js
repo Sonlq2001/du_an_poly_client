@@ -1,4 +1,4 @@
 export const HOME_ENDPOINTS = {
-  GET_DATA: '/users',
+  GET_PRODUCT: '/products',
   POST_FILTER_DATA: '/filter/products',
 };

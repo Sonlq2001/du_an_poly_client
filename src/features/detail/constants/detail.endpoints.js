@@ -9,4 +9,5 @@ export const DETAIL_ENDPOINTS = {
   DELETE_COMMENT: '/comments/delete/:id',
   PUT_COMMENT: '/comments/edit/:id',
   PUT_COMMENT_REPLY: '/comments/edit/reply/:id',
+  GET_COUNT_STAR: '/products/count-star/:id',
 };

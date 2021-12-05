@@ -67,17 +67,10 @@ export const GroupLinkFilter = styled.div`
   }
   .link-cate {
     color: #6e6d7a;
-<<<<<<< HEAD
     font-size: 1.3rem;
     width: 100%;
     display: block;
     text-align: left;
-=======
-    font-size: 1.31rem;
-    width: 100%;
-    display: block;
-    text-align: center;
->>>>>>> 70d3fddabf64df212f0fdf30d75d002aec328e3c
     margin: 0 1rem;
   }
   .link-cate:hover {
@@ -200,12 +193,6 @@ export const SearchAdvance = styled.div`
     .css-yk16xz-control {
       height: 20px !important;
     }
-<<<<<<< HEAD
-    .input-filter {
-      /* padding: 0.7rem 1.2rem 0.6rem 2rem; */
-    }
-=======
->>>>>>> 70d3fddabf64df212f0fdf30d75d002aec328e3c
     @media (max-width: 767.98px) {
       width: 50%;
 

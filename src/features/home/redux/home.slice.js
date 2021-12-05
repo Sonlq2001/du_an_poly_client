@@ -2,9 +2,15 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { homeApi } from './../api/home.api';
 
-export const fetchData = createAsyncThunk('home/fetchData', async () => {
-  await homeApi.getData();
-});
+export const getProducts = createAsyncThunk(
+  'home/getProducts',
+  async (params) => {
+    try {
+      const response = await homeApi.getProducts(params);
+      return response.data;
+    } catch (error) {}
+  }
+);
 
 export const searchData = createAsyncThunk('home/searchData', async (data) => {
   try {
@@ -14,8 +20,8 @@ export const searchData = createAsyncThunk('home/searchData', async (data) => {
 });
 
 const initialState = {
-  data: [],
-  loading: false,
+  productsHome: [],
+  isProductsHomeLoading: false,
 
   dataSearch: [],
   isDataSearchLoading: false,
@@ -25,6 +31,19 @@ const homeSlice = createSlice({
   name: 'home',
   initialState,
   extraReducers: {
+    // list product
+    [getProducts.pending]: (state) => {
+      state.isProductsHomeLoading = true;
+    },
+    [getProducts.fulfilled]: (state, action) => {
+      state.isProductsHomeLoading = false;
+      state.productsHome = action.payload.data;
+    },
+    [getProducts.rejected]: (state) => {
+      state.isProductsHomeLoading = false;
+    },
+
+    // search main
     [searchData.pending]: (state) => {
       state.isDataSearchLoading = true;
     },
