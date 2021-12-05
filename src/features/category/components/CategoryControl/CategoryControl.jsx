@@ -26,7 +26,7 @@ import { getSubjects } from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
-const CategoryControl = ({ setCategoryName }) => {
+const CategoryControl = ({setnameCategory,nameCategory}) => {
   const { url } = useRouteMatch();
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
@@ -36,7 +36,6 @@ const CategoryControl = ({ setCategoryName }) => {
   const dataCampuse = useCallback(() => {
     dispatch(getCampuses());
   }, [dispatch]);
-
   useEffect(() => {
     dataSubject();
     dataCampuse();
@@ -62,7 +61,6 @@ const CategoryControl = ({ setCategoryName }) => {
       cateSlide.scrollLeft = cateSlide.offsetWidth;
     }
   };
-
   const customTheme = (theme) => {
     return {
       ...theme,
@@ -120,8 +118,9 @@ const CategoryControl = ({ setCategoryName }) => {
                 return (
                   <Link
                     key={index}
-                    to={`${url}/${item.nameLink}/${item.id}`}
+                    to={`${url}/${item?.nameLink}/${item?.id}`}
                     className="link-cate"
+                    onClick={()=>setnameCategory(item?.name)}
                   >
                     {item.name}
                   </Link>
