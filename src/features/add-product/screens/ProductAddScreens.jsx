@@ -24,6 +24,7 @@ import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
+import Loading from 'components/Loading/Loading';
 import {
   postAddProduct,
   getInfo,
@@ -68,11 +69,13 @@ const AddProduct = () => {
     getInfoApi();
   }, [dispatch, product_token]);
 
-  const { productTypes, infoProduct, userLogin } = useSelector((state) => ({
-    productTypes: state.addProduct.productTypes,
-    infoProduct: state.addProduct.infoProduct,
-    userLogin: state.auth.userLogin,
-  }));
+  const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
+    useSelector((state) => ({
+      productTypes: state.addProduct.productTypes,
+      infoProduct: state.addProduct.infoProduct,
+      isInfoProductLoading: state.addProduct.isInfoProductLoading,
+      userLogin: state.auth.userLogin,
+    }));
 
   const selectProductTypes = MapOptions(productTypes);
   window.localStorage.setItem('product_token', product_token);
@@ -80,7 +83,6 @@ const AddProduct = () => {
   const [groupCodeStudent, setGroupCodeStudent] = useState([
     userLogin?.email.substring(0, userLogin.email.search('@')),
   ]);
-
   const remove = (i) => {
     setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
   };
@@ -99,10 +101,19 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-
+  if (userLogin === null) {
+    return <Redirect to="/sign-in" />;
+  } else if (infoProduct) {
+    window.localStorage.removeItem('product_token');
+    return (
+      <>
+        <Redirect to="/" />
+      </>
+    );
+  }
   return (
     <>
-      {product_token && userLogin ? (
+      {!isInfoProductLoading ? (
         <WrapPage className="container">
           <Title title> Sản phẩm mới</Title>
           <WrapForm>
@@ -346,7 +357,7 @@ const AddProduct = () => {
           <ToastContainer position="top-right" autoClose={1500} />
         </WrapPage>
       ) : (
-        <Redirect to="/sign-in" />
+        <Loading />
       )}
     </>
   );

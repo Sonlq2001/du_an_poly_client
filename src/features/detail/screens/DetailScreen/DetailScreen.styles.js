@@ -1,56 +1,99 @@
 import styled from 'styled-components';
 
-export const WrapDetail = styled.div`
-  padding-top: 5rem;
-  margin-bottom: 10rem;
-  .image-gallery {
-    height: 48rem;
+export const ListCurrentImg = styled.div`
+  overflow: hidden;
+  position: relative;
+  & + & {
+    margin-left: 2rem;
+  }
+  img {
     width: 100%;
-    object-fit: cover;
-    border-radius: 3px;
-    border: 1px solid var(--eee-color);
+    height: 100%;
   }
   .current-slide {
     height: 8rem;
     object-fit: cover;
     border-radius: 5px;
+    border: 1px solid var(--eee-color);
+  }
+  @media (max-width: 767.98px) {
+    .current-slide {
+      height: 6rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .current-slide {
+      height: 4rem;
+    }
+  }
+`;
+export const WrapDetail = styled.div`
+  margin-bottom: 10rem;
+  .image-gallery {
+    height: 34rem;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid var(--ddd-color);
   }
   .slick-dots {
     position: relative;
     top: 5px;
+    overflow: hidden;
   }
   .slick-dots li {
     width: 100px;
   }
-
   .slick-next {
     right: 0;
   }
-
   .slick-prev {
     left: 0;
     z-index: 1;
   }
-  .messenger{
+  .slick-next:before,
+  .slick-prev:before {
+    color: var(--bbb-color);
+  }
+  .messenger {
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
     font-weight: 500;
-    color: var(--ee-color);
+    color: var(--ddd-color);
   }
-`;
-
-export const ListCurrentImg = styled.div`
-  & + & {
-    margin-left: 2rem;
-  }
-
-  img {
+  .slick-active ${ListCurrentImg}::after {
+    content: '';
+    display: block;
+    top: 0;
+    left: 0;
+    position: absolute;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  @media (max-width: 767.98px) {
+    .image-gallery {
+      height: 30rem;
+    }
+    .slick-dots li {
+      width: 6rem;
+    }
+  }
+  @media (max-width: 575.98px) {
+    .image-gallery {
+      height: 26rem;
+    }
+    .slick-dots li {
+      width: 4rem;
+    }
   }
 `;
-
+export const GroupContentDetail = styled.div`
+  @media (max-width: 991.98px) {
+    margin-top: 3rem;
+  }
+`;
 export const TitleProject = styled.h1`
   font-size: 2rem;
   line-height: 2.5rem;
@@ -59,7 +102,6 @@ export const TitleProject = styled.h1`
 
 export const GroupMember = styled.div`
   margin-top: 2rem;
-
   .list-member {
     margin: 1.5rem 0 0 2rem;
   }
@@ -90,6 +132,15 @@ export const BoxProject = styled.div`
 
 export const GroupDetail = styled.div`
   margin-top: 6rem;
+  .group-document {
+    position: sticky;
+    top: 10rem;
+  }
+  @media (max-width: 991.98px) {
+    .group-document {
+      margin-top: 3rem;
+    }
+  }
 `;
 
 // group detail
@@ -130,33 +181,36 @@ export const BoxYoutube = styled.div`
 
 // comment
 export const GroupFeedback = styled.div`
-  margin-top: 4rem;
-  margin-right: 7rem;
+  margin: 4rem 0 7rem 0;
+  @media (max-width: 991.98px) {
+    margin: 4rem 0 0 0;
+  }
 `;
 export const Video = styled.div`
-  margin:  2rem 0px;
+  margin: 2rem 0px;
   max-width: 100%;
-  height:350px;
-  max-height: 500px;
+  height: 350px;
   overflow: hidden;
-  padding-right: 3rem;
   border-radius: 10px;
-  & iframe{
+  & iframe {
     border-radius: 10px !important;
   }
-  &.video{
-    height:auto;
+  &.video {
+    height: auto;
   }
   video {
     border-radius: 10px;
   }
-  h3{
+  h3 {
     margin: 1rem 0rem;
-    font-size:  1.4rem;
+    font-size: 1.4rem;
   }
-  a{
+  a {
     font-weight: 450;
     color: black;
-    font-size:  1.3em;
+    font-size: 1.3em;
   }
-`
+  @media (max-width: 575.98px) {
+    height: 25rem;
+  }
+`;

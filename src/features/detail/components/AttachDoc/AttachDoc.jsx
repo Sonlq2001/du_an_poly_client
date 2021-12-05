@@ -15,12 +15,11 @@ const AttachDoc = ({ data }) => {
 
       <GroupAttach>
         <ItemAttach>
-         <button>
-        
-         <a href={data?.resource_url} target="_blank" rel="noreferrer">
-         <AiFillFileText />   Tại đây 
-          </a>
-         </button>
+          <button>
+            <a href={data?.resource_url} target="_blank" rel="noreferrer">
+              <AiFillFileText /> Tại đây
+            </a>
+          </button>
         </ItemAttach>
       </GroupAttach>
     </>

@@ -14,11 +14,13 @@ import {
   MasonryActionItem,
 } from './CategoryScreen.styles';
 import Loading from 'components/Loading/Loading';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProducts } from './../redux/category.slice';
 import { PRODUCT_STATUS_KEY } from './../constants/category.key';
 import { DETAIL_PATHS } from './../../detail/constants/detail.paths';
+import ProductMajor from '../components/productMajor/ProductMajor';
 
 const CategoryScreen = () => {
   const { path } = useRouteMatch();
@@ -27,7 +29,7 @@ const CategoryScreen = () => {
   const fetchData = useCallback(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
+  
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -38,13 +40,13 @@ const CategoryScreen = () => {
       (product) => product.status === PRODUCT_STATUS_KEY.DONE
     ),
   }));
-
   if (isLoadingProducts) {
     return <Loading />;
   }
 
   return (
     <>
+      <Breadcrumb position="Chuyên ngành" />
       <CategoryControl />
       <div className="container">
         <Switch>
@@ -99,8 +101,8 @@ const CategoryScreen = () => {
                 : ''}
             </MasonryLayout>
           </Route>
-          <Route path={`${path}/:id`}>
-            <MasonryBox>Hiển thị sản phẩm theo chuyên ngành</MasonryBox>
+          <Route path={`${path}/:path/:id`}>
+                  <ProductMajor/>
           </Route>
         </Switch>
       </div>

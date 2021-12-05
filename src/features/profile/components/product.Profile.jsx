@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Pagination from './Pagination';
 import ProductUnactive  from "./productUnactive"
 import { useSelector } from 'react-redux';
-const ProductProfile = ({ id, profile ,product}) => {
+const ProductProfile = ({  profile ,product}) => {
   const str = 'Website xây dựng bán hàng toàn quốc';
   const [toggle, setToggle] = useState(1);
   const { userLogin } = useSelector((state) => state.auth);

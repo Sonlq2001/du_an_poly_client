@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
 export const MasonryLayout = styled.div`
-<<<<<<< HEAD
-  margin: 1rem 0rem;
-=======
   margin:1rem 0rem;
->>>>>>> 70d3fddabf64df212f0fdf30d75d002aec328e3c
   column-count: 4;
   column-gap: 1.5rem;
+  & .messenger{
+    text-align: center;
+    font-size: 1.8rem;
+    width: 100%;
+    margin: 20rem 0rem 20rem 14rem;
+    line-height: 100px;
+  }
   @media (max-width: 991.98px) {
     column-count: 3;
   }
@@ -48,7 +51,6 @@ export const MasonryBox = styled.div`
   flex-direction: column;
   margin-bottom: 1.5rem;
   box-shadow: 0 3px 8px var(--eee-color);
-  border: 1px solid var(--eee-color);
   overflow: hidden;
   border-radius: 1rem;
   font-size: 1.4rem;
@@ -115,3 +117,12 @@ export const MasonryActionItem = styled.div`
     transition: ease-in-out 0.3s;
   }
 `;
+export const Titel = styled.h2`
+  font-size:14px;
+  font-weight: 400;
+  margin: 2rem 0rem;
+  & span{
+      font-size: 15px;
+     font-weight: 500
+  }
+`

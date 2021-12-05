@@ -20,6 +20,7 @@ import {
   ContentPost,
   GroupFeedback,
   Video,
+  GroupContentDetail,
 } from './DetailScreen.styles';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
@@ -27,6 +28,7 @@ import ShareSocial from './../../components/ShareSocial/ShareSocial';
 import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
@@ -64,9 +66,8 @@ const DetailScreen = () => {
   };
 
   const [valueSendCmt, setValueSendCmt] = useState({
-    userId: '',
-    value: '',
-    rating: null,
+    product_id: id,
+    comment: '',
   });
 
   useEffect(() => {
@@ -80,6 +81,11 @@ const DetailScreen = () => {
   }
   return (
     <WrapDetail>
+      <Breadcrumb
+        position={
+          !isLoadingDetailProduct && detailProduct ? detailProduct?.name : ''
+        }
+      />
       <div className="container">
         {detailProduct ? (
           <>
@@ -90,7 +96,7 @@ const DetailScreen = () => {
                 userLogin.id === detailProduct.teacher_id ? (
                   <>
                     <div className="row">
-                      <div className="xl-7">
+                      <div className="xl-7 lg-7">
                         <Slider {...settings}>
                           {detailProduct?.product_galleries.map(
                             (item, index) => (
@@ -105,7 +111,7 @@ const DetailScreen = () => {
                           )}
                         </Slider>
                       </div>
-                      <div className="xl-5">
+                      <div className="xl-5 lg-5">
                         <div>
                           <TitleProject>{detailProduct?.name}</TitleProject>
                           <GroupMember>
@@ -201,7 +207,7 @@ const DetailScreen = () => {
               // status = 3
               <>
                 <div className="row">
-                  <div className="xl-7">
+                  <div className="xl-7 lg-7 md-12 md-12 col-12">
                     <Slider {...settings}>
                       {detailProduct?.product_galleries.map((item, index) => (
                         <div key={index}>
@@ -214,8 +220,8 @@ const DetailScreen = () => {
                       ))}
                     </Slider>
                   </div>
-                  <div className="xl-5">
-                    <div>
+                  <div className="xl-5 lg-5 md-12 sm-12 col-12">
+                    <GroupContentDetail>
                       <TitleProject>{detailProduct?.name}</TitleProject>
 
                       <RatingStar
@@ -253,12 +259,12 @@ const DetailScreen = () => {
                         <LabelProject>Kì học:</LabelProject>
                         {detailProduct?.semester?.name}
                       </BoxProject>
-                    </div>
+                    </GroupContentDetail>
                   </div>
                 </div>
                 <GroupDetail>
                   <div className="row">
-                    <div className="xl-8">
+                    <div className="xl-8 lg-8 md-12 sm-12 col-12">
                       <div className="group-des">
                         <TitleMain>
                           <MdContentPaste />
@@ -298,15 +304,16 @@ const DetailScreen = () => {
                         {/* bài viết giới thiệu  */}
                       </div>
                     </div>
-                    <div className="xl-4">
-                      {/* tài liệu đính kèm  */}
-                      <GroupBox>
-                        <AttachDoc data={detailProduct} />
-                      </GroupBox>
-                      {/* công cụ  */}
-                      <GroupBox>
-                        <ShareSocial />
-                      </GroupBox>
+                    <div className="xl-4 lg-4 md-12 sm-12 col-12">
+                      <div className="group-document">
+                        <GroupBox>
+                          <AttachDoc data={detailProduct} />
+                        </GroupBox>
+
+                        <GroupBox>
+                          <ShareSocial />
+                        </GroupBox>
+                      </div>
                     </div>
                   </div>
                   <div className="row">
