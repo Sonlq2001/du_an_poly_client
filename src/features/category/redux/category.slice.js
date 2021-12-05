@@ -2,15 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { categoryApi } from './../api/category.api';
 
-export const getProducts = createAsyncThunk(
-  'category/getProducts',
-  async () => {
-    try {
-      const response = await categoryApi.getProducts();
-      return response.data;
-    } catch (error) {}
-  }
-);
 export const getProductMajor = createAsyncThunk("category/productMajors", async (id)=>{
        try {
         const response = await categoryApi.productMajor(id)
@@ -25,16 +16,25 @@ export const getMajors = createAsyncThunk('category/getMajors', async () => {
     return response.data;
   } catch (error) {}
 });
-export const getSubjects = createAsyncThunk('category/getMajors', async () => {
+export const getSubjects = createAsyncThunk('category/subjectMajor', async (id) => {
   try {
-    const response = await categoryApi.getSubject();
+    const response = await categoryApi.getSubject(id);
     return response.data.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log("lỗi",error)
+  }
 });
+export const productFilter = createAsyncThunk("category/filterProduct", async (data)=>{
+          try {
+          const response = await categoryApi.filterProduct(data)
+                console.log("response ở đây", response)
+          } catch (error) {
+              console.log("lỗi", error)
+          }
+})
 
 const initialState = {
-  isLoadingProducts: false,
-  listProduct: [],
+  loading: false,
   listSubject : [],
   productMajor : []
 };
@@ -43,17 +43,6 @@ const categorySlice = createSlice({
   name: 'category',
   initialState,
   extraReducers: {
-    [getProducts.pending]: (state) => {
-      state.isLoadingProducts = true;
-    },
-    [getProducts.fulfilled]: (state, action) => {
-      state.isLoadingProducts = false;
-      state.listProduct = action.payload.data;
-    },
-    [getProducts.rejected]: (state) => {
-      state.isLoadingProducts = false;
-    },
-
     [getSubjects.fulfilled]: (state, action) => {
       state.listSubject = action.payload;
     },
@@ -61,10 +50,15 @@ const categorySlice = createSlice({
       state.listSubject = [];
     },
   // product major 
+  [getProductMajor.pending] : (state)=>{
+    state.loading =  true
+  },
     [getProductMajor.fulfilled]: (state,action) => {
+      state.loading =  false
       state.productMajor = action.payload.data
     },
     [getProductMajor.rejected]: (state,action) => {
+      state.loading =  false
       state.productMajor = []
     },
   },

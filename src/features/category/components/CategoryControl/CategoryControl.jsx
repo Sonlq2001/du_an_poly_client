@@ -1,5 +1,5 @@
 import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
+import {  Link, useParams } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
@@ -22,20 +22,20 @@ import {
   LIST_SORT,
   LIST_MAJOR,
 } from './../../constants/category.constants';
-import { getSubjects } from './../../redux/category.slice';
+import { getSubjects, productFilter } from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
-const CategoryControl = ({setnameCategory,nameCategory}) => {
-  const { url } = useRouteMatch();
+const CategoryControl = ({setnameCategory}) => {
+  const {id}  = useParams()
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
   const dataSubject = useCallback(() => {
-    dispatch(getSubjects());
-  }, [dispatch]);
+    dispatch(getSubjects(id));
+  },[dispatch,id]);
   const dataCampuse = useCallback(() => {
     dispatch(getCampuses());
-  }, [dispatch]);
+  },[dispatch]);
   useEffect(() => {
     dataSubject();
     dataCampuse();
@@ -80,6 +80,16 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
     dot: false,
     draggable: true,
   };
+  // filter 
+  const ChangeFilter = (e,type)=>{
+    setnameCategory(e.label)
+    // const data ={
+    //   major_id : id,
+    //   id : e.value,
+    //   type : type
+    // } 
+  }
+  
   return (
     <WrapControl>
       <div className="container">
@@ -100,27 +110,13 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
             >
               <AiOutlineRight />
             </span>
-            {/* <div className="list-cate" ref={WrapCate}>
-              <div className="group-cate">
-                <NavLink to={url} className="link-cate">
-                  All
-                </NavLink>
-                 <span  className="link-cate"   onClick={()=>ChangeName("công-nghệ-thông-tin",1)}> Công Nghệ - Thông Tin  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("kinh-te-kinh-doanh",2)}>  Kinh Tế - Kinh Doanh  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("thiet-ke-do-hoa", 3)}>  Thiết Kế Đồ Họa  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("co-khi-tu-dong-hoa",4)}>  Cơ Khí - Tự Động Hóa  </span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("my-pham-lam-dep", 5)}>  Mỹ Phẩm Làm Đẹp</span>
-                 <span  className="link-cate"   onClick={()=>ChangeName("du-lich-nha-hang-khach-san",6)}>  Du Lịch - Nhà Hàng - Khách Sạn </span>
-              </div>
-            </div> */}
             <Slider {...settings}>
               {LIST_MAJOR.map((item, index) => {
                 return (
                   <Link
                     key={index}
-                    to={`${url}/${item?.nameLink}/${item?.id}`}
+                    to={`/category/${item?.nameLink}/${item?.id}`}
                     className="link-cate"
-                    onClick={()=>setnameCategory(item?.name)}
                   >
                     {item.name}
                   </Link>
@@ -167,6 +163,7 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
                 options={optionSubject ? optionSubject : []}
                 placeholder="Tìm theo môn học"
                 theme={customTheme}
+                onChange = {(e)=> ChangeFilter(e,"subject_id")}
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -181,6 +178,7 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
                 placeholder="Tìm theo giáo viên"
                 theme={customTheme}
                 noOptionsMessage="le quang son"
+                onChange = {(e)=> ChangeFilter(e,"teacher_id")}
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -194,6 +192,8 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
                 placeholder="Tìm theo cơ sở "
                 theme={customTheme}
                 noOptionsMessage="le quang son"
+                onChange = {(e)=> ChangeFilter(e,"campus")}
+
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -206,6 +206,7 @@ const CategoryControl = ({setnameCategory,nameCategory}) => {
                 options={LIST_SORT}
                 placeholder="Xắp xếp theo"
                 theme={customTheme}
+                onChange = {(e)=> ChangeFilter(e,"sort")}
               />
             </CustomerSelect>
           </SearchAdvance>

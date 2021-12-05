@@ -8,8 +8,9 @@ export const MasonryLayout = styled.div`
     text-align: center;
     font-size: 1.8rem;
     width: 100%;
-    margin: 20rem 0rem 20rem 14rem;
+    margin: 10rem 0rem 20rem 14rem;
     line-height: 100px;
+    opacity: 0.4;
   }
   @media (max-width: 991.98px) {
     column-count: 3;

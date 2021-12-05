@@ -1,4 +1,4 @@
-import React , {useEffect, useCallback}from 'react';
+import React from 'react';
 import {
   MasonryAction,
   MasonryActionItem,
@@ -12,25 +12,14 @@ import {
 import { AiOutlineStar } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
 import { FiBookmark } from 'react-icons/fi';
-import { Link, Redirect ,useParams} from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { getProductMajor } from 'features/category/redux/category.slice';
-
+import { Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const ProductMajor = () => {
   const { productMajor } = useSelector((state) => state.category);
-  const {id,path}= useParams()
-  const dispatch = useDispatch()
-  const getData = useCallback(()=>{
-    dispatch(getProductMajor(id));
-  },[dispatch,id])
-  useEffect(()=>{
-    getData()
-  },[dispatch,getData])
   return (
     <>
       {productMajor.length > 0 ? (
-        <Titel> Hiển thị sản phẩm theo chuyên ngành <span> {path} </span></Titel>
+        <Titel> Hiển thị sản phẩm theo chuyên ngành <span>  </span></Titel>
       ) : (
         ''
       )}
@@ -45,11 +34,11 @@ const ProductMajor = () => {
                       <img src={item?.image} alt={item?.name} />
                     </MasonryHeader>
                     <MasonryContent>
-                      <Link to="/product/1" className="content-title">
+                      <Link to={`/product/${item.id}`} className="content-title">
                         {item?.name}
                       </Link>
                       <p className="content-object">
-                        Môn học: môn học mới nhất
+                        Môn học: {item?.subject?.name}
                       </p>
                       <MasonryAction>
                         <MasonryActionItem>
@@ -78,7 +67,7 @@ const ProductMajor = () => {
                 );
               })
             ) : (
-              <div className="messenger"> Chưa có sản phẩm </div>
+              <div className="messenger"> Chưa có sản phẩm !</div>
             )}
           </>
         ) : (
