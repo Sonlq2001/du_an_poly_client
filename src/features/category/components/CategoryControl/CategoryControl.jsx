@@ -18,11 +18,10 @@ import {
   CustomerSelect,
 } from './CategoryControl.styles';
 import {
-  LIST_TEACHER,
   LIST_SORT,
   LIST_MAJOR,
 } from './../../constants/category.constants';
-import { getSubjects, productFilter } from './../../redux/category.slice';
+import { getSubjects, getTeacher, productFilter } from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
@@ -36,16 +35,26 @@ const CategoryControl = ({setnameCategory}) => {
   const dataCampuse = useCallback(() => {
     dispatch(getCampuses());
   },[dispatch]);
+  const dataTeacher = useCallback(()=>{
+    const data = {
+        id: id,
+        type:"teacher_user_major"
+    }
+  dispatch(getTeacher(data))
+  },[dispatch,id])
   useEffect(() => {
     dataSubject();
     dataCampuse();
-  }, [dispatch, dataSubject, dataCampuse]);
+    dataTeacher()
+  }, [dispatch, dataSubject, dataCampuse,dataTeacher]);
 
-  const { listSubject } = useSelector((state) => state.category);
+  const { listSubject,listTeacher } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
   const optionSubject = MapOptionsLong(listSubject);
   const optionListCampus = MapOptions(listCampus);
+  const optionTeacher = MapOptionsLong(listTeacher)
   const WrapCate = useRef(null);
+  console.log(listTeacher)
   const handlePrev = () => {
     const cateSlide = WrapCate.current;
     cateSlide.scrollLeft -= cateSlide.offsetWidth;
@@ -83,11 +92,12 @@ const CategoryControl = ({setnameCategory}) => {
   // filter 
   const ChangeFilter = (e,type)=>{
     setnameCategory(e.label)
-    // const data ={
-    //   major_id : id,
-    //   id : e.value,
-    //   type : type
-    // } 
+    const data ={
+      major_id : id,
+      id : e.value,
+      type : type
+    } 
+    dispatch(productFilter(data))
   }
   
   return (
@@ -174,10 +184,10 @@ const CategoryControl = ({setnameCategory}) => {
             </label>
             <CustomerSelect>
               <Select
-                options={LIST_TEACHER}
+                options={optionTeacher? optionTeacher : []}
                 placeholder="Tìm theo giáo viên"
                 theme={customTheme}
-                noOptionsMessage="le quang son"
+                // noOptionsMessage="le quang son"
                 onChange = {(e)=> ChangeFilter(e,"teacher_id")}
               />
             </CustomerSelect>

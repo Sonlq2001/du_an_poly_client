@@ -12,6 +12,9 @@ const getSubject = (id)=>{
 const productMajor = (id)=>{
   return api.get(CATEGORY_ENDPOINTS.PRODUCT_MAJOR.replace(':id',id.toString()))
 }
+const teacherApi = (data)=>{
+  return  api.post(FILTER_PRODUCT.FILTER_PATH ,data)
+}
 const filterProduct = (data)=>{
   return api.post(FILTER_PRODUCT.FILTER_PATH,data)
 }
@@ -19,5 +22,6 @@ export const categoryApi = {
   getMajors,
   getSubject,
   productMajor,
-  filterProduct
+  filterProduct,
+  teacherApi
 };

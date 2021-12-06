@@ -20,7 +20,7 @@ const CategoryScreen = () => {
     getData()
   }, [dispatch,getData]);
   const { loading } = useSelector((state) => state.category);
-  if (loading) {
+  if (loading && loading) {
     return <Loading />;
   }
   return (
