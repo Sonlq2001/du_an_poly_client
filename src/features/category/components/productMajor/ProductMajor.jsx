@@ -17,11 +17,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const ProductMajor = () => {
   const { productMajor } = useSelector((state) => state.category);
-  console.log("productMajor",productMajor)
   return (
     <>
-     
-
       {productMajor ? (
           productMajor.length > 0 ? (
          <MasonryLayout>

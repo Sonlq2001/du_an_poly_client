@@ -5,7 +5,15 @@ import { homeApi } from './../api/home.api';
 export const fetchData = createAsyncThunk('home/fetchData', async () => {
   await homeApi.getData();
 });
+export const getProductMajor = createAsyncThunk("home/productMajors", async (id)=>{
+  try {
+   const response = await homeApi.productMajor(id)
+   console.log("owr dayd a", response)
+   return  response.data
+  } catch (error) {
 
+  }
+})
 export const searchData = createAsyncThunk('home/searchData', async (data) => {
   try {
     const response = await homeApi.searchData(data);
@@ -34,6 +42,16 @@ const homeSlice = createSlice({
     },
     [searchData.rejected]: (state) => {
       state.isDataSearchLoading = false;
+    },
+    // produt major
+    [getProductMajor.pending]:  (state)=>{
+
+    },
+    [getProductMajor.fulfilled]:  (state,action)=>{
+
+    },
+    [getProductMajor.rejected]:  (state,action)=>{
+
     },
   },
 });
