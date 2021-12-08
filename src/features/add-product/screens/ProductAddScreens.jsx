@@ -103,7 +103,7 @@ const AddProduct = () => {
   };
   if (userLogin === null) {
     return <Redirect to="/sign-in" />;
-  } else if (infoProduct) {
+  } else if (!infoProduct) {
     window.localStorage.removeItem('product_token');
     return (
       <>

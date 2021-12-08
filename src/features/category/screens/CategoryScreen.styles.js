@@ -14,7 +14,26 @@ export const MasonryLayout = styled.div`
     column-count: 2;
   }
 `;
-
+export const LoadingComponment = styled.div`
+    text-align: center;
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    margin-left: 45%;
+    margin-top : 4rem;
+    margin-bottom : 5rem;
+    animation: loading 2s infinite  linear;
+    @keyframes loading{
+      0% {
+        transform:  rotate(0deg);
+      }
+      100% {
+        transform:  rotate(360deg);
+      }
+    }
+`
 export const MasonryHeader = styled.div`
   position: relative;
   overflow: hidden;
