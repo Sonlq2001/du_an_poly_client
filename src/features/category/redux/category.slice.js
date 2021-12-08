@@ -72,8 +72,10 @@ const categorySlice = createSlice({
     },
     [getTeacher.fulfilled] :(state,action)=>{
         state.listTeacher = action.payload.data
+        state.loading =  false
     },
     [getTeacher.rejected] :(state)=>{
+      state.loading =  false
         state.listTeacher = []
     },
   },

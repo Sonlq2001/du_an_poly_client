@@ -1,14 +1,13 @@
 import React, { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Loading from 'components/Loading/Loading';
+import {BiLoader}  from  "react-icons/bi"
 import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProductMajor } from './../redux/category.slice';
 import ProductMajor from '../components/productMajor/ProductMajor';
-
+import {LoadingComponment}  from  "./CategoryScreen.styles"
 const CategoryScreen = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -19,15 +18,14 @@ const CategoryScreen = () => {
     getData()
   }, [dispatch,getData]);
   const { loading } = useSelector((state) => state.category);
-  if (loading && loading) {
-    return <Loading />;
-  }
+
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
       <CategoryControl />
       <div className="container">
-        <ProductMajor />
+        {loading ?  <LoadingComponment> <BiLoader/>  </LoadingComponment>   :  <ProductMajor />   }
+
       </div>
     </>
   );
