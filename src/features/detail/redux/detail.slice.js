@@ -20,6 +20,7 @@ export const getCommentsOfProduct = createAsyncThunk(
     try {
       const response = await detailProductApi.getCommentsOfProduct(id);
       return response.data;
+     
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
@@ -43,6 +44,7 @@ export const postCommentReply = createAsyncThunk(
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postCommentReply(comment);
+      console.lgo(" trả lời ",response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
@@ -79,7 +81,6 @@ export const putComment = createAsyncThunk(
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.putComment(comment);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));

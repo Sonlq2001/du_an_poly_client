@@ -49,7 +49,6 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
       dispatch(getCommentsOfProduct(productId));
     }
   }, [dispatch, productId]);
-
   const { listComment, userLogin } = useSelector((state) => ({
     listComment: state.detailProduct.listComment,
     userLogin: state.auth.userLogin,

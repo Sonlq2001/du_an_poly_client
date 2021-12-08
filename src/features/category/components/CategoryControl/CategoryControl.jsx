@@ -54,7 +54,6 @@ const CategoryControl = () => {
   const optionListCampus = MapOptions(listCampus);
   const optionTeacher = MapOptionsLong(listTeacher)
   const WrapCate = useRef(null);
-  console.log(listTeacher)
   const handlePrev = () => {
     const cateSlide = WrapCate.current;
     cateSlide.scrollLeft -= cateSlide.offsetWidth;
