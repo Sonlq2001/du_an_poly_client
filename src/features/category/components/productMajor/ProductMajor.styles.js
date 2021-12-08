@@ -127,3 +127,27 @@ export const Titel = styled.h2`
      font-weight: 500
   }
 `
+export const GroupNoResult = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  margin-bottom: 10rem;
+ 
+  .body-no-result {
+    text-align: center;
+  }
+  .img-no-result {
+    width: 15rem;
+  }
+  .box-no-result {
+    font-size: 1.4rem;
+  }
+  .label-no-result {
+    font-size: 1.6rem;
+  }
+  .des-no-result {
+    margin-top: 1.5rem;
+    color: var(--aaa-color);
+  }
+`;

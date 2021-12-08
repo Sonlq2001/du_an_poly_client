@@ -35,7 +35,7 @@ export const getTeacher = createAsyncThunk("categoory/teacher", async (data)=>{
 export const productFilter = createAsyncThunk("category/filterProduct", async (data)=>{
           try {
           const response = await categoryApi.filterProduct(data)
-                console.log("response ở đây", response)
+                return response.data
           } catch (error) {
               console.log("lỗi", error)
           }
@@ -78,6 +78,17 @@ const categorySlice = createSlice({
       state.loading =  false
         state.listTeacher = []
     },
+    [productFilter.pending] : (state)=>{
+      state.loading =  true
+  },
+    [productFilter.fulfilled] : (state,action)=>{
+      state.loading =  false
+      state.productMajor = action.payload.data
+    },
+    [productFilter.rejected] : (state)=>{
+      state.loading =  false
+        state.productMajor = []
+    }
   },
 });
 

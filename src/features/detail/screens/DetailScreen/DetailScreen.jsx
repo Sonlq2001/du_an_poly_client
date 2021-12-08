@@ -278,8 +278,7 @@ const DetailScreen = () => {
                             controls={true}
                             url={detailProduct?.video_url}
                           />
-                        </Video>
-
+                        </Video>   
                         <ContentPost
                           dangerouslySetInnerHTML={{
                             __html: detailProduct?.description,

@@ -2,10 +2,16 @@ import React, { memo } from 'react';
 import { GrAttachment } from 'react-icons/gr';
 import { AiFillFileText } from 'react-icons/ai';
 
+
+
 import { GroupAttach, ItemAttach } from './AttachDoc.styles';
 import { TitleMain } from './../../screens/DetailScreen/DetailScreen.styles';
 
 const AttachDoc = ({ data }) => {
+
+  const handleDriver=()=>{
+   
+  }
   return (
     <>
       <TitleMain>
@@ -15,7 +21,7 @@ const AttachDoc = ({ data }) => {
 
       <GroupAttach>
         <ItemAttach>
-          <button>
+          <button  onClick={()=>handleDriver()}>
             <a href={data?.resource_url} target="_blank" rel="noreferrer">
               <AiFillFileText /> Tại đây
             </a>
