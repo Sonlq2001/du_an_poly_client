@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,7 +12,6 @@ import ProductMajor from '../components/productMajor/ProductMajor';
 const CategoryScreen = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [nameCategory,setnameCategory] = useState(null)
   const getData = useCallback(()=>{
     dispatch(getProductMajor(id));
   },[dispatch,id])
@@ -26,7 +25,7 @@ const CategoryScreen = () => {
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
-      <CategoryControl setnameCategory={setnameCategory} />
+      <CategoryControl />
       <div className="container">
         <ProductMajor />
       </div>

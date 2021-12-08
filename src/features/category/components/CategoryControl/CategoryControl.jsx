@@ -25,7 +25,7 @@ import { getSubjects, getTeacher, productFilter } from './../../redux/category.s
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
-const CategoryControl = ({setnameCategory}) => {
+const CategoryControl = () => {
   const {id}  = useParams()
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
@@ -91,7 +91,6 @@ const CategoryControl = ({setnameCategory}) => {
   };
   // filter 
   const ChangeFilter = (e,type)=>{
-    setnameCategory(e.label)
     const data ={
       major_id : id,
       id : e.value,
