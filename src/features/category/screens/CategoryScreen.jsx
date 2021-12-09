@@ -32,6 +32,7 @@ const CategoryScreen = () => {
             </div>
           </PendingSearch>
         ) : (
+         
           <ProductMajor />
         
         )}

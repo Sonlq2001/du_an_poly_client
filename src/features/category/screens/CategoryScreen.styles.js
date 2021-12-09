@@ -112,7 +112,7 @@ export const MasonryActionItem = styled.div`
 `;
 export const PendingSearch = styled.div`
   min-height: 100vh;
-  background-color: #9e404026;
+  background-color: #d0caca26;
   border-radius: 10px;
   .group-pending {
     position: absolute;
