@@ -12,10 +12,7 @@ import Loading from 'components/Loading/Loading';
 const ProfileScreens = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product, profile, loading } = useSelector(
-    (state) => state.productProfile
-  );
-
+  const { product, profile ,loading} = useSelector((state) => state.productProfile);
   const getDatas = useCallback(() => {
     dispatch(getProfile(id));
     dispatch(getData(id));
@@ -23,12 +20,10 @@ const ProfileScreens = () => {
 
   useEffect(() => {
     getDatas();
-  }, [dispatch, getDatas]);
-
-  if (loading) {
-    return <Loading />;
+  }, [dispatch,getDatas]);
+  if(loading){
+    return <Loading />
   }
-
   return (
     <div className="container">
       <WrapPage className="profile">
@@ -39,7 +34,7 @@ const ProfileScreens = () => {
             <div className="messengers"> Profile không tồn tại ! </div>
           </>
         ) : (
-          <Loading />
+          <div className="messengers">  Profile không tồn tại !  </div>
         )}
       </WrapPage>
     </div>
