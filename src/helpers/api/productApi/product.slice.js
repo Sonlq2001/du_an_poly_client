@@ -4,7 +4,7 @@ import { productApi } from './product.api';
 
 export const getProducts = createAsyncThunk('product/getProducts', async () => {
   try {
-    await productApi.getProducts();
+ await  productApi.getProducts();
   } catch (error) {}
 });
 

@@ -14,57 +14,7 @@ export const MasonryLayout = styled.div`
     column-count: 2;
   }
 `;
-export const LoadingComponment = styled.div`  
-    position: flex;
-    background-color: #8c898945;
-    width: 100%;
-    height: 100vh;
-    z-index: 1000;
-    border-radius: 10px;
-    top: 0;
-`
-export const LoadingContent  = styled.div`
-  position: absolute;
-  animation: loading 2s infinite  linear;
-  width: 100px;
-  height: 100px;
-  margin-top: 10rem;
-  left: 45%;
-  color: #827979;
-  font-size: 100px;
-  @keyframes loading {
-      0% {
-        transform:  rotate(0deg);
-      }
-      100% {
-        transform:  rotate(360deg);
-      }
-    }
 
-`
-export const WrapLoader = styled.div`
-    position: absolute;
-    margin-top: 10rem;
-    left: 45%;
-  .loader {
-    border: 1.5px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 1.5px solid var(--first-color);
-    border-bottom: 1.5px solid var(--first-color);
-    width: 50px;
-    height: 50px;
-    left: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
 export const MasonryHeader = styled.div`
   position: relative;
   overflow: hidden;
@@ -158,5 +108,21 @@ export const MasonryActionItem = styled.div`
   .icon-bookmark:hover {
     color: var(--txt-color);
     transition: ease-in-out 0.3s;
+  }
+`;
+export const PendingSearch = styled.div`
+  min-height: 100vh;
+  background-color: #9e404026;
+  border-radius: 10px;
+  .group-pending {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .text-pending {
+    margin-top: 7rem;
+    font-size: 1.4rem;
+    color: var(--aaa-color);
   }
 `;

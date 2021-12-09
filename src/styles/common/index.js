@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const TitleMain = styled.h3`
-  text-align: center;
+  text-align:center;
   font-size: 2rem;
   line-height: 3rem;
-  text-transform: uppercase;
+  text-transform:uppercase;
   color: var(--txt-color);
+
   @media (max-width: 767.98px) {
     font-size: 1.8rem;
   }
