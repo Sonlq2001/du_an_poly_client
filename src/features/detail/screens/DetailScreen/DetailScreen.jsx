@@ -291,7 +291,7 @@ const DetailScreen = () => {
                             <span>Đánh giá</span>
                           </TitleMain>
 
-                          <RatingDetail />
+                            <RatingDetail />
 
                           <Feedback
                             valueSendCmt={valueSendCmt}
