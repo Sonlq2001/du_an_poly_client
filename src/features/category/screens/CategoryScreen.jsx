@@ -6,7 +6,8 @@ import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 import CategoryControl from './../components/CategoryControl/CategoryControl';
 import { getProductMajor } from './../redux/category.slice';
 import ProductMajor from '../components/productMajor/ProductMajor';
-import { LoadingComponment ,WrapLoader } from './CategoryScreen.styles';
+import { PendingSearch } from './CategoryScreen.styles';
+import Loading from 'components/Loading/Loading';
 
 const CategoryScreen = () => {
   const dispatch = useDispatch();
@@ -25,13 +26,14 @@ const CategoryScreen = () => {
       <CategoryControl />
       <div className="container">
         {loading ? (
-          <LoadingComponment>
-             <WrapLoader> 
-               <div className="loader"> </div>
-             </WrapLoader>
-          </LoadingComponment>
+          <PendingSearch>
+            <div className="group-pending">
+              <Loading nowrap={false} />
+            </div>
+          </PendingSearch>
         ) : (
-          <ProductMajor /> 
+          <ProductMajor />
+        
         )}
       </div>
     </>
