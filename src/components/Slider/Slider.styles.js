@@ -179,18 +179,6 @@ export const SearchComplete = styled.div`
       background: var(--bbb-color);
     }
   }
-  .label-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
-    font-size: 1.4rem;
-    border-bottom: 1px solid var(--eee-color);
-    color: var(--aaa-color);
-  }
-  .label-text {
-    padding-right: 1rem;
-  }
   .result-list {
     margin-top: 1rem;
   }
@@ -211,5 +199,10 @@ export const SearchComplete = styled.div`
   }
   .item-name {
     font-size: 1.3rem;
+  }
+  .no-result {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 2rem;
   }
 `;
