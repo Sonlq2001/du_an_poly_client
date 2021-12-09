@@ -62,7 +62,6 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   const [valueSendCmt, setValueSendCmt] = useState({
     product_id: id,
     comment: '',
