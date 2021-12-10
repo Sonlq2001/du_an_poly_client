@@ -12,6 +12,15 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getProductMajor = createAsyncThunk(
+  'home/productMajors',
+  async (id) => {
+    try {
+      const response = await homeApi.productMajor(id);
+      return response.data;
+    } catch (error) {}
+  }
+);
 export const searchData = createAsyncThunk('home/searchData', async (data) => {
   try {
     const response = await homeApi.searchData(data);
@@ -54,6 +63,10 @@ const homeSlice = createSlice({
     [searchData.rejected]: (state) => {
       state.isDataSearchLoading = false;
     },
+    // produt major
+    [getProductMajor.pending]: (state) => {},
+    [getProductMajor.fulfilled]: (state, action) => {},
+    [getProductMajor.rejected]: (state, action) => {},
   },
 });
 

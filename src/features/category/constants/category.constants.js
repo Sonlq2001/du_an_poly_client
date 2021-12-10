@@ -19,6 +19,7 @@ export const LIST_SORT = [
   { value: '1', label: 'Mới nhất' },
   { value: '2', label: 'Cũ nhất' },
   { value: '3', label: 'Nhiều lượt xem nhất' },
+  { value: '4', label: 'Nhiều lượt đánh giá ' },
 ];
 
 export const LIST_STATUS = [

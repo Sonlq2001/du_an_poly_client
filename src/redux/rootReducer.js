@@ -9,10 +9,10 @@ import ProfileReducer from 'features/profile/redux/profile.slice';
 import masterDataReducer from 'features/master-data/redux/master-data.slice';
 
 const rootReducer = combineReducers({
+  detailProduct: detailProductReducer,
   auth: authReducer,
   home: homeReducer,
   category: categoryReducer,
-  detailProduct: detailProductReducer,
   addProduct: productAddReducer,
   productProfile: ProfileReducer,
   masterData: masterDataReducer,

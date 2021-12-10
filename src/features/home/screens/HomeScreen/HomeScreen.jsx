@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,7 +18,6 @@ import Loading from 'components/Loading/Loading';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(
       getProducts({
@@ -43,10 +42,8 @@ const HomeScreen = () => {
       <Slider />
       <div className="container">
         <Majors />
-
         <GridWrap>
-          <TitleMain>Các sản phẩm nổi bật</TitleMain>
-
+        <TitleMain>Các sản phẩm nổi bật</TitleMain>
           <GridContent>
             {productsHome.map((item) => (
               <GridItem key={item?.id}>

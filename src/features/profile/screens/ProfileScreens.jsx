@@ -1,46 +1,59 @@
 import React, { useEffect, useCallback } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from 'components/Loading/Loading';
 
 import ProductProfile from '../components/product.Profile';
 import Profile from '../components/profile';
 import { WrapPage } from './Profile.styles';
-
+import NoResult from 'assets/images/no-result.png';
 import { getData, getProfile } from '../redux/profile.slice';
-import Loading from 'components/Loading/Loading';
+import { GroupNoResult } from 'styles/common/index';
 
 const ProfileScreens = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product, profile, loading } = useSelector(
-    (state) => state.productProfile
-  );
+  const { loadingProduct, loadingProfile, profile } = useSelector((state) => ({
+    loadingProduct: state.productProfile.loadingProduct,
+    profile: state.productProfile.profile,
+    loadingProfile: state.productProfile.loadingProfile,
+  }));
 
-  const getDatas = useCallback(() => {
-    dispatch(getProfile(id));
-    dispatch(getData(id));
+  const getDataProfile = useCallback(() => {
+    if (id) {
+      dispatch(getProfile(id));
+      dispatch(getData(id));
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
-    getDatas();
-  }, [dispatch, getDatas]);
+    getDataProfile();
+  }, [getDataProfile]);
 
-  if (loading) {
+  if (loadingProduct || loadingProfile || profile === null) {
     return <Loading />;
+  } else if (!profile) {
+    return (
+      <div className="container">
+        <GroupNoResult>
+          <div className="body-no-result">
+            <img src={NoResult} alt="" className="img-no-result" />
+            <div className="box-no-result">
+              <div className="label-no-result">Không tìm thấy kết quả nào</div>
+              <div className="des-no-result">
+                Hãy thử sử dụng các từ khóa chung chung hơn
+              </div>
+            </div>
+          </div>
+        </GroupNoResult>
+      </div>
+    );
   }
-
   return (
     <div className="container">
       <WrapPage className="profile">
-        {profile && product ? (
-          <>
-            <Profile id={id} profile={profile} />
-            <ProductProfile product={product || []} id={id} profile={profile} />
-            <div className="messengers"> Profile không tồn tại ! </div>
-          </>
-        ) : (
-          <Loading />
-        )}
+        <Profile />
+        <ProductProfile />
       </WrapPage>
     </div>
   );

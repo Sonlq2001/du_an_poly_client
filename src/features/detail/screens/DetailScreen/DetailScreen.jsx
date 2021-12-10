@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import Slider from 'react-slick';
 import { MdContentPaste } from 'react-icons/md';
 import { GoCommentDiscussion } from 'react-icons/go';
@@ -35,21 +35,23 @@ import Loading from 'components/Loading/Loading';
 import store from 'redux/store';
 
 const DetailScreen = () => {
-  const params = useParams();
-  const id = Number(params?.id);
+  const { id } = useParams();
   const dispatch = useDispatch();
   const { userLogin } = store.getState().auth;
-  const { isLoadingDetailProduct, detailProduct } = useSelector(
-    (state) => state.detailProduct
+  const { isLoadingDetailProduct, itemDetailProduct } = useSelector(
+    (state) => ({
+      itemDetailProduct: state.detailProduct?.itemDetailProduct,
+      isLoadingDetailProduct: state.detailProduct?.isLoadingDetailProduct,
+    })
   );
-  document.title = detailProduct?.name;
+  document.title = itemDetailProduct?.name;
 
   const settings = {
     customPaging: function (i) {
       return (
         <ListCurrentImg>
           <img
-            src={detailProduct?.product_galleries[i].image_url}
+            src={itemDetailProduct?.product_galleries[i].image_url}
             className="current-slide"
             alt=""
           />
@@ -65,11 +67,6 @@ const DetailScreen = () => {
     slidesToScroll: 1,
   };
 
-  const [valueSendCmt, setValueSendCmt] = useState({
-    product_id: id,
-    comment: '',
-  });
-
   useEffect(() => {
     if (id) {
       dispatch(getDetailProduct(id));
@@ -79,26 +76,29 @@ const DetailScreen = () => {
   if (isLoadingDetailProduct) {
     return <Loading />;
   }
+
   return (
     <WrapDetail>
       <Breadcrumb
         position={
-          !isLoadingDetailProduct && detailProduct ? detailProduct?.name : ''
+          !isLoadingDetailProduct && itemDetailProduct
+            ? itemDetailProduct?.name
+            : ''
         }
       />
       <div className="container">
-        {detailProduct ? (
+        {itemDetailProduct ? (
           <>
-            {detailProduct.status !== 3 ? (
+            {itemDetailProduct.status !== 3 ? (
               // status !=3 chi có thằng đó và giáo viên được xem
               <>
-                {userLogin.id === detailProduct.user_id ||
-                userLogin.id === detailProduct.teacher_id ? (
+                {userLogin.id === itemDetailProduct.user_id ||
+                userLogin.id === itemDetailProduct.teacher_id ? (
                   <>
                     <div className="row">
                       <div className="xl-7 lg-7">
                         <Slider {...settings}>
-                          {detailProduct?.product_galleries.map(
+                          {itemDetailProduct?.product_galleries.map(
                             (item, index) => (
                               <div key={index}>
                                 <img
@@ -113,11 +113,11 @@ const DetailScreen = () => {
                       </div>
                       <div className="xl-5 lg-5">
                         <div>
-                          <TitleProject>{detailProduct?.name}</TitleProject>
+                          <TitleProject>{itemDetailProduct?.name}</TitleProject>
                           <GroupMember>
                             <LabelProject>Thành viên nhóm: </LabelProject>
                             <div className="list-member">
-                              {detailProduct?.students.map((student) => (
+                              {itemDetailProduct?.students.map((student) => (
                                 <span className="item-member" key={student.id}>
                                   {student.email} - {student.student_code}
                                 </span>
@@ -130,7 +130,7 @@ const DetailScreen = () => {
                           </BoxProject>
                           <BoxProject>
                             <LabelProject>Giảng viên hướng dẫn:</LabelProject>
-                            {detailProduct?.teacher?.name}
+                            {itemDetailProduct?.teacher?.name}
                           </BoxProject>
                           <BoxProject>
                             <LabelProject>Chuyên ngành:</LabelProject>
@@ -142,7 +142,7 @@ const DetailScreen = () => {
                           </BoxProject>
                           <BoxProject>
                             <LabelProject>Kì học:</LabelProject>
-                            {detailProduct?.semester?.name}
+                            {itemDetailProduct?.semester?.name}
                           </BoxProject>
                         </div>
                       </div>
@@ -158,33 +158,35 @@ const DetailScreen = () => {
                             </TitleMain>
 
                             <Video
-                              className={detailProduct.status !== 3 && 'video'}
+                              className={
+                                itemDetailProduct?.status !== 3 && 'video'
+                              }
                             >
-                              {detailProduct.status === 3 ? (
+                              {itemDetailProduct?.status === 3 ? (
                                 <ReactPlayer
                                   width="100%"
                                   className="video"
                                   height="350px"
                                   playing
                                   controls={true}
-                                  url={detailProduct?.video_url}
+                                  url={itemDetailProduct?.video_url}
                                 />
                               ) : (
                                 <div>
                                   <h3>Link video</h3>
                                   <a
-                                    href={detailProduct.video_url}
+                                    href={itemDetailProduct?.video_url}
                                     target="_blank"
                                     rel="noreferrer"
                                   >
-                                    {detailProduct.video_url}
+                                    {itemDetailProduct?.video_url}
                                   </a>
                                 </div>
                               )}
                             </Video>
                             <ContentPost
                               dangerouslySetInnerHTML={{
-                                __html: detailProduct?.description,
+                                __html: itemDetailProduct?.description,
                               }}
                             />
 
@@ -193,7 +195,7 @@ const DetailScreen = () => {
                         </div>
                         <div className="xl-4">
                           <GroupBox>
-                            <AttachDoc data={detailProduct} />
+                            <AttachDoc data={itemDetailProduct} />
                           </GroupBox>
                         </div>
                       </div>
@@ -209,30 +211,29 @@ const DetailScreen = () => {
                 <div className="row">
                   <div className="xl-7 lg-7 md-12 md-12 col-12">
                     <Slider {...settings}>
-                      {detailProduct?.product_galleries.map((item, index) => (
-                        <div key={index}>
-                          <img
-                            src={item?.image_url}
-                            alt=""
-                            className="image-gallery"
-                          />
-                        </div>
-                      ))}
+                      {itemDetailProduct?.product_galleries.map(
+                        (item, index) => (
+                          <div key={index}>
+                            <img
+                              src={item?.image_url}
+                              alt=""
+                              className="image-gallery"
+                            />
+                          </div>
+                        )
+                      )}
                     </Slider>
                   </div>
                   <div className="xl-5 lg-5 md-12 sm-12 col-12">
                     <GroupContentDetail>
-                      <TitleProject>{detailProduct?.name}</TitleProject>
+                      <TitleProject>{itemDetailProduct?.name}</TitleProject>
 
-                      <RatingStar
-                        valueSendCmt={valueSendCmt}
-                        setValueSendCmt={setValueSendCmt}
-                      />
+                      <RatingStar />
 
                       <GroupMember>
                         <LabelProject>Thành viên nhóm: </LabelProject>
                         <div className="list-member">
-                          {detailProduct?.students.map((student) => (
+                          {itemDetailProduct?.students.map((student) => (
                             <span className="item-member" key={student.id}>
                               {student.email} - {student.student_code}
                             </span>
@@ -245,7 +246,7 @@ const DetailScreen = () => {
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Giảng viên hướng dẫn:</LabelProject>
-                        {detailProduct?.teacher?.name}
+                        {itemDetailProduct?.teacher?.name}
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Chuyên ngành:</LabelProject>
@@ -257,7 +258,7 @@ const DetailScreen = () => {
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Kì học:</LabelProject>
-                        {detailProduct?.semester?.name}
+                        {itemDetailProduct?.semester?.name}
                       </BoxProject>
                     </GroupContentDetail>
                   </div>
@@ -278,13 +279,12 @@ const DetailScreen = () => {
                             height="100%"
                             playing
                             controls={true}
-                            url={detailProduct?.video_url}
+                            url={itemDetailProduct?.video_url}
                           />
                         </Video>
-
                         <ContentPost
                           dangerouslySetInnerHTML={{
-                            __html: detailProduct?.description,
+                            __html: itemDetailProduct?.description,
                           }}
                         />
 
@@ -296,10 +296,7 @@ const DetailScreen = () => {
 
                           <RatingDetail />
 
-                          <Feedback
-                            valueSendCmt={valueSendCmt}
-                            setValueSendCmt={setValueSendCmt}
-                          />
+                          <Feedback />
                         </GroupFeedback>
                         {/* bài viết giới thiệu  */}
                       </div>
@@ -307,7 +304,7 @@ const DetailScreen = () => {
                     <div className="xl-4 lg-4 md-12 sm-12 col-12">
                       <div className="group-document">
                         <GroupBox>
-                          <AttachDoc data={detailProduct} />
+                          <AttachDoc data={itemDetailProduct} />
                         </GroupBox>
 
                         <GroupBox>

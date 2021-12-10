@@ -179,6 +179,7 @@ export const SearchComplete = styled.div`
       background: var(--bbb-color);
     }
   }
+
   .item-list {
     display: flex;
     align-items: center;
@@ -198,8 +199,7 @@ export const SearchComplete = styled.div`
     font-size: 1.3rem;
   }
   .no-result {
-    font-size: 1.5rem;
     text-align: center;
-    color: var(--aaa-color);
+    font-size: 1.4rem;
   }
 `;

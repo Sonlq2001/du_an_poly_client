@@ -19,7 +19,7 @@ export const MapOptionsCampuses = (array) => {
 export const MapOptionsLong = (array) => {
   if (Array.isArray(array)) {
     const handleResult = array.map((item) => ({
-      label: `${item.name.slice(0,20)+ "  ..."} `,
+      label: `${item.name.length > 22 ?    item.name.slice(0,20)+ "..." : item.name} `,
       value: item.id,
     }));
     return handleResult;

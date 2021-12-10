@@ -5,7 +5,7 @@ import { WrapLoader } from './Loading.styles';
 const LoadingSearch = () => {
   return (
     <WrapLoader>
-      <div className="loader"></div>
+      <div className="loader"> </div>
     </WrapLoader>
   );
 };

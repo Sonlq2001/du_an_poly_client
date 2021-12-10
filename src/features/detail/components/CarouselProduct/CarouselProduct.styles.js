@@ -11,19 +11,22 @@ export const Carousel = styled.div`
   .slick-list {
     margin: 0 -10px;
   }
+  
 `;
 export const ItemCarousel = styled.div`
   box-shadow: 0 0 1rem var(--ddd-color);
   border: 1px solid var(--ddd-color);
+  border-radius: 8px;
 `;
 export const ItemHeader = styled.div`
   position: relative;
   .img-carousel {
     vertical-align: middle;
     width: 100%;
-    height: auto;
+    height: 160px;
     image-rendering: pixelated;
     object-fit: cover;
+    border-radius: 5px;
   }
 `;
 

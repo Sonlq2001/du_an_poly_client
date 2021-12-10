@@ -111,3 +111,19 @@ export const MasonryActionItem = styled.div`
     transition: ease-in-out 0.3s;
   }
 `;
+export const PendingSearch = styled.div`
+  min-height: 100vh;
+  background-color: #d0caca26;
+  border-radius: 10px;
+  .group-pending {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .text-pending {
+    margin-top: 7rem;
+    font-size: 1.4rem;
+    color: var(--aaa-color);
+  }
+`;

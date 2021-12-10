@@ -29,37 +29,49 @@ import {
   putCommentReply,
 } from './../../redux/detail.slice';
 
-const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
+const Feedback = () => {
   const dispatch = useDispatch();
   const { id: productId } = useParams();
   const [actionComment, setActionComment] = useState(false);
   const [isOpenActionComment, setIsOpenActionComment] = useState(null);
   const [isOpenActionCommentReply, setIsOpenActionCommentReply] =
     useState(null);
-  const [isOpenEditComment, setIsOpenEditComment] = useState(null);
+  const [isOpenEditComment, setIsOpenEditComment] = useState(false);
   const [isOpenEditCommentReply, setIsOpenEditCommentReply] = useState(null);
   const [openReplyCmt, setOpenReplyCmt] = useState(null);
+
+  const [valueSendCmt, setValueSendCmt] = useState({
+    product_id: productId,
+    comment: '',
+  });
+
   const [commentReply, setCommentReply] = useState({
     id: '',
     product_id: '',
     comment: '',
   });
+
   useEffect(() => {
     if (productId) {
       dispatch(getCommentsOfProduct(productId));
     }
   }, [dispatch, productId]);
 
-  const { listComment, userLogin } = useSelector((state) => ({
-    listComment: state.detailProduct.listComment,
-    userLogin: state.auth.userLogin,
+  const { listComment, userLogin, starProduct } = useSelector((state) => ({
+    listComment: state.detailProduct?.listComment,
+    userLogin: state.auth?.userLogin,
+    starProduct: state.detailProduct.starProduct,
   }));
 
+  const startLengthUser = Array(starProduct).fill(0);
+
   const handleComment = async () => {
-    const response = await dispatch(postComment(valueSendCmt));
-    if (postComment.fulfilled.match(response)) {
-      setValueSendCmt({ ...valueSendCmt, comment: '' });
-      setActionComment(false);
+    if (valueSendCmt.comment !== '') {
+      const response = await dispatch(postComment(valueSendCmt));
+      if (postComment.fulfilled.match(response)) {
+        setValueSendCmt({ ...valueSendCmt, comment: '' });
+        setActionComment(false);
+      }
     }
   };
   const handleReplyCmt = async () => {
@@ -80,7 +92,8 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
   const handleEditComment = async () => {
     const response = await dispatch(putComment(valueSendCmt));
     if (putComment.fulfilled.match(response)) {
-      setIsOpenEditComment(null);
+      setIsOpenEditComment(false);
+      setValueSendCmt({ ...valueSendCmt, comment: '' });
     }
   };
 
@@ -108,10 +121,14 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                 placeholder="Đánh giá của bàn về sản phẩm !"
                 className="input-main"
                 name="comment"
+                value={isOpenEditComment ? '' : valueSendCmt.comment}
                 onClick={() => setActionComment(true)}
-                onChange={(e) =>
-                  setValueSendCmt({ ...valueSendCmt, comment: e.target.value })
-                }
+                onChange={(e) => {
+                  setValueSendCmt({
+                    ...valueSendCmt,
+                    comment: e.target.value,
+                  });
+                }}
               />
               {actionComment && (
                 <ActionComment>
@@ -125,7 +142,7 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                     Hủy
                   </button>
                   <button
-                    disabled={valueSendCmt.comment.length < 8}
+                    disabled={valueSendCmt.comment.length < 1}
                     className="btn-comment btn-send"
                     onClick={() => handleComment()}
                   >
@@ -152,11 +169,11 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                       {cmt?.get_info_user?.name}
                     </span>
                     <div className="star-comment">
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
+                      {startLengthUser.map((_param, index) => (
+                        <React.Fragment key={index}>
+                          <AiFillStar />
+                        </React.Fragment>
+                      ))}
                     </div>
 
                     <p className="content-comment">{cmt?.comment}</p>
