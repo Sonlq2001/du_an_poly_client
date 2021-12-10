@@ -18,16 +18,17 @@ export const getProfile = createAsyncThunk('profile/getProfile', async (id) => {
 const initialState = {
   product: [],
   loadingProduct: false,
-  loadingProflie :false,
+  loadingProfile: false,
   profile: null,
-  productUnactive:[]
+  productUnactive: [],
 };
 const ProfileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
     convertData: (state) => {
-      state.productUnactive = state.product && state.product.filter((item)=>  item.status === 0)
+      state.productUnactive =
+        state.product && state.product.filter((item) => item.status === 0);
     },
   },
   extraReducers: {
@@ -43,14 +44,14 @@ const ProfileSlice = createSlice({
     },
     // lấy profile
     [getProfile.pending]: (state) => {
-      state.loadingProflie = true;
+      state.loadingProfile = true;
     },
     [getProfile.fulfilled]: (state, action) => {
       state.profile = action.payload;
-      state.loadingProflie = false;
+      state.loadingProfile = false;
     },
     [getProfile.pending]: (state) => {
-      state.loadingProflie =false;
+      state.loadingProfile = false;
     },
   },
 });

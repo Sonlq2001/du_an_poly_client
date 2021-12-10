@@ -5,6 +5,9 @@ import { FcSearch, FcMenu } from 'react-icons/fc';
 import { GrBottomCorner } from 'react-icons/gr';
 import { RiCloseLine } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
+import { BiLogOut } from 'react-icons/bi';
+import { AiOutlineProfile } from 'react-icons/ai';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import {
   WrapHeader,
@@ -28,6 +31,7 @@ import { menubar } from './../../routes/routes.constants';
 import { postLogout } from './../../features/auth/redux/auth.slice';
 import { SEARCH_PATHS } from 'features/search/constants/search.paths';
 import { useQuery } from 'helpers/convert/use-query';
+import { PROFILE_PATHS } from 'features/profile/constants/profile.paths';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -106,7 +110,10 @@ const Header = () => {
                     <SubMenu>
                       {menu?.items.map((item) => (
                         <SubMeuItem key={item.id}>
-                          <Link to={`/category${item.path}`} className="link-sub">
+                          <Link
+                            to={`/category${item.path}`}
+                            className="link-sub"
+                          >
                             {item?.icon && <span>{item.icon}</span>}
                             <span>{item.navigationTitle}</span>
                           </Link>
@@ -162,12 +169,15 @@ const Header = () => {
                       {!menu.title && <div className="line-menu" />}
                       {menu?.items.map((item) => (
                         <li className="item-bar" key={item.id}>
-                          <Link to={`/category/${item.path}`} className="link-bar">
+                          <Link
+                            to={`/category/${item.path}`}
+                            className="link-bar"
+                          >
                             <span className="icon-bar">
                               {item?.icon && item.icon}
                             </span>
                             <span className="txt-bar">
-                              {item.navigationTitle}  
+                              {item.navigationTitle}
                             </span>
                           </Link>
                         </li>
@@ -195,13 +205,35 @@ const Header = () => {
                     </span>
                   </GroupUser>
 
-                  {isUserAction && (
-                    <div className="action-user">
+                  <OutsideClickHandler
+                    onOutsideClick={() => {
+                      setIsUserAction(false);
+                    }}
+                  >
+                    <div
+                      className={`action-user ${isUserAction ? 'active' : ''}`}
+                    >
+                      <button className="item-user">
+                        <Link
+                          to={PROFILE_PATHS.PROFILE.replace(
+                            /:id/,
+                            userLogin?.id
+                          )}
+                        >
+                          <span className="item-icon">
+                            <AiOutlineProfile />
+                          </span>
+                          Thông tin cá nhân
+                        </Link>
+                      </button>
                       <button className="item-user" onClick={handleLogout}>
+                        <span className="item-icon">
+                          <BiLogOut />
+                        </span>
                         Đăng xuất
                       </button>
                     </div>
-                  )}
+                  </OutsideClickHandler>
                 </GroupLogin>
               ) : (
                 <Link to="/sign-in" className="link-menu">
