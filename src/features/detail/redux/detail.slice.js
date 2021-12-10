@@ -3,14 +3,28 @@ import _get from 'lodash.get';
 import { detailProductApi } from './../api/detail.api';
 
 export const getDetailProduct = createAsyncThunk(
-  'detail/getDetailProduct',
+  'detailProduct/getDetailProduct',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
-      return response.data;
+      const dataDetailProduct = {
+        data: response.data?.data,
+        star: response.data?.star.rating,
+      };
+      return dataDetailProduct;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
+  }
+);
+
+export const postProductRating = createAsyncThunk(
+  'detail/postProductRating',
+  async (countRating) => {
+    try {
+      const response = await detailProductApi.postProductRating(countRating);
+      console.log(response);
+    } catch (error) {}
   }
 );
 
@@ -20,7 +34,6 @@ export const getCommentsOfProduct = createAsyncThunk(
     try {
       const response = await detailProductApi.getCommentsOfProduct(id);
       return response.data;
-     
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
@@ -44,7 +57,7 @@ export const postCommentReply = createAsyncThunk(
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postCommentReply(comment);
-      console.lgo(" trả lời ",response.data)
+      console.lgo(' trả lời ', response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
@@ -100,12 +113,28 @@ export const putCommentReply = createAsyncThunk(
   }
 );
 
+export const getCountStar = createAsyncThunk(
+  'detail/getCountStar',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await detailProductApi.getCountStar(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
+
 const initialState = {
-  detailProduct: null,
+  itemDetailProduct: null,
   isLoadingDetailProduct: false,
 
   listComment: [],
   isListCommentLoading: false,
+
+  countStar: null,
+  isCountStarLoading: null,
+  starProduct: null,
 };
 
 const detailProductSlice = createSlice({
@@ -117,10 +146,10 @@ const detailProductSlice = createSlice({
     },
     [getDetailProduct.fulfilled]: (state, action) => {
       state.isLoadingDetailProduct = false;
-      state.detailProduct = action.payload.data;
+      state.itemDetailProduct = action.payload?.data;
+      state.starProduct = action.payload?.star;
     },
     [getDetailProduct.rejected]: (state) => {
-      state.detailProduct = null;
       state.isLoadingDetailProduct = false;
     },
 
@@ -213,6 +242,12 @@ const detailProductSlice = createSlice({
     },
     [putCommentReply.rejected]: (state) => {
       state.isListCommentLoading = false;
+    },
+
+    // count star
+    [getCountStar.fulfilled]: (state, action) => {
+      state.isCountStarLoading = false;
+      state.countStar = action.payload.data;
     },
   },
 });

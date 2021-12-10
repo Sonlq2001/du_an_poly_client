@@ -9,7 +9,6 @@ const DETAIL_SCREEN = {
   id: 'id_detail',
   path: DETAIL_PATHS.DETAIL_PRODUCT,
   component: DetailScreen,
-  titlePage: 'Chi tiết sản phẩm',
 };
 
 export const DETAIL_ROUTES = [DETAIL_SCREEN];

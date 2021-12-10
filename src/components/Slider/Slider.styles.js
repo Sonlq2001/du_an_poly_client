@@ -159,7 +159,7 @@ export const SearchComplete = styled.div`
     padding-left: 5px;
   }
   .search-result {
-    padding: 0 1rem 2rem 1rem;
+    padding: 2rem 1rem 2rem 1rem;
     max-height: 20rem;
     overflow-y: auto;
     /* width */
@@ -179,9 +179,7 @@ export const SearchComplete = styled.div`
       background: var(--bbb-color);
     }
   }
-  .result-list {
-    margin-top: 1rem;
-  }
+
   .item-list {
     display: flex;
     align-items: center;
@@ -203,6 +201,5 @@ export const SearchComplete = styled.div`
   .no-result {
     text-align: center;
     font-size: 1.4rem;
-    margin-top: 2rem;
   }
 `;

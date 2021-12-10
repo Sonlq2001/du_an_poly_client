@@ -189,8 +189,10 @@ export const ActionComment = styled.div`
   .btn-cancel:hover {
     background-color: var(--ddd-color);
   }
-  .btn-comment:disabled:hover{
-    cursor: not-allowed;
+  .btn-comment:disabled {
+    cursor: default;
+    background-color: var(--eee-color);
+    color: var(--txt-color);
   }
   .btn-send {
     background-color: var(--first-color);

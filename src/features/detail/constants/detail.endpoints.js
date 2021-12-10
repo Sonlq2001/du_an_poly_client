@@ -1,5 +1,6 @@
 export const DETAIL_ENDPOINTS = {
   GET_PRODUCT_DETAIL: '/products/:id',
+  POST_PRODUCT_RATING: '/products/rating/:id',
   GET_COMMENTS: '/comments',
   GET_COMMENTS_OF_PRODUCT: '/comments-of-product/:id',
   POST_COMMENT: '/comments',
@@ -8,4 +9,5 @@ export const DETAIL_ENDPOINTS = {
   DELETE_COMMENT: '/comments/delete/:id',
   PUT_COMMENT: '/comments/edit/:id',
   PUT_COMMENT_REPLY: '/comments/edit/reply/:id',
+  GET_COUNT_STAR: '/products/count-star/:id',
 };

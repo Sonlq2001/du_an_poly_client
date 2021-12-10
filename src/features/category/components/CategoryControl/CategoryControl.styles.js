@@ -67,10 +67,10 @@ export const GroupLinkFilter = styled.div`
   }
   .link-cate {
     color: #6e6d7a;
-    font-size: 1.31rem;
+    font-size: 1.3rem;
     width: 100%;
     display: block;
-    text-align: center;
+    text-align: left;
     margin: 0 1rem;
   }
   .link-cate:hover {
