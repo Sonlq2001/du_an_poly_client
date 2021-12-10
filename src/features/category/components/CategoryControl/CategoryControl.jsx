@@ -99,7 +99,6 @@ const CategoryControl = () => {
     switch (type) {
       case 1: {
         const data = {
-          major_id: Number(id),
           subject_id: id_comon,
         };
         dispatch(productFilter(data));

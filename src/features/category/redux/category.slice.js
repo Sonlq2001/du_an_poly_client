@@ -90,27 +90,31 @@ const categorySlice = createSlice({
         state.loading =  false
     },
     [getTeacher.rejected] :(state)=>{
-      state.loading =  false
+
         state.listTeacher = []
+        state.loading =  false
     },
     [productFilter.pending] : (state)=>{
       state.loading =  true
     },
     [productFilter.fulfilled] : (state,action)=>{
-      state.loading =  false
+   
       state.productMajor = action.payload.data
+      state.loading =  false
     },
     [productFilter.rejected] : (state)=>{
-      state.loading =  false
+      
         state.productMajor = []
+        state.loading =  false
     },
     // seach tìm kiêm 
     [seachProduct.pending] : (state)=>{
       state.loading =  true
     },
     [seachProduct.fulfilled] : (state,action)=>{
-      state.loading =  false
+      
       state.productMajor = action.payload.data
+      state.loading =  false
     },
     [seachProduct.rejected] : (state)=>{
       state.loading =  false
@@ -121,12 +125,14 @@ const categorySlice = createSlice({
       state.loading =  true
     },
     [sortProduct.fulfilled] : (state,action)=>{
-      state.loading =  false
+
       state.productMajor = action.payload.data
+      state.loading =  false
     },
     [sortProduct.rejected] : (state)=>{
-      state.loading =  false
+    
       state.productMajor = []
+      state.loading =  false
     }
   },
 });

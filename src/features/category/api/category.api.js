@@ -16,7 +16,7 @@ const teacherApi = (data)=>{
   return  api.post(FILTER_PRODUCT.FILTER_PATH ,data)
 }
 const filterProduct = (data)=>{
-  return api.post(FILTER_PRODUCT.FILTER_PATH,data)
+  return api.post(FILTER_PRODUCT.FILTER_CATEGORY,data)
 }
 const seachCategory = (data)=>{
   return api.post(FILTER_PRODUCT.SEACH_CATEGORY,data)
