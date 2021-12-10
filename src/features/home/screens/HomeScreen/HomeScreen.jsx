@@ -15,6 +15,7 @@ import {
 } from './HomeScreen.styles';
 import { getProducts } from '../../redux/home.slice';
 import Loading from 'components/Loading/Loading';
+import { Link } from 'react-router-dom';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,6 @@ const HomeScreen = () => {
     productsHome: state.home?.productsHome,
     isProductsHomeLoading: state.home?.isProductsHomeLoading,
   }));
-
   if (isProductsHomeLoading) {
     return <Loading />;
   }
@@ -47,9 +47,10 @@ const HomeScreen = () => {
           <GridContent>
             {productsHome.map((item) => (
               <GridItem key={item?.id}>
-                <img src={item?.image} alt={item?.name} />
+              
+                <Link to={`/product/${item.id}`} >   <img src={item?.image} alt={item?.name} /></Link>
                 <GridContentItem>
-                  <div className="item-title">{item?.name}</div>
+                  <div className="item-title"><Link to={`/product/${item.id}`} > {item?.name}</Link></div>
                   <div className="item-view">
                     <span className="item-icon">
                       <AiOutlineEye />
