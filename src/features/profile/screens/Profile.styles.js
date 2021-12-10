@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-export const WrapPage = styled.div`
+export const WrapePage = styled.div`
   padding: 5px 0px;
   & .messengers {
     padding: 5rem 0rem;
