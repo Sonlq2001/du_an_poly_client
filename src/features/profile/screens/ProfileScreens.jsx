@@ -10,31 +10,28 @@ import Loading from 'components/Loading/Loading';
 const ProfileScreens = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { product, profile ,loading} = useSelector((state) => state.productProfile);
+  const {loadingProduct,loadingProflie,profile} = useSelector((state) => state.productProfile);
   const getDatas = useCallback(() => {
     dispatch(getProfile(id));
-    dispatch(getData(id));
+  }, [dispatch, id]);
+  const getDatasProduct= useCallback(() => {
+       dispatch(getData(id));
   }, [dispatch, id]);
   useEffect(() => {
     getDatas();
-  }, [dispatch,getDatas]);
-  if(loading){
+    getDatasProduct()
+  }, [dispatch,getDatas,getDatasProduct]);
+
+  if(loadingProduct || loadingProflie ||  profile === null ){
     return <Loading />
+  }else if(!profile){
+    return <div className='container'> vui lòng thử lại sau </div>
   }
   return (
     <div className="container">
       <WrapePage className="profile">
-        {profile !== null ? (
-          <> {profile !== undefined ? 
-            <>
-            <Profile id={id} profile={profile} />
-            <ProductProfile product={product || []} id={id} profile={profile} />
-            </>
-            :<div className="messengers">  Profile không tồn tại !  </div>}
-          </>
-        ) : (
-          <div className="messengers">  Profile không tồn tại !  </div>
-        )}
+          <Profile/>
+          <ProductProfile/>
       </WrapePage>
     </div>
   );

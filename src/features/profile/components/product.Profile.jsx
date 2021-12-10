@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import Pagination from './Pagination';
 import ProductUnactive  from "./productUnactive"
 import { useSelector } from 'react-redux';
-const ProductProfile = ({ id, profile ,product}) => {
+const ProductProfile = () => {
   const str = 'Website xây dựng bán hàng toàn quốc';
   const [toggle, setToggle] = useState(1);
   const { userLogin } = useSelector((state) => state.auth);
+  const {profile,product} = useSelector((state) => state.productProfile);
   // cắt chuỗi khi chuỗi quá dài
   return (
     <ProductFile>
@@ -16,7 +17,7 @@ const ProductProfile = ({ id, profile ,product}) => {
           className={toggle === 1 ? 'active-tabs' : ''}
           onClick={() => setToggle(1)}
         >
-          Project
+          Sản Phẩm 
         </button>
         <button
           hidden={
