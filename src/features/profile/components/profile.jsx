@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { HeaderProfile, Avatar, Information } from './style';
 import { Formik } from 'formik';
-import { initForm } from '../helpers/profile.helpers';
-
 import { useSelector } from 'react-redux';
+import { initForm } from '../helpers/profile.helpers';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
+
 const Profile = () => {
   const [status, setStatus] = useState(false);
   const { userLogin } = useSelector((state) => state.auth);
-  const {profile} = useSelector((state) => state.productProfile);
+  const { profile } = useSelector((state) => state.productProfile);
+
   return (
     <HeaderProfile>
+      <Breadcrumb position="Thông tin cá nhân" />
       <div className="profile">
         <Avatar className="avatar">
           <img
             src={
               profile?.avatar
                 ? profile.avatar
-                :"https://i.pinimg.com/236x/8d/a5/c3/8da5c3a06407303694d6381b23368f02.jpg"
+                : 'https://i.pinimg.com/236x/8d/a5/c3/8da5c3a06407303694d6381b23368f02.jpg'
             }
             alt=""
           />
         </Avatar>
 
         <Information className="information">
-          {profile ?  (
+          {profile ? (
             <div className="left">
               <li>Họ và Tên </li>
               <li>Email </li>
@@ -33,7 +36,9 @@ const Profile = () => {
               <li className={status && 'label'}>Cv cá nhân</li>
               <li className={status && 'label'}>Facebook cá nhân </li>
             </div>
-          ) : ""}
+          ) : (
+            ''
+          )}
           <div className="rigth">
             {profile && profile?.name ? <li>{profile?.name} </li> : ''}
             {profile && profile?.email ? <li>{profile?.email} </li> : ''}
