@@ -213,19 +213,16 @@ const Header = () => {
                     <div
                       className={`action-user ${isUserAction ? 'active' : ''}`}
                     >
-                      <button className="item-user">
-                        <Link
-                          to={PROFILE_PATHS.PROFILE.replace(
-                            /:id/,
-                            userLogin?.id
-                          )}
-                        >
+                      <Link
+                        to={PROFILE_PATHS.PROFILE.replace(/:id/, userLogin?.id)}
+                      >
+                        <button className="item-user">
                           <span className="item-icon">
                             <AiOutlineProfile />
                           </span>
                           Thông tin cá nhân
-                        </Link>
-                      </button>
+                        </button>
+                      </Link>
                       <button className="item-user" onClick={handleLogout}>
                         <span className="item-icon">
                           <BiLogOut />
