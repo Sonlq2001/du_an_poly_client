@@ -82,7 +82,6 @@ const AddProduct = () => {
       setListImage(listImages.filter((_, index) => index !== key));
     } catch (error) {}
   };
-
   const EmailChange = (e, key) => {
     const valueEmail = e.target.value;
     email = [...groupCodeStudent];
@@ -108,7 +107,7 @@ const AddProduct = () => {
             // newObjProduct.resource_url = LinkDoc;
             // setLoadingButton(STATUS_KEY_INPUT.LOADING);
             // setDisableButton(true);
-console.log("newObjProduct",detailProduct)
+            console.log("newObjProduct",detailProduct)
             // const response = await dispatch(postAddProduct(newObjProduct));
             // if (postAddProduct.fulfilled.match(response)) {
             //   toast.success('Thêm sản phẩm thành công !');

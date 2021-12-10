@@ -1,5 +1,5 @@
 import React, { memo, useState, useRef, useEffect, useCallback } from 'react';
-import {  Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BsFilter } from 'react-icons/bs';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { CgSearch } from 'react-icons/cg';
@@ -17,43 +17,48 @@ import {
   GroupFilterAdvance,
   CustomerSelect,
 } from './CategoryControl.styles';
+import { LIST_SORT, LIST_MAJOR } from './../../constants/category.constants';
 import {
-  LIST_SORT,
-  LIST_MAJOR,
-} from './../../constants/category.constants';
-import { getSubjects, getTeacher, productFilter } from './../../redux/category.slice';
+  getSubjects,
+  getTeacher,
+  productFilter,
+  seachProduct,
+  getProductMajor,
+  sortProduct,
+} from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
 const CategoryControl = () => {
-  const {id}  = useParams()
+  const { id } = useParams();
   const [isToggle, setIsToggle] = useState(false);
   const dispatch = useDispatch();
   const dataSubject = useCallback(() => {
     dispatch(getSubjects(id));
-  },[dispatch,id]);
+  }, [dispatch, id]);
   const dataCampuse = useCallback(() => {
     dispatch(getCampuses());
-  },[dispatch]);
-  const dataTeacher = useCallback(()=>{
+  }, [dispatch]);
+  const dataTeacher = useCallback(() => {
     const data = {
-        id: id,
-        type:"teacher_user_major"
-    }
-  dispatch(getTeacher(data))
-  },[dispatch,id])
+      id: id,
+      type: 'teacher_user_major',
+    };
+    dispatch(getTeacher(data));
+  }, [dispatch, id]);
   useEffect(() => {
     dataSubject();
     dataCampuse();
-    dataTeacher()
-  }, [dispatch, dataSubject, dataCampuse,dataTeacher]);
+    dataTeacher();
+  }, [dispatch, dataSubject, dataCampuse, dataTeacher]);
 
-  const { listSubject,listTeacher } = useSelector((state) => state.category);
+  const { listSubject, listTeacher } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
   const optionSubject = MapOptionsLong(listSubject);
   const optionListCampus = MapOptions(listCampus);
-  const optionTeacher = MapOptionsLong(listTeacher)
+  const optionTeacher = MapOptionsLong(listTeacher);
   const WrapCate = useRef(null);
+  const timeOutString = useRef(null);
   const handlePrev = () => {
     const cateSlide = WrapCate.current;
     cateSlide.scrollLeft -= cateSlide.offsetWidth;
@@ -88,16 +93,69 @@ const CategoryControl = () => {
     dot: false,
     draggable: true,
   };
-  // filter 
-  const ChangeFilter = (e,type)=>{
-    const data ={
-      major_id : id,
-      id : e.value,
-      type : type
-    } 
-    dispatch(productFilter(data))
-  }
+  // filter
+  const ChangeFilter = (e, type) => {
+    const id_comon = e.value;
+    switch (type) {
+      case 1: {
+        const data = {
+          major_id: Number(id),
+          subject_id: id_comon,
+        };
+        dispatch(productFilter(data));
+        break;
+      }
+      case 2: {
+        const data = {
+          major_id: Number(id),
+          user_id: id_comon,
+        };
+        dispatch(productFilter(data));
+        break;
+      }
+      case 3: {
+        const data = {
+          major_id: Number(id),
+          campus_id: id_comon,
+        };
+        dispatch(productFilter(data));
+        break;
+      }
+      case 4: {
+        const data = {
+          major_id: Number(id),
+          value: id_comon,
+        };
+        dispatch(sortProduct(data));
+        break;
+      }
+      default:
+    }
   
+  };
+  const ChangeSearch = (e) => {
+    const value = {
+      major_id: Number(id),
+      text: e.target.value,
+    };
+
+    if (!e.target.value) {
+      if (timeOutString.current) {
+        clearTimeout(timeOutString.current);
+      }
+      timeOutString.current = setTimeout(() => {
+        dispatch(getProductMajor(id));
+      }, 500);
+    } else {
+      if (timeOutString.current) {
+        clearTimeout(timeOutString.current);
+      }
+      timeOutString.current = setTimeout(() => {
+        dispatch(seachProduct(value));
+      }, 500);
+    }
+  };
+
   return (
     <WrapControl>
       <div className="container">
@@ -159,6 +217,7 @@ const CategoryControl = () => {
                 type="text"
                 className="input-filter"
                 placeholder="Tên sản phẩm, mã sinh viên..."
+                onKeyUp={(e) => ChangeSearch(e)}
               />
             </div>
           </SearchAdvance>
@@ -171,7 +230,7 @@ const CategoryControl = () => {
                 options={optionSubject ? optionSubject : []}
                 placeholder="Tìm theo môn học"
                 theme={customTheme}
-                onChange = {(e)=> ChangeFilter(e,"subject_id")}
+                onChange={(e) => ChangeFilter(e, 1)}
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -182,11 +241,11 @@ const CategoryControl = () => {
             </label>
             <CustomerSelect>
               <Select
-                options={optionTeacher? optionTeacher : []}
+                options={optionTeacher ? optionTeacher : []}
                 placeholder="Tìm theo giáo viên"
                 theme={customTheme}
                 // noOptionsMessage="le quang son"
-                onChange = {(e)=> ChangeFilter(e,"teacher_id")}
+                onChange={(e) => ChangeFilter(e, 2)}
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -200,8 +259,7 @@ const CategoryControl = () => {
                 placeholder="Tìm theo cơ sở "
                 theme={customTheme}
                 noOptionsMessage="le quang son"
-                onChange = {(e)=> ChangeFilter(e,"campus")}
-
+                onChange={(e) => ChangeFilter(e, 3)}
               />
             </CustomerSelect>
           </SearchAdvance>
@@ -214,7 +272,7 @@ const CategoryControl = () => {
                 options={LIST_SORT}
                 placeholder="Xắp xếp theo"
                 theme={customTheme}
-                onChange = {(e)=> ChangeFilter(e,"sort")}
+                onChange={(e) => ChangeFilter(e,4)}
               />
             </CustomerSelect>
           </SearchAdvance>

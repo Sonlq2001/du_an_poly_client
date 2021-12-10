@@ -7,6 +7,7 @@ export const fetchData = createAsyncThunk('home/fetchData', async () => {
 });
 export const getProductMajor = createAsyncThunk("home/productMajors", async (id)=>{
   try {
+
    const response = await homeApi.productMajor(id)
    return  response.data
   } catch (error) {
@@ -23,7 +24,6 @@ export const searchData = createAsyncThunk('home/searchData', async (data) => {
 const initialState = {
   data: [],
   loading: false,
-
   dataSearch: [],
   isDataSearchLoading: false,
 };
