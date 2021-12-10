@@ -22,7 +22,7 @@ const seachCategory = (data)=>{
   return api.post(FILTER_PRODUCT.SEACH_CATEGORY,data)
 }
 const sortCategory = (data)=>{
-  return api.get(`/client/?majorId=${data.major_id}&sortBy=${data.value}`)
+  return api.get(`/client/sort?majorId=${data.major_id}&sortBy=${data.value}`)
 }
 export const categoryApi = {
   getMajors,
