@@ -29,36 +29,49 @@ import {
   putCommentReply,
 } from './../../redux/detail.slice';
 
-const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
+const Feedback = () => {
   const dispatch = useDispatch();
   const { id: productId } = useParams();
   const [actionComment, setActionComment] = useState(false);
   const [isOpenActionComment, setIsOpenActionComment] = useState(null);
   const [isOpenActionCommentReply, setIsOpenActionCommentReply] =
     useState(null);
-  const [isOpenEditComment, setIsOpenEditComment] = useState(null);
+  const [isOpenEditComment, setIsOpenEditComment] = useState(false);
   const [isOpenEditCommentReply, setIsOpenEditCommentReply] = useState(null);
   const [openReplyCmt, setOpenReplyCmt] = useState(null);
+
+  const [valueSendCmt, setValueSendCmt] = useState({
+    product_id: productId,
+    comment: '',
+  });
+
   const [commentReply, setCommentReply] = useState({
     id: '',
     product_id: '',
     comment: '',
   });
+
   useEffect(() => {
     if (productId) {
       dispatch(getCommentsOfProduct(productId));
     }
   }, [dispatch, productId]);
-  const { listComment, userLogin } = useSelector((state) => ({
-    listComment: state.detailProduct.listComment,
-    userLogin: state.auth.userLogin,
+
+  const { listComment, userLogin, starProduct } = useSelector((state) => ({
+    listComment: state.detailProduct?.listComment,
+    userLogin: state.auth?.userLogin,
+    starProduct: state.detailProduct.starProduct,
   }));
 
+  const startLengthUser = Array(starProduct).fill(0);
+
   const handleComment = async () => {
-    const response = await dispatch(postComment(valueSendCmt));
-    if (postComment.fulfilled.match(response)) {
-      setValueSendCmt({ ...valueSendCmt, comment: '' });
-      setActionComment(false)
+    if (valueSendCmt.comment !== '') {
+      const response = await dispatch(postComment(valueSendCmt));
+      if (postComment.fulfilled.match(response)) {
+        setValueSendCmt({ ...valueSendCmt, comment: '' });
+        setActionComment(false);
+      }
     }
   };
   const handleReplyCmt = async () => {
@@ -79,7 +92,8 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
   const handleEditComment = async () => {
     const response = await dispatch(putComment(valueSendCmt));
     if (putComment.fulfilled.match(response)) {
-      setIsOpenEditComment(null);
+      setIsOpenEditComment(false);
+      setValueSendCmt({ ...valueSendCmt, comment: '' });
     }
   };
 
@@ -93,49 +107,52 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
   return (
     <>
       <GroupComment>
-        {userLogin !== null && 
-        <EditorCommentMain>
-          <img
-            src={userLogin?.avatar || AvatarEmpty}
-            alt=""
-            className="user-comment"
-          />
-
-          <div className="comment-main">
-            <input
-              type="text"
-              placeholder="Đánh giá của bàn về sản phẩm !"
-              className="input-main"
-              name="comment"
-              onClick={() => setActionComment(true) }
-              onChange={(e) =>
-                setValueSendCmt({ ...valueSendCmt, comment: e.target.value })
-              }
-              value={valueSendCmt.comment}
+        {userLogin !== null && (
+          <EditorCommentMain>
+            <img
+              src={userLogin?.avatar || AvatarEmpty}
+              alt=""
+              className="user-comment"
             />
-            {actionComment && (
-              <ActionComment>
-                <button
-                  className="btn-comment btn-cancel"
-                  onClick={() => {
-                    setActionComment(false);
-                    setValueSendCmt({ ...valueSendCmt, comment:'' });
-                  }}
-                >
-                  Hủy
-                </button>
-                <button
-                disabled={valueSendCmt.comment.length<8}
-                  className="btn-comment btn-send"
-                  onClick={() => handleComment()}
-                >
-                  Bình luận
-                </button>
-              </ActionComment>
-            )}
-          </div>
-        </EditorCommentMain>
-        }
+
+            <div className="comment-main">
+              <input
+                type="text"
+                placeholder="Đánh giá của bàn về sản phẩm !"
+                className="input-main"
+                name="comment"
+                value={isOpenEditComment ? '' : valueSendCmt.comment}
+                onClick={() => setActionComment(true)}
+                onChange={(e) => {
+                  setValueSendCmt({
+                    ...valueSendCmt,
+                    comment: e.target.value,
+                  });
+                }}
+              />
+              {actionComment && (
+                <ActionComment>
+                  <button
+                    className="btn-comment btn-cancel"
+                    onClick={() => {
+                      setActionComment(false);
+                      setValueSendCmt({ ...valueSendCmt, comment: '' });
+                    }}
+                  >
+                    Hủy
+                  </button>
+                  <button
+                    disabled={valueSendCmt.comment.length < 1}
+                    className="btn-comment btn-send"
+                    onClick={() => handleComment()}
+                  >
+                    Bình luận
+                  </button>
+                </ActionComment>
+              )}
+            </div>
+          </EditorCommentMain>
+        )}
         {listComment &&
           listComment.length > 0 &&
           listComment.map((cmt) => {
@@ -152,11 +169,11 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                       {cmt?.get_info_user?.name}
                     </span>
                     <div className="star-comment">
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
-                      <AiFillStar />
+                      {startLengthUser.map((_param, index) => (
+                        <React.Fragment key={index}>
+                          <AiFillStar />
+                        </React.Fragment>
+                      ))}
                     </div>
 
                     <p className="content-comment">{cmt?.comment}</p>
@@ -185,7 +202,9 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                                 </button>
                                 <button
                                   className="rep-comment"
-                                  hidden={userLogin?.id !==cmt?.get_info_user?.id }
+                                  hidden={
+                                    userLogin?.id !== cmt?.get_info_user?.id
+                                  }
                                   onClick={() =>
                                     setIsOpenEditComment(cmt?.id) +
                                     setIsOpenActionComment(null) +
@@ -200,7 +219,9 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                                 </button>
                                 <button
                                   className="rep-comment"
-                                  hidden={userLogin?.id !==cmt?.get_info_user?.id }
+                                  hidden={
+                                    userLogin?.id !== cmt?.get_info_user?.id
+                                  }
                                   onClick={() => handleDeleteCmt(cmt?.id)}
                                 >
                                   Xóa
@@ -221,7 +242,7 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                   </div>
                 </ItemSendComment>
 
- {/* edit comment */}
+                {/* edit comment */}
                 {isOpenEditComment === cmt?.id && (
                   <div className="group-edit-comment">
                     <SubInputComment>
@@ -268,7 +289,7 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                   </div>
                 )}
 
-   {/* list comment reply */}
+                {/* list comment reply */}
                 <GroupRepComment>
                   {cmt?.get_reply?.map((cmtSub) => {
                     return (
@@ -313,7 +334,10 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                                       <div className="box-action">
                                         <button
                                           className="rep-comment"
-                                          hidden={userLogin?.id !== cmtSub?.get_info_user?.id }
+                                          hidden={
+                                            userLogin?.id !==
+                                            cmtSub?.get_info_user?.id
+                                          }
                                           onClick={() =>
                                             setIsOpenEditCommentReply(
                                               cmtSub?.id
@@ -332,7 +356,10 @@ const Feedback = ({ valueSendCmt, setValueSendCmt }) => {
                                         </button>
                                         <button
                                           className="rep-comment"
-                                          hidden={userLogin?.id !== cmtSub?.get_info_user?.id }
+                                          hidden={
+                                            userLogin?.id !==
+                                            cmtSub?.get_info_user?.id
+                                          }
                                           onClick={() =>
                                             handleDeleteCmtReply(cmtSub?.id)
                                           }

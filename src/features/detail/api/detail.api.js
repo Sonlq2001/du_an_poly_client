@@ -6,6 +6,13 @@ const getProductDetail = (id) => {
   return api.get(DETAIL_ENDPOINTS.GET_PRODUCT_DETAIL.replace(':id', id));
 };
 
+const postProductRating = (countRating) => {
+  return api.post(
+    DETAIL_ENDPOINTS.POST_PRODUCT_RATING.replace(':id', countRating.id),
+    countRating
+  );
+};
+
 const getCommentsOfProduct = (id) => {
   return api.get(DETAIL_ENDPOINTS.GET_COMMENTS_OF_PRODUCT.replace(/:id/, id));
 };
@@ -43,6 +50,10 @@ const putCommentReply = (comment) => {
   );
 };
 
+const getCountStar = (id) => {
+  return api.get(DETAIL_ENDPOINTS.GET_COUNT_STAR.replace(/:id/, id));
+};
+
 export const detailProductApi = {
   getProductDetail,
   getCommentsOfProduct,
@@ -52,4 +63,6 @@ export const detailProductApi = {
   deleteComment,
   putComment,
   putCommentReply,
+  postProductRating,
+  getCountStar,
 };

@@ -56,7 +56,7 @@ const Slider = () => {
           text: q,
         })
       );
-    }, 800);
+    }, 500);
   };
 
   const handleEnterSearch = (e) => {
@@ -133,7 +133,7 @@ const Slider = () => {
                           ))
                         ) : (
                           <div className="no-result">
-                            Không tìm thấy kết quả !
+                            Không tìm thấy kết quả
                           </div>
                         )}
                       </div>

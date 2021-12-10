@@ -1,11 +1,3 @@
-export const LIST_RATING = [
-  { star: 1, total_star: 10 },
-  { star: 2, total_star: 5 },
-  { star: 3, total_star: 25 },
-  { star: 4, total_star: 2 },
-  { star: 5, total_star: 15 },
-];
-
 export const LIST_TOOLS = [
   {
     img: 'https://techmaster.vn/media/fileman/Uploads/users/53/vscode.jpg',

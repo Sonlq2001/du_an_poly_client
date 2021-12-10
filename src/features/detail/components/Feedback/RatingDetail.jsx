@@ -1,10 +1,25 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { AiFillStar } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { GroupRating, RatingTotal, FilterRating } from './Feedback.styles';
-import { LIST_RATING } from './../../constants/detail.constants';
+import { getCountStar } from '../../redux/detail.slice';
 
 const RatingDetail = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getCountStar(id));
+    }
+  }, [dispatch, id]);
+
+  const { countStar } = useSelector((state) => ({
+    countStar: state.detailProduct.countStar,
+  }));
+
   return (
     <GroupRating>
       <RatingTotal>
@@ -22,15 +37,41 @@ const RatingDetail = () => {
       </RatingTotal>
 
       <FilterRating>
-        {LIST_RATING.map((itemStart) => (
-          <div className="item-rating" key={itemStart.star}>
-            <div className="item-rating__icon">
-              {itemStart.star}
-              <AiFillStar />
-            </div>
-            ({itemStart.total_star})
+        <div className="item-rating">
+          <div className="item-rating__icon">
+            1
+            <AiFillStar />
           </div>
-        ))}
+          ({countStar?.oneStar})
+        </div>
+        <div className="item-rating">
+          <div className="item-rating__icon">
+            2
+            <AiFillStar />
+          </div>
+          ({countStar?.twoStar})
+        </div>
+        <div className="item-rating">
+          <div className="item-rating__icon">
+            3
+            <AiFillStar />
+          </div>
+          ({countStar?.threeStar})
+        </div>
+        <div className="item-rating">
+          <div className="item-rating__icon">
+            4
+            <AiFillStar />
+          </div>
+          ({countStar?.fourStar})
+        </div>
+        <div className="item-rating">
+          <div className="item-rating__icon">
+            5
+            <AiFillStar />
+          </div>
+          ({countStar?.fiveStar})
+        </div>
       </FilterRating>
     </GroupRating>
   );

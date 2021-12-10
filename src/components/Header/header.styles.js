@@ -156,6 +156,7 @@ export const GroupLogin = styled.div`
   position: relative;
   .action-user {
     position: absolute;
+    top: 5rem;
     right: 0;
     margin-top: 1rem;
     background-color: var(--white-color);
@@ -163,6 +164,14 @@ export const GroupLogin = styled.div`
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 2px var(--eee-color);
+    transition: 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .action-user.active {
+    top: 3.5rem;
+    opacity: 1;
+    visibility: visible;
   }
   .item-user {
     border: none;
@@ -170,9 +179,14 @@ export const GroupLogin = styled.div`
     padding: 1rem 1.5rem;
     background-color: transparent;
     text-align: left;
+    display: flex;
+    align-items: center;
     &:hover {
       background-color: var(--eee-color);
     }
+  }
+  .item-icon {
+    padding-right: 1rem;
   }
 `;
 
