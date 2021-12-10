@@ -5,4 +5,5 @@ export const CATEGORY_ENDPOINTS = {
 };
 export const FILTER_PRODUCT = {
   FILTER_PATH : "/filter",
+  SEACH_CATEGORY : "/client/filter"
 }

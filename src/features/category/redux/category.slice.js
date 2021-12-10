@@ -21,7 +21,6 @@ export const getSubjects = createAsyncThunk('category/subjectMajor', async (id) 
     const response = await categoryApi.getSubject(id);
     return response.data.data;
   } catch (error) {
-    console.log("lỗi",error)
   }
 });
 export const getTeacher = createAsyncThunk("categoory/teacher", async (data)=>{
@@ -40,7 +39,22 @@ export const productFilter = createAsyncThunk("category/filterProduct", async (d
               console.log("lỗi", error)
           }
 })
-
+export const seachProduct = createAsyncThunk("category/seachProduct" , async(data)=>{
+    try {
+        const response = await categoryApi.seachCategory(data)
+        return response.data
+    } catch (error) {
+      
+    }
+})
+export  const sortProduct =  createAsyncThunk("category/sortProduct",async(data)=>{
+  try {
+      const response = await  categoryApi.sortCategory(data)
+      return response.data
+  } catch (error) {
+    
+  }
+})
 const initialState = {
   loading: false,
   listSubject : [],
@@ -59,9 +73,9 @@ const categorySlice = createSlice({
       state.listSubject = [];
     },
   // product major 
-  [getProductMajor.pending] : (state)=>{
-    state.loading =  true
-  },
+    [getProductMajor.pending] : (state)=>{
+      state.loading =  true
+    },
     [getProductMajor.fulfilled]: (state,action) => {
       state.loading =  false
       state.productMajor = action.payload.data
@@ -70,6 +84,7 @@ const categorySlice = createSlice({
       state.loading =  false
       state.productMajor = []
     },
+    // giangr viên 
     [getTeacher.fulfilled] :(state,action)=>{
         state.listTeacher = action.payload.data
         state.loading =  false
@@ -80,7 +95,7 @@ const categorySlice = createSlice({
     },
     [productFilter.pending] : (state)=>{
       state.loading =  true
-  },
+    },
     [productFilter.fulfilled] : (state,action)=>{
       state.loading =  false
       state.productMajor = action.payload.data
@@ -88,6 +103,30 @@ const categorySlice = createSlice({
     [productFilter.rejected] : (state)=>{
       state.loading =  false
         state.productMajor = []
+    },
+    // seach tìm kiêm 
+    [seachProduct.pending] : (state)=>{
+      state.loading =  true
+    },
+    [seachProduct.fulfilled] : (state,action)=>{
+      state.loading =  false
+      state.productMajor = action.payload.data
+    },
+    [seachProduct.rejected] : (state)=>{
+      state.loading =  false
+      state.productMajor = []
+    },
+    // sắp xếp
+    [sortProduct.pending] : (state)=>{
+      state.loading =  true
+    },
+    [sortProduct.fulfilled] : (state,action)=>{
+      state.loading =  false
+      state.productMajor = action.payload.data
+    },
+    [sortProduct.rejected] : (state)=>{
+      state.loading =  false
+      state.productMajor = []
     }
   },
 });

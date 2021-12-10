@@ -18,10 +18,18 @@ const teacherApi = (data)=>{
 const filterProduct = (data)=>{
   return api.post(FILTER_PRODUCT.FILTER_PATH,data)
 }
+const seachCategory = (data)=>{
+  return api.post(FILTER_PRODUCT.SEACH_CATEGORY,data)
+}
+const sortCategory = (data)=>{
+  return api.get(`/client/sort?majorId=${data.major_id}&sortBy=${data.value}`)
+}
 export const categoryApi = {
   getMajors,
   getSubject,
   productMajor,
   filterProduct,
-  teacherApi
+  teacherApi,
+  seachCategory,
+  sortCategory
 };
