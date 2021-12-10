@@ -4,6 +4,6 @@ export const CATEGORY_ENDPOINTS = {
   PRODUCT_MAJOR  :'/client/products-major/:id'
 };
 export const FILTER_PRODUCT = {
-  FILTER_PATH : "/client/filter",
+  FILTER_PATH : "/filter",
   SEACH_CATEGORY : "/client/filter"
 }

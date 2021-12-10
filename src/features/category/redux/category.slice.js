@@ -50,7 +50,7 @@ export const seachProduct = createAsyncThunk("category/seachProduct" , async(dat
 export  const sortProduct =  createAsyncThunk("category/sortProduct",async(data)=>{
   try {
       const response = await  categoryApi.sortCategory(data)
-      console.log("vô đây",response)
+      return response.data
   } catch (error) {
     
   }
@@ -113,6 +113,18 @@ const categorySlice = createSlice({
       state.productMajor = action.payload.data
     },
     [seachProduct.rejected] : (state)=>{
+      state.loading =  false
+      state.productMajor = []
+    },
+    // sắp xếp
+    [sortProduct.pending] : (state)=>{
+      state.loading =  true
+    },
+    [sortProduct.fulfilled] : (state,action)=>{
+      state.loading =  false
+      state.productMajor = action.payload.data
+    },
+    [sortProduct.rejected] : (state)=>{
       state.loading =  false
       state.productMajor = []
     }
