@@ -16,7 +16,7 @@ import { FiBookmark } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 const ProductMajor = () => {
-  const { productMajor } = useSelector((state) => state.category);
+  const { productMajor } = useSelector((state) => state.category)
   return (
     <>
       {productMajor ? (
@@ -69,9 +69,6 @@ const ProductMajor = () => {
                 <div className="box-no-result">
                   <div className="label-no-result">
                     Không tìm thấy kết quả nào
-                  </div>
-                  <div className="des-no-result">
-                    Hãy thử sử dụng các từ khóa chung chung hơn
                   </div>
                 </div>
               </div>

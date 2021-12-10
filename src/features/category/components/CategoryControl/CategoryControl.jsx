@@ -41,7 +41,7 @@ const CategoryControl = () => {
   }, [dispatch]);
   const dataTeacher = useCallback(() => {
     const data = {
-      id: id,
+      id: Number(id),
       type: 'teacher_user_major',
     };
     dispatch(getTeacher(data));
