@@ -64,8 +64,8 @@ export const BoxSelect = styled.div`
   text-align: left;
   .select-option {
     font-size: 1.4rem;
-    border-radius: 5px;
-    padding: 2.5px 0;
+    border-radius: 6px;
+    padding: 2.6px 0;
     background-color: var(--eee-color);
   }
   .css-1s2u09g-control {
