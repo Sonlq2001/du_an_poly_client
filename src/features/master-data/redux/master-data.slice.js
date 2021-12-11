@@ -12,15 +12,31 @@ export const getCampuses = createAsyncThunk(
   }
 );
 
+export const getSubjects = createAsyncThunk(
+  'master-data/getSubjects',
+  async () => {
+    try {
+      const response = await masterDataApi.getSubjects();
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 const initialState = {
+  // campus
   listCampus: [],
   isListCampusLoading: false,
+
+  // subject
+  listSubject: [],
+  isListSubjectLoading: false,
 };
 
 const masterDataSlice = createSlice({
   name: 'master-data',
   initialState,
   extraReducers: {
+    // campus
     [getCampuses.pending]: (state) => {
       state.isListCampusLoading = true;
     },
@@ -30,6 +46,18 @@ const masterDataSlice = createSlice({
     },
     [getCampuses.rejected]: (state) => {
       state.isListCampusLoading = false;
+    },
+
+    // subject
+    [getSubjects.pending]: (state) => {
+      state.isListSubjectLoading = true;
+    },
+    [getSubjects.fulfilled]: (state, action) => {
+      state.isListCampusLoading = false;
+      state.listSubject = action.payload?.data;
+    },
+    [getSubjects.rejected]: (state) => {
+      state.isListSubjectLoading = false;
     },
   },
 });

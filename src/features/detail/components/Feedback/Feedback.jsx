@@ -241,7 +241,6 @@ const Feedback = () => {
                     </div>
                   </div>
                 </ItemSendComment>
-
                 {/* edit comment */}
                 {isOpenEditComment === cmt?.id && (
                   <div className="group-edit-comment">
@@ -288,7 +287,6 @@ const Feedback = () => {
                     </SubInputComment>
                   </div>
                 )}
-
                 {/* list comment reply */}
                 <GroupRepComment>
                   {cmt?.get_reply?.map((cmtSub) => {

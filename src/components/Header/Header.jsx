@@ -210,9 +210,7 @@ const Header = () => {
                       setIsUserAction(false);
                     }}
                   >
-                    <div
-                      className={`action-user ${isUserAction ? 'active' : ''}`}
-                    >
+                    <div className={`action-user ${isUserAction && 'active'}`}>
                       <Link
                         to={PROFILE_PATHS.PROFILE.replace(/:id/, userLogin?.id)}
                       >
