@@ -53,7 +53,7 @@ const DetailScreen = () => {
   useEffect(() => {
     dispatch(getSubjects());
   }, [dispatch]);
-  console.log(itemDetailProduct);
+
   const subjectName = listSubject.find(
     (item) => item.id === itemDetailProduct?.subject_id
   )?.code;

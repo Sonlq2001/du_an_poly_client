@@ -196,6 +196,9 @@ export const GroupInput = styled.div`
     padding: 1rem;
     margin: 5px 0px;
   }
+  & .remove:disabled :hover {
+    cursor: not-allowed;
+  }
   @media (max-width: 991.98px) {
     padding-left: 10px;
 
@@ -272,3 +275,36 @@ export const WrapButton = styled.div`
     margin-bottom:4rem;
   }
 `;
+export const TetailItem = styled.a`
+    font-size: 10px;
+    color: #ee0c0c;
+    &:hover{
+      cursor: pointer;
+    }
+`
+export const DemoAvatar = styled.div`
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    left  :15% ;
+    top:90%;
+    z-index : 100;
+    border-radius : 10px;
+    & img{
+      height: 200px;
+      width: 200px;
+      border-radius : 10px;
+      display: block;
+      image-rendering: center;
+
+    }
+`
+export const Overlay = styled.div`
+    position: fixed;
+    top : 0;
+    left: 0;
+    z-index : 9999;
+    width: 100%;
+    height: 100vh;
+    background-color :#86828214;
+`

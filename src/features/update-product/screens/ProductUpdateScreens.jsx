@@ -19,67 +19,96 @@ import {
   GroupStudents,
   GroupInput,
   GroupLabel,
+  TetailItem,
+  DemoAvatar,
+  Overlay,
 } from './ProductUpdateScreen.styles';
-import { initForm } from '../helpers/add-product.helpers';
+import {
+  DataConvert,
+  DataConvertStudent,
+} from '../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
 import InputFileElement from 'components/FormElement/InputElement/InputFileElement';
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
-import {
-  getProductTypes,
-  removeImage,
-} from '../redux/update-product.slice';
 import CKEditor from '../components/editor/CKEditor';
 import { WarEditor } from '../components/editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from '../constants/update-product.key';
-import { getDetailProduct } from 'features/detail/redux/detail.slice';
+
+import {
+  getProductTypes,
+  getDetailProduct,
+  removeImage,
+} from '../redux/update-product.slice';
+import Loading from 'components/Loading/Loading';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { productTypes, userLogin,detailProduct } = useSelector((state) => ({
-    productTypes: state.addProduct.productTypes,
-    userLogin: state.auth.userLogin,
-    detailProduct : state.detailProduct.detailProduct
-  }));
-  const ArrayGalleris = detailProduct && detailProduct.product_galleries.map((item)=>{
-    return item.image_url })
-  const [listImages, setListImage] = useState([] )
-  const [linkAvatar, setLinkAvatar] = useState(null);
-  const [LinkDoc, setLinkDoc] = useState(null);
-  const [loadingButton, setLoadingButton] = useState(STATUS_KEY_INPUT.DEFAULT);
-  const [disableButton, setDisableButton] = useState(false);
-  const [loadingItem, setLoadingItem] = useState(true);
   const { id } = useParams();
   const fetchProductTypes = useCallback(() => {
     dispatch(getProductTypes());
   }, [dispatch]);
 
   useEffect(() => {
-    fetchProductTypes();
-  }, [fetchProductTypes]);
+    dispatch(getProductTypes());
+  }, [fetchProductTypes, dispatch]);
 
   useEffect(() => {
-      dispatch(getDetailProduct(id))
+    dispatch(getDetailProduct(id));
   }, [dispatch, id]);
+  // thông tin cần lấy
+  const { productTypes, userLogin, productDetail, loading } = useSelector(
+    (state) => ({
+      productTypes: state.addProduct.productTypes,
+      userLogin: state.auth.userLogin,
+      productDetail: state.updateProduct.productDetail,
+      loading: state.updateProduct.loading,
+    })
+  );
+  // data conver
+  const dataConvertProduct = DataConvert(productDetail && productDetail);
+  const dataConvertStudent = DataConvertStudent(productDetail && productDetail);
 
+  // bộ sưu tập
+  let ArrayGalleris =
+    dataConvertProduct &&
+    dataConvertProduct.product_galleries.map((item) => {
+      return item.image_url;
+    });
+  const [listImages, setListImage] = useState([]);
+  const [linkAvatar, setLinkAvatar] = useState(null);
 
-// console.log("detailProduct",detailProduct)
+  const [LinkDoc, setLinkDoc] = useState(null);
+  const [loadingButton, setLoadingButton] = useState(0);
+  const [disableButton, setDisableButton] = useState(false);
+  const [loadingItem, setLoadingItem] = useState(true);
+  const [hiden, setHiden] = useState(true);
+  const [hidenStudent, setHidenStudent] = useState(true);
+  const [reviewAvatar, setReviewAvatar] = useState(false);
   const selectProductTypes = MapOptions(productTypes);
   let email = [];
-  const [groupCodeStudent, setGroupCodeStudent] = useState([
-    userLogin?.student_code,
-  ]);
-
+  const [groupCodeStudent, setGroupCodeStudent] = useState([]);
+  //  xoá thành viên
   const remove = (i) => {
-    setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
+    if (groupCodeStudent.length > 0) {
+      setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
+      setHidenStudent(false);
+    } else {
+      setGroupCodeStudent(dataConvertStudent.filter((_, index) => index !== i));
+    }
   };
-
+  // xoá ảnh đại điện
   const RemoveImage = async (i, key) => {
     const url = { img_url: i };
     try {
       await dispatch(removeImage(url));
-      setListImage(listImages.filter((_, index) => index !== key));
+      if (listImages && listImages.length > 0) {
+        setListImage(listImages.filter((_, index) => index !== key));
+        setHiden(false);
+      } else {
+        setListImage(ArrayGalleris.filter((_, index) => index !== key));
+      }
     } catch (error) {}
   };
   const EmailChange = (e, key) => {
@@ -88,15 +117,15 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <WrapPage className="container">
-      <Title title> Sản phẩm mới</Title>
+      <Title title> Cập nhật sản phẩm </Title>
       <WrapForm>
         <Formik
-          initialValues={
-            detailProduct
-          }
+          initialValues={dataConvertProduct}
           onSubmit={async (values) => {
             // const { value } = product_type_id;
             // const newObjProduct = { ...rest, product_type_id: value };
@@ -107,7 +136,7 @@ const AddProduct = () => {
             // newObjProduct.resource_url = LinkDoc;
             // setLoadingButton(STATUS_KEY_INPUT.LOADING);
             // setDisableButton(true);
-            console.log("newObjProduct",detailProduct)
+            console.log('newObjProduct', listImages);
             // const response = await dispatch(postAddProduct(newObjProduct));
             // if (postAddProduct.fulfilled.match(response)) {
             //   toast.success('Thêm sản phẩm thành công !');
@@ -129,30 +158,26 @@ const AddProduct = () => {
                 <FormLeft>
                   <InputElement
                     label="Tên sản phẩm"
-                    name="detailProduct.name"
+                    name="name"
                     placeholder="Nhập tên sản phẩm"
                   />
                   <InputElement
                     label="Đường dẫn video"
-                    name="detailProduct.video_url"
+                    name="video_url"
                     placeholder="Link video "
                   />
                   <GroupLabel className="group-label">
                     <InputElement label="Môn Học  " name="subject_id" hidden />
                     <div className="text-label">
-                      {/* {infoProduct?.subject_id
-                        ? infoProduct.subject_id
-                        : 'Môn Học '} */}
+                      {productDetail?.subject?.name}
                     </div>
-                 
                   </GroupLabel>
 
                   <GroupLabel className="group-label">
                     <InputElement label="Giảng viên" name="teacher_id" hidden />
                     <div className="text-label">
-                    {detailProduct?.teacher?.name}
+                      {productDetail?.teacher?.name}
                     </div>
-                   
                   </GroupLabel>
 
                   <GroupLabel className="group-label">
@@ -163,15 +188,95 @@ const AddProduct = () => {
                       hidden
                     />
                     <div className="text-label">
-                    {detailProduct?.semester?.name}
+                      {productDetail?.semester?.name}
                     </div>
-                   
                   </GroupLabel>
 
                   <GroupStudents>
                     <Title className="title">Thành viên</Title>
-                    <GroupInput>
-                      {groupCodeStudent.map((item, index) => {
+                    {groupCodeStudent.length > 0 ? (
+                      <>
+                        <GroupInput>
+                          {groupCodeStudent.map((item, index) => {
+                            return (
+                              <div className="group" key={index}>
+                                <input
+                                  className="inputE"
+                                  type="text"
+                                  placeholder="Tên và mã số sinh viên "
+                                  value={item}
+                                  required
+                                  onChange={(e) => EmailChange(e, index)}
+                                />
+                                <button
+                                  className="remove"
+                                  type="button"
+                                  onClick={() => remove(index)}
+                                  disabled={groupCodeStudent.length === 1}
+                                >
+                                  <BsTrash />
+                                </button>
+                              </div>
+                            );
+                          })}
+                          <button
+                            type="button"
+                            className="add"
+                            onClick={() => {
+                              setGroupCodeStudent([...groupCodeStudent, '']);
+                            }}
+                          >
+                            Thêm +
+                          </button>
+                        </GroupInput>{' '}
+                      </>
+                    ) : (
+                      <>
+                        {/* groupCodeStudent  không tồn tại  */}
+                        {hidenStudent && (
+                          <>
+                            <GroupInput>
+                              {dataConvertStudent.map((item, index) => {
+                                return (
+                                  <div className="group" key={index}>
+                                    <input
+                                      className="inputE"
+                                      type="text"
+                                      placeholder="Tên và mã số sinh viên "
+                                      value={item}
+                                      required
+                                      onChange={(e) => EmailChange(e, index)}
+                                    />
+                                    <button
+                                      className="remove"
+                                      type="button"
+                                      onClick={() => remove(index)}
+                                      disabled={dataConvertStudent.length === 1}
+                                    >
+                                      <BsTrash />
+                                    </button>
+                                  </div>
+                                );
+                              })}
+                              <button
+                                type="button"
+                                className="add"
+                                onClick={() => {
+                                  setGroupCodeStudent([
+                                    ...dataConvertStudent,
+                                    '',
+                                  ]);
+                                }}
+                              >
+                                Thêm +
+                              </button>
+                            </GroupInput>
+                          </>
+                        )}
+                      </>
+                    )}
+                    {/* <GroupInput>
+                      {dataConvertStudent.map((item, index) => {
                         return (
                           <div className="group" key={index}>
                             <input
@@ -181,14 +286,11 @@ const AddProduct = () => {
                               value={item}
                               required
                               onChange={(e) => EmailChange(e, index)}
-                              disabled={index === 0 ? true : false}
                             />
-
                             <button
                               className="remove"
                               type="button"
                               onClick={() => remove(index)}
-                              disabled={index === 0 ? true : false}
                             >
                               <BsTrash />
                             </button>
@@ -204,7 +306,7 @@ const AddProduct = () => {
                       >
                         Thêm +
                       </button>
-                    </GroupInput>
+                    </GroupInput> */}
                   </GroupStudents>
 
                   <SelectElement
@@ -222,6 +324,16 @@ const AddProduct = () => {
                     linkAvatar={linkAvatar}
                     setLinkAvatar={setLinkAvatar}
                   />
+                  {!linkAvatar && <TetailItem onClick={()=>setReviewAvatar(true) }>Xem avatar </TetailItem>}
+                  {reviewAvatar && (
+                    <DemoAvatar>
+                      <img
+                        src="https://i.pinimg.com/564x/ad/e1/fa/ade1fa7c04634c701f5ee51632972153.jpg"
+                        alt=""
+                      />
+                      <Overlay onClick={()=>setReviewAvatar(false)}> </Overlay>
+                    </DemoAvatar>
+                  )}
                   <InputFileElement
                     name="resource_url"
                     label="Tài liệu"
@@ -230,23 +342,47 @@ const AddProduct = () => {
                     setLinkDoc={setLinkDoc}
                     LinkDoc={LinkDoc}
                   />
+                  {!LinkDoc && (
+                    <TetailItem
+                      target="_blank"
+                      href={dataConvertProduct?.resource_url}
+                    >
+                      Xem tài liệu
+                    </TetailItem>
+                  )}
                   <InputFileElement
                     name="galleries"
                     label="Hình ảnh"
                     id="file-gallery"
                     content={
-                      listImages.length > 0
-                        ? `Danh sách ảnh  ${listImages.length} `
-                        : ' Chọn bộ sưu tập'
+                      listImages && listImages.length > 0 ? (
+                        `Danh sách ảnh  ${listImages.length} `
+                      ) : (
+                        <>
+                          {' '}
+                          {hiden ? (
+                            <>
+                              {' '}
+                              {ArrayGalleris
+                                ? ` Danh sách ảnh ${ArrayGalleris.length} `
+                                : 'Chọn bộ sưu tập'}{' '}
+                            </>
+                          ) : (
+                            <> Chọn bộ sưu tập </>
+                          )}
+                        </>
+                      )
                     }
                     multiple
                     setListImage={setListImage}
                     listImages={listImages}
                     disabled={listImages && listImages.length >= 6}
                   />
+
+                  {/*  list hình ảnh  */}
                   <ListImage>
-                    {ArrayGalleris&&
-                      ArrayGalleris.map((item, index) => {
+                    {listImages && listImages.length > 0 ? (
+                      listImages.map((item, index) => {
                         return (
                           <div className="box-item" key={index}>
                             <img src={item} alt="" />
@@ -257,13 +393,35 @@ const AddProduct = () => {
                             </div>
                           </div>
                         );
-                      })}
+                      })
+                    ) : (
+                      <>
+                        {/*  ẩn sản phẩm */}
+                        {hiden && (
+                          <>
+                            {ArrayGalleris &&
+                              ArrayGalleris.map((item, index) => {
+                                return (
+                                  <div className="box-item" key={index}>
+                                    <img src={item} alt="" />
+                                    <div className="delete">
+                                      <BsTrash
+                                        onClick={() => RemoveImage(item, index)}
+                                      />
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                          </>
+                        )}
+                      </>
+                    )}
                   </ListImage>
                 </FormLeft>
 
                 <FormRight>
                   <WarEditor>
-                    <CKEditor />
+                    <CKEditor data={productDetail?.description} />
                   </WarEditor>
                 </FormRight>
               </ContentForm>
@@ -293,7 +451,7 @@ const AddProduct = () => {
                     Thêm sản phẩm
                   </button>
                 ) : (
-                  <button type="submit"  className="button-add">
+                  <button type="submit" className="button-add">
                     Thêm sản phẩm
                   </button>
                 )}
@@ -302,8 +460,6 @@ const AddProduct = () => {
           )}
         </Formik>
       </WrapForm>
-      {/* <ReviewProduct show={show} setShow={setShow} data={formik} /> */}
-
       <ToastContainer position="top-right" autoClose={1500} />
     </WrapPage>
   );
