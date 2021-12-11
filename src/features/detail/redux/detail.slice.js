@@ -20,11 +20,12 @@ export const getDetailProduct = createAsyncThunk(
 
 export const postProductRating = createAsyncThunk(
   'detail/postProductRating',
-  async (countRating) => {
+  async (countRating, { rejectWithValue }) => {
     try {
-      const response = await detailProductApi.postProductRating(countRating);
-      console.log(response);
-    } catch (error) {}
+      await detailProductApi.postProductRating(countRating);
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
 
@@ -57,7 +58,6 @@ export const postCommentReply = createAsyncThunk(
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postCommentReply(comment);
-      console.lgo(' trả lời ', response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
@@ -125,6 +125,18 @@ export const getCountStar = createAsyncThunk(
   }
 );
 
+export const getAvgStar = createAsyncThunk(
+  'detail/getAvgStar',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await detailProductApi.getAvgStar(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
+
 const initialState = {
   itemDetailProduct: null,
   isLoadingDetailProduct: false,
@@ -135,6 +147,7 @@ const initialState = {
   countStar: null,
   isCountStarLoading: null,
   starProduct: null,
+  avgStar: null,
 };
 
 const detailProductSlice = createSlice({
@@ -233,7 +246,7 @@ const detailProductSlice = createSlice({
         return {
           ...cmt,
           get_reply: cmt?.get_reply?.map((cmtSub) =>
-            cmtSub.id === action.payload?.reply?.id
+            cmtSub.id === action.payload?.reply?.parent_id
               ? action.payload.reply
               : cmtSub
           ),
@@ -248,6 +261,18 @@ const detailProductSlice = createSlice({
     [getCountStar.fulfilled]: (state, action) => {
       state.isCountStarLoading = false;
       state.countStar = action.payload.data;
+    },
+    [getCountStar.rejected]: (state) => {
+      state.isCountStarLoading = false;
+    },
+
+    // avg star
+    [getAvgStar.fulfilled]: (state, action) => {
+      state.isLoadingDetailProduct = false;
+      state.avgStar = action.payload?.avgStar;
+    },
+    [getAvgStar.rejected]: (state) => {
+      state.isLoadingDetailProduct = false;
     },
   },
 });

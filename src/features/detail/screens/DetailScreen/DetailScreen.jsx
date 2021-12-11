@@ -5,6 +5,8 @@ import { GoCommentDiscussion } from 'react-icons/go';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
+import store from 'redux/store';
+
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
 import {
@@ -32,26 +34,34 @@ import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
-import store from 'redux/store';
+import { getSubjects } from 'features/master-data/redux/master-data.slice';
 
 const DetailScreen = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { userLogin } = store.getState().auth;
-  const { isLoadingDetailProduct, itemDetailProduct } = useSelector(
-    (state) => ({
+  const { isLoadingDetailProduct, itemDetailProduct, listSubject } =
+    useSelector((state) => ({
       itemDetailProduct: state.detailProduct?.itemDetailProduct,
       isLoadingDetailProduct: state.detailProduct?.isLoadingDetailProduct,
-    })
-  );
+      listSubject: state.masterData?.listSubject,
+    }));
   document.title = itemDetailProduct?.name;
+
+  useEffect(() => {
+    dispatch(getSubjects());
+  }, [dispatch]);
+  console.log(itemDetailProduct);
+  const subjectName = listSubject.find(
+    (item) => item.id === itemDetailProduct?.subject_id
+  )?.code;
 
   const settings = {
     customPaging: function (i) {
       return (
         <ListCurrentImg>
           <img
-            src={itemDetailProduct?.product_galleries[i].image_url}
+            src={itemDetailProduct?.product_galleries[i]?.image_url}
             className="current-slide"
             alt=""
           />
@@ -230,6 +240,10 @@ const DetailScreen = () => {
 
                       <RatingStar />
 
+                      <BoxProject>
+                        <LabelProject>Cở sở:</LabelProject>
+                        {itemDetailProduct?.teacher?.campuses?.name}
+                      </BoxProject>
                       <GroupMember>
                         <LabelProject>Thành viên nhóm: </LabelProject>
                         <div className="list-member">
@@ -254,7 +268,7 @@ const DetailScreen = () => {
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Mã môn học:</LabelProject>
-                        PRO2016
+                        {subjectName}
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Kì học:</LabelProject>

@@ -54,6 +54,10 @@ const getCountStar = (id) => {
   return api.get(DETAIL_ENDPOINTS.GET_COUNT_STAR.replace(/:id/, id));
 };
 
+const getAvgStar = (id) => {
+  return api.get(DETAIL_ENDPOINTS.GET_AVG_STAR.replace(/:id/, id));
+};
+
 export const detailProductApi = {
   getProductDetail,
   getCommentsOfProduct,
@@ -65,4 +69,5 @@ export const detailProductApi = {
   putCommentReply,
   postProductRating,
   getCountStar,
+  getAvgStar,
 };

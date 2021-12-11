@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { GroupRating, RatingTotal, FilterRating } from './Feedback.styles';
-import { getCountStar } from '../../redux/detail.slice';
+import { getCountStar, getAvgStar } from '../../redux/detail.slice';
 
 const RatingDetail = () => {
   const { id } = useParams();
@@ -13,17 +13,19 @@ const RatingDetail = () => {
   useEffect(() => {
     if (id) {
       dispatch(getCountStar(id));
+      dispatch(getAvgStar(id));
     }
   }, [dispatch, id]);
 
-  const { countStar } = useSelector((state) => ({
-    countStar: state.detailProduct.countStar,
+  const { countStar, avgStar } = useSelector((state) => ({
+    countStar: state.detailProduct?.countStar,
+    avgStar: state.detailProduct?.avgStar,
   }));
 
   return (
     <GroupRating>
       <RatingTotal>
-        <div className="rating-percent">3.5</div>
+        <div className="rating-percent">{avgStar}</div>
         <div className="group-star">
           <div className="list-star">
             <AiFillStar />

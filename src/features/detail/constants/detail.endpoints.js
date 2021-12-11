@@ -10,4 +10,5 @@ export const DETAIL_ENDPOINTS = {
   PUT_COMMENT: '/comments/edit/:id',
   PUT_COMMENT_REPLY: '/comments/edit/reply/:id',
   GET_COUNT_STAR: '/products/count-star/:id',
+  GET_AVG_STAR: '/products/avg-star/:id',
 };
