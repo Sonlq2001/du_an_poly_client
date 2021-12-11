@@ -1,7 +1,7 @@
 import { BiPalette } from 'react-icons/bi';
 import { MdWeb, MdAutorenew } from 'react-icons/md';
 import { GiLipstick } from 'react-icons/gi';
-import { FaSuitcaseRolling } from 'react-icons/fa';
+import { FaSuitcaseRolling, FaRegComment } from 'react-icons/fa';
 import { HiChartBar } from 'react-icons/hi';
 import { AiOutlineHome } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
@@ -27,7 +27,7 @@ export const menubar = [
     items: [
       {
         id: 'id_1',
-        navigationTitle:'Công nghệ thông tin',
+        navigationTitle: 'Công nghệ thông tin',
         path: '/cong-nghe-thong-tin/1',
         icon: <MdWeb />,
       },
@@ -72,6 +72,18 @@ export const menubar = [
         navigationTitle: 'Giới thiệu',
         path: '',
         icon: <BsQuestionCircle />,
+      },
+    ],
+  },
+  {
+    title: '',
+    cate: '',
+    items: [
+      {
+        id: 'id_3',
+        navigationTitle: 'Phản hồi',
+        path: '',
+        icon: <FaRegComment />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -43,23 +43,31 @@ const HomeScreen = () => {
       <div className="container">
         <Majors />
         <GridWrap>
-        <TitleMain>Các sản phẩm nổi bật</TitleMain>
+          <TitleMain>Các sản phẩm nổi bật</TitleMain>
           <GridContent>
-            {productsHome.map((item) => (
-              <GridItem key={item?.id}>
-              
-                <Link to={`/product/${item.id}`} >   <img src={item?.image} alt={item?.name} /></Link>
-                <GridContentItem>
-                  <div className="item-title"><Link to={`/product/${item.id}`} > {item?.name}</Link></div>
-                  <div className="item-view">
-                    <span className="item-icon">
-                      <AiOutlineEye />
-                    </span>
-                    <span className="item-counter">{item?.view}</span>
+            {productsHome.map((item) => {
+              console.log(item);
+              return (
+                <GridItem key={item?.id}>
+                  <div className="item-img">
+                    <Link to={`/product/${item.id}`}>
+                      <img src={item?.image} alt={item?.name} />
+                    </Link>
                   </div>
-                </GridContentItem>
-              </GridItem>
-            ))}
+                  <GridContentItem>
+                    <div className="item-title">
+                      <Link to={`/product/${item?.id}`}> {item?.name}</Link>
+                    </div>
+                    <div className="item-view">
+                      <span className="item-icon">
+                        <AiOutlineEye />
+                      </span>
+                      <span className="item-counter">{item?.view}</span>
+                    </div>
+                  </GridContentItem>
+                </GridItem>
+              );
+            })}
           </GridContent>
 
           <GridEnd>

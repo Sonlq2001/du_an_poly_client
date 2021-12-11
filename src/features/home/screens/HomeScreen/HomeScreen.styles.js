@@ -23,6 +23,8 @@ export const GridContent = styled.div`
   }
 `;
 export const GridItem = styled.div`
+  border: 1px solid var(--ddd-color);
+  border-radius: 5px;
   &:nth-child(1) {
     grid-column: span 2;
     grid-row: span 1;
@@ -47,11 +49,20 @@ export const GridItem = styled.div`
     grid-column: span 1;
     grid-row: span 2;
   }
+  .item-img {
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
+  }
+  &:hover .item-img img {
+    transform: scale(1.1);
+  }
   img {
     width: 100%;
     height: 100%;
-    border-radius: 1rem;
     object-fit: cover;
+    transition: 0.3s ease-in-out;
   }
   @media (max-width: 767.98px) {
     &:nth-child(7) {
