@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import store from 'redux/store';
+import { Link } from 'react-router-dom';
 
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
@@ -35,6 +36,7 @@ import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 import { getDetailProduct } from './../../redux/detail.slice';
 import Loading from 'components/Loading/Loading';
 import { getSubjects } from 'features/master-data/redux/master-data.slice';
+import { PROFILE_PATHS } from 'features/profile/constants/profile.paths';
 
 const DetailScreen = () => {
   const { id } = useParams();
@@ -248,9 +250,16 @@ const DetailScreen = () => {
                         <LabelProject>Thành viên nhóm: </LabelProject>
                         <div className="list-member">
                           {itemDetailProduct?.students.map((student) => (
-                            <span className="item-member" key={student.id}>
-                              {student.email} - {student.student_code}
-                            </span>
+                            <Link
+                              to={PROFILE_PATHS.PROFILE.replace(
+                                /:id/,
+                                student?.id
+                              )}
+                              className="item-member"
+                              key={student?.id}
+                            >
+                              {student?.email} - {student?.student_code}
+                            </Link>
                           ))}
                         </div>
                       </GroupMember>
@@ -264,7 +273,7 @@ const DetailScreen = () => {
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Chuyên ngành:</LabelProject>
-                        Thiết kế website
+                        {itemDetailProduct?.major?.name}
                       </BoxProject>
                       <BoxProject>
                         <LabelProject>Mã môn học:</LabelProject>
