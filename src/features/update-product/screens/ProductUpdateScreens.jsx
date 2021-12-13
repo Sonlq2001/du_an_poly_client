@@ -117,6 +117,11 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
+ const  popupWindow = (url, title, w, h)=> {
+          var left = (window.screen.width / 2) - (w / 2);
+          var top = (window.screen.height / 2) - (h / 2);
+          return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
+      }
   if (loading) {
     return <Loading />;
   }
@@ -126,17 +131,22 @@ const AddProduct = () => {
       <WrapForm>
         <Formik
           initialValues={dataConvertProduct}
-          onSubmit={async (values) => {
+          onSubmit={async (values,{rest}) => {
             // const { value } = product_type_id;
-            // const newObjProduct = { ...rest, product_type_id: value };
-            // newObjProduct.students = groupCodeStudent;
-            // newObjProduct.galleries = listImages;
-            // newObjProduct.email = userLogin.email;
-            // newObjProduct.image_url = linkAvatar;
-            // newObjProduct.resource_url = LinkDoc;
+            const newObjProduct = { ...rest };
+            newObjProduct.name =  values.name ?   values.name :dataConvertProduct.name
+            newObjProduct.class = dataConvertProduct.class;
+            newObjProduct.video_url =  values.video_url ?   values.video_url :dataConvertProduct.video_url
+            newObjProduct.students = groupCodeStudent.length > 0 ? groupCodeStudent : dataConvertStudent;
+            newObjProduct.galleries = listImages.length>0 ? listImages : ArrayGalleris ;
+            newObjProduct.email = userLogin.email;
+            newObjProduct.image_url = linkAvatar ? linkAvatar :dataConvertProduct.image ;
+            newObjProduct.resource_url = LinkDoc ? LinkDoc :dataConvertProduct.resource_url ;
+            newObjProduct.status = 1
+            newObjProduct.product_type_id = values.product_type_id ?  values.product_type_id : dataConvertProduct.product_type_id
             // setLoadingButton(STATUS_KEY_INPUT.LOADING);
             // setDisableButton(true);
-            console.log('newObjProduct', listImages);
+            console.log('newObjProduct', newObjProduct);
             // const response = await dispatch(postAddProduct(newObjProduct));
             // if (postAddProduct.fulfilled.match(response)) {
             //   toast.success('Thêm sản phẩm thành công !');
@@ -275,38 +285,6 @@ const AddProduct = () => {
                         )}
                       </>
                     )}
-                    {/* <GroupInput>
-                      {dataConvertStudent.map((item, index) => {
-                        return (
-                          <div className="group" key={index}>
-                            <input
-                              className="inputE"
-                              type="text"
-                              placeholder="Tên và mã số sinh viên "
-                              value={item}
-                              required
-                              onChange={(e) => EmailChange(e, index)}
-                            />
-                            <button
-                              className="remove"
-                              type="button"
-                              onClick={() => remove(index)}
-                            >
-                              <BsTrash />
-                            </button>
-                          </div>
-                        );
-                      })}
-                      <button
-                        type="button"
-                        className="add"
-                        onClick={() => {
-                          setGroupCodeStudent([...groupCodeStudent, '']);
-                        }}
-                      >
-                        Thêm +
-                      </button>
-                    </GroupInput> */}
                   </GroupStudents>
 
                   <SelectElement
@@ -328,7 +306,7 @@ const AddProduct = () => {
                   {reviewAvatar && (
                     <DemoAvatar>
                       <img
-                        src="https://i.pinimg.com/564x/ad/e1/fa/ade1fa7c04634c701f5ee51632972153.jpg"
+                        src={dataConvertProduct.image}
                         alt=""
                       />
                       <Overlay onClick={()=>setReviewAvatar(false)}> </Overlay>
@@ -344,8 +322,7 @@ const AddProduct = () => {
                   />
                   {!LinkDoc && (
                     <TetailItem
-                      target="_blank"
-                      href={dataConvertProduct?.resource_url}
+                      onClick={()=> popupWindow(dataConvertProduct?.resource_url,"Tài liệu","600","600")}
                     >
                       Xem tài liệu
                     </TetailItem>

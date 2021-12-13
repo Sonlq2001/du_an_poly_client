@@ -11,7 +11,7 @@ export const initForm = {
   status: 1,
   token: '',
 };
-export const DataConvert =  (productDetail)=>{   
+export const DataConvert =  (productDetail)=>{  
     if(productDetail){
       const data = {
         campus_id : productDetail.campus_id,
@@ -22,11 +22,12 @@ export const DataConvert =  (productDetail)=>{
         product_galleries :  productDetail.product_galleries,
         resource_url: productDetail.resource_url,
         semester :productDetail.semester,
-        students : productDetail.students,
+        students :productDetail.students,
         subject : productDetail.subject,
         teacher : productDetail.teacher,
         user_id : productDetail.user_id,
         video_url : productDetail.video_url, 
+        product_type_id :Number(productDetail.product_type_id)
       }
       return data
     }

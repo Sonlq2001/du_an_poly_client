@@ -53,8 +53,12 @@ const DetailScreen = () => {
   useEffect(() => {
     dispatch(getSubjects());
   }, [dispatch]);
+  useEffect(() => {
+      dispatch(getDetailProduct(id));
+  }, [dispatch, id]);
 
-  const subjectName = listSubject.find(
+
+  const subjectName = listSubject && listSubject.find(
     (item) => item.id === itemDetailProduct?.subject_id
   )?.code;
 
@@ -79,16 +83,12 @@ const DetailScreen = () => {
     slidesToScroll: 1,
   };
 
-  useEffect(() => {
-    if (id) {
-      dispatch(getDetailProduct(id));
-    }
-  }, [dispatch, id]);
+ 
   // video_url
+
   if (isLoadingDetailProduct) {
     return <Loading />;
   }
-
   return (
     <WrapDetail>
       <Breadcrumb
@@ -344,7 +344,7 @@ const DetailScreen = () => {
             )}
           </>
         ) : (
-          <div className="messenger"> Không tìm thấy sản phẩm ! </div>
+          <div className="messenger"> Không tìm thấy sản phẩm ở đat  ! </div>
         )}
       </div>
     </WrapDetail>
