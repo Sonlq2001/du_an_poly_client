@@ -7,11 +7,7 @@ export const getDetailProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
-      const dataDetailProduct = {
-        data: response.data?.data,
-        star: response.data?.star.rating,
-      };
-      return dataDetailProduct;
+      return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
@@ -160,7 +156,7 @@ const detailProductSlice = createSlice({
     [getDetailProduct.fulfilled]: (state, action) => {
       state.isLoadingDetailProduct = false;
       state.itemDetailProduct = action.payload?.data;
-      state.starProduct = action.payload?.star;
+      state.starProduct = action.payload?.star?.rating;
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
@@ -278,5 +274,4 @@ const detailProductSlice = createSlice({
 });
 
 const { reducer: detailProductReducer } = detailProductSlice;
-
 export default detailProductReducer;
