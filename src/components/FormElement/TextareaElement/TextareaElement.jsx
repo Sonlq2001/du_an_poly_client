@@ -1,33 +1,34 @@
 import React from 'react';
 import { useField, ErrorMessage } from 'formik';
 
-import { GroupForm } from './InputElement.styles';
-const InputElement = ({
-  label,
-  type = 'text',
+import { WrapTextarea } from './TextareaElement.styles';
+
+const TextareaElement = ({
   placeholder,
+  label,
   labelBlock = false,
   ...props
 }) => {
   const [field] = useField(props);
   return (
-    <GroupForm labelBlock={labelBlock}>
+    <WrapTextarea labelBlock={labelBlock}>
       {label && (
-        <label htmlFor="" className="form-label">
+        <label htmlFor="" className="label-form">
           {label}
         </label>
       )}
-      <input
-        type={type}
+      <textarea
+        id=""
+        cols="30"
+        rows="10"
         placeholder={placeholder}
-        className="form-input loading"
+        className="textarea-form"
         {...field}
         {...props}
       />
-
       <ErrorMessage component="div" name={field.name} className="error-msg" />
-    </GroupForm>
+    </WrapTextarea>
   );
 };
 
-export default InputElement;
+export default TextareaElement;

@@ -17,6 +17,7 @@ export const Variables = () => {
       --green-color: #248888;
       --green2-color: #BBECE7;
       --pink-color: #fd397a;
+      --red-color: #f44336;
     }
   `;
 };

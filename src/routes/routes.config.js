@@ -8,13 +8,14 @@ import { ADD_PRODUCT_ROUTES } from 'features/add-product/routes/add-product.rout
 import { DETAIL_ROUTES } from 'features/detail/routes/detail.routes';
 import { SEARCH_ROUTES } from 'features/search/routes/search.routes';
 // import {  UPDATE_PRODUCT_ROUTES}  from "features/update-product/routes/update-product.routes"
+import { FEEDBACK_ROUTES } from 'features/feedback/routes/feedback.routes';
 export const ROOT_ROUTE = '/';
 export const SIGN_IN_ROUTE = '/sign-in';
 
 export const ROUTE_LIST = [
   // ...UPDATE_PRODUCT_ROUTES,
+  ...FEEDBACK_ROUTES,
   ...SEARCH_ROUTES,
-
   ...ADD_PRODUCT_ROUTES,
   ...SIGN_IN_ROUTES,
   ...CATEGORY_ROUTES,
