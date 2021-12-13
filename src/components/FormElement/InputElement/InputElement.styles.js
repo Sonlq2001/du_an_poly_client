@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const GroupForm = styled.div`
-  display: flex;
+  display: ${({ labelBlock }) => (labelBlock ? 'block' : 'flex')};
   align-items: center;
   & + & {
     margin-top: 2rem;
@@ -10,6 +10,8 @@ export const GroupForm = styled.div`
     font-size: 1.4rem;
     font-weight: 500;
     min-width: 15rem;
+    display: inline-block;
+    margin-bottom: ${({ labelBlock }) => (labelBlock ? '5px' : '0')};
   }
   .form-input,
   .form-label__file {

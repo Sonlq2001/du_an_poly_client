@@ -28,6 +28,8 @@ export const ResetCss = () => {
 
     button{
       cursor: pointer;
+      outline: none;
+      border: none;
     }
 
     img{
@@ -35,6 +37,13 @@ export const ResetCss = () => {
       height: auto;
       vertical-align: middle;
     }
-
+    .error-msg{
+      color var(--red-color);
+      font-size: 1.25rem;
+      margin-top: 5px;
+    }
+    .message-alert{
+      font-size: 1.3rem;
+    }
   `;
 };

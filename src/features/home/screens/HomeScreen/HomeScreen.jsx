@@ -46,7 +46,6 @@ const HomeScreen = () => {
           <TitleMain>Các sản phẩm nổi bật</TitleMain>
           <GridContent>
             {productsHome.map((item) => {
-              console.log(item);
               return (
                 <GridItem key={item?.id}>
                   <div className="item-img">

@@ -93,8 +93,8 @@ const Header = () => {
               {menubar.map((menu, index) =>
                 menu?.items.length <= 1 ? (
                   <li className="item-menu" key={index}>
-                    <Link to="/" className="link-menu">
-                      {menu.items[0].navigationTitle}
+                    <Link to={menu?.items[0]?.path} className="link-menu">
+                      {menu?.items[0]?.navigationTitle}
                     </Link>
                   </li>
                 ) : (
@@ -109,13 +109,13 @@ const Header = () => {
                     </div>
                     <SubMenu>
                       {menu?.items.map((item) => (
-                        <SubMeuItem key={item.id}>
+                        <SubMeuItem key={item?.id}>
                           <Link
-                            to={`/category${item.path}`}
+                            to={`/category${item?.path}`}
                             className="link-sub"
                           >
                             {item?.icon && <span>{item.icon}</span>}
-                            <span>{item.navigationTitle}</span>
+                            <span>{item?.navigationTitle}</span>
                           </Link>
                         </SubMeuItem>
                       ))}
@@ -167,21 +167,21 @@ const Header = () => {
                   {menubar.map((menu, index) => (
                     <React.Fragment key={index}>
                       {!menu.title && <div className="line-menu" />}
-                      {menu?.items.map((item) => (
-                        <li className="item-bar" key={item.id}>
-                          <Link
-                            to={`/category/${item.path}`}
-                            className="link-bar"
-                          >
-                            <span className="icon-bar">
-                              {item?.icon && item.icon}
-                            </span>
-                            <span className="txt-bar">
-                              {item.navigationTitle}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
+                      {menu?.items.map((item) => {
+                        return (
+                          <li className="item-bar" key={item?.id}>
+                            <Link
+                              to={`/category/${item?.path}`}
+                              className="link-bar"
+                            >
+                              <span className="icon-bar">{item?.icon}</span>
+                              <span className="txt-bar">
+                                {item?.navigationTitle}
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </React.Fragment>
                   ))}
                 </BodyBar>
