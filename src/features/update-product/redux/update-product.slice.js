@@ -1,94 +1,52 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addProductApi } from '../api/update-product.api';
 
-export const postAddProduct = createAsyncThunk(
-  'product-update/postProduct',
-  async (value, { rejectWithValue }) => {
+import { UpdateProductApi } from '../api/update-product.api';
+// danh mục 
+export const getProductTypes =  createAsyncThunk("product-update/productTypes",async ()=>{
     try {
-      const response = await addProductApi.addProduct(value);
-      return response.data;
+        const response = await  UpdateProductApi.getProductTypes()
+        console.log("vô đây", response)
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      
     }
+})
+// chi tiết sản phẩm 
+export const getDetailProduct = createAsyncThunk("product-update/detailproduct", async(id)=>{
+  try {
+      const response = await  UpdateProductApi.getDetail(id)
+      return response.data
+  } catch (error) {
+    
   }
-);
-
-export const getInfo = createAsyncThunk(
-  'product-update/getInfo',
-  async (product_token) => {
-    try {
-      const response = await addProductApi.getInfo(product_token);
-      return response.data;
-    } catch (error) {}
-  }
-);
-
-export const getProductTypes = createAsyncThunk(
-  'product-update/getProductTypes',
-  async () => {
-    try {
-      const response = await addProductApi.getProductTypes();
-      return response.data;
-    } catch (error) {}
-  }
-);
+})
+// xoá ảnh dại diện 
 export const removeImage = createAsyncThunk(
-  'product-update/delete_image',
+  'product-add/delete_image',
   async (url_image) => {
-    await addProductApi.removeImage(url_image);
+    await UpdateProductApi.removeImage(url_image);
   }
 );
-export const removeDocument = createAsyncThunk(
-  'product-update/delete_image',
-  async (resource_url) => {
-    await addProductApi.removeDocument(resource_url);
-  }
-);
-
 const initialState = {
-  // product finished successfully
-  productFinished: null,
-  isProductFinishedLoading: false,
-
-  // info product
-  infoProduct: {},
-  isInfoProductLoading: false,
-
-  // product types
-  isProductTypesLoading: false,
-  productTypes: [],
+  productDetail : "",
+  loading : false,
+  productType : []
 };
 const ProductUpdateSlice = createSlice({
   name: 'product-update',
   initialState,
   extraReducers: {
-    [postAddProduct.pending]: (state) => {
-      state.isProductFinishedLoading = true;
-    },
-    [postAddProduct.fulfilled]: (state, action) => {
-      state.isProductFinishedLoading = false;
-      state.productFinished = action.payload.data;
-    },
-    [postAddProduct.rejected]: (state) => {
-      state.isProductFinishedLoading = false;
-    },
-
-    [getInfo.fulfilled]: (state, action) => {
-      state.isInfoProductLoading = false;
-      state.infoProduct = action.payload;
-    },
-    [getInfo.rejected]: (state) => {
-      state.isInfoProductLoading = true;
-    },
-
     // product types
-    [getProductTypes.pending]: (state) => {
-      state.isProductTypesLoading = true;
+    // chi tiết
+    [getDetailProduct.pending] : state =>{
+      state.loading = true
     },
-    [getProductTypes.fulfilled]: (state, action) => {
-      state.isProductTypesLoading = false;
-      state.productTypes = action.payload.product_types;
+    [getDetailProduct.fulfilled] : (state,action) =>{
+      state.loading = false
+      state.productDetail = action.payload.data
     },
+    [getDetailProduct.rejected] : state =>{
+      state.loading = false
+    }
   },
 });
 const { reducer: productUpdateReducer } = ProductUpdateSlice;

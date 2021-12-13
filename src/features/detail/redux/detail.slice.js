@@ -3,11 +3,15 @@ import _get from 'lodash.get';
 import { detailProductApi } from './../api/detail.api';
 
 export const getDetailProduct = createAsyncThunk(
-  'detailProduct/getDetailProduct',
+  'detailProduct/getdata',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
-      return response.data;
+      const dataDetailProduct = {
+        data: response.data?.data,
+        star: response.data?.star?.rating,
+      };
+      return dataDetailProduct;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
@@ -15,7 +19,7 @@ export const getDetailProduct = createAsyncThunk(
 );
 
 export const postProductRating = createAsyncThunk(
-  'detail/postProductRating',
+  'detailProduct/postProductRating',
   async (countRating, { rejectWithValue }) => {
     try {
       await detailProductApi.postProductRating(countRating);
@@ -26,7 +30,7 @@ export const postProductRating = createAsyncThunk(
 );
 
 export const getCommentsOfProduct = createAsyncThunk(
-  'detail/getComments',
+  'detailProduct/getComments',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getCommentsOfProduct(id);
@@ -38,7 +42,7 @@ export const getCommentsOfProduct = createAsyncThunk(
 );
 
 export const postComment = createAsyncThunk(
-  'detail/postComment',
+  'detailProduct/postComment',
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postComment(comment);
@@ -50,7 +54,7 @@ export const postComment = createAsyncThunk(
 );
 
 export const postCommentReply = createAsyncThunk(
-  'detail/postCommentReply',
+  'detailProduct/postCommentReply',
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postCommentReply(comment);
@@ -62,7 +66,7 @@ export const postCommentReply = createAsyncThunk(
 );
 
 export const deleteCommentReply = createAsyncThunk(
-  'detail/deleteCommentReply',
+  'detailProduct/deleteCommentReply',
   async (id, { rejectWithValue }) => {
     try {
       await detailProductApi.deleteCommentReply(id);
@@ -74,7 +78,7 @@ export const deleteCommentReply = createAsyncThunk(
 );
 
 export const deleteComment = createAsyncThunk(
-  'detail/deleteComment',
+  'detailProduct/deleteComment',
   async (id, { rejectWithValue }) => {
     try {
       await detailProductApi.deleteComment(id);
@@ -86,7 +90,7 @@ export const deleteComment = createAsyncThunk(
 );
 
 export const putComment = createAsyncThunk(
-  'detail/putComment',
+  'detailProduct/putComment',
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.putComment(comment);
@@ -98,7 +102,7 @@ export const putComment = createAsyncThunk(
 );
 
 export const putCommentReply = createAsyncThunk(
-  'detail/putCommentReply',
+  'detailProduct/putCommentReply',
   async (comment, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.postCommentReply(comment);
@@ -110,7 +114,7 @@ export const putCommentReply = createAsyncThunk(
 );
 
 export const getCountStar = createAsyncThunk(
-  'detail/getCountStar',
+  'detailProduct/getCountStar',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getCountStar(id);
@@ -122,7 +126,7 @@ export const getCountStar = createAsyncThunk(
 );
 
 export const getAvgStar = createAsyncThunk(
-  'detail/getAvgStar',
+  'detailProduct/getAvgStar',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getAvgStar(id);
@@ -147,16 +151,16 @@ const initialState = {
 };
 
 const detailProductSlice = createSlice({
-  name: 'detail product',
+  name: 'detailProduct',
   initialState,
   extraReducers: {
     [getDetailProduct.pending]: (state) => {
       state.isLoadingDetailProduct = true;
     },
     [getDetailProduct.fulfilled]: (state, action) => {
-      state.isLoadingDetailProduct = false;
       state.itemDetailProduct = action.payload?.data;
-      state.starProduct = action.payload?.star?.rating;
+      state.starProduct = action.payload?.star;
+      state.isLoadingDetailProduct = false;
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
