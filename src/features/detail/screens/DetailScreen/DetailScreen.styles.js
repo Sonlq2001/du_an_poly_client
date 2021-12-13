@@ -168,6 +168,10 @@ export const ContentPost = styled.p`
   line-height: 2.5rem;
   margin-top: 2.5rem;
   text-align: justify;
+  & img{
+   max-width:80%;
+    max-height: 80%;
+  }
 `;
 
 export const BoxYoutube = styled.div`
