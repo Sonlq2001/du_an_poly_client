@@ -7,6 +7,7 @@ import detailProductReducer from 'features/detail/redux/detail.slice';
 import productAddReducer from 'features/add-product/redux/add-product.slice';
 import ProfileReducer from 'features/profile/redux/profile.slice';
 import masterDataReducer from 'features/master-data/redux/master-data.slice';
+import productUpdateReducer from 'features/update-product/redux/update-product.slice';
 
 const rootReducer = combineReducers({
   detailProduct: detailProductReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   addProduct: productAddReducer,
   productProfile: ProfileReducer,
   masterData: masterDataReducer,
+  updateProduct :productUpdateReducer
 });
 
 export default rootReducer;

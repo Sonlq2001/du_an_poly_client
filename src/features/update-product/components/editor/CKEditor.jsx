@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import ConfigEditor from './ConfigEditor';
 const CKEditor = (props) => {
-  const [editor, setEditor] = useState(null);
+  const [editor, setEditor] = useState(props.dataa);
   return (
     <ConfigEditor
       handleChange={(data) => {
@@ -10,6 +10,7 @@ const CKEditor = (props) => {
       }}
       data={editor}
       {...props}
+      value="xnc aif "
     />
   );
 };
