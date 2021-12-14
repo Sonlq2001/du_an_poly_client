@@ -180,10 +180,10 @@ const CategoryControl = () => {
                 return (
                   <Link
                     key={index}
-                    to={`/category/${item?.nameLink}/${item?.id}`}
+                    to={`/category/${item?.name.toLowerCase()}`}
                     className="link-cate"
                   >
-                    {item.name}
+                    {item.nameLink}
                   </Link>
                 );
               })}
