@@ -18,13 +18,13 @@ const CategoryScreen = () => {
   useEffect(() => {
     getData();
   }, [dispatch, getData]);
-  const { loading } = useSelector((state) => state.category);
+  const { loading,isProductLoading } = useSelector((state) => state.category);
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
       <CategoryControl />
       <div className="container">
-        {loading ? (
+        {loading || isProductLoading? (
           <PendingSearch>
             <div className="group-pending">
               <Loading nowrap={false} />

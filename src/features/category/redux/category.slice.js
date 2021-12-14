@@ -57,8 +57,9 @@ export  const sortProduct =  createAsyncThunk("category/sortProduct",async(data)
 })
 const initialState = {
   loading: false,
+  isProductLoading : false,
   listSubject : [],
-  productMajor :[],
+  productMajor :null,
   listTeacher : []
 };
 
@@ -75,18 +76,20 @@ const categorySlice = createSlice({
   // product major 
     [getProductMajor.pending] : (state)=>{
       state.loading =  true
+      state.isProductLoading =  true
     },
     [getProductMajor.fulfilled]: (state,action) => {
       state.productMajor = action.payload?.data
-      if(action.payload.data){
-        state.loading =  false
+      state.isProductLoading = true
+      if(action.payload?.data){
+        state.isProductLoading = false
       }
    
     },
-    [getProductMajor.rejected]: (state,action) => {
-
+    [getProductMajor.rejected]: (state) => {
       state.productMajor = []
       state.loading =  false
+      state.isProductLoading = false
     },
     // giangr viên 
     [getTeacher.pending] :(state)=>{
@@ -102,16 +105,22 @@ const categorySlice = createSlice({
     },
     [productFilter.pending] : (state)=>{
       state.loading = true
+      state.isProductLoading = true
     },
     [productFilter.fulfilled] : (state,action)=>{
    
-      state.productMajor = action.payload.data
-      state.loading =  false
+      state.productMajor = action.payload?.data
+      state.isProductLoading = true
+      if(action.payload?.data){
+        state.isProductLoading = false
+        state.loading =  false
+      }
+     
     },
     [productFilter.rejected] : (state)=>{
-      
         state.productMajor = []
         state.loading =  false
+        state.isProductLoading = false
     },
     // seach tìm kiêm 
     [seachProduct.pending] : (state)=>{
@@ -120,7 +129,12 @@ const categorySlice = createSlice({
     [seachProduct.fulfilled] : (state,action)=>{
       
       state.productMajor = action.payload.data
-      state.loading =  false
+      state.isProductLoading = true
+      if(action.payload.data) {
+        state.isProductLoading = false
+        state.loading =  false
+      }
+
     },
     [seachProduct.rejected] : (state)=>{
       state.loading =  false
@@ -129,14 +143,19 @@ const categorySlice = createSlice({
     // sắp xếp
     [sortProduct.pending] : (state)=>{
       state.loading =  true
+      state.isProductLoading = true
     },
     [sortProduct.fulfilled] : (state,action)=>{
-
-      state.productMajor = action.payload.data
-      state.loading =  false
+      state.productMajor = action.payload?.data
+      state.isProductLoading = true
+      if( action.payload.data){
+        state.loading =  false
+        state.isProductLoading = false
+      }
+      
     },
     [sortProduct.rejected] : (state)=>{
-    
+      state.isProductLoading = false
       state.productMajor = []
       state.loading =  false
     }

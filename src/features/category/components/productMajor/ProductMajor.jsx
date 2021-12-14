@@ -16,8 +16,17 @@ import { FiBookmark } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Ong_vang  from "./../../../../assets/images/ong_vang.png"
+import { PendingSearch } from "./../../screens/CategoryScreen.styles";
+import Loading from 'components/Loading/Loading';
 const ProductMajor = () => {
-  const { productMajor } = useSelector((state) => state.category)
+  const { productMajor ,isProductLoading} = useSelector((state) => state.category)
+  if(isProductLoading){
+    <PendingSearch>
+    <div className="group-pending">
+      <Loading nowrap={false} />
+    </div>
+  </PendingSearch>
+  }
   return (
     <>
       {productMajor && productMajor.length > 0 ? (
