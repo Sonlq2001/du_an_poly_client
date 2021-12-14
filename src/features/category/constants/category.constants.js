@@ -1,10 +1,10 @@
 export const LIST_MAJOR = [
-  { id: '1', name: 'Công nghệ thông tin', nameLink : "công-nghệ-thông-tin" },
-  { id: '2', name: 'Kinh tế - Kinh doanh',nameLink : "kinh-te-kinh-doanh" },
-  { id: '3', name: 'Thiết Kế Đồ Họa' ,nameLink : "thiet-ke-do-hoa"},
-  { id: '4', name: 'Cơ Khí - Tự Động Hóa',nameLink : "co-khi-tu-dong-hoa" },
-  { id: '5', name: 'Mỹ Phẩm Làm Đẹp',nameLink:"my-pham-lam-dep" },
-  { id: '6', name: 'Du Lịch - Nhà Hàng - Khách sạn ',nameLink: "du-lich-nha-hang-khach-sạn" },
+  { id: '1', name: 'công-nghệ-thông-tin-1', nameLink : "Công Nghệ Thông Tin" },
+  { id: '2', name: 'Kinh-tế-Kinh-doanh-2',nameLink : "Kinh Tế - Kinh Doanh" },
+  { id: '3', name: 'Thiết-Kế-Đồ-Họa-3' ,nameLink : "Thiết Kế Đồ Họa"},
+  { id: '4', name: 'Cơ-Khí-Tự Động-Hóa-4',nameLink : "Cơ Khí - Tự ĐộngHóa" },
+  { id: '5', name: 'Mỹ-Phẩm-Làm-Đẹp-5',nameLink:"Mỹ Phẩm-Làm Đẹp" },
+  { id: '6', name: 'Du-Lịch-Nhà-Hàng-Khách-Sạn-6',nameLink: "Du-Lịch-Nhà-Hàng-Khách-Sạn" },
 ];
 
 export const LIST_TEACHER = [
