@@ -32,7 +32,7 @@ import InputFileElement from 'components/FormElement/InputElement/InputFileEleme
 import SelectElement from 'components/FormElement/SelectElement/SelectElement';
 import CKEditor from '../components/editor/CKEditor';
 import { WarEditor } from '../components/editor/Editor.styles';
-import { MapOptions } from 'helpers/convert/map-options';
+import { MapOptions, MapOptionsCampuses, MapOptionsLong } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from '../constants/update-product.key';
 
 import {
@@ -51,29 +51,30 @@ const AddProduct = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getProductTypes());
+    fetchProductTypes()
   }, [fetchProductTypes, dispatch]);
 
   useEffect(() => {
     dispatch(getDetailProduct(id));
   }, [dispatch, id]);
   // thông tin cần lấy
-  const { productTypes, userLogin, productDetail, loading } = useSelector(
+  const { userLogin, productDetail, loading,productType } = useSelector(
     (state) => ({
       productTypes: state.addProduct.productTypes,
       userLogin: state.auth.userLogin,
       productDetail: state.updateProduct.productDetail,
       loading: state.updateProduct.loading,
+      productType: state.updateProduct.productType,
     })
   );
   // data conver
-  const dataConvertProduct = DataConvert(productDetail && productDetail);
+  const dataConvertProduct = DataConvert(productDetail ? productDetail : {});
   const dataConvertStudent = DataConvertStudent(productDetail && productDetail);
-
+  const dataOption = MapOptionsLong(productType && productType)
   // bộ sưu tập
   let ArrayGalleris =
-    dataConvertProduct &&
-    dataConvertProduct.product_galleries.map((item) => {
+  productDetail &&
+  productDetail.product_galleries.map((item) => {
       return item.image_url;
     });
   const [listImages, setListImage] = useState([]);
@@ -81,12 +82,11 @@ const AddProduct = () => {
 
   const [LinkDoc, setLinkDoc] = useState(null);
   const [loadingButton, setLoadingButton] = useState(0);
-  const [disableButton, setDisableButton] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const [loadingItem, setLoadingItem] = useState(true);
   const [hiden, setHiden] = useState(true);
   const [hidenStudent, setHidenStudent] = useState(true);
   const [reviewAvatar, setReviewAvatar] = useState(false);
-  const selectProductTypes = MapOptions(productTypes);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([]);
   //  xoá thành viên
@@ -98,6 +98,7 @@ const AddProduct = () => {
       setGroupCodeStudent(dataConvertStudent.filter((_, index) => index !== i));
     }
   };
+
   // xoá ảnh đại điện
   const RemoveImage = async (i, key) => {
     const url = { img_url: i };
@@ -122,6 +123,7 @@ const AddProduct = () => {
           var top = (window.screen.height / 2) - (h / 2);
           return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
       }
+
   if (loading) {
     return <Loading />;
   }
@@ -144,8 +146,8 @@ const AddProduct = () => {
             newObjProduct.resource_url = LinkDoc ? LinkDoc :dataConvertProduct.resource_url ;
             newObjProduct.status = 1
             newObjProduct.product_type_id = values.product_type_id ?  values.product_type_id : dataConvertProduct.product_type_id
-            // setLoadingButton(STATUS_KEY_INPUT.LOADING);
-            // setDisableButton(true);
+            setLoadingButton(STATUS_KEY_INPUT.LOADING);
+            setDisableButton(true);
             console.log('newObjProduct', newObjProduct);
             // const response = await dispatch(postAddProduct(newObjProduct));
             // if (postAddProduct.fulfilled.match(response)) {
@@ -159,7 +161,7 @@ const AddProduct = () => {
             //   toast.success('Thêm sản phẩm thất bại !');
             //   setLoadingButton(STATUS_KEY_INPUT.ERROR);
             // }
-            setDisableButton(false);
+            // setDisableButton(false);
           }}
         >
           {() => (
@@ -170,11 +172,13 @@ const AddProduct = () => {
                     label="Tên sản phẩm"
                     name="name"
                     placeholder="Nhập tên sản phẩm"
+                    value={productDetail?.name}
                   />
                   <InputElement
                     label="Đường dẫn video"
                     name="video_url"
                     placeholder="Link video "
+                    value={productDetail?.video_url}
                   />
                   <GroupLabel className="group-label">
                     <InputElement label="Môn Học  " name="subject_id" hidden />
@@ -291,7 +295,7 @@ const AddProduct = () => {
                     label="Loại"
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
-                    options={selectProductTypes || []}
+                    options={dataOption || []}
                   />
 
                   <InputFileElement
@@ -405,13 +409,10 @@ const AddProduct = () => {
               <WrapButton>
                 {/* <label onClick={() => setShow(!show)} className="review">
                   Xem trước
-                </label> */}
-                {LinkDoc &&
-                linkAvatar &&
-                // infoProduct &&
-                listImages.length > 0 ? (
+                </label> */}     
+
                   <button
-                    disabled={disableButton}
+                    disabled={ArrayGalleris.length < 0 || listImages.length < 0}
                     type="submit"
                     className={`button-add ${
                       loadingButton === STATUS_KEY_INPUT.ERROR && 'er'
@@ -427,11 +428,7 @@ const AddProduct = () => {
                     )}
                     Thêm sản phẩm
                   </button>
-                ) : (
-                  <button type="submit" className="button-add">
-                    Thêm sản phẩm
-                  </button>
-                )}
+               
               </WrapButton>
             </Form>
           )}

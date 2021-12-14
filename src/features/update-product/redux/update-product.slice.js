@@ -5,7 +5,8 @@ import { UpdateProductApi } from '../api/update-product.api';
 export const getProductTypes =  createAsyncThunk("product-update/productTypes",async ()=>{
     try {
         const response = await  UpdateProductApi.getProductTypes()
-        console.log("vô đây", response)
+        // product_types
+        return response.data
     } catch (error) {
       
     }
@@ -46,7 +47,18 @@ const ProductUpdateSlice = createSlice({
     },
     [getDetailProduct.rejected] : state =>{
       state.loading = false
-    }
+    },
+    [getProductTypes.pending]: state=>{
+      state.loading = true
+    },
+    [getProductTypes.fulfilled]: (state,action)=>{
+      state.productType = action.payload?.product_types
+      state.loading = false
+    },
+    [getProductTypes.rejected]: state=>{
+      state.productType = []
+      state.loading = false
+    },
   },
 });
 const { reducer: productUpdateReducer } = ProductUpdateSlice;
