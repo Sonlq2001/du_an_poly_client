@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import _get from 'lodash.get';
+
 import { addProductApi } from '../api/add-product.api';
 
 export const postAddProduct = createAsyncThunk(
@@ -15,11 +17,13 @@ export const postAddProduct = createAsyncThunk(
 
 export const getInfo = createAsyncThunk(
   'add-product/getInfo',
-  async (product_token) => {
+  async (product_token, { rejectWithValue }) => {
     try {
       const response = await addProductApi.getInfo(product_token);
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'message', ''));
+    }
   }
 );
 
@@ -32,12 +36,18 @@ export const getProductTypes = createAsyncThunk(
     } catch (error) {}
   }
 );
+
 export const removeImage = createAsyncThunk(
   'product-add/delete_image',
-  async (url_image) => {
-    await addProductApi.removeImage(url_image);
+  async (url_image, { rejectWithValue }) => {
+    try {
+      await addProductApi.removeImage(url_image);
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
+
 export const removeDocument = createAsyncThunk(
   'product-add/delete_image',
   async (resource_url) => {
@@ -72,12 +82,13 @@ const ProductAddSlice = createSlice({
     [postAddProduct.rejected]: (state) => {
       state.isProductFinishedLoading = false;
     },
+
+    // get info user teacher
     [getInfo.pending]: (state) => {
       state.isInfoProductLoading = true;
     },
     [getInfo.fulfilled]: (state, action) => {
       state.infoProduct = action.payload;
-
       state.isInfoProductLoading = false;
     },
     [getInfo.rejected]: (state) => {

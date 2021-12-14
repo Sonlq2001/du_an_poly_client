@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
@@ -31,10 +31,11 @@ import {
   getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
-import CKEditor from './../components/editor/CKEditor';
-import { WarEditor } from './../components/editor/Editor.styles';
+import CKEditor from '../components/Editor/CKEditor';
+import { WarEditor } from '../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from './../constants/add-product.key';
+import { MESSAGE_DEFAULT } from 'constants/app.constants';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -64,10 +65,20 @@ const AddProduct = () => {
       );
       if (getInfo.fulfilled.match(response)) {
         setLoadingItem(false);
+      } else {
+        history.push('/');
       }
     };
     getInfoApi();
-  }, [dispatch, product_token]);
+  }, [dispatch, product_token, history]);
+
+  useEffect(() => {
+    if (product_token) {
+      window.sessionStorage.setItem('product_token', product_token);
+    } else {
+      history.push('/');
+    }
+  }, [product_token, history]);
 
   const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
     useSelector((state) => ({
@@ -78,7 +89,6 @@ const AddProduct = () => {
     }));
 
   const selectProductTypes = MapOptions(productTypes);
-  window.localStorage.setItem('product_token', product_token);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([
     userLogin?.email.substring(0, userLogin.email.search('@')),
@@ -87,30 +97,26 @@ const AddProduct = () => {
     setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
   };
 
-  const RemoveImage = async (i, key) => {
-    const url = { img_url: i };
-    try {
-      await dispatch(removeImage(url));
+  const handleRemoveImage = async (path, key) => {
+    const response = await dispatch(
+      removeImage({
+        img_url: path,
+      })
+    );
+    if (removeImage.fulfilled.match(response)) {
       setListImage(listImages.filter((_, index) => index !== key));
-    } catch (error) {}
+    } else {
+      toast.error(MESSAGE_DEFAULT.PROBLEM);
+    }
   };
 
-  const EmailChange = (e, key) => {
+  const handleChangeEmail = (e, key) => {
     const valueEmail = e.target.value;
     email = [...groupCodeStudent];
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-  if (userLogin === null) {
-    return <Redirect to="/sign-in" />;
-  } else if (!infoProduct) {
-    window.localStorage.removeItem('product_token');
-    return (
-      <>
-        <Redirect to="/" />
-      </>
-    );
-  }
+
   return (
     <>
       {!isInfoProductLoading ? (
@@ -136,7 +142,7 @@ const AddProduct = () => {
                 const response = await dispatch(postAddProduct(newObjProduct));
                 if (postAddProduct.fulfilled.match(response)) {
                   toast.success('Thêm sản phẩm thành công !');
-                  window.localStorage.removeItem('product_token');
+                  window.sessionStorage.removeItem('product_token');
                   setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
                   setTimeout(
                     () => history.push(`/product/${response.payload.id}`),
@@ -230,7 +236,7 @@ const AddProduct = () => {
                                   placeholder="Tên và mã số sinh viên "
                                   value={item}
                                   required
-                                  onChange={(e) => EmailChange(e, index)}
+                                  onChange={(e) => handleChangeEmail(e, index)}
                                   disabled={index === 0 ? true : false}
                                 />
 
@@ -302,7 +308,9 @@ const AddProduct = () => {
                                 <img src={item} alt="" />
                                 <div className="delete">
                                   <BsTrash
-                                    onClick={() => RemoveImage(item, index)}
+                                    onClick={() =>
+                                      handleRemoveImage(item, index)
+                                    }
                                   />
                                 </div>
                               </div>
