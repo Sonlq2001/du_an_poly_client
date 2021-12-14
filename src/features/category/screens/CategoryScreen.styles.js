@@ -105,7 +105,6 @@ export const MasonryActionItem = styled.div`
     cursor: pointer;
     font-size: 1.4rem;
   }
-
   .icon-bookmark:hover {
     color: var(--txt-color);
     transition: ease-in-out 0.3s;
@@ -113,7 +112,7 @@ export const MasonryActionItem = styled.div`
 `;
 export const PendingSearch = styled.div`
   min-height: 100vh;
-  background-color: #d0caca26;
+  background-color: white;
   border-radius: 10px;
   .group-pending {
     position: absolute;

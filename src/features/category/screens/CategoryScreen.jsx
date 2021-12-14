@@ -19,7 +19,6 @@ const CategoryScreen = () => {
     getData();
   }, [dispatch, getData]);
   const { loading } = useSelector((state) => state.category);
-
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
@@ -32,7 +31,6 @@ const CategoryScreen = () => {
             </div>
           </PendingSearch>
         ) : (
-         
           <ProductMajor />
         
         )}

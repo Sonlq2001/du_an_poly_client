@@ -15,21 +15,22 @@ import { FaRegComment } from 'react-icons/fa';
 import { FiBookmark } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Ong_vang  from "./../../../../assets/images/ong_vang.png"
 const ProductMajor = () => {
   const { productMajor } = useSelector((state) => state.category)
   return (
     <>
-      {productMajor ? (
-          productMajor.length > 0 ? (
+      {productMajor && productMajor.length > 0 ? (
+          (
          <MasonryLayout>
            { productMajor.map((item, index) => {
               return (
                 <MasonryBox className="item" key={index + 1}>
                   <MasonryHeader>
-                    <img src={item?.image} alt={item?.name} />
+                    <img src={item?.image ?item?.image : Ong_vang } alt={item?.name} />
                   </MasonryHeader>
                   <MasonryContent>
-                    <Link to={`/product/${item.id}`} className="content-title">
+                    <Link to={`/product/${item?.id}`} className="content-title">
                       {item?.name}
                     </Link>
                     <p className="content-object">
@@ -62,17 +63,6 @@ const ProductMajor = () => {
               );
           })}
             </MasonryLayout>
-          ) : (
-            <GroupNoResult>
-              <div className="body-no-result">
-                <img src={NoResult} alt="" className="img-no-result" />
-                <div className="box-no-result">
-                  <div className="label-no-result">
-                    Không tìm thấy kết quả nào
-                  </div>
-                </div>
-              </div>
-            </GroupNoResult>
           )
       
       ) : (
@@ -82,9 +72,6 @@ const ProductMajor = () => {
                 <div className="box-no-result">
                   <div className="label-no-result">
                     Không tìm thấy kết quả nào
-                  </div>
-                  <div className="des-no-result">
-                    Hãy thử sử dụng các từ khóa chung chung hơn
                   </div>
                 </div>
               </div>
