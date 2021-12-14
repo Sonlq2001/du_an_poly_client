@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const WrapPage = styled.div`
-  margin: auto;
-  padding: 12px 0px 15px 0px;
   .text-label {
     font-size: 1.4rem;
     padding: 1.3rem 1.5rem;
@@ -14,23 +12,43 @@ export const WrapPage = styled.div`
     cursor: not-allowed;
   }
 `;
+export const WrapPageHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  .title-form {
+    text-align: center;
+    flex-grow: 1;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+  .question-form {
+    font-size: 1.2rem;
+    cursor: pointer;
+    text-decoration: underline;
+    &:hover {
+      color: var(--first-color);
+      text-decoration: none;
+    }
+  }
+`;
 export const Title = styled.label`
   margin-top: 2.4rem;
   font-size: 1.5rem;
 
   @media (max-width: 991.98px) {
-    display :${props => props.title ? "flex" :""};
+    display: ${(props) => (props.title ? 'flex' : '')};
     justify-content: center;
     align-items: center;
     padding-bottom: 4rem;
   }
   @media (max-width: 767.98px) {
-    display :${props => props.title ? "flex" :""};
+    display: ${(props) => (props.title ? 'flex' : '')};
     justify-content: center;
     align-items: center;
   }
   @media (max-width: 575.98px) {
-    display :${props => props.title ? "flex" :""};
+    display: ${(props) => (props.title ? 'flex' : '')};
     justify-content: center;
     align-items: center;
   }
@@ -45,8 +63,8 @@ export const WrapForm = styled.div`
   @media (max-width: 767.98px) {
     padding: 0px 5rem;
   }
-  @media (max-width: 575.98px) {}
-
+  @media (max-width: 575.98px) {
+  }
 `;
 export const ContentForm = styled.div`
   display: flex;
@@ -56,16 +74,18 @@ export const ContentForm = styled.div`
   }
   @media (max-width: 767.98px) {
   }
-  @media (max-width: 575.98px) {}
+  @media (max-width: 575.98px) {
+  }
 `;
 export const FormLeft = styled.div`
   width: 50%;
   @media (max-width: 991.98px) {
-   width :100%
+    width: 100%;
   }
   @media (max-width: 767.98px) {
   }
-  @media (max-width: 575.98px) {}
+  @media (max-width: 575.98px) {
+  }
 `;
 export const FormRight = styled(FormLeft)`
   margin-left: 2rem;
@@ -73,9 +93,9 @@ export const FormRight = styled(FormLeft)`
     height: 48rem;
   }
   @media (max-width: 991.98px) {
-   width :100%;
-   margin-top: 1.5rem;
-   margin-left: 0rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    margin-left: 0rem;
   }
 `;
 export const GroupLabel = styled.div`
@@ -178,12 +198,12 @@ export const GroupStudents = styled.div`
     transform: translateY(-50%);
   }
   @media (max-width: 991.98px) {
-   width :100%;
-   text-align: left;
-   .title{
-     text-align: left;
-     float: left !important;
-   }
+    width: 100%;
+    text-align: left;
+    .title {
+      text-align: left;
+      float: left !important;
+    }
   }
 `;
 export const GroupInput = styled.div`
@@ -198,11 +218,9 @@ export const GroupInput = styled.div`
   }
   @media (max-width: 991.98px) {
     padding-left: 10px;
-
   }
   @media (max-width: 767.98px) {
     padding-left: 3rem;
-
   }
 `;
 // editor
@@ -254,21 +272,21 @@ export const WrapButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:3rem;
-    margin-bottom:4rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
   }
   @media (max-width: 767.98px) {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:3rem;
-    margin-bottom:4rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
   }
   @media (max-width: 575.98px) {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:3rem;
-    margin-bottom:4rem;
+    margin-top: 3rem;
+    margin-bottom: 4rem;
   }
 `;
