@@ -69,8 +69,8 @@ const Header = () => {
   }));
 
   const handleLogout = () => {
-    window.localStorage.removeItem('product_token');
     dispatch(postLogout());
+    history.push('/');
   };
 
   const handleSearch = (e) => {

@@ -19,6 +19,7 @@ import {
   GroupStudents,
   GroupInput,
   GroupLabel,
+  WrapPageHeader,
 } from './ProductAddScreen.styles';
 import { initForm } from './../helpers/add-product.helpers';
 import InputElement from 'components/FormElement/InputElement/InputElement';
@@ -36,6 +37,9 @@ import { WarEditor } from '../components/Editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from './../constants/add-product.key';
 import { MESSAGE_DEFAULT } from 'constants/app.constants';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
+import { KEY_PRODUCT } from 'constants/app.constants';
+import { AUTH_PATHS } from 'features/auth/constants/auth.paths';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -56,6 +60,14 @@ const AddProduct = () => {
     fetchProductTypes();
   }, [fetchProductTypes]);
 
+  const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
+    useSelector((state) => ({
+      productTypes: state.addProduct.productTypes,
+      infoProduct: state.addProduct.infoProduct,
+      isInfoProductLoading: state.addProduct.isInfoProductLoading,
+      userLogin: state.auth.userLogin,
+    }));
+
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -66,29 +78,19 @@ const AddProduct = () => {
       if (getInfo.fulfilled.match(response)) {
         setLoadingItem(false);
       } else {
-        history.push('/');
+        userLogin ? history.push('/') : history.push(AUTH_PATHS.SIGN_IN);
       }
     };
     getInfoApi();
-  }, [dispatch, product_token, history]);
+  }, [dispatch, product_token, history, userLogin]);
 
   useEffect(() => {
     if (product_token) {
-      window.sessionStorage.setItem('product_token', product_token);
-    } else {
-      history.push('/');
+      window.sessionStorage.setItem(KEY_PRODUCT, product_token);
     }
-  }, [product_token, history]);
+  }, [product_token]);
 
-  const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
-    useSelector((state) => ({
-      productTypes: state.addProduct.productTypes,
-      infoProduct: state.addProduct.infoProduct,
-      isInfoProductLoading: state.addProduct.isInfoProductLoading,
-      userLogin: state.auth.userLogin,
-    }));
-
-  const selectProductTypes = MapOptions(productTypes);
+  const selectProductTypes = MapOptions(productTypes ?? []);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([
     userLogin?.email.substring(0, userLogin.email.search('@')),
@@ -119,9 +121,13 @@ const AddProduct = () => {
 
   return (
     <>
+      <Breadcrumb position="Thêm sản phẩm" />
       {!isInfoProductLoading ? (
         <WrapPage className="container">
-          <Title title> Sản phẩm mới</Title>
+          <WrapPageHeader>
+            <h3 className="title-form">Thêm mới sản phẩm</h3>
+            <div className="question-form">Hướng dẫn ?</div>
+          </WrapPageHeader>
           <WrapForm>
             <Formik
               initialValues={{
