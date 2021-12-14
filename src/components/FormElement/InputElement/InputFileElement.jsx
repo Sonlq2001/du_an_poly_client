@@ -39,7 +39,7 @@ const InputFileElement = ({
 
     if (name === 'resource_url') {
       if (file && file.size <= 31457280) {
-        formData.append('resource_url', file && file);
+        formData.append('resource_url', file);
         formData.append('name', file && file.name);
         setLoadingDocument(1);
         if (LinkDoc) {
