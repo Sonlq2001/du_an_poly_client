@@ -28,7 +28,7 @@ export const getTeacher = createAsyncThunk("categoory/teacher", async (data)=>{
             const response = await categoryApi.teacherApi(data)
             return response.data
       } catch (error) {
-          console.log("lỗi này ")
+          console.log("lỗi này",error.response)
       }
 })
 export const productFilter = createAsyncThunk("category/filterProduct", async (data)=>{
@@ -58,7 +58,7 @@ export  const sortProduct =  createAsyncThunk("category/sortProduct",async(data)
 const initialState = {
   loading: false,
   listSubject : [],
-  productMajor : [],
+  productMajor :[],
   listTeacher : []
 };
 
@@ -77,25 +77,31 @@ const categorySlice = createSlice({
       state.loading =  true
     },
     [getProductMajor.fulfilled]: (state,action) => {
-      state.loading =  false
-      state.productMajor = action.payload.data
+      state.productMajor = action.payload?.data
+      if(action.payload.data){
+        state.loading =  false
+      }
+   
     },
     [getProductMajor.rejected]: (state,action) => {
-      state.loading =  false
+
       state.productMajor = []
+      state.loading =  false
     },
     // giangr viên 
+    [getTeacher.pending] :(state)=>{
+      state.loading =  false  
+    },
     [getTeacher.fulfilled] :(state,action)=>{
-        state.listTeacher = action.payload.data
-        state.loading =  false
+        state.listTeacher = action.payload?.data
+        state.loading =  false  
     },
     [getTeacher.rejected] :(state)=>{
-
         state.listTeacher = []
-        state.loading =  false
+        state.loading =  false  
     },
     [productFilter.pending] : (state)=>{
-      state.loading =  true
+      state.loading = true
     },
     [productFilter.fulfilled] : (state,action)=>{
    
