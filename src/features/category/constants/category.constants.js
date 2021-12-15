@@ -1,4 +1,5 @@
 export const LIST_MAJOR = [
+  { id: '0', name: 'All', nameLink : "All" },
   { id: '1', name: 'công-nghệ-thông-tin-1', nameLink : "Công Nghệ Thông Tin" },
   { id: '2', name: 'Kinh-tế-Kinh-doanh-2',nameLink : "Kinh Tế - Kinh Doanh" },
   { id: '3', name: 'Thiết-Kế-Đồ-Họa-3' ,nameLink : "Thiết Kế Đồ Họa"},

@@ -81,10 +81,11 @@ const categorySlice = createSlice({
     [getProductMajor.fulfilled]: (state,action) => {
       state.productMajor = action.payload?.data
       state.isProductLoading = true
+      state.loading =  true
       if(action.payload?.data){
         state.isProductLoading = false
+        state.loading = false
       }
-   
     },
     [getProductMajor.rejected]: (state) => {
       state.productMajor = []
@@ -108,7 +109,6 @@ const categorySlice = createSlice({
       state.isProductLoading = true
     },
     [productFilter.fulfilled] : (state,action)=>{
-   
       state.productMajor = action.payload?.data
       state.isProductLoading = true
       if(action.payload?.data){
@@ -127,10 +127,10 @@ const categorySlice = createSlice({
       state.loading =  true
     },
     [seachProduct.fulfilled] : (state,action)=>{
-      
-      state.productMajor = action.payload.data
+      state.productMajor = action.payload?.data
+      state.loading =  true
       state.isProductLoading = true
-      if(action.payload.data) {
+      if(action.payload.data || !action.payload.data) {
         state.isProductLoading = false
         state.loading =  false
       }
@@ -148,6 +148,7 @@ const categorySlice = createSlice({
     [sortProduct.fulfilled] : (state,action)=>{
       state.productMajor = action.payload?.data
       state.isProductLoading = true
+      state.loading =  true
       if( action.payload.data){
         state.loading =  false
         state.isProductLoading = false
