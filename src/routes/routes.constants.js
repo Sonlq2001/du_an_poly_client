@@ -5,6 +5,7 @@ import { FaSuitcaseRolling, FaRegComment } from 'react-icons/fa';
 import { HiChartBar } from 'react-icons/hi';
 import { AiOutlineHome } from 'react-icons/ai';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { RiProfileFill } from 'react-icons/ri';
 
 import { HOME_PATH } from 'features/home/constants/home.paths';
 import { FEEDBACK_PATHS } from 'features/feedback/constants/feedback.paths';
@@ -26,6 +27,12 @@ export const menubar = [
     title: '',
     cate: 'Các chuyên ngành',
     items: [
+      {
+        id: 'id_category_0',
+        navigationTitle: 'All',
+        path: '/all',
+        icon: <RiProfileFill />,
+      },
       {
         id: 'id_category_1',
         navigationTitle: 'Công nghệ thông tin',
