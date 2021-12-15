@@ -1,7 +1,8 @@
 export const CATEGORY_ENDPOINTS = {
   GET_MAJORS: '/majors',
   GET_SUBJECT: '/majors/:id/subjects',
-  PRODUCT_MAJOR  :'/client/products-major/:id'
+  PRODUCT_MAJOR  :'/client/products-major/:id',
+  ALL_PRODUCT : "/products"
 };
 export const FILTER_PRODUCT = {
   FILTER_PATH : "/filter",

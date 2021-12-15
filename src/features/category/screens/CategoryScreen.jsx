@@ -12,7 +12,6 @@ import Loading from 'components/Loading/Loading';
 const CategoryScreen = () => {
   const dispatch = useDispatch();
   const {path} = useParams();
- 
   const arrayPath = path.split("-")
   const id = arrayPath[arrayPath.length-1]
   const getData = useCallback(() => {
