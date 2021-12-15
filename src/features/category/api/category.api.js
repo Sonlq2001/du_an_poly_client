@@ -10,7 +10,13 @@ const getSubject = (id)=>{
   return api.get(CATEGORY_ENDPOINTS.GET_SUBJECT.replace(":id",id.toString()))
 }
 const productMajor = (id)=>{
-  return api.get(CATEGORY_ENDPOINTS.PRODUCT_MAJOR.replace(':id',id.toString()))
+  if(Number(id)){
+    return api.get(CATEGORY_ENDPOINTS.PRODUCT_MAJOR.replace(':id',id.toString()))
+  }else{
+    console.log("vô đây ")
+    return api.get(CATEGORY_ENDPOINTS.ALL_PRODUCT)
+  }
+
 }
 const teacherApi = (data)=>{
   return  api.post(FILTER_PRODUCT.FILTER_PATH ,data)

@@ -30,9 +30,11 @@ import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
 const CategoryControl = () => {
-  const { id } = useParams();
-  const [isToggle, setIsToggle] = useState(false);
+  const {path} = useParams();
   const dispatch = useDispatch();
+  const arrayPath = path.split("-")
+  const id = arrayPath[arrayPath.length-1]
+
   const dataSubject = useCallback(() => {
     dispatch(getSubjects(id));
   }, [dispatch, id]);
@@ -45,11 +47,26 @@ const CategoryControl = () => {
       type: 'teacher_user_major',
     };
     dispatch(getTeacher(data));
-  }, [dispatch, id]);
+  }, [dispatch,id]);
+
+  const getAllProduct = useCallback(()=>{
+    dispatch(getProductMajor());
+  },[,dispatch])
+   
+  const [isToggle, setIsToggle] = useState(false);
+
+
   useEffect(() => {
-    dataSubject();
-    dataCampuse();
-    dataTeacher();
+    if(Number(id)){
+      dataSubject();
+      dataCampuse();
+      dataTeacher();
+      console.log("có id ")
+    }else{
+      console.log("k có id")
+      getAllProduct()
+    }
+    
   }, [dispatch, dataSubject, dataCampuse, dataTeacher]);
 
   const { listSubject, listTeacher } = useSelector((state) => state.category);
