@@ -53,14 +53,16 @@ const DetailScreen = () => {
   useEffect(() => {
     dispatch(getSubjects());
   }, [dispatch]);
+
   useEffect(() => {
+    if (id) {
       dispatch(getDetailProduct(id));
+    }
   }, [dispatch, id]);
 
-
-  const subjectName = listSubject && listSubject.find(
-    (item) => item.id === itemDetailProduct?.subject_id
-  )?.code;
+  const subjectName =
+    listSubject &&
+    listSubject.find((item) => item.id === itemDetailProduct?.subject_id)?.code;
 
   const settings = {
     customPaging: function (i) {
@@ -342,7 +344,7 @@ const DetailScreen = () => {
             )}
           </>
         ) : (
-          <div className="messenger"> Không tìm thấy sản phẩm ở đat  ! </div>
+          <div className="messenger"> Không tìm thấy sản phẩm ở đat ! </div>
         )}
       </div>
     </WrapDetail>
