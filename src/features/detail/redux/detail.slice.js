@@ -3,15 +3,11 @@ import _get from 'lodash.get';
 import { detailProductApi } from './../api/detail.api';
 
 export const getDetailProduct = createAsyncThunk(
-  'detailProduct/getdata',
+  'detailProduct/getDetailProduct',
   async (id, { rejectWithValue }) => {
     try {
       const response = await detailProductApi.getProductDetail(id);
-      const dataDetailProduct = {
-        data: response.data?.data,
-        star: response.data?.star?.rating,
-      };
-      return dataDetailProduct;
+      return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));
     }
@@ -140,6 +136,7 @@ export const getAvgStar = createAsyncThunk(
 const initialState = {
   itemDetailProduct: null,
   isLoadingDetailProduct: false,
+  listProductRelated: [],
 
   listComment: [],
   isListCommentLoading: false,
@@ -159,7 +156,9 @@ const detailProductSlice = createSlice({
     },
     [getDetailProduct.fulfilled]: (state, action) => {
       state.itemDetailProduct = action.payload?.data;
-      state.starProduct = action.payload?.star;
+      state.starProduct = action.payload?.star?.rating;
+      state.listProductRelated = action.payload?.product_related;
+
       state.isLoadingDetailProduct = false;
     },
     [getDetailProduct.rejected]: (state) => {

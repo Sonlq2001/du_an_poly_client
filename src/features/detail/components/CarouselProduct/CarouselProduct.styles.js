@@ -11,7 +11,6 @@ export const Carousel = styled.div`
   .slick-list {
     margin: 0 -10px;
   }
-  
 `;
 export const ItemCarousel = styled.div`
   box-shadow: 0 0 1rem var(--ddd-color);
