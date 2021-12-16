@@ -11,6 +11,8 @@ export const RatingTotal = styled.div`
   margin-right: 3rem;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
   .rating-percent {
     font-size: 3rem;
     font-weight: 600;
@@ -19,6 +21,7 @@ export const RatingTotal = styled.div`
   }
   .group-star {
     text-align: center;
+    margin-top: 2rem;
   }
   .list-star {
     color: var(--yellow-color);
@@ -34,7 +37,7 @@ export const FilterRating = styled.div`
   .item-rating {
     font-size: 1.4rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
   }
   .item-rating:hover {
@@ -240,7 +243,7 @@ export const GroupActionComment = styled.div`
   position: relative;
   .box-action {
     position: absolute;
-    top: -9rem;
+    top: -2rem;
     text-align: center;
     border-radius: 3px;
     background-color: rgba(247, 247, 247, 1);

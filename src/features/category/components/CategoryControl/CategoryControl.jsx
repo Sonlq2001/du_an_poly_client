@@ -30,10 +30,10 @@ import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
 
 const CategoryControl = () => {
-  const {path} = useParams();
+  const { path } = useParams();
   const dispatch = useDispatch();
-  const arrayPath = path.split("-")
-  const id = arrayPath[arrayPath.length-1]
+  const arrayPath = path.split('-');
+  const id = arrayPath[arrayPath.length - 1];
 
   const dataSubject = useCallback(() => {
     if(Number(id)){
@@ -44,30 +44,26 @@ const CategoryControl = () => {
     dispatch(getCampuses());
   }, [dispatch]);
   const dataTeacher = useCallback(() => {
-    if(Number(id)){
-      const data = {
-        id: Number(id),
-        type: 'teacher_user_major',
-      };
-      dispatch(getTeacher(data));
-    }
+    const data = {
+      id: Number(id),
+      type: 'teacher_user_major',
+    };
+    dispatch(getTeacher(data));
+  }, [dispatch, id]);
 
-  }, [dispatch,id]);
-
-  const getAllProduct = useCallback(()=>{
+  const getAllProduct = useCallback(() => {
     dispatch(getProductMajor());
-  },[,dispatch])
-   
+  }, [, dispatch]);
+
   const [isToggle, setIsToggle] = useState(false);
   useEffect(() => {
-    if(Number(id)){
+    if (Number(id)) {
       dataSubject();
       dataTeacher();
-    }else{
-      getAllProduct()
+    } else {
+      getAllProduct();
     }
-    dataCampuse();
-  }, [dispatch, dataSubject, dataCampuse, dataTeacher,getAllProduct]);
+  }, [dispatch, dataSubject, dataCampuse, dataTeacher]);
 
   const { listSubject, listTeacher } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
@@ -147,7 +143,6 @@ const CategoryControl = () => {
       }
       default:
     }
-  
   };
   const ChangeSearch = (e) => {
     const value = {
@@ -288,7 +283,7 @@ const CategoryControl = () => {
                 options={LIST_SORT}
                 placeholder="Sắp xếp theo"
                 theme={customTheme}
-                onChange={(e) => ChangeFilter(e,4)}
+                onChange={(e) => ChangeFilter(e, 4)}
               />
             </CustomerSelect>
           </SearchAdvance>
