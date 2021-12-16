@@ -23,6 +23,14 @@ export const getSubjects = createAsyncThunk('category/subjectMajor', async (id) 
   } catch (error) {
   }
 });
+export const getAllSubject  = createAsyncThunk("category/getAllsubject", async()=>{
+  try {
+      const response = await categoryApi.allSubject()
+      console.log("ở đây",response)
+  } catch (error) {
+    
+  }
+})
 export const getTeacher = createAsyncThunk("categoory/teacher", async (data)=>{
       try {
             const response = await categoryApi.teacherApi(data)
