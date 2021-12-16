@@ -180,7 +180,7 @@ const detailProductSlice = createSlice({
     // comment
     [postComment.fulfilled]: (state, action) => {
       state.isListCommentLoading = false;
-      state.listComment = [...state.listComment, action.payload.data];
+      state.listComment = [...state.listComment, action.payload?.data];
     },
     [postComment.rejected]: (state) => {
       state.isListCommentLoading = false;
@@ -192,7 +192,10 @@ const detailProductSlice = createSlice({
       state.listComment = state.listComment.map((cmt) => {
         return {
           ...cmt,
-          get_reply: [...cmt?.get_reply, action.payload?.reply],
+          get_reply:
+            cmt?.id === action.payload?.reply?.parent_id
+              ? [...cmt?.get_reply, action.payload?.reply]
+              : cmt?.get_reply,
         };
       });
     },

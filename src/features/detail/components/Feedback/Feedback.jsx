@@ -1,5 +1,4 @@
 import React, { memo, useState, useEffect } from 'react';
-import { AiFillStar } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsThreeDots } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
@@ -57,13 +56,10 @@ const Feedback = () => {
     }
   }, [dispatch, productId]);
 
-  const { listComment, userLogin, starProduct } = useSelector((state) => ({
+  const { listComment, userLogin } = useSelector((state) => ({
     listComment: state.detailProduct?.listComment,
     userLogin: state.auth?.userLogin,
-    starProduct: state.detailProduct.starProduct,
   }));
-
-  const startLengthUser = Array(starProduct).fill(0);
 
   const handleComment = async () => {
     if (valueSendCmt.comment !== '') {
@@ -168,16 +164,18 @@ const Feedback = () => {
                     <span className="auth-comment">
                       {cmt?.get_info_user?.name}
                     </span>
-                    <div className="star-comment">
+                    {/* TODO star user */}
+                    {/* <div className="star-comment">
                       {startLengthUser.map((_param, index) => (
                         <React.Fragment key={index}>
                           <AiFillStar />
                         </React.Fragment>
                       ))}
-                    </div>
+                    </div> */}
 
                     <p className="content-comment">{cmt?.comment}</p>
 
+                    {/* action comment */}
                     <div className="box-comment">
                       <p className="time-comment">
                         {moment(cmt?.created_at).format('YYYY-MM-DD')}
@@ -294,24 +292,18 @@ const Feedback = () => {
                       <React.Fragment key={cmtSub?.id}>
                         <ItemRepComment>
                           <img
-                            src={userLogin?.avatar || AvatarEmpty}
+                            src={cmtSub?.get_info_user?.avatar || AvatarEmpty}
                             alt=""
                             className="avatar-user"
                           />
                           <div className="">
                             <span className="auth-comment">
-                              {userLogin?.name}
+                              {cmtSub?.get_info_user?.name}
                             </span>
-                            <div className="star-comment">
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                              <AiFillStar />
-                            </div>
+                            {/* star */}
                             <p className="content-comment">
                               <span className="user-comment">
-                                {cmtSub?.get_info_user?.name}
+                                {cmt?.get_info_user?.name}
                               </span>
                               {cmtSub?.comment}
                             </p>
@@ -321,6 +313,8 @@ const Feedback = () => {
                                   'YYYY-MM-DD'
                                 )}
                               </p>
+
+                              {/* action comment reply */}
                               {userLogin?.email && (
                                 <GroupActionCommentReply>
                                   {cmtSub?.id === isOpenActionCommentReply && (
@@ -437,7 +431,7 @@ const Feedback = () => {
                   {openReplyCmt === cmt?.id && (
                     <SubInputComment>
                       <img
-                        src={cmt?.get_info_user?.avatar}
+                        src={userLogin?.avatar}
                         alt=""
                         className="avatar-user"
                       />

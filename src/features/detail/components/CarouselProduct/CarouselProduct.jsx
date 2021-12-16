@@ -53,7 +53,7 @@ const CarouselProduct = () => {
 
   return (
     <>
-      {listProductRelated.length > 5 && (
+      {listProductRelated && listProductRelated?.length > 5 && (
         <Carousel>
           <>
             <TitleMain className="title-main">

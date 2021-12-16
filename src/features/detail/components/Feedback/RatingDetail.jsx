@@ -25,7 +25,7 @@ const RatingDetail = () => {
   return (
     <GroupRating>
       <RatingTotal>
-        <div className="rating-percent">{avgStar}</div>
+        <div className="rating-percent">{Math.floor(avgStar)} / 5</div>
         <div className="group-star">
           <div className="list-star">
             <AiFillStar />
@@ -34,7 +34,6 @@ const RatingDetail = () => {
             <AiFillStar />
             <AiFillStar />
           </div>
-          <div className="view-project">1925 lượt xem</div>
         </div>
       </RatingTotal>
 
