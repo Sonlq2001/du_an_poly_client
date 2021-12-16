@@ -25,7 +25,6 @@ import {
   seachProduct,
   getProductMajor,
   sortProduct,
-  getAllSubject,
 } from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
@@ -52,7 +51,7 @@ const CategoryControl = () => {
       };
       dispatch(getTeacher(data));
     }
-   
+
   }, [dispatch,id]);
 
   const getAllProduct = useCallback(()=>{
