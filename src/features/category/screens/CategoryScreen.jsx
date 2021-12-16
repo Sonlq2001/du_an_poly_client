@@ -11,22 +11,22 @@ import Loading from 'components/Loading/Loading';
 
 const CategoryScreen = () => {
   const dispatch = useDispatch();
-  const {path} = useParams();
-  const arrayPath = path.split("-")
-  const id = arrayPath[arrayPath.length-1]
+  const { path } = useParams();
+  const arrayPath = path.split('-');
+  const id = arrayPath[arrayPath.length - 1];
   const getData = useCallback(() => {
     dispatch(getProductMajor(id));
-  }, [dispatch,id]);
+  }, [dispatch, id]);
   useEffect(() => {
     getData();
   }, [dispatch, getData]);
-  const { loading,isProductLoading } = useSelector((state) => state.category);
+  const { loading, isProductLoading } = useSelector((state) => state.category);
   return (
     <>
       <Breadcrumb position="Chuyên ngành" />
       <CategoryControl />
       <div className="container">
-        {loading || isProductLoading? (
+        {loading || isProductLoading ? (
           <PendingSearch>
             <div className="group-pending">
               <Loading nowrap={false} />
@@ -34,7 +34,6 @@ const CategoryScreen = () => {
           </PendingSearch>
         ) : (
           <ProductMajor />
-        
         )}
       </div>
     </>
