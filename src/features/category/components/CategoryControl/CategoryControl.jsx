@@ -25,6 +25,7 @@ import {
   seachProduct,
   getProductMajor,
   sortProduct,
+  getAllSubject,
 } from './../../redux/category.slice';
 import { MapOptions, MapOptionsLong } from 'helpers/convert/map-options';
 import { getCampuses } from 'features/master-data/redux/master-data.slice';
@@ -36,17 +37,22 @@ const CategoryControl = () => {
   const id = arrayPath[arrayPath.length-1]
 
   const dataSubject = useCallback(() => {
-    dispatch(getSubjects(id));
+    if(Number(id)){
+      dispatch(getSubjects(id));
+    }
   }, [dispatch, id]);
   const dataCampuse = useCallback(() => {
     dispatch(getCampuses());
   }, [dispatch]);
   const dataTeacher = useCallback(() => {
-    const data = {
-      id: Number(id),
-      type: 'teacher_user_major',
-    };
-    dispatch(getTeacher(data));
+    if(Number(id)){
+      const data = {
+        id: Number(id),
+        type: 'teacher_user_major',
+      };
+      dispatch(getTeacher(data));
+    }
+   
   }, [dispatch,id]);
 
   const getAllProduct = useCallback(()=>{
@@ -54,20 +60,15 @@ const CategoryControl = () => {
   },[,dispatch])
    
   const [isToggle, setIsToggle] = useState(false);
-
-
   useEffect(() => {
     if(Number(id)){
       dataSubject();
-      dataCampuse();
       dataTeacher();
-      console.log("có id ")
     }else{
-      console.log("k có id")
       getAllProduct()
     }
-    
-  }, [dispatch, dataSubject, dataCampuse, dataTeacher]);
+    dataCampuse();
+  }, [dispatch, dataSubject, dataCampuse, dataTeacher,getAllProduct]);
 
   const { listSubject, listTeacher } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
@@ -206,7 +207,7 @@ const CategoryControl = () => {
               })}
             </Slider>
           </GroupLinkFilter>
-
+          {Number(id) ?
           <ButtonControlFilter
             onClick={() => {
               setIsToggle(!isToggle);
@@ -216,8 +217,9 @@ const CategoryControl = () => {
             <BsFilter className="icon-filter" />
             <span>Filter</span>
           </ButtonControlFilter>
+        : ""}
         </GroupFilterBasic>
-
+          {Number(id) ? 
         <GroupFilterAdvance
           className={`control-advance ${isToggle ? 'active' : ''}`}
         >
@@ -274,25 +276,25 @@ const CategoryControl = () => {
                 options={optionListCampus ? optionListCampus : []}
                 placeholder="Tìm theo cơ sở "
                 theme={customTheme}
-                noOptionsMessage="le quang son"
                 onChange={(e) => ChangeFilter(e, 3)}
               />
             </CustomerSelect>
           </SearchAdvance>
           <SearchAdvance>
             <label htmlFor="" className="label-search">
-              Xắp xếp
+              Sắp xếp
             </label>
             <CustomerSelect>
               <Select
                 options={LIST_SORT}
-                placeholder="Xắp xếp theo"
+                placeholder="Sắp xếp theo"
                 theme={customTheme}
                 onChange={(e) => ChangeFilter(e,4)}
               />
             </CustomerSelect>
           </SearchAdvance>
         </GroupFilterAdvance>
+        : ""}
       </div>
     </WrapControl>
   );

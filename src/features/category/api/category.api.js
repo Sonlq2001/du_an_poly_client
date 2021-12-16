@@ -13,7 +13,6 @@ const productMajor = (id)=>{
   if(Number(id)){
     return api.get(CATEGORY_ENDPOINTS.PRODUCT_MAJOR.replace(':id',id.toString()))
   }else{
-    console.log("vô đây ")
     return api.get(CATEGORY_ENDPOINTS.ALL_PRODUCT)
   }
 
@@ -30,6 +29,9 @@ const seachCategory = (data)=>{
 const sortCategory = (data)=>{
   return api.get(`/client/sort?majorId=${data.major_id}&sortBy=${data.value}`)
 }
+const allSubject = ()=>{
+  return api.get("/subjects")
+}
 export const categoryApi = {
   getMajors,
   getSubject,
@@ -37,5 +39,6 @@ export const categoryApi = {
   filterProduct,
   teacherApi,
   seachCategory,
-  sortCategory
+  sortCategory,
+  allSubject
 };
