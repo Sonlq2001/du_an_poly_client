@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const MasonryLayout = styled.div`
-  margin:1rem 0rem;
+  margin: 1rem 0rem;
   column-count: 4;
   column-gap: 1.5rem;
-  & .messenger{
+  & .messenger {
     text-align: center;
     font-size: 1.8rem;
     width: 100%;
@@ -26,14 +26,13 @@ export const MasonryLayout = styled.div`
 export const MasonryHeader = styled.div`
   position: relative;
   overflow: hidden;
-
   img {
     width: 100%;
     height: auto;
     object-fit: cover;
     transition: ease-in-out 0.5s;
+    max-height: 27rem;
   }
-
   &::after {
     content: '';
     position: absolute;
@@ -71,6 +70,10 @@ export const MasonryContent = styled.div`
     color: var(--txt-color);
     font-size: 1.4rem;
     font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .content-title:hover {
@@ -79,10 +82,16 @@ export const MasonryContent = styled.div`
   .content-title::first-letter {
     text-transform: uppercase;
   }
-
-  .content-object {
+  .content-subject {
     font-size: 1.3rem;
     margin-top: 1rem;
+  }
+  .name-subject {
+    overflow: hidden;
+    padding-top: 5px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
   }
 `;
 
@@ -119,21 +128,21 @@ export const MasonryActionItem = styled.div`
   }
 `;
 export const Titel = styled.h2`
-  font-size:14px;
+  font-size: 14px;
   font-weight: 400;
   margin: 2rem 0rem;
-  & span{
-      font-size: 15px;
-     font-weight: 500
+  & span {
+    font-size: 15px;
+    font-weight: 500;
   }
-`
+`;
 export const GroupNoResult = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 50vh;
   margin-bottom: 10rem;
- 
+
   .body-no-result {
     text-align: center;
   }

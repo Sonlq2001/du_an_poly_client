@@ -9,6 +9,7 @@ export const ListCurrentImg = styled.div`
   img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
   .current-slide {
     height: 8rem;
@@ -168,8 +169,8 @@ export const ContentPost = styled.p`
   line-height: 2.5rem;
   margin-top: 2.5rem;
   text-align: justify;
-  & img{
-   max-width:80%;
+  & img {
+    max-width: 80%;
     max-height: 80%;
   }
 `;

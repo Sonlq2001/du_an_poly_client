@@ -72,11 +72,6 @@ export const MasonryContent = styled.div`
   .content-title::first-letter {
     text-transform: uppercase;
   }
-
-  .content-object {
-    font-size: 1.3rem;
-    margin-top: 1rem;
-  }
 `;
 
 export const MasonryAction = styled.div`

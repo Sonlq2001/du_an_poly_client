@@ -46,7 +46,7 @@ const homeSlice = createSlice({
     },
     [getProducts.fulfilled]: (state, action) => {
       state.isProductsHomeLoading = false;
-      state.productsHome = action.payload.data;
+      state.productsHome = action.payload?.data;
     },
     [getProducts.rejected]: (state) => {
       state.isProductsHomeLoading = false;
@@ -58,7 +58,7 @@ const homeSlice = createSlice({
     },
     [searchData.fulfilled]: (state, action) => {
       state.isDataSearchLoading = false;
-      state.dataSearch = action.payload.data;
+      state.dataSearch = action.payload?.data;
     },
     [searchData.rejected]: (state) => {
       state.isDataSearchLoading = false;
