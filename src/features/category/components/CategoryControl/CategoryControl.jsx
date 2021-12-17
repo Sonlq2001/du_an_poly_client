@@ -53,17 +53,18 @@ const CategoryControl = () => {
 
   const getAllProduct = useCallback(() => {
     dispatch(getProductMajor());
-  }, [, dispatch]);
+  }, [dispatch]);
 
   const [isToggle, setIsToggle] = useState(false);
   useEffect(() => {
     if (Number(id)) {
       dataSubject();
       dataTeacher();
+      dataCampuse()
     } else {
       getAllProduct();
     }
-  }, [dispatch, dataSubject, dataCampuse, dataTeacher]);
+  }, [dispatch, dataSubject, dataCampuse, dataTeacher,getAllProduct,id]);
 
   const { listSubject, listTeacher } = useSelector((state) => state.category);
   const { listCampus } = useSelector((state) => state.masterData);
