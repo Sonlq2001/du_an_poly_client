@@ -9,8 +9,13 @@ const getProductTypes = () => {
    const removeImage = (data) => {
      return api.post(REMOVE_IMG.REMOVE, data);
    };
+   const updateProduct = (data)=>{
+    
+        return api.put(`/products/${data.id}`,data.newObjProduct)
+   }
 export const UpdateProductApi = {
      getProductTypes ,
      getDetail,
-     removeImage
+     removeImage,
+     updateProduct
 }

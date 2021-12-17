@@ -39,6 +39,7 @@ import {
   getProductTypes,
   getDetailProduct,
   removeImage,
+  UpdateProduct,
 } from '../redux/update-product.slice';
 import Loading from 'components/Loading/Loading';
 
@@ -123,8 +124,7 @@ const AddProduct = () => {
           var top = (window.screen.height / 2) - (h / 2);
           return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
       }
-
-  if (loading) {
+  if (loading  && dataConvertProduct) {
     return <Loading />;
   }
   return (
@@ -132,11 +132,11 @@ const AddProduct = () => {
       <Title title> Cập nhật sản phẩm </Title>
       <WrapForm>
         <Formik
-          initialValues={dataConvertProduct}
+          initialValues={dataConvertProduct&& dataConvertProduct}
           onSubmit={async (values,{rest}) => {
-            // const { value } = product_type_id;
-            const newObjProduct = { ...rest };
-            newObjProduct.name =  values.name ?   values.name :dataConvertProduct.name
+            const newObjProduct = {...rest}
+            newObjProduct.name = values.name ?   values.name :dataConvertProduct.name 
+            newObjProduct.description = values.description ?   values.description :dataConvertProduct.description 
             newObjProduct.class = dataConvertProduct.class;
             newObjProduct.video_url =  values.video_url ?   values.video_url :dataConvertProduct.video_url
             newObjProduct.students = groupCodeStudent.length > 0 ? groupCodeStudent : dataConvertStudent;
@@ -144,13 +144,18 @@ const AddProduct = () => {
             newObjProduct.email = userLogin.email;
             newObjProduct.image_url = linkAvatar ? linkAvatar :dataConvertProduct.image ;
             newObjProduct.resource_url = LinkDoc ? LinkDoc :dataConvertProduct.resource_url ;
-            newObjProduct.status = 1
+            newObjProduct.status = 3
             newObjProduct.product_type_id = values.product_type_id ?  values.product_type_id : dataConvertProduct.product_type_id
             setLoadingButton(STATUS_KEY_INPUT.LOADING);
             setDisableButton(true);
-            console.log('newObjProduct', newObjProduct);
-            // const response = await dispatch(postAddProduct(newObjProduct));
-            // if (postAddProduct.fulfilled.match(response)) {
+
+            let data = {
+              newObjProduct : newObjProduct,
+              id : id
+            }
+            console.log("newObjProduct.product_type_id",dataConvertProduct.product_type_id)
+            // const response = await dispatch(UpdateProduct(data))
+            // if (UpdateProduct.fulfilled.match(response)) {
             //   toast.success('Thêm sản phẩm thành công !');
             //   setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
             //   setTimeout(
@@ -172,13 +177,13 @@ const AddProduct = () => {
                     label="Tên sản phẩm"
                     name="name"
                     placeholder="Nhập tên sản phẩm"
-                    value={productDetail?.name}
+         
                   />
                   <InputElement
                     label="Đường dẫn video"
                     name="video_url"
                     placeholder="Link video "
-                    value={productDetail?.video_url}
+                    
                   />
                   <GroupLabel className="group-label">
                     <InputElement label="Môn Học  " name="subject_id" hidden />

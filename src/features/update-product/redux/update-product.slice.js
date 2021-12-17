@@ -27,6 +27,14 @@ export const removeImage = createAsyncThunk(
     await UpdateProductApi.removeImage(url_image);
   }
 );
+export const UpdateProduct = createAsyncThunk("product-update/update", async (data)=>{
+  try {
+      const response = await UpdateProductApi.updateProduct(data)
+  
+  } catch (error) {
+    
+  }
+})
 const initialState = {
   productDetail : "",
   loading : false,
