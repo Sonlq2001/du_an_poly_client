@@ -45,8 +45,7 @@ const ProductMajor = () => {
                     {item?.name}
                   </Link>
                   <div className="content-subject">
-                    <span className="label-subject">Môn học:</span>
-                    <span className="name-subject">{item?.subject?.name}</span>
+                    <span className="label-subject">Môn học: {item?.subject?.name}</span>
                   </div>
                   <MasonryAction>
                     <MasonryActionItem>
