@@ -67,7 +67,6 @@ const AddProduct = () => {
       isInfoProductLoading: state.addProduct.isInfoProductLoading,
       userLogin: state.auth.userLogin,
     }));
-
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(

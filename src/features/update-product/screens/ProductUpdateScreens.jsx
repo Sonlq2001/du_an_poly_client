@@ -1,11 +1,12 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
 import { BsTrash } from 'react-icons/bs';
+import Select from 'react-select'
 
 import {
   WrapPage,
@@ -124,17 +125,20 @@ const AddProduct = () => {
           var top = (window.screen.height / 2) - (h / 2);
           return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
       }
-  if (loading  && dataConvertProduct) {
+  if (loading  ) {
     return <Loading />;
+  }
+  if (productDetail === undefined) {
+    return <Redirect to="/"/>;
   }
   return (
     <WrapPage className="container">
       <Title title> Cập nhật sản phẩm </Title>
       <WrapForm>
         <Formik
-          initialValues={dataConvertProduct&& dataConvertProduct}
+          initialValues={dataConvertProduct}
           onSubmit={async (values,{rest}) => {
-            const newObjProduct = {...rest}
+            const newObjProduct = { ...rest };
             newObjProduct.name = values.name ?   values.name :dataConvertProduct.name 
             newObjProduct.description = values.description ?   values.description :dataConvertProduct.description 
             newObjProduct.class = dataConvertProduct.class;
@@ -145,15 +149,14 @@ const AddProduct = () => {
             newObjProduct.image_url = linkAvatar ? linkAvatar :dataConvertProduct.image ;
             newObjProduct.resource_url = LinkDoc ? LinkDoc :dataConvertProduct.resource_url ;
             newObjProduct.status = 3
-            newObjProduct.product_type_id = values.product_type_id ?  values.product_type_id : dataConvertProduct.product_type_id
+            newObjProduct.product_type_id = values.product_type_id.value
             setLoadingButton(STATUS_KEY_INPUT.LOADING);
             setDisableButton(true);
-
             let data = {
               newObjProduct : newObjProduct,
               id : id
             }
-            console.log("newObjProduct.product_type_id",dataConvertProduct.product_type_id)
+            console.log("newObjProduct.product_type_id", newObjProduct  )
             // const response = await dispatch(UpdateProduct(data))
             // if (UpdateProduct.fulfilled.match(response)) {
             //   toast.success('Thêm sản phẩm thành công !');
@@ -191,7 +194,6 @@ const AddProduct = () => {
                       {productDetail?.subject?.name}
                     </div>
                   </GroupLabel>
-
                   <GroupLabel className="group-label">
                     <InputElement label="Giảng viên" name="teacher_id" hidden />
                     <div className="text-label">
@@ -301,8 +303,7 @@ const AddProduct = () => {
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
                     options={dataOption || []}
-                  />
-
+                  /> 
                   <InputFileElement
                     name="image_url"
                     label="Ảnh đại diện"

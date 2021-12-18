@@ -50,8 +50,12 @@ const ProductUpdateSlice = createSlice({
       state.loading = true
     },
     [getDetailProduct.fulfilled] : (state,action) =>{
+      state.loading = true
+      state.productDetail = action.payload?.data
+      console.log("action.payload?.data", action.payload?.data)
+      if(action.payload?.data)
+  
       state.loading = false
-      state.productDetail = action.payload.data
     },
     [getDetailProduct.rejected] : state =>{
       state.loading = false

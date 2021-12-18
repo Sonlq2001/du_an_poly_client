@@ -27,7 +27,7 @@ export const DataConvert =  (productDetail)=>{
         teacher : productDetail.teacher,
         user_id : productDetail.user_id,
         video_url : productDetail.video_url, 
-        product_type_id :productDetail.product_type_id
+        product_type_id :Number(productDetail.product_type_id)
       }
       return data
     }

@@ -12,20 +12,16 @@ const SelectElement = ({
   ...props
 }) => {
   const [field] = useField(props);
+  
   const handleChangeSelect = (value) => {
-    // if (props.name === 'product_type_id') {
-    //   setValueSelect(value);
-    // }
     const valueOption = {
       target: {
         name: field.name,
         value,
       },
     };
-    console.log("vô đây",valueOption )
     field.onChange(valueOption);
   };
-
   return (
     <GroupSelect>
       {label && (
