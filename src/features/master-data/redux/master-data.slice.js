@@ -22,6 +22,16 @@ export const getSubjects = createAsyncThunk(
   }
 );
 
+export const getProductType = createAsyncThunk(
+  'master-data/getProductType',
+  async () => {
+    try {
+      const response = await masterDataApi.getProductType();
+      return response.data;
+    } catch (error) {}
+  }
+);
+
 const initialState = {
   // campus
   listCampus: [],
@@ -30,6 +40,10 @@ const initialState = {
   // subject
   listSubject: [],
   isListSubjectLoading: false,
+
+  // product type
+  listProductType: [],
+  isListProductTypeLoading: false,
 };
 
 const masterDataSlice = createSlice({
@@ -53,11 +67,23 @@ const masterDataSlice = createSlice({
       state.isListSubjectLoading = true;
     },
     [getSubjects.fulfilled]: (state, action) => {
-      state.isListCampusLoading = false;
+      state.isListSubjectLoading = false;
       state.listSubject = action.payload?.data;
     },
     [getSubjects.rejected]: (state) => {
       state.isListSubjectLoading = false;
+    },
+
+    // product type
+    [getProductType.pending]: (state) => {
+      state.listProductType = true;
+    },
+    [getProductType.fulfilled]: (state, action) => {
+      state.listProductType = false;
+      state.listProductType = action.payload?.product_types;
+    },
+    [getProductType.rejected]: (state) => {
+      state.listProductType = false;
     },
   },
 });

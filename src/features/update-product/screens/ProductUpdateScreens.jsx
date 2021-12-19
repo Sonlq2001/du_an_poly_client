@@ -34,43 +34,38 @@ import CKEditor from '../components/editor/CKEditor';
 import { WarEditor } from '../components/editor/Editor.styles';
 import { MapOptions } from 'helpers/convert/map-options';
 import { STATUS_KEY_INPUT } from '../constants/update-product.key';
+import { getProductType } from 'features/master-data/redux/master-data.slice';
 
-import {
-  getProductTypes,
-  getDetailProduct,
-  removeImage,
-} from '../redux/update-product.slice';
+import { getDetailProduct, removeImage } from '../redux/update-product.slice';
 import Loading from 'components/Loading/Loading';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
-  const fetchProductTypes = useCallback(() => {
-    dispatch(getProductTypes());
+
+  useEffect(() => {
+    dispatch(getProductType());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getProductTypes());
-  }, [fetchProductTypes, dispatch]);
-
-  useEffect(() => {
-    dispatch(getDetailProduct(id));
+    if (id) {
+      dispatch(getDetailProduct(id));
+    }
   }, [dispatch, id]);
-  // thông tin cần lấy
-  const { productTypes, userLogin, productDetail, loading } = useSelector(
+
+  const { userLogin, productDetail, loading, listProductType } = useSelector(
     (state) => ({
-      productTypes: state.addProduct.productTypes,
-      userLogin: state.auth.userLogin,
-      productDetail: state.updateProduct.productDetail,
-      loading: state.updateProduct.loading,
+      userLogin: state.auth?.userLogin,
+      productDetail: state.updateProduct?.productDetail,
+      loading: state.updateProduct?.loading,
+      listProductType: state.masterData?.listProductType,
     })
   );
-  // data conver
-  const dataConvertProduct = DataConvert(productDetail && productDetail);
-  const dataConvertStudent = DataConvertStudent(productDetail && productDetail);
 
-  // bộ sưu tập
+  const dataConvertProduct = DataConvert(productDetail);
+  const dataConvertStudent = DataConvertStudent(productDetail);
+
   let ArrayGalleris =
     dataConvertProduct &&
     dataConvertProduct.product_galleries.map((item) => {
@@ -86,10 +81,11 @@ const AddProduct = () => {
   const [hiden, setHiden] = useState(true);
   const [hidenStudent, setHidenStudent] = useState(true);
   const [reviewAvatar, setReviewAvatar] = useState(false);
-  const selectProductTypes = MapOptions(productTypes);
+  const selectProductTypes = MapOptions(listProductType ?? []);
+
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([]);
-  //  xoá thành viên
+
   const remove = (i) => {
     if (groupCodeStudent.length > 0) {
       setGroupCodeStudent(groupCodeStudent.filter((_, index) => index !== i));
@@ -98,7 +94,7 @@ const AddProduct = () => {
       setGroupCodeStudent(dataConvertStudent.filter((_, index) => index !== i));
     }
   };
-  // xoá ảnh đại điện
+
   const RemoveImage = async (i, key) => {
     const url = { img_url: i };
     try {
@@ -111,17 +107,23 @@ const AddProduct = () => {
       }
     } catch (error) {}
   };
+
   const EmailChange = (e, key) => {
     const valueEmail = e.target.value;
     email = [...groupCodeStudent];
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
- const  popupWindow = (url, title, w, h)=> {
-          var left = (window.screen.width / 2) - (w / 2);
-          var top = (window.screen.height / 2) - (h / 2);
-          return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
-      }
+  const popupWindow = (url, title, w, h) => {
+    var left = window.screen.width / 2 - w / 2;
+    var top = window.screen.height / 2 - h / 2;
+    return window.open(
+      url,
+      title,
+      `toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
+    );
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -131,19 +133,33 @@ const AddProduct = () => {
       <WrapForm>
         <Formik
           initialValues={dataConvertProduct}
-          onSubmit={async (values,{rest}) => {
+          onSubmit={async (values, { rest }) => {
             // const { value } = product_type_id;
             const newObjProduct = { ...rest };
-            newObjProduct.name =  values.name ?   values.name :dataConvertProduct.name
+            newObjProduct.name = values.name
+              ? values.name
+              : dataConvertProduct.name;
             newObjProduct.class = dataConvertProduct.class;
-            newObjProduct.video_url =  values.video_url ?   values.video_url :dataConvertProduct.video_url
-            newObjProduct.students = groupCodeStudent.length > 0 ? groupCodeStudent : dataConvertStudent;
-            newObjProduct.galleries = listImages.length>0 ? listImages : ArrayGalleris ;
+            newObjProduct.video_url = values.video_url
+              ? values.video_url
+              : dataConvertProduct.video_url;
+            newObjProduct.students =
+              groupCodeStudent.length > 0
+                ? groupCodeStudent
+                : dataConvertStudent;
+            newObjProduct.galleries =
+              listImages.length > 0 ? listImages : ArrayGalleris;
             newObjProduct.email = userLogin.email;
-            newObjProduct.image_url = linkAvatar ? linkAvatar :dataConvertProduct.image ;
-            newObjProduct.resource_url = LinkDoc ? LinkDoc :dataConvertProduct.resource_url ;
-            newObjProduct.status = 1
-            newObjProduct.product_type_id = values.product_type_id ?  values.product_type_id : dataConvertProduct.product_type_id
+            newObjProduct.image_url = linkAvatar
+              ? linkAvatar
+              : dataConvertProduct.image;
+            newObjProduct.resource_url = LinkDoc
+              ? LinkDoc
+              : dataConvertProduct.resource_url;
+            newObjProduct.status = 1;
+            newObjProduct.product_type_id = values.product_type_id
+              ? values.product_type_id
+              : dataConvertProduct.product_type_id;
             // setLoadingButton(STATUS_KEY_INPUT.LOADING);
             // setDisableButton(true);
             console.log('newObjProduct', newObjProduct);
@@ -292,6 +308,7 @@ const AddProduct = () => {
                     name="product_type_id"
                     placeholder="Loại sản phẩm"
                     options={selectProductTypes || []}
+                    value=""
                   />
 
                   <InputFileElement
@@ -302,14 +319,15 @@ const AddProduct = () => {
                     linkAvatar={linkAvatar}
                     setLinkAvatar={setLinkAvatar}
                   />
-                  {!linkAvatar && <TetailItem onClick={()=>setReviewAvatar(true) }>Xem avatar </TetailItem>}
+                  {!linkAvatar && (
+                    <TetailItem onClick={() => setReviewAvatar(true)}>
+                      Xem avatar
+                    </TetailItem>
+                  )}
                   {reviewAvatar && (
                     <DemoAvatar>
-                      <img
-                        src={dataConvertProduct.image}
-                        alt=""
-                      />
-                      <Overlay onClick={()=>setReviewAvatar(false)}> </Overlay>
+                      <img src={dataConvertProduct.image} alt="" />
+                      <Overlay onClick={() => setReviewAvatar(false)}></Overlay>
                     </DemoAvatar>
                   )}
                   <InputFileElement
@@ -322,7 +340,14 @@ const AddProduct = () => {
                   />
                   {!LinkDoc && (
                     <TetailItem
-                      onClick={()=> popupWindow(dataConvertProduct?.resource_url,"Tài liệu","600","600")}
+                      onClick={() =>
+                        popupWindow(
+                          dataConvertProduct?.resource_url,
+                          'Tài liệu',
+                          '600',
+                          '600'
+                        )
+                      }
                     >
                       Xem tài liệu
                     </TetailItem>
@@ -336,10 +361,8 @@ const AddProduct = () => {
                         `Danh sách ảnh  ${listImages.length} `
                       ) : (
                         <>
-                          {' '}
                           {hiden ? (
                             <>
-                              {' '}
                               {ArrayGalleris
                                 ? ` Danh sách ảnh ${ArrayGalleris.length} `
                                 : 'Chọn bộ sưu tập'}{' '}
