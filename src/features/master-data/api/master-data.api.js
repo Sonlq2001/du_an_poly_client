@@ -10,7 +10,12 @@ const getSubjects = () => {
   return api.get(MASTER_DATA_ENDPOINTS.SUBJECTS);
 };
 
+const getProductType = () => {
+  return api.get(MASTER_DATA_ENDPOINTS.PRODUCT_TYPES);
+};
+
 export const masterDataApi = {
   getCampuses,
   getSubjects,
+  getProductType,
 };

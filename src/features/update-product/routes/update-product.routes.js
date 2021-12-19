@@ -4,7 +4,7 @@ import { ADD_PRODUCT_PATHS } from '../constants/update-product.paths';
 const AddProductScreen = lazy(() => import('../screens/ProductUpdateScreens'));
 
 const UPDATE_PRODUCT_SCREEN = {
-  id: 'id_product_add',
+  id: 'id_product_update',
   path: ADD_PRODUCT_PATHS.UPDATE_PRODUCT,
   component: AddProductScreen,
   titlePage: 'Cập nhật sản phẩm ',

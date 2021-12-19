@@ -40,8 +40,8 @@ const SearchScreen = () => {
   }, [keyword, dispatch]);
 
   const { dataSearch, isDataSearchLoading } = useSelector((state) => ({
-    dataSearch: state.home.dataSearch,
-    isDataSearchLoading: state.home.isDataSearchLoading,
+    dataSearch: state.home?.dataSearch,
+    isDataSearchLoading: state.home?.isDataSearchLoading,
   }));
 
   return (
