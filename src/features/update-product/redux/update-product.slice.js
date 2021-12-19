@@ -2,15 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { UpdateProductApi } from '../api/update-product.api';
 // danh mục
-export const getProductTypes = createAsyncThunk(
-  'product-update/productTypes',
-  async () => {
-    try {
-      const response = await UpdateProductApi.getProductTypes();
-      console.log('vô đây', response);
-    } catch (error) {}
-  }
-);
 
 export const getDetailProduct = createAsyncThunk(
   'product-update/getDetailProduct',
@@ -21,31 +12,38 @@ export const getDetailProduct = createAsyncThunk(
     } catch (error) {}
   }
 );
-
-// xoá ảnh dại diện
 export const removeImage = createAsyncThunk(
   'product-add/delete_image',
   async (url_image) => {
     await UpdateProductApi.removeImage(url_image);
   }
 );
+export const UpdateProduct = createAsyncThunk("product-update/update", async (data,{rejectWithValue})=>{
+  try {
+  const response = await UpdateProductApi.updateProduct(data)
+    return response
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+})
 const initialState = {
-  productDetail: '',
+  productDetail: null,
   loading: false,
-  productType: [],
 };
 const ProductUpdateSlice = createSlice({
   name: 'product-update',
   initialState,
   extraReducers: {
-    // product types
-    // chi tiết
+
     [getDetailProduct.pending]: (state) => {
       state.loading = true;
     },
     [getDetailProduct.fulfilled]: (state, action) => {
-      state.loading = false;
-      state.productDetail = action.payload.data;
+      state.loading = true;
+      state.productDetail = action.payload?.data;
+      if(action.payload?.data || !action.payload){
+        state.loading = false;
+      }
     },
     [getDetailProduct.rejected]: (state) => {
       state.loading = false;
