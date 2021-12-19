@@ -27,16 +27,6 @@ export const getInfo = createAsyncThunk(
   }
 );
 
-export const getProductTypes = createAsyncThunk(
-  'add-product/getProductTypes',
-  async () => {
-    try {
-      const response = await addProductApi.getProductTypes();
-      return response.data;
-    } catch (error) {}
-  }
-);
-
 export const removeImage = createAsyncThunk(
   'product-add/delete_image',
   async (url_image, { rejectWithValue }) => {
@@ -93,15 +83,6 @@ const ProductAddSlice = createSlice({
     },
     [getInfo.rejected]: (state) => {
       state.isInfoProductLoading = false;
-    },
-
-    // product types
-    [getProductTypes.pending]: (state) => {
-      state.isProductTypesLoading = true;
-    },
-    [getProductTypes.fulfilled]: (state, action) => {
-      state.isProductTypesLoading = false;
-      state.productTypes = action.payload?.product_types;
     },
   },
 });

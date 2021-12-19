@@ -1,34 +1,41 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import _get from 'lodash.get';
 
 import { masterDataApi } from './../api/master-data.api';
 
 export const getCampuses = createAsyncThunk(
   'master-data/getCampuses',
-  async () => {
+  async (_params, { rejectWithValue }) => {
     try {
       const response = await masterDataApi.getCampuses();
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
 
 export const getSubjects = createAsyncThunk(
   'master-data/getSubjects',
-  async () => {
+  async (_params, { rejectWithValue }) => {
     try {
       const response = await masterDataApi.getSubjects();
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
 
 export const getProductType = createAsyncThunk(
   'master-data/getProductType',
-  async () => {
+  async (_params, { rejectWithValue }) => {
     try {
       const response = await masterDataApi.getProductType();
       return response.data;
-    } catch (error) {}
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
   }
 );
 
