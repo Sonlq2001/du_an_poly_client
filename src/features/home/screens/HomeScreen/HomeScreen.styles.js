@@ -70,14 +70,11 @@ export const GridItem = styled.div`
       grid-row: span 2;
     }
   }
-`;
-export const ButtonReadMore = styled.button`
-  border: none;
-  border-radius: 1.5rem;
-  background-color: var(--first-color);
-  padding: 1rem 2rem;
-  font-size: 1.6rem;
-  color: var(--white-color);
+  @media (max-width: 575.98px) {
+    img {
+      max-height: 23rem;
+    }
+  }
 `;
 export const GridContentItem = styled.div`
   display: flex;
@@ -116,5 +113,13 @@ export const GridEnd = styled.div`
   text-align: center;
   @media (max-width: 575.98px) {
     margin: 6rem 0 3rem 0;
+  }
+  .btn-read-more {
+    border: none;
+    border-radius: 1.5rem;
+    background-color: var(--first-color);
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    color: var(--white-color);
   }
 `;
