@@ -304,6 +304,15 @@ export const HeaderBar = styled.div`
       color: var(--aaa-color);
     }
   }
+  .btn-sign-in {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+  }
+  .icon-sign-in {
+    padding-right: 2rem;
+  }
 `;
 
 export const BodyBar = styled.ul`
@@ -340,6 +349,9 @@ export const BodyBar = styled.ul`
     &:hover {
       background-color: var(--eee-color);
     }
+  }
+  .btn-logout {
+    cursor: pointer;
   }
 `;
 export const GroupUser = styled.div`
