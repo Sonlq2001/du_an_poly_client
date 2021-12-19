@@ -77,7 +77,7 @@ const ProductAddSlice = createSlice({
     },
     [postAddProduct.fulfilled]: (state, action) => {
       state.isProductFinishedLoading = false;
-      state.productFinished = action.payload.data;
+      state.productFinished = action.payload?.data;
     },
     [postAddProduct.rejected]: (state) => {
       state.isProductFinishedLoading = false;
@@ -88,7 +88,7 @@ const ProductAddSlice = createSlice({
       state.isInfoProductLoading = true;
     },
     [getInfo.fulfilled]: (state, action) => {
-      state.infoProduct = action.payload;
+      state.infoProduct = action.payload
       state.isInfoProductLoading = false;
     },
     [getInfo.rejected]: (state) => {

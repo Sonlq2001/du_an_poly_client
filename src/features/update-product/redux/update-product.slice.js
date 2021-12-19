@@ -29,14 +29,14 @@ export const removeImage = createAsyncThunk(
 );
 export const UpdateProduct = createAsyncThunk("product-update/update", async (data)=>{
   try {
-      const response = await UpdateProductApi.updateProduct(data)
+   await UpdateProductApi.updateProduct(data)
   
   } catch (error) {
     
   }
 })
 const initialState = {
-  productDetail : "",
+  productDetail : null,
   loading : false,
   productType : []
 };
@@ -52,10 +52,10 @@ const ProductUpdateSlice = createSlice({
     [getDetailProduct.fulfilled] : (state,action) =>{
       state.loading = true
       state.productDetail = action.payload?.data
-      console.log("action.payload?.data", action.payload?.data)
-      if(action.payload?.data)
-  
-      state.loading = false
+      if(action.payload?.data || !action.payload?.data){
+        state.loading = false
+      }
+    
     },
     [getDetailProduct.rejected] : state =>{
       state.loading = false
