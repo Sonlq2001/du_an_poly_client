@@ -88,7 +88,10 @@ const DetailScreen = () => {
     return <Loading />;
   }
 
-  if (userLogin?.id !== itemDetailProduct?.user_id) {
+  if (
+    userLogin?.id !== itemDetailProduct?.user_id &&
+    itemDetailProduct?.status === 1
+  ) {
     return <Redirect to="/" />;
   }
 
