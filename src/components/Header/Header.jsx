@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import { BiLogIn } from 'react-icons/bi';
+import { BiLogIn, BiLogOut } from 'react-icons/bi';
 import { FcSearch, FcMenu } from 'react-icons/fc';
 import { GrBottomCorner } from 'react-icons/gr';
 import { RiCloseLine } from 'react-icons/ri';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiLogOut } from 'react-icons/bi';
 import { AiOutlineProfile } from 'react-icons/ai';
 import OutsideClickHandler from 'react-outside-click-handler';
 
@@ -32,6 +31,7 @@ import { postLogout } from './../../features/auth/redux/auth.slice';
 import { SEARCH_PATHS } from 'features/search/constants/search.paths';
 import { useQuery } from 'helpers/convert/use-query';
 import { PROFILE_PATHS } from 'features/profile/constants/profile.paths';
+import { AUTH_PATHS } from 'features/auth/constants/auth.paths';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -150,14 +150,25 @@ const Header = () => {
               <label htmlFor="checked-mobile" className="overlay-bar"></label>
               <div className="menu-bar">
                 <HeaderBar>
-                  <div className="user-login">
-                    <img
-                      src="https://cdn.pixabay.com/photo/2021/10/05/16/53/kimono-6683245__480.jpg"
-                      alt=""
-                      className="user-avatar"
-                    />
-                    Lê Quang Sơn
-                  </div>
+                  {userLogin?.avatar ? (
+                    <>
+                      <div className="user-login">
+                        <img
+                          src={userLogin?.avatar}
+                          alt=""
+                          className="user-avatar"
+                        />
+                        {userLogin?.email}
+                      </div>
+                    </>
+                  ) : (
+                    <Link to={AUTH_PATHS.SIGN_IN} className="btn-sign-in">
+                      <span className="icon-sign-in">
+                        <BiLogIn />
+                      </span>
+                      Đăng nhập
+                    </Link>
+                  )}
                   <label htmlFor="checked-mobile" className="close-bar">
                     <RiCloseLine />
                   </label>
@@ -168,12 +179,12 @@ const Header = () => {
                     <React.Fragment key={index}>
                       {!menu.title && <div className="line-menu" />}
                       {menu?.items.map((item) => {
+                        const pathMobile = menu?.cate
+                          ? `/category${item?.path}`
+                          : item?.path;
                         return (
                           <li className="item-bar" key={item?.id}>
-                            <Link
-                              to={`/category/${item?.path}`}
-                              className="link-bar"
-                            >
+                            <Link to={pathMobile} className="link-bar">
                               <span className="icon-bar">{item?.icon}</span>
                               <span className="txt-bar">
                                 {item?.navigationTitle}
@@ -184,6 +195,16 @@ const Header = () => {
                       })}
                     </React.Fragment>
                   ))}
+                  {userLogin?.avatar && (
+                    <div className="item-bar btn-logout" onClick={handleLogout}>
+                      <div className="link-bar">
+                        <span className="icon-bar">
+                          <BiLogOut />
+                        </span>
+                        <span className="txt-bar">Đăng xuất</span>
+                      </div>
+                    </div>
+                  )}
                 </BodyBar>
               </div>
             </MenuResponse>
@@ -231,8 +252,8 @@ const Header = () => {
                   </OutsideClickHandler>
                 </GroupLogin>
               ) : (
-                <Link to="/sign-in" className="link-menu">
-                  Login
+                <Link to={AUTH_PATHS.SIGN_IN} className="link-menu">
+                  Đăng nhập
                   <span className="icon-login">
                     <BiLogIn />
                   </span>
