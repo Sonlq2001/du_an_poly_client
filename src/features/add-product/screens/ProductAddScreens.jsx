@@ -29,7 +29,6 @@ import Loading from 'components/Loading/Loading';
 import {
   postAddProduct,
   getInfo,
-  getProductTypes,
   removeImage,
 } from '../redux/add-product.slice';
 import CKEditor from '../components/Editor/CKEditor';
@@ -40,6 +39,8 @@ import { MESSAGE_DEFAULT } from 'constants/app.constants';
 import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 import { KEY_PRODUCT } from 'constants/app.constants';
 import { AUTH_PATHS } from 'features/auth/constants/auth.paths';
+import { getProductType } from 'features/master-data/redux/master-data.slice';
+import { DETAIL_PATHS } from 'features/detail/constants/detail.paths';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -53,25 +54,20 @@ const AddProduct = () => {
   const { product_token } = useParams();
 
   const fetchProductTypes = useCallback(() => {
-    dispatch(getProductTypes());
+    dispatch(getProductType());
   }, [dispatch]);
 
   useEffect(() => {
     fetchProductTypes();
   }, [fetchProductTypes]);
 
-  const {
-    productTypes,
-    infoProduct,
-    userLogin,
-    isInfoProductLoading,
-    listProductType,
-  } = useSelector((state) => ({
-    listProductType: state.masterData?.listProductType,
-    infoProduct: state.addProduct.infoProduct,
-    isInfoProductLoading: state.addProduct.isInfoProductLoading,
-    userLogin: state.auth.userLogin,
-  }));
+  const { infoProduct, userLogin, isInfoProductLoading, listProductType } =
+    useSelector((state) => ({
+      listProductType: state.masterData?.listProductType,
+      infoProduct: state.addProduct.infoProduct,
+      isInfoProductLoading: state.addProduct.isInfoProductLoading,
+      userLogin: state.auth.userLogin,
+    }));
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -154,11 +150,17 @@ const AddProduct = () => {
                   window.sessionStorage.removeItem('product_token');
                   setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
                   setTimeout(
-                    () => history.push(`/product/${response.payload.id}`),
-                    1000
+                    () =>
+                      history.push(
+                        DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                          ':id',
+                          response.payload?.id
+                        )
+                      ),
+                    1500
                   );
                 } else {
-                  toast.success('Thêm sản phẩm thất bại !');
+                  toast.error('Thêm sản phẩm thất bại !');
                   setLoadingButton(STATUS_KEY_INPUT.ERROR);
                 }
                 setDisableButton(false);
@@ -335,9 +337,6 @@ const AddProduct = () => {
                     </FormRight>
                   </ContentForm>
                   <WrapButton>
-                    {/* <label onClick={() => setShow(!show)} className="review">
-                  Xem trước
-                </label> */}
                     {LinkDoc &&
                     linkAvatar &&
                     infoProduct &&
@@ -369,7 +368,6 @@ const AddProduct = () => {
               )}
             </Formik>
           </WrapForm>
-          {/* <ReviewProduct show={show} setShow={setShow} data={formik} /> */}
 
           <ToastContainer position="top-right" autoClose={1500} />
         </WrapPage>
