@@ -143,7 +143,6 @@ const AddProduct = () => {
                 newObjProduct.token = product_token;
                 setLoadingButton(STATUS_KEY_INPUT.LOADING);
                 setDisableButton(true);
-
                 const response = await dispatch(postAddProduct(newObjProduct));
                 if (postAddProduct.fulfilled.match(response)) {
                   toast.success('Thêm sản phẩm thành công !');

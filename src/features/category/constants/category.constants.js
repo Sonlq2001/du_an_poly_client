@@ -3,7 +3,7 @@ export const LIST_MAJOR = [
   { id: '1', name: 'công-nghệ-thông-tin-1', nameLink : "Công Nghệ Thông Tin" },
   { id: '2', name: 'Kinh-tế-Kinh-doanh-2',nameLink : "Kinh Tế - Kinh Doanh" },
   { id: '3', name: 'Thiết-Kế-Đồ-Họa-3' ,nameLink : "Thiết Kế Đồ Họa"},
-  { id: '4', name: 'Cơ-Khí-Tự Động-Hóa-4',nameLink : "Cơ Khí - Tự ĐộngHóa" },
+  { id: '4', name: 'Cơ-Khí-Tự-Động-Hóa-4',nameLink : "Cơ Khí - Tự ĐộngHóa" },
   { id: '5', name: 'Mỹ-Phẩm-Làm-Đẹp-5',nameLink:"Mỹ Phẩm-Làm Đẹp" },
   { id: '6', name: 'Du-Lịch-Nhà-Hàng-Khách-Sạn-6',nameLink: "Du-Lịch-Nhà-Hàng-Khách-Sạn" },
 ];

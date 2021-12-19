@@ -101,7 +101,7 @@ const ProductAddSlice = createSlice({
     },
     [getProductTypes.fulfilled]: (state, action) => {
       state.isProductTypesLoading = false;
-      state.productTypes = action.payload.product_types;
+      state.productTypes = action.payload?.product_types;
     },
   },
 });
