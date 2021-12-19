@@ -134,7 +134,6 @@ const AddProduct = () => {
         <Formik
           initialValues={dataConvertProduct}
           onSubmit={async (values, { rest }) => {
-            // const { value } = product_type_id;
             const newObjProduct = { ...rest };
             newObjProduct.name = values.name
               ? values.name
@@ -157,6 +156,7 @@ const AddProduct = () => {
               ? LinkDoc
               : dataConvertProduct.resource_url;
             newObjProduct.status = 1;
+
             newObjProduct.product_type_id = values.product_type_id
               ? values.product_type_id
               : dataConvertProduct.product_type_id;
