@@ -67,7 +67,6 @@ const AddProduct = () => {
       isInfoProductLoading: state.addProduct.isInfoProductLoading,
       userLogin: state.auth.userLogin,
     }));
-
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -144,7 +143,6 @@ const AddProduct = () => {
                 newObjProduct.token = product_token;
                 setLoadingButton(STATUS_KEY_INPUT.LOADING);
                 setDisableButton(true);
-
                 const response = await dispatch(postAddProduct(newObjProduct));
                 if (postAddProduct.fulfilled.match(response)) {
                   toast.success('Thêm sản phẩm thành công !');
