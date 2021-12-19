@@ -47,6 +47,7 @@ const ConfigEditor = ({ handleChange, ...props }) => {
           const data = editor.getData();
           setFieldValue('description', data);
         }}
+        data={props?.dataOld}
       />
     </div>
   );

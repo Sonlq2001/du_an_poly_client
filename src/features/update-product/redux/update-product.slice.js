@@ -1,75 +1,52 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { UpdateProductApi } from '../api/update-product.api';
-// danh mục 
-export const getProductTypes =  createAsyncThunk("product-update/productTypes",async ()=>{
+// danh mục
+
+export const getDetailProduct = createAsyncThunk(
+  'product-update/getDetailProduct',
+  async (id) => {
     try {
-        const response = await  UpdateProductApi.getProductTypes()
-        // product_types
-        return response.data
-    } catch (error) {
-      
-    }
-})
-// chi tiết sản phẩm 
-export const getDetailProduct = createAsyncThunk("product-update/detailproduct", async(id)=>{
-  try {
-      const response = await  UpdateProductApi.getDetail(id)
-      return response.data
-  } catch (error) {
-    
+      const response = await UpdateProductApi.getDetail(id);
+      return response.data;
+    } catch (error) {}
   }
-})
-// xoá ảnh dại diện 
+);
 export const removeImage = createAsyncThunk(
   'product-add/delete_image',
   async (url_image) => {
     await UpdateProductApi.removeImage(url_image);
   }
 );
-export const UpdateProduct = createAsyncThunk("product-update/update", async (data)=>{
+export const UpdateProduct = createAsyncThunk("product-update/update", async (data,{rejectWithValue})=>{
   try {
-   await UpdateProductApi.updateProduct(data)
-  
+  const response = await UpdateProductApi.updateProduct(data)
+    return response
   } catch (error) {
-    
+    return rejectWithValue(error.response.data);
   }
 })
 const initialState = {
-  productDetail : null,
-  loading : false,
-  productType : []
+  productDetail: null,
+  loading: false,
 };
 const ProductUpdateSlice = createSlice({
   name: 'product-update',
   initialState,
   extraReducers: {
-    // product types
-    // chi tiết
-    [getDetailProduct.pending] : state =>{
-      state.loading = true
+
+    [getDetailProduct.pending]: (state) => {
+      state.loading = true;
     },
-    [getDetailProduct.fulfilled] : (state,action) =>{
-      state.loading = true
-      state.productDetail = action.payload?.data
-      if(action.payload?.data || !action.payload?.data){
-        state.loading = false
+    [getDetailProduct.fulfilled]: (state, action) => {
+      state.loading = true;
+      state.productDetail = action.payload?.data;
+      if(action.payload?.data || !action.payload){
+        state.loading = false;
       }
-    
     },
-    [getDetailProduct.rejected] : state =>{
-      state.loading = false
-    },
-    [getProductTypes.pending]: state=>{
-      state.loading = true
-    },
-    [getProductTypes.fulfilled]: (state,action)=>{
-      state.productType = action.payload?.product_types
-      state.loading = false
-    },
-    [getProductTypes.rejected]: state=>{
-      state.productType = []
-      state.loading = false
+    [getDetailProduct.rejected]: (state) => {
+      state.loading = false;
     },
   },
 });

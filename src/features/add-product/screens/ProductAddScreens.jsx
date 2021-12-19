@@ -60,13 +60,18 @@ const AddProduct = () => {
     fetchProductTypes();
   }, [fetchProductTypes]);
 
-  const { productTypes, infoProduct, userLogin, isInfoProductLoading } =
-    useSelector((state) => ({
-      productTypes: state.addProduct.productTypes,
-      infoProduct: state.addProduct.infoProduct,
-      isInfoProductLoading: state.addProduct.isInfoProductLoading,
-      userLogin: state.auth.userLogin,
-    }));
+  const {
+    productTypes,
+    infoProduct,
+    userLogin,
+    isInfoProductLoading,
+    listProductType,
+  } = useSelector((state) => ({
+    listProductType: state.masterData?.listProductType,
+    infoProduct: state.addProduct.infoProduct,
+    isInfoProductLoading: state.addProduct.isInfoProductLoading,
+    userLogin: state.auth.userLogin,
+  }));
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -89,7 +94,7 @@ const AddProduct = () => {
     }
   }, [product_token]);
 
-  const selectProductTypes = MapOptions(productTypes ?? []);
+  const selectProductTypes = MapOptions(listProductType ?? []);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([
     userLogin?.email.substring(0, userLogin.email.search('@')),
@@ -153,7 +158,7 @@ const AddProduct = () => {
                     1000
                   );
                 } else {
-                  toast.success('Thêm sản phẩm thất bại !');
+                  toast.error('Thêm sản phẩm thất bại !');
                   setLoadingButton(STATUS_KEY_INPUT.ERROR);
                 }
                 setDisableButton(false);
