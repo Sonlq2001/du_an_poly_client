@@ -14,8 +14,12 @@ const getDetail = (id) => {
 const removeImage = (data) => {
   return api.post(REMOVE_IMG.REMOVE, data);
 };
+const updateProduct = (data)=>{
+  return api.put(ADD_PRODUCT_ENDPOINTS.GET_PRODUCT_UPDATE.replace(':id', data.id), data.newObjProduct);
+}
 export const UpdateProductApi = {
   getProductTypes,
   getDetail,
   removeImage,
+  updateProduct
 };

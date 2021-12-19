@@ -23,7 +23,6 @@ const SelectElement = ({
     };
     field.onChange(valueOption);
   };
-
   return (
     <GroupSelect>
       {label && (
