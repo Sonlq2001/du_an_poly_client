@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Slider from 'components/Slider/Slider';
 import Majors from './../../components/Majors/Majors';
@@ -9,13 +10,12 @@ import {
   GridWrap,
   GridContent,
   GridItem,
-  ButtonReadMore,
   GridContentItem,
   GridEnd,
 } from './HomeScreen.styles';
 import { getProducts } from '../../redux/home.slice';
 import Loading from 'components/Loading/Loading';
-import { Link } from 'react-router-dom';
+import { CATEGORY_PATHS } from 'features/category/constants/category.paths';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ const HomeScreen = () => {
 
   return (
     <>
-      {/* slider  */}
       <Slider />
       <div className="container">
         <Majors />
@@ -70,7 +69,12 @@ const HomeScreen = () => {
           </GridContent>
 
           <GridEnd>
-            <ButtonReadMore>Xem thêm</ButtonReadMore>
+            <Link
+              to={CATEGORY_PATHS.GET_PRODUCT_CATEGORY.replace(':path', 'all')}
+              className="btn-read-more"
+            >
+              Xem thêm
+            </Link>
           </GridEnd>
         </GridWrap>
       </div>
