@@ -178,7 +178,7 @@ const AddProduct = () => {
                       newObjProduct.resource_url = LinkDoc
                         ? LinkDoc
                         : dataConvertProduct.resource_url;
-                      newObjProduct.status = 3;
+                      newObjProduct.status = 1;
                       newObjProduct.description = values.description ;
                       newObjProduct.product_type_id =
                         values.product_type_id;
