@@ -143,10 +143,10 @@ const AddProduct = () => {
         </GroupNoResult>
       ) : (
         <>
-        {productDetail?.status === 1 ?
+        {productDetail?.status === 0 || productDetail?.status === 1 ?
           <WrapPage className="container">
             {userLogin?.id === productDetail?.user_id ||
-            userLogin?.id === productDetail?.major?.id ||
+            userLogin?.id === productDetail?.master_user ||
             userLogin?.id === productDetail?.teacher_id ? (
               <>
                 <Title title> Cập nhật sản phẩm </Title>
@@ -199,7 +199,7 @@ const AddProduct = () => {
                           1000
                         );
                       } else {
-                        toast.success('Cập nhật sản phẩm thất bại !');
+                        toast.erroro('Cập nhật sản phẩm thất bại !');
                         setLoadingButton(STATUS_KEY_INPUT.ERROR);
                         setDisableButton(false);
                       }
