@@ -38,7 +38,7 @@ const InputFileElement = ({
     const galleriesList = new FormData();
 
     if (name === 'resource_url') {
-      if (file && file.size <= 31457280) {
+      if (file) {
         formData.append('resource_url', file);
         formData.append('name', file && file.name);
         setLoadingDocument(1);
