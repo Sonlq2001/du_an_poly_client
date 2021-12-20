@@ -38,7 +38,7 @@ const InputFileElement = ({
     const galleriesList = new FormData();
 
     if (name === 'resource_url') {
-      if (file && file.size <= 31457280) {
+      if (file) {
         formData.append('resource_url', file);
         formData.append('name', file && file.name);
         setLoadingDocument(1);
@@ -84,7 +84,7 @@ const InputFileElement = ({
         const arrayGalleries =
           files &&
           listImage.map((item, index) => {
-            if (item.size < 3145728 && index + 1 <= lengthGallery) {
+            if (index + 1 <= lengthGallery) {
               return galleriesList.append('galleries[]', item);
             }
             return item;
@@ -112,7 +112,7 @@ const InputFileElement = ({
         setNameFile(file && file.name);
       }
     } else {
-      if (file && file.size <= 3145728) {
+      if (file) {
         setLoadingImage(1);
         formData.append('image', file);
         if (linkAvatar) {

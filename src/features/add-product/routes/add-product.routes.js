@@ -8,6 +8,5 @@ const ADD_PRODUCT_SCREEN = {
   path: ADD_PRODUCT_PATHS.ADD_PRODUCT,
   component: AddProductScreen,
   titlePage: 'Thêm sản phẩm ',
-
 };
 export const ADD_PRODUCT_ROUTES = [ADD_PRODUCT_SCREEN];

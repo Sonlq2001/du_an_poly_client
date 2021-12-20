@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
@@ -64,10 +64,11 @@ const AddProduct = () => {
   const { infoProduct, userLogin, isInfoProductLoading, listProductType } =
     useSelector((state) => ({
       listProductType: state.masterData?.listProductType,
-      infoProduct: state.addProduct.infoProduct,
-      isInfoProductLoading: state.addProduct.isInfoProductLoading,
-      userLogin: state.auth.userLogin,
+      infoProduct: state.addProduct?.infoProduct,
+      isInfoProductLoading: state.addProduct?.isInfoProductLoading,
+      userLogin: state.auth?.userLogin,
     }));
+
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -75,10 +76,11 @@ const AddProduct = () => {
           token: product_token,
         })
       );
+
       if (getInfo.fulfilled.match(response)) {
         setLoadingItem(false);
       } else {
-        userLogin ? history.push('/') : history.push(AUTH_PATHS.SIGN_IN);
+        userLogin?.email ? history.push('/') : history.push(AUTH_PATHS.SIGN_IN);
       }
     };
     getInfoApi();
@@ -119,6 +121,10 @@ const AddProduct = () => {
     setGroupCodeStudent(email);
   };
 
+  if (!userLogin?.email) {
+    return <Redirect to={AUTH_PATHS.SIGN_IN} />;
+  }
+
   return (
     <>
       <Breadcrumb position="Thêm sản phẩm" />
@@ -134,19 +140,20 @@ const AddProduct = () => {
                 ...initForm,
               }}
               onSubmit={async ({ product_type_id, ...rest }) => {
-                const { value } = product_type_id;
-                const newObjProduct = { ...rest, product_type_id: value };
+                const newObjProduct = { ...rest };
                 newObjProduct.students = groupCodeStudent;
                 newObjProduct.galleries = listImages;
                 newObjProduct.email = userLogin.email;
                 newObjProduct.image_url = linkAvatar;
                 newObjProduct.resource_url = LinkDoc;
                 newObjProduct.token = product_token;
+                newObjProduct.product_type_id = product_type_id;
                 setLoadingButton(STATUS_KEY_INPUT.LOADING);
                 setDisableButton(true);
                 const response = await dispatch(postAddProduct(newObjProduct));
+
                 if (postAddProduct.fulfilled.match(response)) {
-                  toast.success('Thêm sản phẩm thành công !');
+                  toast.success('Thêm sản phẩm thành công');
                   window.sessionStorage.removeItem('product_token');
                   setLoadingButton(STATUS_KEY_INPUT.DEFAULT);
                   setTimeout(
@@ -160,7 +167,7 @@ const AddProduct = () => {
                     1500
                   );
                 } else {
-                  toast.error('Thêm sản phẩm thất bại !');
+                  toast.success('Thêm sản phẩm thất bại !');
                   setLoadingButton(STATUS_KEY_INPUT.ERROR);
                 }
                 setDisableButton(false);

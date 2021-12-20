@@ -155,14 +155,15 @@ const detailProductSlice = createSlice({
       state.isLoadingDetailProduct = true;
     },
     [getDetailProduct.fulfilled]: (state, action) => {
+      state.isLoadingDetailProduct = true
       state.itemDetailProduct = action.payload?.data;
       state.starProduct = action.payload?.star?.rating;
       state.listProductRelated = action.payload?.product_related;
-
       state.isLoadingDetailProduct = false;
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
+      state.itemDetailProduct = undefined;
     },
 
     // list comment
@@ -189,7 +190,7 @@ const detailProductSlice = createSlice({
     // reply comment
     [postCommentReply.fulfilled]: (state, action) => {
       state.isListCommentLoading = false;
-      state.listComment = state.listComment.map((cmt) => {
+      state.listComment = state.listComment?.map((cmt) => {
         return {
           ...cmt,
           get_reply:
