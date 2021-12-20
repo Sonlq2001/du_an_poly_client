@@ -163,7 +163,7 @@ const detailProductSlice = createSlice({
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
-      state.itemDetailProduct = undefined
+      state.itemDetailProduct = undefined;
     },
 
     // list comment
@@ -190,7 +190,7 @@ const detailProductSlice = createSlice({
     // reply comment
     [postCommentReply.fulfilled]: (state, action) => {
       state.isListCommentLoading = false;
-      state.listComment = state.listComment.map((cmt) => {
+      state.listComment = state.listComment?.map((cmt) => {
         return {
           ...cmt,
           get_reply:
