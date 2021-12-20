@@ -83,18 +83,14 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  if (isLoadingDetailProduct) {
+  if (isLoadingDetailProduct ||  itemDetailProduct===null) {
     return <Loading />;
   }
-
-  if (
-    userLogin?.id !== itemDetailProduct?.user_id &&
-    itemDetailProduct?.status === 1
-  ) {
+  if(itemDetailProduct?.status !==3  &&   userLogin?.id !== itemDetailProduct?.user_id ){
     return <Redirect to="/" />;
   }
-  if(itemDetailProduct === undefined){
-    return <Redirect to="/"/>;
+  if (itemDetailProduct === undefined) {
+    return <Redirect to="/" />;
   }
   return (
     <WrapDetail>
