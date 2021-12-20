@@ -1,7 +1,7 @@
 import React, { useState, memo, useEffect, useCallback } from 'react';
 import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { RiErrorWarningLine } from 'react-icons/ri';
@@ -120,6 +120,10 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
+
+  if (!userLogin?.email) {
+    return <Redirect to={AUTH_PATHS.SIGN_IN} />;
+  }
 
   return (
     <>
