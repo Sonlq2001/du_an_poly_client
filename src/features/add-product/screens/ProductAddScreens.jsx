@@ -64,10 +64,11 @@ const AddProduct = () => {
   const { infoProduct, userLogin, isInfoProductLoading, listProductType } =
     useSelector((state) => ({
       listProductType: state.masterData?.listProductType,
-      infoProduct: state.addProduct.infoProduct,
-      isInfoProductLoading: state.addProduct.isInfoProductLoading,
-      userLogin: state.auth.userLogin,
+      infoProduct: state.addProduct?.infoProduct,
+      isInfoProductLoading: state.addProduct?.isInfoProductLoading,
+      userLogin: state.auth?.userLogin,
     }));
+
   useEffect(() => {
     const getInfoApi = async () => {
       const response = await dispatch(
@@ -75,10 +76,11 @@ const AddProduct = () => {
           token: product_token,
         })
       );
+
       if (getInfo.fulfilled.match(response)) {
         setLoadingItem(false);
       } else {
-        userLogin ? history.push('/') : history.push(AUTH_PATHS.SIGN_IN);
+        userLogin?.email ? history.push('/') : history.push(AUTH_PATHS.SIGN_IN);
       }
     };
     getInfoApi();
@@ -134,7 +136,6 @@ const AddProduct = () => {
                 ...initForm,
               }}
               onSubmit={async ({ product_type_id, ...rest }) => {
-           
                 const newObjProduct = { ...rest };
                 newObjProduct.students = groupCodeStudent;
                 newObjProduct.galleries = listImages;
@@ -146,7 +147,7 @@ const AddProduct = () => {
                 setLoadingButton(STATUS_KEY_INPUT.LOADING);
                 setDisableButton(true);
                 const response = await dispatch(postAddProduct(newObjProduct));
-         
+
                 if (postAddProduct.fulfilled.match(response)) {
                   toast.success('Thêm sản phẩm thành công');
                   window.sessionStorage.removeItem('product_token');
