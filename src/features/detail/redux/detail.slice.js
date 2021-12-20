@@ -163,6 +163,7 @@ const detailProductSlice = createSlice({
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
+      state.itemDetailProduct = undefined
     },
 
     // list comment

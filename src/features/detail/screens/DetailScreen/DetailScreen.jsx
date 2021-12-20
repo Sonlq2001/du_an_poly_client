@@ -83,7 +83,6 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   if (isLoadingDetailProduct) {
     return <Loading />;
   }
@@ -94,7 +93,9 @@ const DetailScreen = () => {
   ) {
     return <Redirect to="/" />;
   }
-
+  if(itemDetailProduct === undefined){
+    return <Redirect to="/"/>;
+  }
   return (
     <WrapDetail>
       <Breadcrumb
