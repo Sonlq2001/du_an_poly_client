@@ -155,15 +155,13 @@ const detailProductSlice = createSlice({
       state.isLoadingDetailProduct = true;
     },
     [getDetailProduct.fulfilled]: (state, action) => {
-      state.isLoadingDetailProduct = true
+      state.isLoadingDetailProduct = false;
       state.itemDetailProduct = action.payload?.data;
       state.starProduct = action.payload?.star?.rating;
       state.listProductRelated = action.payload?.product_related;
-      state.isLoadingDetailProduct = false;
     },
     [getDetailProduct.rejected]: (state) => {
       state.isLoadingDetailProduct = false;
-      state.itemDetailProduct = undefined;
     },
 
     // list comment

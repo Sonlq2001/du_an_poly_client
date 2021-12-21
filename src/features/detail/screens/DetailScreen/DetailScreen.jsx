@@ -5,7 +5,7 @@ import { GoCommentDiscussion } from 'react-icons/go';
 import { useParams, Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import CarouselProduct from './../../components/CarouselProduct/CarouselProduct';
 
@@ -26,7 +26,6 @@ import {
 } from './DetailScreen.styles';
 import RatingStar from './../../components/RatingStar/RatingStar';
 import ShareSocial from './../../components/ShareSocial/ShareSocial';
-// import ToolsDetail from './../../components/ToolsDetail/ToolsDetail';
 import AttachDoc from './../../components/AttachDoc/AttachDoc';
 import RatingDetail from './../../components/Feedback/RatingDetail';
 import Feedback from './../../components/Feedback/Feedback';
@@ -39,6 +38,7 @@ import { PROFILE_PATHS } from 'features/profile/constants/profile.paths';
 
 const DetailScreen = () => {
   const { id } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const { isLoadingDetailProduct, itemDetailProduct, listSubject, userLogin } =
     useSelector((state) => ({
@@ -54,10 +54,16 @@ const DetailScreen = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (id) {
-      dispatch(getDetailProduct(id));
-    }
-  }, [dispatch, id]);
+    const getData = async () => {
+      if (id) {
+        const response = await dispatch(getDetailProduct(id));
+        if (!getDetailProduct.fulfilled.match(response)) {
+          history.push('/');
+        }
+      }
+    };
+    getData();
+  }, [dispatch, history, id]);
 
   const subjectName =
     listSubject &&
@@ -83,7 +89,11 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  if (isLoadingDetailProduct || itemDetailProduct === null) {
+  if (
+    !!isLoadingDetailProduct ||
+    itemDetailProduct === null ||
+    itemDetailProduct === undefined
+  ) {
     return <Loading />;
   }
   if (
@@ -92,9 +102,7 @@ const DetailScreen = () => {
   ) {
     return <Redirect to="/" />;
   }
-  if (itemDetailProduct === undefined) {
-    return <Redirect to="/" />;
-  }
+
   return (
     <WrapDetail>
       <Breadcrumb

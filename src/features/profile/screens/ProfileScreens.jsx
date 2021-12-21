@@ -132,7 +132,7 @@ const ProfileScreens = () => {
                     );
                   } else {
                     return (
-                      <GroupNoResult className="no-result">
+                      <GroupNoResult className="no-result" key="no-result">
                         <div className="body-no-result">
                           <img
                             src={NoResult}
@@ -182,7 +182,7 @@ const ProfileScreens = () => {
                     );
                   } else {
                     return (
-                      <GroupNoResult className="no-result">
+                      <GroupNoResult className="no-result" key="no-result">
                         <div className="body-no-result">
                           <img
                             src={NoResult}
