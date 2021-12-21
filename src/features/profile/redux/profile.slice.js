@@ -1,57 +1,65 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ProfileApi } from './../api/profile.api';
+import _get from 'lodash.get';
 
-export const getData = createAsyncThunk('profile/getData', async (id) => {
-  try {
-    const response = await ProfileApi.getProducts(id);
-    return response.data;
-  } catch (error) {}
-});
+import { profileApi } from './../api/profile.api';
 
-export const getProfile = createAsyncThunk('profile/getProfile', async (id) => {
-  try {
-    const response = await ProfileApi.getDetails(id);
-    return response.data.user;
-  } catch (error) {}
-});
+export const getProductUser = createAsyncThunk(
+  'profile/getProductUser',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await profileApi.getProductsUser(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
+
+export const getProfile = createAsyncThunk(
+  'profile/getProfile',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await profileApi.getDetails(id);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
 
 const initialState = {
-  product: [],
-  loadingProduct: false,
-  loadingProfile: false,
+  productActive: [],
+  isProductActiveLoading: false,
+
+  isProfileLoading: false,
   profile: null,
-  productUnactive: [],
 };
 const ProfileSlice = createSlice({
   name: 'profile',
   initialState,
-  reducers: {
-    convertData: (state) => {
-      state.productUnactive =
-        state.product && state.product.filter((item) => item.status === 0);
-    },
-  },
+  reducers: {},
   extraReducers: {
-    [getData.pending]: (state) => {
-      state.loadingProduct = true;
+    // product user
+    [getProductUser.pending]: (state) => {
+      state.isProductActiveLoading = true;
     },
-    [getData.fulfilled]: (state, action) => {
-      state.product = action.payload;
-      state.loadingProduct = false;
+    [getProductUser.fulfilled]: (state, action) => {
+      state.productActive = action.payload;
+      state.isProductActiveLoading = false;
     },
-    [getData.pending]: (state) => {
-      state.loadingProduct = false;
+    [getProductUser.rejected]: (state) => {
+      state.isProductActiveLoading = false;
     },
-    // lấy profile
+    // get profile
     [getProfile.pending]: (state) => {
-      state.loadingProfile = true;
+      state.isProfileLoading = true;
     },
     [getProfile.fulfilled]: (state, action) => {
-      state.profile = action.payload;
-      state.loadingProfile = false;
+      state.isProfileLoading = false;
+      state.profile = action.payload?.user;
     },
-    [getProfile.pending]: (state) => {
-      state.loadingProfile = false;
+    [getProfile.rejected]: (state) => {
+      state.isProfileLoading = false;
     },
   },
 });

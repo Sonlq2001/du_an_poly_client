@@ -1,12 +1,15 @@
-import api from './../../../api/api';
-import { PROFILE_PATH } from './../constants/profile.constants';
-const getProducts = (id) => {
-  return api.get(PROFILE_PATH.LIST_PRODUCTS.replace('id',id.toString()));
+import api from 'api/api';
+
+import { PROFILE_ENDPOINTS } from '../constants/profile.endpoints';
+
+const getProductsUser = (id) => {
+  return api.get(PROFILE_ENDPOINTS.GET_LIST_PRODUCT_USER.replace(':id', id));
 };
+
 const getDetails = (id) => {
-  return api.get(PROFILE_PATH.GET_DETAIL.replace(':id', id.toString()));
+  return api.get(PROFILE_ENDPOINTS.GET_PROFILE_USER.replace(':id', id));
 };
-export const ProfileApi = {
-  getProducts,
+export const profileApi = {
+  getProductsUser,
   getDetails,
 };
