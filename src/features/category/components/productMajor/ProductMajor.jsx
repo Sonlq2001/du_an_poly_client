@@ -49,7 +49,6 @@ const ProductMajor = () => {
                   </div>
                   <MasonryAction>
                     <MasonryActionItem>
-  
                       <span className="icon-masonry">
                         <AiOutlineStar />
                       </span>

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Slider from 'components/Slider/Slider';
+import { AiOutlineStar } from 'react-icons/ai';
+import { FaRegComment } from 'react-icons/fa';
+import { FiBookmark } from 'react-icons/fi';
 import Majors from './../../components/Majors/Majors';
 import { TitleMain } from 'styles/common/index';
 import {
@@ -11,6 +14,8 @@ import {
   GridItem,
   GridContentItem,
   GridEnd,
+  MasonryActionItem,
+  MasonryAction
 } from './HomeScreen.styles';
 import { getProducts } from '../../redux/home.slice';
 import Loading from 'components/Loading/Loading';
@@ -54,6 +59,25 @@ const HomeScreen = () => {
                     <div className="item-title">
                       <Link to={`/product/${item?.id}`}> {item?.name}</Link>
                     </div>
+                    <MasonryAction>
+                    <MasonryActionItem>
+                      <span className="icon-masonry">
+                        <AiOutlineStar />
+                      </span>
+                      <span>{Math.floor(item?.avg_rate)?? 0} </span>
+                    </MasonryActionItem>
+                    <MasonryActionItem>
+                      <span className="icon-masonry">
+                        <FaRegComment />
+                      </span>
+                      <span>{item?.comments ?? 0}</span>
+                    </MasonryActionItem>
+                    <MasonryActionItem>
+                      <span className="icon-bookmark">
+                        <FiBookmark />
+                      </span>
+                    </MasonryActionItem>
+                  </MasonryAction>
                   </GridContentItem>
                 </GridItem>
               );

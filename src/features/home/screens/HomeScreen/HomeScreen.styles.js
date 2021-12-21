@@ -83,9 +83,10 @@ export const GridContentItem = styled.div`
   margin-top: 1rem;
   .item-title {
     font-size: 1.5rem;
-    max-width: 18rem;
+    /* max-width: rem; */
     overflow: hidden;
     line-height: 2rem;
+    padding-right : 5px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
@@ -121,5 +122,37 @@ export const GridEnd = styled.div`
     padding: 1rem 2rem;
     font-size: 1.6rem;
     color: var(--white-color);
+  }
+`;
+
+export const MasonryAction = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.1rem;
+`;
+
+export const MasonryActionItem = styled.div`
+  color: var(--aaa-color);
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-left: 1rem;
+  }
+
+  .icon-masonry {
+    margin-right: 5px;
+    font-size: 1.4rem;
+  }
+
+  .icon-bookmark {
+    cursor: pointer;
+    font-size: 1.4rem;
+  }
+
+  .icon-bookmark:hover {
+    color: var(--txt-color);
+    transition: ease-in-out 0.3s;
   }
 `;
