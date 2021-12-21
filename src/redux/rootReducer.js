@@ -15,9 +15,9 @@ const rootReducer = combineReducers({
   home: homeReducer,
   category: categoryReducer,
   addProduct: productAddReducer,
-  productProfile: ProfileReducer,
+  userProfile: ProfileReducer,
   masterData: masterDataReducer,
-  updateProduct :productUpdateReducer
+  updateProduct: productUpdateReducer,
 });
 
 export default rootReducer;

@@ -1,28 +1,36 @@
-import React, { useEffect, useCallback } from 'react';
-import { useParams } from 'react-router';
+import React, { useEffect, useCallback, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'components/Loading/Loading';
 
-import ProductProfile from '../components/product.Profile';
-import Profile from '../components/profile';
-import { WrapPage } from './Profile.styles';
+import {
+  HeaderProfile,
+  GroupProfile,
+  GroupTabsProfile,
+  GroupContent,
+  BoxProduct,
+} from './Profile.styles';
+import { getProductUser, getProfile } from '../redux/profile.slice';
+import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
+import { DETAIL_PATHS } from 'features/detail/constants/detail.paths';
 import NoResult from 'assets/images/no-result.png';
-import { getData, getProfile } from '../redux/profile.slice';
-import { GroupNoResult } from 'styles/common/index';
+import { GroupNoResult } from 'features/search/screens/SearchScreen/SearchScreen.styles';
 
 const ProfileScreens = () => {
   const dispatch = useDispatch();
+  const [statusTabs, setStatusTabs] = useState(1);
   const { id } = useParams();
-  const { loadingProduct, loadingProfile, profile } = useSelector((state) => ({
-    loadingProduct: state.productProfile.loadingProduct,
-    profile: state.productProfile.profile,
-    loadingProfile: state.productProfile.loadingProfile,
+  const { isProfileLoading, profile, productActive } = useSelector((state) => ({
+    isProfileLoading: state.userProfile?.isProfileLoading,
+    profile: state.userProfile?.profile,
+    isProductActiveLoading: state.userProfile?.isProductActiveLoading,
+    productActive: state.userProfile?.productActive,
   }));
 
   const getDataProfile = useCallback(() => {
     if (id) {
       dispatch(getProfile(id));
-      dispatch(getData(id));
+      dispatch(getProductUser(id));
     }
   }, [dispatch, id]);
 
@@ -30,31 +38,171 @@ const ProfileScreens = () => {
     getDataProfile();
   }, [getDataProfile]);
 
-  if (loadingProduct || loadingProfile || profile === null) {
+  if (isProfileLoading) {
     return <Loading />;
-  } else if (!profile) {
-    return (
-      <div className="container">
-        <GroupNoResult>
-          <div className="body-no-result">
-            <img src={NoResult} alt="" className="img-no-result" />
-            <div className="box-no-result">
-              <div className="label-no-result">Không tìm thấy kết quả nào</div>
-              <div className="des-no-result">
-                Hãy thử sử dụng các từ khóa chung chung hơn
-              </div>
-            </div>
-          </div>
-        </GroupNoResult>
-      </div>
-    );
   }
+
   return (
     <div className="container">
-      <WrapPage className="profile">
-        <Profile />
-        <ProductProfile />
-      </WrapPage>
+      <Breadcrumb position="Thông tin cá nhân" />
+
+      <HeaderProfile>
+        <div className="profile-left">
+          <img src={profile?.avatar} alt="" className="profile-avatar" />
+        </div>
+
+        <div className="profile-right">
+          <GroupProfile>
+            <label htmlFor="" className="profile-label">
+              Họ tên:
+            </label>
+            <div className="profile-name">{profile?.name}</div>
+          </GroupProfile>
+          <GroupProfile>
+            <label htmlFor="" className="profile-label">
+              Email:
+            </label>
+            <div className="profile-name">{profile?.email}</div>
+          </GroupProfile>
+          <GroupProfile>
+            <label htmlFor="" className="profile-label">
+              Mã số SV:
+            </label>
+            <div className="profile-name">{profile?.student_code}</div>
+          </GroupProfile>
+          <GroupProfile>
+            <label htmlFor="" className="profile-label">
+              Cở sở:
+            </label>
+            <div className="profile-name">{profile?.campuses?.name}</div>
+          </GroupProfile>
+          <GroupProfile>
+            <label htmlFor="" className="profile-label">
+              Mô tả:
+            </label>
+            <div className="profile-name">{profile?.description}</div>
+          </GroupProfile>
+        </div>
+      </HeaderProfile>
+
+      <GroupTabsProfile>
+        <div className="group-button">
+          <button
+            className={`btn-tab ${statusTabs === 1 && 'active'}`}
+            onClick={() => setStatusTabs(1)}
+          >
+            Sản phẩm
+          </button>
+          <button
+            className={`btn-tab ${statusTabs === 2 && 'active'}`}
+            onClick={() => setStatusTabs(2)}
+          >
+            Chờ xác nhận
+          </button>
+        </div>
+
+        <GroupContent>
+          {statusTabs === 1 && (
+            <div className="row content-active">
+              {productActive &&
+                productActive.length > 0 &&
+                productActive.map((product) => {
+                  if (product?.status === 3) {
+                    return (
+                      <div className="xl-2-5" key={product?.id}>
+                        <BoxProduct>
+                          <Link
+                            to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                              ':id',
+                              product?.id
+                            )}
+                            className="box-content"
+                          >
+                            <div className="product-img">
+                              <img src={product?.image} alt="" />
+                            </div>
+                            <div>
+                              <div className="product-name">
+                                {product?.name}
+                              </div>
+                            </div>
+                          </Link>
+                        </BoxProduct>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <GroupNoResult className="no-result">
+                        <div className="body-no-result">
+                          <img
+                            src={NoResult}
+                            alt=""
+                            className="img-no-result"
+                          />
+                          <div className="box-no-result">
+                            <div className="label-no-result">
+                              Không tìm thấy sản phẩm nào !
+                            </div>
+                          </div>
+                        </div>
+                      </GroupNoResult>
+                    );
+                  }
+                })}
+            </div>
+          )}
+
+          {statusTabs === 2 && (
+            <div className="row content-active">
+              {productActive &&
+                productActive.length > 0 &&
+                productActive.map((product) => {
+                  if (product?.status !== 3) {
+                    return (
+                      <div className="xl-2-5" key={product?.id}>
+                        <BoxProduct>
+                          <Link
+                            to={DETAIL_PATHS.DETAIL_PRODUCT.replace(
+                              ':id',
+                              product?.id
+                            )}
+                            className="box-content"
+                          >
+                            <div className="product-img">
+                              <img src={product?.image} alt="" />
+                            </div>
+                            <div className="product-content">
+                              <div className="product-name">
+                                {product?.name}
+                              </div>
+                            </div>
+                          </Link>
+                        </BoxProduct>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <GroupNoResult className="no-result">
+                        <div className="body-no-result">
+                          <img
+                            src={NoResult}
+                            alt=""
+                            className="img-no-result"
+                          />
+                          <div className="box-no-result">
+                            <div className="label-no-result">
+                              Không tìm thấy sản phẩm nào !
+                            </div>
+                          </div>
+                        </div>
+                      </GroupNoResult>
+                    );
+                  }
+                })}
+            </div>
+          )}
+        </GroupContent>
+      </GroupTabsProfile>
     </div>
   );
 };

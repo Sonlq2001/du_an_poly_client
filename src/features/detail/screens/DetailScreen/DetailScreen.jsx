@@ -83,10 +83,13 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  if (isLoadingDetailProduct ||  itemDetailProduct===null) {
+  if (isLoadingDetailProduct || itemDetailProduct === null) {
     return <Loading />;
   }
-  if(itemDetailProduct?.status !==3  &&   userLogin?.id !== itemDetailProduct?.user_id ){
+  if (
+    itemDetailProduct?.status !== 3 &&
+    userLogin?.id !== itemDetailProduct?.user_id
+  ) {
     return <Redirect to="/" />;
   }
   if (itemDetailProduct === undefined) {
@@ -131,7 +134,7 @@ const DetailScreen = () => {
                       className="item-member"
                       key={student?.id}
                     >
-                      {student?.email} - {student?.student_code}
+                      {student?.email} - {student?.student_code?.toUpperCase()}
                     </Link>
                   ))}
                 </div>
