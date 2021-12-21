@@ -193,7 +193,7 @@ const detailProductSlice = createSlice({
           ...cmt,
           get_reply:
             cmt?.id === action.payload?.reply?.parent_id
-              ? [...cmt?.get_reply, action.payload?.reply]
+              ? Array.from(cmt?.get_reply ?? []).concat(action.payload?.reply)
               : cmt?.get_reply,
         };
       });
