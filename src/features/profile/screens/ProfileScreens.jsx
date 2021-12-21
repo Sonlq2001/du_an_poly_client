@@ -118,12 +118,12 @@ const ProfileScreens = () => {
                             <div className="product-img">
                               <img src={product?.image} alt="" />
                             </div>
-                            <div>
+                            <div className="product-content">
                               <div className="product-name">
                                 {product?.name}
                               </div>
                             </div>
-                          </Link>                     
+                          </Link>
                         </BoxProduct>
                       </div>
                     );
@@ -168,7 +168,13 @@ const ProfileScreens = () => {
                               </div>
                             </div>
                           </Link>
-                          <Link  className='updateproduct' to={`/update/product/${product?.id}`}> Cập nhật </Link>
+                          <Link
+                            className="updateproduct"
+                            to={`/update/product/${product?.id}`}
+                          >
+                            {' '}
+                            Cập nhật{' '}
+                          </Link>
                         </BoxProduct>
                       </div>
                     );
