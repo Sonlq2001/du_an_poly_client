@@ -64,7 +64,7 @@ const HomeScreen = () => {
                       <span className="icon-masonry">
                         <AiOutlineStar />
                       </span>
-                      <span>{item?.avg_rate?.slice(0,3)} </span>
+                      <span>{item?.avg_rate?.slice(0,3) ?? 0} </span>
                     </MasonryActionItem>
                     <MasonryActionItem>
                       <span className="icon-masonry">
