@@ -41,10 +41,12 @@ import { KEY_PRODUCT } from 'constants/app.constants';
 import { AUTH_PATHS } from 'features/auth/constants/auth.paths';
 import { getProductType } from 'features/master-data/redux/master-data.slice';
 import { DETAIL_PATHS } from 'features/detail/constants/detail.paths';
+import Tutorial from '../components/Tutorial/tutorial';
 
 const AddProduct = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [tutorial, setTutorial] = useState(false);
   const [listImages, setListImage] = useState([]);
   const [linkAvatar, setLinkAvatar] = useState(null);
   const [LinkDoc, setLinkDoc] = useState(null);
@@ -92,6 +94,7 @@ const AddProduct = () => {
     }
   }, [product_token]);
 
+
   const selectProductTypes = MapOptions(listProductType ?? []);
   let email = [];
   const [groupCodeStudent, setGroupCodeStudent] = useState([
@@ -120,7 +123,10 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-
+  if(Number(product_token)){
+    window.sessionStorage.removeItem('product_token');
+    return <Redirect to="/"/>;
+  }
   if (!userLogin?.email) {
     return <Redirect to={AUTH_PATHS.SIGN_IN} />;
   }
@@ -132,7 +138,7 @@ const AddProduct = () => {
         <WrapPage className="container">
           <WrapPageHeader>
             <h3 className="title-form">Thêm mới sản phẩm</h3>
-            <div className="question-form">Hướng dẫn ?</div>
+            <div className="question-form" onClick={()=>setTutorial(!tutorial)}>Hướng dẫn ?</div>
           </WrapPageHeader>
           <WrapForm>
             <Formik
@@ -375,7 +381,7 @@ const AddProduct = () => {
               )}
             </Formik>
           </WrapForm>
-
+          <Tutorial  tutorial={tutorial} setTutorial={setTutorial}/>
           <ToastContainer position="top-right" autoClose={1500} />
         </WrapPage>
       ) : (
