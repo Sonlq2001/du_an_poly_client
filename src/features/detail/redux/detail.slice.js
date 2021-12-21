@@ -133,11 +133,11 @@ export const getAvgStar = createAsyncThunk(
   }
 );
 
-export const postDownloadDocs = createAsyncThunk(
-  'detailProduct/postDownloadDocs',
+export const getDownloadDocs = createAsyncThunk(
+  'detailProduct/getDownloadDocs',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await detailProductApi.postDownloadDocs(data);
+      const response = await detailProductApi.getDownloadDocs(data);
       return response.data;
     } catch (error) {
       return rejectWithValue(_get(error.response.data, 'errors', ''));

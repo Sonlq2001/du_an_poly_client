@@ -2,15 +2,11 @@ import React, { memo } from 'react';
 import { GrAttachment } from 'react-icons/gr';
 import { AiFillFileText } from 'react-icons/ai';
 import { FiDownload } from 'react-icons/fi';
-import { useDispatch } from 'react-redux';
-import FileSaver from 'file-saver';
 
 import { GroupAttach, ItemAttach } from './AttachDoc.styles';
 import { TitleMain } from './../../screens/DetailScreen/DetailScreen.styles';
-import { postDownloadDocs } from '../../redux/detail.slice';
 
 const AttachDoc = ({ data }) => {
-  const dispatch = useDispatch();
   const popupWindow = (url, title, w, h) => {
     var left = window.screen.width / 2 - w / 2;
     var top = window.screen.height / 2 - h / 2;
@@ -19,20 +15,6 @@ const AttachDoc = ({ data }) => {
       title,
       `toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`
     );
-  };
-
-  const handleDownloadDocs = async () => {
-    const response = await dispatch(
-      postDownloadDocs({
-        link: data?.resource_url,
-      })
-    );
-
-    if (postDownloadDocs.fulfilled.match(response)) {
-      console.log(response);
-      const blob = new Blob([response], { type: 'charset=utf-8;' });
-      FileSaver.saveAs(blob, `file`);
-    }
   };
 
   return (
@@ -56,8 +38,13 @@ const AttachDoc = ({ data }) => {
         </ItemAttach>
 
         <ItemAttach>
-          <button onClick={() => handleDownloadDocs()}>
-            <FiDownload /> Tải tài liệu
+          <button>
+            <a
+              href={`http://api.duanpoly.ml/api/download?link=${data?.resource_url}`}
+              rel="noreferrer"
+            >
+              <FiDownload /> Tải tài liệu
+            </a>
           </button>
         </ItemAttach>
       </GroupAttach>
