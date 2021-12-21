@@ -49,19 +49,17 @@ const ProductMajor = () => {
                   </div>
                   <MasonryAction>
                     <MasonryActionItem>
+  
                       <span className="icon-masonry">
                         <AiOutlineStar />
                       </span>
-                      <span className="icon-masonry">
-                        <AiOutlineStar />
-                      </span>
-                      <span>12</span>
+                      <span>{item?.avg_rate} </span>
                     </MasonryActionItem>
                     <MasonryActionItem>
                       <span className="icon-masonry">
                         <FaRegComment />
                       </span>
-                      <span>15</span>
+                      <span>{item?.comments}</span>
                     </MasonryActionItem>
                     <MasonryActionItem>
                       <span className="icon-bookmark">

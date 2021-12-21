@@ -180,7 +180,6 @@ const DetailScreen = () => {
                     width="100%"
                     className="video"
                     height="100%"
-                    playing
                     controls={true}
                     url={itemDetailProduct?.video_url}
                   />
