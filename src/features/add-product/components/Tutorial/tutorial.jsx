@@ -9,7 +9,6 @@ const Tutorial = ({setTutorial,tutorial}) => {
               <li> Nhập đầy đủ tên, video... </li>
                <li><h4>Link Video</h4></li>
          </ul>
-
       </Wappage >
         </Overlay>
      
