@@ -52,13 +52,13 @@ const ProductMajor = () => {
                       <span className="icon-masonry">
                         <AiOutlineStar />
                       </span>
-                      <span>{item?.avg_rate} </span>
+                      <span>{Math.floor(item?.avg_rate)?? 0} </span>
                     </MasonryActionItem>
                     <MasonryActionItem>
                       <span className="icon-masonry">
                         <FaRegComment />
                       </span>
-                      <span>{item?.comments}</span>
+                      <span>{item?.comments ?? 0}</span>
                     </MasonryActionItem>
                     <MasonryActionItem>
                       <span className="icon-bookmark">
