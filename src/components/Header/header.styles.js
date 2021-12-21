@@ -8,7 +8,7 @@ export const WrapHeader = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10000;
+  z-index: 1500;
   background-color: var(--white-color);
   @media (max-width: 575.98px) {
     height: 6rem;

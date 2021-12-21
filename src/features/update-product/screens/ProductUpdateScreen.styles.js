@@ -13,6 +13,10 @@ export const WrapPage = styled.div`
   .text-label:hover {
     cursor: not-allowed;
   }
+  #snackbar{
+    position: fixed;
+    z-index: 9999 ;
+  }
 `;
 export const Title = styled.label`
   margin-top: 2.4rem;

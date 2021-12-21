@@ -173,7 +173,7 @@ const AddProduct = () => {
                     1500
                   );
                 } else {
-                  toast.success('Thêm sản phẩm thất bại !');
+                  toast.error('Thêm sản phẩm thất bại !');
                   setLoadingButton(STATUS_KEY_INPUT.ERROR);
                 }
                 setDisableButton(false);
