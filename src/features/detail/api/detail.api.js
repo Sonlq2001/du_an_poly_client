@@ -58,6 +58,10 @@ const getAvgStar = (id) => {
   return api.get(DETAIL_ENDPOINTS.GET_AVG_STAR.replace(/:id/, id));
 };
 
+const getDownloadDocs = (params) => {
+  return api.get(DETAIL_ENDPOINTS.POST_DOWNLOAD_DOCS, { params });
+};
+
 export const detailProductApi = {
   getProductDetail,
   getCommentsOfProduct,
@@ -70,4 +74,5 @@ export const detailProductApi = {
   postProductRating,
   getCountStar,
   getAvgStar,
+  getDownloadDocs,
 };
