@@ -133,6 +133,18 @@ export const getAvgStar = createAsyncThunk(
   }
 );
 
+export const postDownloadDocs = createAsyncThunk(
+  'detailProduct/postDownloadDocs',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await detailProductApi.postDownloadDocs(data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(_get(error.response.data, 'errors', ''));
+    }
+  }
+);
+
 const initialState = {
   itemDetailProduct: null,
   isLoadingDetailProduct: false,

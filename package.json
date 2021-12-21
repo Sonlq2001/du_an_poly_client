@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@trendyol-js/react-carousel": "^2.0.0",
     "axios": "^0.22.0",
+    "file-saver": "^2.0.5",
     "formik": "^2.2.9",
     "lodash.get": "^4.4.2",
     "moment": "^2.29.1",
