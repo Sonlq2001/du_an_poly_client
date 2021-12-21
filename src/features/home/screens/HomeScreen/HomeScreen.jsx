@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { AiOutlineEye } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -35,7 +34,6 @@ const HomeScreen = () => {
   if (isProductsHomeLoading) {
     return <Loading />;
   }
-
   return (
     <>
       <Slider />
@@ -55,12 +53,6 @@ const HomeScreen = () => {
                   <GridContentItem>
                     <div className="item-title">
                       <Link to={`/product/${item?.id}`}> {item?.name}</Link>
-                    </div>
-                    <div className="item-view">
-                      <span className="item-icon">
-                        <AiOutlineEye />
-                      </span>
-                      <span className="item-counter">{item?.view}</span>
                     </div>
                   </GridContentItem>
                 </GridItem>
