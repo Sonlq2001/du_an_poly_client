@@ -12,21 +12,23 @@ const RatingStar = () => {
 
   const startLength = Array(5).fill(0);
   const [hoverValue, setHoverValue] = useState(0);
-  const { starProduct } = useSelector((state) => ({
+  const { starProduct, userLogin } = useSelector((state) => ({
     itemDetailProduct: state.detailProduct?.itemDetailProduct,
     starProduct: state.detailProduct?.starProduct,
+    userLogin: state.auth?.userLogin,
   }));
-
   const [currentValue, setCurrentValue] = useState(starProduct || 0);
 
   const handleClickStar = (value) => {
-    setCurrentValue(value);
-    dispatch(
-      postProductRating({
-        id,
-        star: value,
-      })
-    );
+    if (userLogin?.id) {
+      setCurrentValue(value);
+      dispatch(
+        postProductRating({
+          id,
+          star: value,
+        })
+      );
+    }
   };
 
   return (
