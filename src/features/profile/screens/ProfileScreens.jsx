@@ -100,7 +100,6 @@ const ProfileScreens = () => {
             Chờ xác nhận
           </button>
         </div>
-
         <GroupContent>
           {statusTabs === 1 && (
             <div className="row content-active">
@@ -126,7 +125,7 @@ const ProfileScreens = () => {
                                 {product?.name}
                               </div>
                             </div>
-                          </Link>
+                          </Link>                     
                         </BoxProduct>
                       </div>
                     );
@@ -177,6 +176,7 @@ const ProfileScreens = () => {
                               </div>
                             </div>
                           </Link>
+                          <Link  className='updateproduct' to={`/update/product/${product?.id}`}> Cập nhật </Link>
                         </BoxProduct>
                       </div>
                     );
