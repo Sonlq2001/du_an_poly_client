@@ -82,4 +82,10 @@ export const BoxProduct = styled.div`
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+  .updateproduct{
+    float: right;
+    font-size: 15px;
+    padding: 2px;
+    margin-top:5px;
+  }
 `;

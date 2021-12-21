@@ -135,7 +135,21 @@ export const GroupDetail = styled.div`
   margin-top: 6rem;
   .group-document {
     position: sticky;
-    top: 10rem;
+    top
+    : 10rem;
+  }
+  .videoCho{
+    background: #f4efef;
+    border-radius: 5px;
+    width: 16rem;
+    padding: 12px 10px;
+    margin-top: 1rem;
+    font-size: 15px;
+
+  }
+  .videoCho:hover{
+    cursor: pointer;
+    background: #eab462;
   }
   @media (max-width: 991.98px) {
     .group-document {
