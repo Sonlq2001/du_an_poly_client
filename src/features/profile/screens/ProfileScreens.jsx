@@ -13,8 +13,6 @@ import {
 import { getProfile } from '../redux/profile.slice';
 import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 import { DETAIL_PATHS } from 'features/detail/constants/detail.paths';
-import NoResult from 'assets/images/no-result.png';
-import { GroupNoResult } from 'features/search/screens/SearchScreen/SearchScreen.styles';
 
 const ProfileScreens = () => {
   const dispatch = useDispatch();
@@ -128,18 +126,7 @@ const ProfileScreens = () => {
                       </div>
                     );
                   }
-                  return (
-                    <GroupNoResult className="no-result" key="no-result">
-                      <div className="body-no-result">
-                        <img src={NoResult} alt="" className="img-no-result" />
-                        <div className="box-no-result">
-                          <div className="label-no-result">
-                            Không tìm thấy sản phẩm nào !
-                          </div>
-                        </div>
-                      </div>
-                    </GroupNoResult>
-                  );
+                  return null;
                 })}
             </div>
           )}
@@ -172,25 +159,13 @@ const ProfileScreens = () => {
                             className="updateproduct"
                             to={`/update/product/${product?.id}`}
                           >
-                            {' '}
-                            Cập nhật{' '}
+                            Cập nhật
                           </Link>
                         </BoxProduct>
                       </div>
                     );
                   }
-                  return (
-                    <GroupNoResult className="no-result" key="no-result">
-                      <div className="body-no-result">
-                        <img src={NoResult} alt="" className="img-no-result" />
-                        <div className="box-no-result">
-                          <div className="label-no-result">
-                            Không tìm thấy sản phẩm nào !
-                          </div>
-                        </div>
-                      </div>
-                    </GroupNoResult>
-                  );
+                  return null;
                 })}
             </div>
           )}
