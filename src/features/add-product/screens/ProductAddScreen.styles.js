@@ -11,6 +11,10 @@ export const WrapPage = styled.div`
   .text-label:hover {
     cursor: not-allowed;
   }
+  #snackbar{
+    position: fixed;
+    z-index: 9999 ;
+  }
 `;
 export const WrapPageHeader = styled.div`
   display: flex;

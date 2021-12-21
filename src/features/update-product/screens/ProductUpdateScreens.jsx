@@ -199,7 +199,7 @@ const AddProduct = () => {
                           1000
                         );
                       } else {
-                        toast.erroro('Cập nhật sản phẩm thất bại !');
+                        toast.error('Cập nhật sản phẩm thất bại !');
                         setLoadingButton(STATUS_KEY_INPUT.ERROR);
                         setDisableButton(false);
                       }
