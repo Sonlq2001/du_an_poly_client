@@ -123,10 +123,10 @@ const AddProduct = () => {
     email[key] = valueEmail;
     setGroupCodeStudent(email);
   };
-  // if(Number(product_token)){
-  //   window.sessionStorage.removeItem('product_token');
-  //   return <Redirect to="/"/>;
-  // }
+  if(Number(product_token)){
+    window.sessionStorage.removeItem('product_token');
+    return <Redirect to="/"/>;
+  }
   if (!userLogin?.email) {
     return <Redirect to={AUTH_PATHS.SIGN_IN} />;
   }
