@@ -24,7 +24,7 @@ export const GridContent = styled.div`
 `;
 export const GridItem = styled.div`
   border: 1px solid var(--ddd-color);
-  border-radius: 5px;
+  border-radius: 8px;
   &:nth-child(1) {
     grid-column: span 2;
     grid-row: span 1;
@@ -54,9 +54,11 @@ export const GridItem = styled.div`
     transition: 0.3s ease-in-out;
     width: 100%;
     height: 100%;
+    border-radius: 8px;
   }
   &:hover .item-img img {
     transform: scale(1.1);
+
   }
   img {
     width: 100%;
