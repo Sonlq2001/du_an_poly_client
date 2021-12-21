@@ -12,7 +12,6 @@ import {
 import NoResult from 'assets/images/no-result.png';
 import { AiOutlineStar } from 'react-icons/ai';
 import { FaRegComment } from 'react-icons/fa';
-import { FiBookmark } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Ong_vang from 'assets/images/ong_vang.png';
@@ -60,11 +59,7 @@ const ProductMajor = () => {
                       </span>
                       <span>{item?.comments ?? 0}</span>
                     </MasonryActionItem>
-                    <MasonryActionItem>
-                      <span className="icon-bookmark">
-                        <FiBookmark />
-                      </span>
-                    </MasonryActionItem>
+                    
                   </MasonryAction>
                 </MasonryContent>
               </MasonryBox>

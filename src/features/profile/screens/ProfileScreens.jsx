@@ -68,7 +68,7 @@ const ProfileScreens = () => {
             <label htmlFor="" className="profile-label">
               Mã số SV:
             </label>
-            <div className="profile-name">{profile?.student_code}</div>
+            <div className="profile-name">{profile?.student_code?.toUpperCase()}</div>
           </GroupProfile>
           <GroupProfile>
             <label htmlFor="" className="profile-label">
