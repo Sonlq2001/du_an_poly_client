@@ -89,6 +89,11 @@ const DetailScreen = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const  popupWindow = (url, title, w, h)=> {
+    var left = (window.screen.width / 2) - (w / 2);
+    var top = (window.screen.height / 2) - (h / 2);
+    return window.open(url,title ,`toolbar=no, location=no,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${w}, height=${h}, top=${top}, left=${left}`)
+}
   if (
     !!isLoadingDetailProduct ||
     itemDetailProduct === null ||
@@ -127,7 +132,7 @@ const DetailScreen = () => {
             <GroupContentDetail>
               <TitleProject>{itemDetailProduct?.name}</TitleProject>
 
-              <RatingStar />
+            {itemDetailProduct?.status === 3 &&  <RatingStar />}  
 
               <BoxProject>
                 <LabelProject>Cở sở:</LabelProject>
@@ -174,7 +179,7 @@ const DetailScreen = () => {
                   <MdContentPaste />
                   <span>Bài viết giới thiệu</span>
                 </TitleMain>
-
+                  {itemDetailProduct?.status === 3 ? 
                 <Video>
                   <ReactPlayer
                     width="100%"
@@ -184,6 +189,13 @@ const DetailScreen = () => {
                     url={itemDetailProduct?.video_url}
                   />
                 </Video>
+                
+                :   <div> 
+                  <div className='videoCho' onClick={()=> popupWindow(itemDetailProduct?.video_url,"Tài liệu","600","600")}> 
+                   Xem video Tại đây 
+                  </div>
+                  </div>
+}
                 <ContentPost
                   dangerouslySetInnerHTML={{
                     __html: itemDetailProduct?.description,
