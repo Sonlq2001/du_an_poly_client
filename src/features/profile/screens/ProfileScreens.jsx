@@ -10,7 +10,7 @@ import {
   GroupContent,
   BoxProduct,
 } from './Profile.styles';
-import { getProductUser, getProfile } from '../redux/profile.slice';
+import { getProfile } from '../redux/profile.slice';
 import Breadcrumb from 'components/Breadcrumb/Breadcrumb';
 import { DETAIL_PATHS } from 'features/detail/constants/detail.paths';
 import NoResult from 'assets/images/no-result.png';
@@ -20,17 +20,14 @@ const ProfileScreens = () => {
   const dispatch = useDispatch();
   const [statusTabs, setStatusTabs] = useState(1);
   const { id } = useParams();
-  const { isProfileLoading, profile, productActive } = useSelector((state) => ({
+  const { isProfileLoading, profile } = useSelector((state) => ({
     isProfileLoading: state.userProfile?.isProfileLoading,
     profile: state.userProfile?.profile,
-    isProductActiveLoading: state.userProfile?.isProductActiveLoading,
-    productActive: state.userProfile?.productActive,
   }));
 
   const getDataProfile = useCallback(() => {
     if (id) {
       dispatch(getProfile(id));
-      dispatch(getProductUser(id));
     }
   }, [dispatch, id]);
 
@@ -68,7 +65,9 @@ const ProfileScreens = () => {
             <label htmlFor="" className="profile-label">
               Mã số SV:
             </label>
-            <div className="profile-name">{profile?.student_code?.toUpperCase()}</div>
+            <div className="profile-name">
+              {profile?.student_code?.toUpperCase()}
+            </div>
           </GroupProfile>
           <GroupProfile>
             <label htmlFor="" className="profile-label">
@@ -103,9 +102,8 @@ const ProfileScreens = () => {
         <GroupContent>
           {statusTabs === 1 && (
             <div className="row content-active">
-              {productActive &&
-                productActive.length > 0 &&
-                productActive.map((product) => {
+              {profile?.get_products.length > 0 &&
+                profile?.get_products.map((product) => {
                   if (product?.status === 3) {
                     return (
                       <div className="xl-2-5" key={product?.id}>
@@ -120,42 +118,36 @@ const ProfileScreens = () => {
                             <div className="product-img">
                               <img src={product?.image} alt="" />
                             </div>
-                            <div>
+                            <div className="product-content">
                               <div className="product-name">
                                 {product?.name}
                               </div>
                             </div>
-                          </Link>                     
+                          </Link>
                         </BoxProduct>
                       </div>
                     );
-                  } else {
-                    return (
-                      <GroupNoResult className="no-result" key="no-result">
-                        <div className="body-no-result">
-                          <img
-                            src={NoResult}
-                            alt=""
-                            className="img-no-result"
-                          />
-                          <div className="box-no-result">
-                            <div className="label-no-result">
-                              Không tìm thấy sản phẩm nào !
-                            </div>
+                  }
+                  return (
+                    <GroupNoResult className="no-result" key="no-result">
+                      <div className="body-no-result">
+                        <img src={NoResult} alt="" className="img-no-result" />
+                        <div className="box-no-result">
+                          <div className="label-no-result">
+                            Không tìm thấy sản phẩm nào !
                           </div>
                         </div>
-                      </GroupNoResult>
-                    );
-                  }
+                      </div>
+                    </GroupNoResult>
+                  );
                 })}
             </div>
           )}
 
           {statusTabs === 2 && (
             <div className="row content-active">
-              {productActive &&
-                productActive.length > 0 &&
-                productActive.map((product) => {
+              {profile?.get_products?.length > 0 &&
+                profile?.get_products?.map((product) => {
                   if (product?.status !== 3) {
                     return (
                       <div className="xl-2-5" key={product?.id}>
@@ -176,28 +168,29 @@ const ProfileScreens = () => {
                               </div>
                             </div>
                           </Link>
-                          <Link  className='updateproduct' to={`/update/product/${product?.id}`}> Cập nhật </Link>
+                          <Link
+                            className="updateproduct"
+                            to={`/update/product/${product?.id}`}
+                          >
+                            {' '}
+                            Cập nhật{' '}
+                          </Link>
                         </BoxProduct>
                       </div>
                     );
-                  } else {
-                    return (
-                      <GroupNoResult className="no-result" key="no-result">
-                        <div className="body-no-result">
-                          <img
-                            src={NoResult}
-                            alt=""
-                            className="img-no-result"
-                          />
-                          <div className="box-no-result">
-                            <div className="label-no-result">
-                              Không tìm thấy sản phẩm nào !
-                            </div>
+                  }
+                  return (
+                    <GroupNoResult className="no-result" key="no-result">
+                      <div className="body-no-result">
+                        <img src={NoResult} alt="" className="img-no-result" />
+                        <div className="box-no-result">
+                          <div className="label-no-result">
+                            Không tìm thấy sản phẩm nào !
                           </div>
                         </div>
-                      </GroupNoResult>
-                    );
-                  }
+                      </div>
+                    </GroupNoResult>
+                  );
                 })}
             </div>
           )}
