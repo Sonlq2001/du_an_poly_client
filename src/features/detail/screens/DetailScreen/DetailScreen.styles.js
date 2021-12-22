@@ -186,6 +186,7 @@ export const ContentPost = styled.p`
   & img {
     max-width: 80%;
     max-height: 80%;
+    border-radius : 5px;
   }
 `;
 
