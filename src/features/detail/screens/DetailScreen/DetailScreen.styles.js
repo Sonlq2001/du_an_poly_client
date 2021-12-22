@@ -178,7 +178,7 @@ export const GroupBox = styled.div`
 `;
 
 export const ContentPost = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.31rem;
   color: var(--txt-color);
   line-height: 2.5rem;
   margin-top: 2.5rem;
