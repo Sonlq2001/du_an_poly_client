@@ -21,7 +21,7 @@ const Footer = () => {
           <div className="xl-3 lg-3 md-6 sm-6 col-12">
             <FooterItem>
               <FooterTitle>THÔNG TIN LIÊN HỆ</FooterTitle>
-              <FooterText>Điện thoại: 0394570202</FooterText>
+              <FooterText>Điện thoại: 024 6327 6402</FooterText>
               <FooterText>Email: caodang@fpt.edu.vn</FooterText>
             </FooterItem>
           </div>
