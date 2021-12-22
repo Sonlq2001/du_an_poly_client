@@ -18,9 +18,10 @@ const ProfileScreens = () => {
   const dispatch = useDispatch();
   const [statusTabs, setStatusTabs] = useState(1);
   const { id } = useParams();
-  const { isProfileLoading, profile } = useSelector((state) => ({
+  const { isProfileLoading, profile,userLogin } = useSelector((state) => ({
     isProfileLoading: state.userProfile?.isProfileLoading,
     profile: state.userProfile?.profile,
+    userLogin: state.auth?.userLogin,
   }));
 
   const getDataProfile = useCallback(() => {
@@ -32,7 +33,7 @@ const ProfileScreens = () => {
   useEffect(() => {
     getDataProfile();
   }, [getDataProfile]);
-
+console.log("profile",profile)
   if (isProfileLoading) {
     return <Loading />;
   }
@@ -91,6 +92,7 @@ const ProfileScreens = () => {
             Sản phẩm
           </button>
           <button
+            hidden={userLogin?.id !== profile?.id }
             className={`btn-tab ${statusTabs === 2 && 'active'}`}
             onClick={() => setStatusTabs(2)}
           >
