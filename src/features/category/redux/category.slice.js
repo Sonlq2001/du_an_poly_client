@@ -90,7 +90,7 @@ const categorySlice = createSlice({
       state.isProductLoading = true;
     },
     [getProductMajor.fulfilled]: (state, action) => {
-      state.productMajor = action.payload?.data;
+      state.productMajor = action.payload?.data?.filter(item=> item?.status === 3);
       state.isProductLoading = true;
       state.loading = true;
       if (action.payload?.data) {
